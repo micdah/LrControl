@@ -1,0 +1,3 @@
+[submodule "Libraries/midi-dot-net"]
+	path = Libraries/midi-dot-net
+	url = https://github.com/micdah/midi-dot-net.git
