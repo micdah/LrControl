@@ -1,7 +1,6 @@
-﻿<Application x:Class="LrControl.App"
+﻿<Application x:Class="micdah.LrControl.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:LrControl"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
