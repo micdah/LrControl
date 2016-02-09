@@ -1,0 +1,942 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Class
+LrPhoto | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li><strong>LrPhoto</strong></li>
+	
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Class
+LrPhoto</h1>
+
+<div class="module_description">An object of this class represents a single photo or virtual copy in Lightroom's active catalog. Use the functions to access metadata stored with the image, or to associate your own data with a photo. <p>Objects of this type are returned by various functions of <a href="LrCatalog.html">LrCatalog</a> and <a href="LrExportSession.html">LrExportSession</a>.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#photo:addKeyword">photo:addKeyword</a>(&nbsp;keyword&nbsp;)</div>
+	<div class="function_summary">Adds a keyword to this photo.</div>
+
+	<div class="function_name"><a href="#photo:applyDevelopPreset">photo:applyDevelopPreset</a>(&nbsp;preset, plugin&nbsp;)</div>
+	<div class="function_summary">Applies a develop preset to this photo.</div>
+
+	<div class="function_name"><a href="#photo:applyMetadataPreset">photo:applyMetadataPreset</a>(&nbsp;presetId&nbsp;)</div>
+	<div class="function_summary">Applies metadata presets to this photo.</div>
+
+	<div class="function_name"><a href="#photo:buildSmartPreview">photo:buildSmartPreview</a>()</div>
+	<div class="function_summary">Creates a smart preview for the photo.</div>
+
+	<div class="function_name"><a href="#photo:checkPhotoAvailability">photo:checkPhotoAvailability</a>()</div>
+	<div class="function_summary">Reports whether this photo is believed to be present on disk at this time.</div>
+
+	<div class="function_name"><a href="#photo:createDevelopSnapshot">photo:createDevelopSnapshot</a>(&nbsp;snapshotName, updateInPlace&nbsp;)</div>
+	<div class="function_summary">Creates a develop snapshot of this photo.</div>
+
+	<div class="function_name"><a href="#photo:deleteSmartPreview">photo:deleteSmartPreview</a>()</div>
+	<div class="function_summary">Deletes the photo's smart preview, if one exists.</div>
+
+	<div class="function_name"><a href="#photo:getContainedCollections">photo:getContainedCollections</a>()</div>
+	<div class="function_summary">Retrieves the photo collections that contain this photo.</div>
+
+	<div class="function_name"><a href="#photo:getContainedPublishedCollections">photo:getContainedPublishedCollections</a>()</div>
+	<div class="function_summary">Retrieves the published photo collections that contain this photo.</div>
+
+	<div class="function_name"><a href="#photo:getDevelopSettings">photo:getDevelopSettings</a>()</div>
+	<div class="function_summary">Retrieves the current develop settings for this photo.</div>
+
+	<div class="function_name"><a href="#photo:getFormattedMetadata">photo:getFormattedMetadata</a>(&nbsp;key&nbsp;)</div>
+	<div class="function_summary">Retrieves display-formatted metadata from this photo.</div>
+
+	<div class="function_name"><a href="#photo:getNameViaPreset">photo:getNameViaPreset</a>(&nbsp;filenamePresetId, customString, sequenceNumber&nbsp;)</div>
+	<div class="function_summary">Creates a new name for the photo in a filename preset.</div>
+
+	<div class="function_name"><a href="#photo:getPropertyForPlugin">photo:getPropertyForPlugin</a>(&nbsp;plugin, fieldId, optVersion, noThrow&nbsp;)</div>
+	<div class="function_summary">Retrieves plug-in-specific metadata for this photo, as declared in an <code>LrMetadataProvider</code> script.</div>
+
+	<div class="function_name"><a href="#photo:getRawMetadata">photo:getRawMetadata</a>(&nbsp;key&nbsp;)</div>
+	<div class="function_summary">Retrieves unformatted metadata from this photo.</div>
+
+	<div class="function_name"><a href="#photo:removeKeyword">photo:removeKeyword</a>(&nbsp;keyword&nbsp;)</div>
+	<div class="function_summary">Removes a keyword from this photo.</div>
+
+	<div class="function_name"><a href="#photo:requestJpegThumbnail">photo:requestJpegThumbnail</a>(&nbsp;width, height, callback&nbsp;)</div>
+	<div class="function_summary">Requests a JPEG thumbnail of this photo.</div>
+
+	<div class="function_name"><a href="#photo:setPropertyForPlugin">photo:setPropertyForPlugin</a>(&nbsp;plugin, fieldId, value, optVersion&nbsp;)</div>
+	<div class="function_summary">Sets a plug-in-specific metadata value for this photo.</div>
+
+	<div class="function_name"><a href="#photo:setRawMetadata">photo:setRawMetadata</a>(&nbsp;key, value&nbsp;)</div>
+	<div class="function_summary">Sets metadata for this photo.</div>
+
+	<div class="function_name"><a href="#photo:type">photo:type</a>()</div>
+	<div class="function_summary">Reports the type of this object.</div>
+
+
+
+	<div class="property_name"><a href="#photo.catalog">photo.catalog</a></div>
+	<div class="property_summary">(<code>LrCatalog</code>) The catalog object that contains this photo.</div>
+
+	<div class="property_name"><a href="#photo.localIdentifier">photo.localIdentifier</a></div>
+	<div class="property_summary">(number) The local identifier of the photo, unique within this catalog.</div>
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="photo:addKeyword"></a><strong>photo:addKeyword</strong>(&nbsp;keyword&nbsp;)</dt>
+<dd>
+Adds a keyword to this photo. <p>Must be called from within a <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> or <code><a href="LrCatalog.html">catalog</a>:withProlongedWriteAccessDo</code> gate.</p> <p>This call can be used within the same <code><a href="LrCatalog.html">catalog</a>:with___WriteAccessDo</code> call that created this keyword.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. keyword</dt>
+	<dd>(<code>LrKeyword</code>) The keyword object.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:applyDevelopPreset"></a><strong>photo:applyDevelopPreset</strong>(&nbsp;preset, plugin&nbsp;)</dt>
+<dd>
+Applies a develop preset to this photo. <p>Must be called from within a <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> or <code><a href="LrCatalog.html">catalog</a>:withProlongedWriteAccessDo</code> gate.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. preset</dt>
+	<dd>(<code>LrDevelopPreset</code>) The preset object.</dd>
+	
+	<dt>2. plugin</dt>
+	<dd>(optional, <code>_PLUGIN</code>) The plug-in object with which the preset is associated, if the preset was obtained using <code><a href="LrApplication.html#LrApplication.getDevelopPresetsForPlugin">LrApplication:getDevelopPresetsForPlugin()</a></code>.</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrDevelopPreset.html">
+		LrDevelopPreset</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="photo:applyMetadataPreset"></a><strong>photo:applyMetadataPreset</strong>(&nbsp;presetId&nbsp;)</dt>
+<dd>
+Applies metadata presets to this photo. <p>Must be called from within a <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> or <code><a href="LrCatalog.html">catalog</a>:withProlongedWriteAccessDo</code> gate.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. presetId</dt>
+	<dd>(string) The unique identifier of the metadata preset. See <code><a href="LrApplication.html">LrApplication</a>.metadataPresets</code>.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:buildSmartPreview"></a><strong>photo:buildSmartPreview</strong>()</dt>
+<dd>
+Creates a smart preview for the photo. Does nothing for video. <p>This function must be called from within an asynchronous task started using <code>LrTasks</code>.</p> <p>First supported in version 5.0 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) A string indicating the result: 'created' if a smart preview was built, 'existed' if a smart preview already existed, 'failed' if smart preview creation failed, e.g. when invoked on a video object.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:checkPhotoAvailability"></a><strong>photo:checkPhotoAvailability</strong>()</dt>
+<dd>
+Reports whether this photo is believed to be present on disk at this time. This is not a guarantee that the photo exists (as volumes might be disconnected at any time), but a reasonably good estimate of the current status.  <ul> <li>If this function returns true, proceed with your file operation, but be prepared for failure. The file might still be missing.</li> <li>If this function returns false, skip your file operation. The odds are good that the file is in fact missing.</li> </ul> <p>This function must be called from within an asynchronous task started using <code>LrTasks</code>.</p> <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if file is thought to exist at this time.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:createDevelopSnapshot"></a><strong>photo:createDevelopSnapshot</strong>(&nbsp;snapshotName, updateInPlace&nbsp;)</dt>
+<dd>
+Creates a develop snapshot of this photo. <p>Must be called from within a <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> or <code><a href="LrCatalog.html">catalog</a>:withProlongedWriteAccessDo</code> gate.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. snapshotName</dt>
+	<dd>(string) The name of the new snapshot.</dd>
+	
+	<dt>2. updateInPlace</dt>
+	<dd>(Boolean) True to update the snapshot in place, if one already exists with this name. If false, take no action and return false.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True on success. False if a snapshot with this name already exists and was not updated.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:deleteSmartPreview"></a><strong>photo:deleteSmartPreview</strong>()</dt>
+<dd>
+Deletes the photo's smart preview, if one exists. Does nothing for video. <p>First supported in version 5.0 of the Lightroom SDK.</p> <p>This is a blocking call.
+
+
+
+
+
+<h3>Return value</h3>
+(string) A string indicating the result: 'deleted' if deletion was successful, 'failed' if the deletion failed. In the failure case, a second string may be returned indicating in more detail what the error condition was.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:getContainedCollections"></a><strong>photo:getContainedCollections</strong>()</dt>
+<dd>
+Retrieves the photo collections that contain this photo. Note that only standard collections are listed by this function; any smart collections containing this photo will not be listed. <p>This function must be called from within an asynchronous task started using <code>LrTasks</code>.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(table of <code>LrCollection</code>) The list of collection objects.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrCollection.html">
+		LrCollection</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="photo:getContainedPublishedCollections"></a><strong>photo:getContainedPublishedCollections</strong>()</dt>
+<dd>
+Retrieves the published photo collections that contain this photo. Note that only standard published collections are listed by this function; any smart published collections containing this photo will not be listed. <p>This function must be called from within an asynchronous task started using <code>LrTasks</code>.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(table of <code>LrPublishedCollection</code>) The list of collection objects.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrPublishedCollection.html">
+		LrPublishedCollection</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="photo:getDevelopSettings"></a><strong>photo:getDevelopSettings</strong>()</dt>
+<dd>
+Retrieves the current develop settings for this photo. <p>First supported in version 3.0 of the Lightroom SDK.</p> <p> Must be called from within a task started using <code><a href="LrTasks.html">LrTasks</a></code>.</p> <p><b>WARNING:</b>The develop settings APIs are considered experimental. You should not depend on the contents of the settings table remaining compatible in future versions of Lightroom. The definitive list is the one shown in the UI.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(table) Develop settings table. Contains the following members. <ul> <li><b>AutoBrightness</b>: (boolean) </li> <li><b>AutoContrast</b>: (boolean) </li> <li><b>AutoExposure</b>: (boolean) </li> <li><b>AutoShadows</b>: (boolean) </li> <li><b>BlueHue</b>: (number) </li> <li><b>BlueSaturation</b>: (number) </li> <li><b>Brightness</b>: (number) </li> <li><b>CameraProfile</b>: (string) </li> <li><b>ChromaticAberrationB</b>: (number) </li> <li><b>ChromaticAberrationR</b>: (number) </li> <li><b>Clarity</b>: (number) </li> <li><b>ColorNoiseReduction</b>: (number) </li> <li><b>ColorNoiseReductionDetail</b>: (number) </li> <li><b>Contrast</b>: (number) </li> <li><b>ConvertToGrayscale</b>: (boolean) </li> <li><b>CropAngle</b>: (number) </li> <li><b>CropBottom</b>: (number) </li> <li><b>CropLeft</b>: (number) </li> <li><b>CropRight</b>: (number) </li> <li><b>CropTop</b>: (number) </li> <li><b>Dehaze</b>: (number) </li> <li><b>Defringe</b>: (number) </li> <li><b>EnableCalibration</b>: (boolean) </li> <li><b>EnableColorAdjustments</b>: (boolean) </li> <li><b>EnableDetail</b>: (boolean) </li> <li><b>EnableEffects</b>: (boolean) </li> <li><b>EnableGradientBasedCorrections</b>: (boolean) </li> <li><b>EnableGrayscaleMix</b>: (boolean) </li> <li><b>EnableLensCorrections</b>: (boolean) </li> <li><b>EnablePaintBasedCorrections</b>: (boolean) </li> <li><b>EnableRedEye</b>: (boolean) </li> <li><b>EnableRetouch</b>: (boolean) </li> <li><b>EnableSplitToning</b>: (boolean) </li> <li><b>Exposure</b>: (number) </li> <li><b>FillLight</b>: (number) </li> <li><b>GrainAmount</b>: (number) </li> <li><b>GrainFrequency</b>: (number) </li> <li><b>GrainSize</b>: (number) </li> <li><b>GreenHue</b>: (number) </li> <li><b>GreenSaturation</b>: (number) </li> <li><b>HighlightRecovery</b>: (number) </li> <li><b>HueAdjustmentAqua</b>: (number) </li> <li><b>HueAdjustmentBlue</b>: (number) </li> <li><b>HueAdjustmentGreen</b>: (number) </li> <li><b>HueAdjustmentMagenha</b>: (number) </li> <li><b>HueAdjustmentOrange</b>: (number) </li> <li><b>HueAdjustmentPurple</b>: (number) </li> <li><b>HueAdjustmentRed</b>: (number) </li> <li><b>HueAdjustmentYellow</b>: (number) </li> <li><b>LuminanceAdjustmentAque</b>: (number) </li> <li><b>LuminanceAdjustmentBlue</b>: (number) </li> <li><b>LuminanceAdjustmentGreen</b>: (number) </li> <li><b>LuminanceAdjustmentMagenta</b>: (number) </li> <li><b>LuminanceAdjustmentOrange</b>: (number) </li> <li><b>LuminanceAdjustmentPurple</b>: (number) </li> <li><b>LuminanceAdjustmentRed</b>: (number) </li> <li><b>LuminanceAdjustmentYellow</b>: (number) </li> <li><b>LuminanceNoiseReductionContrast</b>: (number) </li> <li><b>LuminanceNoiseReductionDetail</b>: (number) </li> <li><b>LuminanceSmoothing</b>: (number) </li> <li><b>ParametricDarks</b>: (number) </li> <li><b>ParametricHighlightSplit</b>: (number) </li> <li><b>ParametricHighlights</b>: (number) </li> <li><b>Parametriclights</b>: (number) </li> <li><b>ParametricMidtoneSplit</b>: (number) </li> <li><b>ParametricShadowSplit</b>: (number) </li> <li><b>ParametricShadows</b>: (number) </li> <li><b>PostCropVignetteAmount</b>: (number) </li> <li><b>PostCropVignetteFeather</b>: (number) </li> <li><b>PostCropVignetteHighlightContrast</b>: (number) </li> <li><b>PostCropVignetteMidpoint</b>: (number) </li> <li><b>PostCropVignetteRoundness</b>: (number) </li> <li><b>PostCropVignetteStyle</b>: (number) </li> <li><b>ProcessVersion</b>: (string) </li> <li><b>RedEyeInfo</b>: (table) </li> <li><b>RedHue</b>: (number) </li> <li><b>RedSaturation</b>: (number) </li> <li><b>RetouchInfo</b>: (table) </li> <li><b>Saturation</b>: (number) </li> <li><b>SaturationAdjustmentAqua</b>: (number) </li> <li><b>SaturationAdjustmentBlue</b>: (number) </li> <li><b>SaturationAdjustmentGreen</b>: (number) </li> <li><b>SaturationAdjustmentMagenta</b>: (number) </li> <li><b>SaturationAdjustmentOrange</b>: (number) </li> <li><b>SaturationAdjustmentPurple</b>: (number) </li> <li><b>SaturationAdjustmentRed</b>: (number) </li> <li><b>SaturationAdjustmentYellow</b>: (number) </li> <li><b>ShadowTint</b>: (number) </li> <li><b>Shadows</b>: (number) </li> <li><b>SharpenDetail</b>: (number) </li> <li><b>SharpenEdgeMasking</b>: (number) </li> <li><b>SharpenRadius</b>: (number) </li> <li><b>Sharpness</b>: (number) </li> <li><b>SplitToningBalance</b>: (number) </li> <li><b>SplitToningHighlightHue</b>: (number) </li> <li><b>SplitToningHighlightSaturation</b>: (number) </li> <li><b>SplitToningShadowHue</b>: (number) </li> <li><b>SplitToningShadowSaturation</b>: (number) </li> <li><b>ToneCurve</b>: (table) </li> <li><b>ToneCurveName</b>: (string) </li> <li><b>Vibrance</b>: (number) </li> <li><b>VignetteAmount</b>: (number) </li> <li><b>VignetteMidpoint</b>: (number) </li> <li><b>WhiteBalance</b>: (string) </li> <li><b>Orientation</b>: (string) </li> </ul> <p><b>The following items are first provided in version 4.0 of the Lightroom SDK</b></p> <ul> <li><b>TrimStart</b>: (table) A table containing 'numerator' and 'denominator' for the fraction representing the trim start point in seconds. Only available for video.</li> <li><b>TrimEnd</b>: (table) A table containing 'numerator' and 'denominator' for the fraction representing the trim end point in seconds. Only available for video.</li> <li><b>Blacks2012</b>: (number) </li> <li><b>Clarity2012</b>: (number) </li> <li><b>Contrast2012</b>: (boolean) </li> <li><b>Exposure2012</b>: (number) </li> <li><b>Highlights2012</b>: (number) </li> <li><b>Shadows2012</b>: (number) </li> <li><b>ToneCurvePV2012</b>: (table) </li> <li><b>ToneCurvePV2012Blue</b>: (table) </li> <li><b>ToneCurvePV2012Green</b>: (table) </li> <li><b>ToneCurvePV2012Red</b>: (table) </li> <li><b>ToneCurveName2012</b>: (string) </li> <li><b>Whites2012</b>: (number) </li> </ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:getFormattedMetadata"></a><strong>photo:getFormattedMetadata</strong>(&nbsp;key&nbsp;)</dt>
+<dd>
+Retrieves display-formatted metadata from this photo. Metadata is formatted as is shown in the metadata panel. The returned value strings are formatted for display; you should not attempt to parse them.  <p>As of Lightroom 3.0, no longer needs to be called from within one of the <code><a href="LrCatalog.html">catalog</a>:with___AccessDo</code> gates, but must be called from within a task started using <code><a href="LrTasks.html">LrTasks</a></code>.</p>  <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. key</dt>
+	<dd>(string) Which metadata item to retrieve, return an array of all available metadata fields as key/value pairs if nil. These valid keys return these values: <ul> <li><b>keywordTags</b>: (string) The list of keywords as shown in the Keyword Tags panel (with Enter Keywords selected). This is the exact set of tags that were directly applied to the photo without any filtering for "Show on Export" flags, etc.</li> <li><b>keywordTagsForExport</b>: (string) The list of keywords as shown in the Keyword Tags panel (with Will Export selected). First supported as of Lightroom 2.0. This removes tags that were meant to be hidden via "Show on Export" and inserts all of the parents and ancestor tags (except when silenced via "Export Containing Keywords").</li> <li><b>fileName</b>: (string) The leaf name of the file (for example, "myFile.jpg")</li> <li><b>copyName</b>: (string) The name associated with this copy</li> <li><b>folderName</b>: (string) The name of the folder the file is in</li> <li><b>fileSize</b>: (string) The formatted size of the file, or, if the file is offline, but there is a smart preview, the size of the smart preview (for example, "6.01 MB")</li> <li><b>fileType</b>: (string) The user-visible file type (DNG, RAW, etc.)</li> <li><b>rating</b>: (number) The user rating of the file (number of stars)</li> <li><b>label</b>: (string) The name of assigned color label</li> <li><b>title</b>: (string) The title of photo</li> <li><b>caption</b>: (string) The caption for photo</li> <li><b>dimensions</b>: (string) The original dimensions of file (for example, "3072 x 2304")</li> <li><b>croppedDimensions</b>: (string) The cropped dimensions of file (for example, "3072 x 2304")</li> <li><b>exposure</b>: (string) The exposure summary (for example, "1/60 sec at f/2.8")</li> <li><b>shutterSpeed</b>: (string) The shutter speed (for example, "1/60 sec")</li> <li><b>aperture</b>: (string) The aperture (for example, "f/2.8")</li> <li><b>brightnessValue</b>: (string) The brightness value (HELP: need an example)</li> <li><b>exposureBias</b>: (string) The exposure bias/compensation (for example, "-2/3 EV")</li> <li><b>flash</b>: (string) Whether the flash fired or not (for example, "Did fire")</li> <li><b>exposureProgram</b>: (string) The exposure program (for example, "Aperture priority")</li> <li><b>meteringMode</b>: (string) The metering mode (for example, "Pattern")</li> <li><b>isoSpeedRating</b>: (string) The ISO speed rating (for example, "ISO 200")</li> <li><b>focalLength</b>: (string) The focal length of lens as shot (for example, "132 mm")</li> <li><b>focalLength35mm</b>: (string) The focal length as 35mm equivalent (for example, "211 mm")</li> <li><b>lens</b>: (string) The lens (for example, "28.0-135.0 mm")</li> <li><b>subjectDistance</b>: (string) The subject distance (for example, "3.98 m")</li> <li><b>dateTimeOriginal</b>: (string) The date and time of capture (for example, "09/15/2005 17:32:50") Formatting can vary based on the user's localization settings</li> <li><b>dateTimeDigitized</b>: (string) The date and time of scanning (for example, "09/15/2005 17:32:50") Formatting can vary based on the user's localization settings</li> <li><b>dateTime</b>: (string) Adjusted date and time (for example, "09/15/2005 17:32:50") Formatting can vary based on the user's localization settings</li> <li><b>cameraMake</b>: (string) The camera manufacturer</li> <li><b>cameraModel</b>: (string) The camera model</li> <li><b>cameraSerialNumber</b>: (string) The camera serial number</li> <li><b>artist</b>: (string) The artist's name</li> <li><b>software</b>: (string) The software used to process/create photo</li> <li><b>gps</b>: (string) The location of this photo (for example, "37&deg;56'10" N 27&deg;20'42" E")</li> <li><b>gpsAltitude</b>: (string) The GPS altitude for this photo (for example, "82.3 m")</li> <li><b>creator</b>: (string) The name of the person that created this image</li> <li><b>creatorJobTitle</b>: (string) The job title of the person that created this image</li> <li><b>creatorAddress</b>: (string) The address for the person that created this image</li> <li><b>creatorCity</b>: (string) The city for the person that created this image</li> <li><b>creatorStateProvince</b>: (string) The state or province for the person that created this image</li> <li><b>creatorPostalCode</b>: (string) The postal code for the person that created this image</li> <li><b>creatorCountry</b>: (string) The country for the person that created this image</li> <li><b>creatorPhone</b>: (string) The phone number for the person that created this image</li> <li><b>creatorEmail</b>: (string) The email address for the person that created this image</li> <li><b>creatorUrl</b>: (string) The web URL for the person that created this image</li> <li><b>headline</b>: (string) A brief, publishable synopsis or summary of the contents of this image</li> <li><b>iptcSubjectCode</b>: (string) Values from the IPTC Subject NewsCode Controlled Vocabulary (see: http://www.newscodes.org/)</li> <li><b>descriptionWriter</b>: (string) The name of the person who wrote, edited or corrected the description of the image </li> <li><b>iptcCategory</b>: (string) Deprecated field; included for transferring legacy metadata</li> <li><b>iptcOtherCategories</b>: (string) Deprecated field; included for transferring legacy metadata</li> <li><b>dateCreated</b>: (string) The IPTC-formatted creation date (for example, "2005-09-20T15:10:55Z")</li> <li><b>intellectualGenre</b>: (string) A term to describe the nature of the image in terms of its intellectual or journalistic characteristics, such as daybook, or feature (examples at: http://www.newscodes.org/)</li> <li><b>scene</b>: (string) Values from the IPTC Scene NewsCodes Controlled Vocabulary (see: http://www.newscodes.org/)</li> <li><b>location</b>: (string) Details about a location shown in this image</li> <li><b>city</b>: (string) The name of the city shown in this image</li> <li><b>stateProvince</b>: (string) The name of the state shown in this image </li> <li><b>country</b>: (string) The name of the country shown in this image</li> <li><b>isoCountryCode</b>: (string) The 2 or 3 letter ISO 3166 Country Code of the country shown in this image</li> <li><b>jobIdentifier</b>: (string) A number or identifier needed for workflow control or tracking</li> <li><b>instructions</b>: (string) Information about embargoes, or other restrictions not covered by the Rights Usage field</li> <li><b>provider</b>: (string) Name of person who should be credited when this image is published</li> <li><b>source</b>: (string) The original owner of the copyright of this image</li> <li><b>copyright</b>: (string) The copyright text for this image</li> <li><b>copyrightState</b>: (string) The copyright state for this image</li> <li><b>rightsUsageTerms</b>: (string) Instructions on how this image can legally be used</li> <li><b>copyrightInfoUrl</b></li> </ul> <p><b>The following items are first supported in version 3.0 of the Lightroom SDK.</b> For details of IPTC Extension definitions, see <a href="http://www.iptc.org/std/photometadata/2008/specification/">http://www.iptc.org/std/photometadata/2008/specification/</a>. For details of PLUS definitions, see  <a href="http://ns.useplus.org/LDF/ldf-XMPReference">http://ns.useplus.org/LDF/ldf-XMPReference</a> <ul> <li><b>personShown</b>: (string) Name of a person shown in this image</li> <li><b>locationCreated</b>: (table) The location where the photo was taken. Each element in the return table is a table which is a structure named LocationDetails as defined in the IPTC Extension spec.</li> <li><b>locationShown</b>: (table) The location shown in this image. Each element in the return table is a table which is a structure named LocationDetails as defined in the IPTC Extension spec.</li> <li><b>nameOfOrgShown</b>: (string) Name of the organization or company featured in this image</li> <li><b>codeOfOrgShown</b>: (string) Code from a controlled vocabulary for identifying the organization or company featured in this image</li> <li><b>event</b>: (string) Names or describes the specific event at which the photo was taken</li> <li><b>artworksShown</b>: (table) A set of metadata about artwork or an object in the image. Each element in the return table is a table which is a structure named ArtworkOrObjectDetails as defined in the IPTC Extension spec.</li> <li><b>additionalModelInfo</b>: (string) Information about the ethnicity and other facets of model(s) in a model-released image</li> <li><b>modelAge</b>: (string) Age of human model(s) at the time this image was taken in a model released image</li> <li><b>minorModelAge</b>: (string) Age of the youngest model pictured in the image, at the time that the image was made</li> <li><b>modelReleaseStatus</b>: (string) Summarizes the availability and scope of model releases authorizing usage of the likenesses of persons appearing in the photo </li> <li><b>modelReleaseID</b>: (string) A PLUS-ID identifying each Model Release</li> <li><b>imageSupplier</b>: (table) Identifies the most recent supplier of this photo, who is not necessarily its owner or creator. Each element in the table is a table that is a structure named ImageSupplierDetail defined in PLUS.</li> <li><b>imageSupplierImageId</b>: (string) Identifier assigned by the Image Supplier.</li> <li><b>registryId</b>: (table) Both a Registry Item Id and a Registry Organization Id to record any registration of this photo with a registry. Each element in the return table is a table which is a structure named RegistryEntryDetail as defined in the IPTC Extension spec.</li> <li><b>maxAvailWidth</b>: (number) The maximum available width in pixels of the original photo from which this photo has been derived by downsizing</li> <li><b>maxAvailHeight</b>: (number) The maximum available height in pixels of the original photo from which this photo has been derived by downsizing</li> <li><b>sourceType</b>: (string) The type of the source of this digital image, selected from a controlled vocabulary</li> <li><b>imageCreator</b>: (table) Creator or creators of the image. Each element in the return table is a table which is a structure named ImageCreatorDetail defined in PLUS.</li> <li><b>copyrightOwner</b>: (table) Owner or owners of the copyright in the licensed image. Each element in the return table is a table which is a structure named CopyrightOwnerDetail defined in PLUS.</li> <li><b>licensor</b>: (table) A person or company that should be contacted to obtain a license for using the photo, or who has licensed the photo. Each element in the return table is a table which is a structure named LicensorDetail defined in PLUS.</li> <li><b>propertyReleaseID</b>: (string) A PLUS-ID identifying each Property Release</li> <li><b>propertyReleaseStatus</b>: (string) Summarizes the availability and scope of property releases authorizing usage of the likenesses of persons appearing in the image.</li> <li><b>digImageGUID</b>: (string) Globally unique identifier for the item, created and applied by the creator of the item at the time of its creation</li> <li><b>plusVersion</b>: (string) The version number of the PLUS standards in place at the time of the transaction</li> </ul> <p><b>The following items are first supported in version 6.0 of the Lightroom SDK.</b></p> <ul> <li><b>gpsImgDirection</b>: (string) The GPS direction for this photo (for example, "South-East")</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string or table) The formatted-string value of the specified metadata property, or nil if not applicable. If no key is specified, returns a table of all available metadata fields as key/value pairs.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:getNameViaPreset"></a><strong>photo:getNameViaPreset</strong>(&nbsp;filenamePresetId, customString, sequenceNumber&nbsp;)</dt>
+<dd>
+Creates a new name for the photo in a filename preset. See <code><a href="LrApplication.html">LrApplication</a>.filenamePresets</code>. <p>This function must be called from within an asynchronous task started using <code>LrTasks</code>.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. filenamePresetId</dt>
+	<dd>(string) The unique identifier of the filename preset.</dd>
+	
+	<dt>2. customString</dt>
+	<dd>(string)	The name string.</dd>
+	
+	<dt>3. sequenceNumber</dt>
+	<dd>(number) The sequence number to append to the name string.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The new name.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:getPropertyForPlugin"></a><strong>photo:getPropertyForPlugin</strong>(&nbsp;plugin, fieldId, optVersion, noThrow&nbsp;)</dt>
+<dd>
+Retrieves plug-in-specific metadata for this photo, as declared in an <code>LrMetadataProvider</code> script. <p>First supported in version 2.0 of the Lightroom SDK.</p> <p>As of Lightroom 3.0, no longer needs to be called from within one of the <code><a href="LrCatalog.html">catalog</a>:with___AccessDo</code> gates, but must be called from within an asynchronous task started using <code>LrTasks</code>.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. plugin</dt>
+	<dd>(string or <code>_PLUGIN</code>) The plug-in object or unique identifying string for the plug-in that declares this field.</dd>
+	
+	<dt>2. fieldId</dt>
+	<dd>(string) The metadata field's unique identifying key.</dd>
+	
+	<dt>3. optVersion</dt>
+	<dd>(optional, number) The version number for the field (only valid in schema update handlers).</dd>
+	
+	<dt>4. noThrow</dt>
+	<dd>(optional, Boolean) True to return an error (nil, error) instead of throwing an exception on error. (First supported in version 3.0 of the Lightroom SDK.)</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(any) The value of the specified metadata property as the appropriate data type, or nil if not applicable. If no key is specified, returns a table of all available metadata fields as key/value pairs.
+	
+	<li>An error message on error, if <code>noThrow</code> is true.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:getRawMetadata"></a><strong>photo:getRawMetadata</strong>(&nbsp;key&nbsp;)</dt>
+<dd>
+Retrieves unformatted metadata from this photo.  <p>First supported in version 1.3 of the Lightroom SDK.</p> <p>As of version 2.0: ISO8601 strings are generally more reliable than the Cocoa date stamp.</p> <p>As of Lightroom 3.0, no longer needs to be called from within one of the <code><a href="LrCatalog.html">catalog</a>:with___AccessDo</code> gates, but must be called from within a task started using <code><a href="LrTasks.html">LrTasks</a></code>.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. key</dt>
+	<dd>(string) The metadata item to retrieve, of nil to get all available metadata fields. These valid keys return these values: <ul> <li><b>fileSize</b>: (number) The size of the file in bytes, or, if the file is offline, but there is a smart preview, the size of the smart preview in bytes</li> <li><b>rating</b>: (number) The user rating of the file (number of stars)</li> <li><b>dimensions</b>: (table) The original dimensions of file (for example, { width = 2304, height = 3072 } )</li> <li><b>croppedDimensions</b>: (table) The cropped dimensions of file (for example, { width = 2304, height = 3072 } )</li> <li><b>shutterSpeed</b>: (number) The shutter speed, in seconds (for example, 1/60 sec = 0.016666)</li> <li><b>aperture</b>: (number) The denominator of the aperture (for example, 2.8)</li> <li><b>exposureBias</b>: (number) The exposure bias/compensation (for example, -0.666666)</li> <li><b>flash</b>: (Boolean) Whether flash fired or not (true = flash fired; false = flash did not fire; nil = unknown)</li> <li><b>isoSpeedRating</b>: (number) The ISO speed rating (for example, 200)</li> <li><b>focalLength</b>: (number) The focal length of lens as shot, in millimeters (for example, 132)</li> <li><b>focalLength35mm</b>: (number) The focal length as 35mm equivalent, in millimeters (for example, 211.2)</li> <li><b>dateTimeOriginal</b>: (number) The date and time of capture (seconds since midnight GMT January 1, 2001)</li> <li><b>dateTimeDigitized</b>: (number) The date and time of scanning (seconds since midnight GMT January 1, 2001)</li> <li><b>dateTime</b>: (number) The adjusted date and time (seconds since midnight GMT January 1, 2001)</li> <li><b>gps</b>: (table) The location of this photo (for example, { latitude = 37.9362, longitude = 27.3451 } )</li> <li><b>gpsAltitude</b>: (number) The GPS altitude for this photo, in meters (for example, 82.317)</li> <li><b>countVirtualCopies</b>: (number) The number of virtual copies of this photo. Zero if this photo is itself a virtual copy. <li><b>virtualCopies</b>: (array of LrPhoto) All virtual copies of this photo. <li><b>masterPhoto</b>: (LrPhoto) The master photo from which this virtual copy is derived. <li><b>isVirtualCopy</b>: (Boolean) True if this photo is a virtual copy of another photo. <li><b>countStackInFolderMembers</b>: (number) The number of the members of the stack that this photo is in. <li><b>stackInFolderMembers</b>: (array of LrPhoto) All members of the stack that this photo is in. <li><b>isInStackInFolder</b>: (Boolean) True if the photo is in a stack. <li><b>stackInFolderIsCollapsed</b>: (Boolean) True if the stack containing this photo is collapsed. <li><b>stackPositionInFolder</b>: (number) The position of this photo in the stack. The top of the stack is at position 1; other photos are numbered sequentially starting from 2. <li><b>topOfStackInFolderContainingPhoto</b>: (LrPhoto) The parent photo of the stack containing this photo. <li><b>colorNameForLabel</b>: (string) The color name corresponding to the color label associated with this photo. One of 'red', 'yellow', 'green', 'blue', 'purple', 'none'. </ul> <p><b>The following items are first supported in version 2.0 of the Lightroom SDK.</b></p> <ul> <li><b>fileFormat</b>: (string) The format of the file. One of 'RAW', 'DNG', 'JPG', 'PSD', 'TIFF', or 'VIDEO'. </li> <li><b>width</b>: (number) The width of the original source photo in pixels.  </li> <li><b>height</b>: (number) The height of the original source photo in pixels.  </li> <li><b>aspectRatio</b>: (number) The aspect ratio of the photo (defined as width / height). (For example, a standard 35mm photo in landscape mode returns 1.5.).  </li> <li><b>isCropped</b>: (Boolean) True if the photo has been cropped in Lightroom from its original dimensions. </li> <li><b>dateTimeOriginalISO8601</b>: (string) The date and time of capture (ISO 8601 string format).  </li> <li><b>dateTimeDigitizedISO8601</b>: (string) The date and time of scanning (ISO 8601 string format).  </li> <li><b>dateTimeISO8601</b>: (string) The adjusted date and time (ISO 8601 string format). </li> <li><b>lastEditTime</b>: (number) The date and time of the last edit to this photo (seconds since midnight GMT January 1, 2001). </li> <li><b>editCount</b>: (number) Counter for edits on this photo. (Warning: This is not an absolute counter. Consecutive changes within a few seconds are counted as a single edit.)</li> <li><b>copyrightState</b>: (string) The copyright state for this image. One of 'unknown', 'copyrighted', or 'public domain'.</li> </ul> <p><b>The following items are first supported in version 3.0 of the Lightroom SDK.</b></p> <ul> <li><b>uuid</b>: (string) Persistent ID for this photo </li> <li><b>path</b>: (string) The current path to the photo file if available; otherwise, the last known path to the file.  </li> <li><b>isVideo</b>: (boolean) True if this file is a video.</li> <li><b>durationInSeconds</b>: (number) The duration in seconds if the file is a video.</li> <li><b>keywords</b>: (array of <code>LrKeyword</code>) The list of keyword objects for the photo.</li> <li><b>customMetadata</b>: (table) Custom metadata for this photo as shown in the Metadata panel. Each element in the return table is a table that describes one metadata field associated with a photo, with these entries: <ul> <li>id (string): A unique identifier for this field.</li> <li>value (any): The value for this field, if any.</li> <li>sourcePlugin (string): The unique identifier of the plug-in that defines the custom metadata.</li> </ul> </ul> <p><b>The following items are first supported in version 4.0 of the Lightroom SDK.</b></p> <ul> <li><b>pickStatus</b>: (number) 1 if the photo's flag status is 'picked', 0 if the photo's flag is not set, -1 if the photo's flag status is 'rejected'. </li> </ul> <p><b>The following items are first supported in version 4.1 of the Lightroom SDK.</b></p> <ul> <li><b>trimmedDurationInSeconds</b>: (number) If the file is a video, the trimmed duration of the video in seconds, otherwise nil. <li><b>durationRatio</b>: (table) If the file is a video, a table, otherwise nil. The table has keys 'numerator' and 'denominator', which combine to the untrimmed duration of the video in seconds.</li> <li><b>trimmedDurationRatio</b>: (table) If the file is a video, a table, otherwise nil. The table has keys 'numerator' and 'denominator', which combine to the trimmed duration of the video in seconds.</li> <li><b>locationIsPrivate</b>: (Boolean) True if the photo's location has been marked as private in Lightroom. </li> </ul> <p><b>The following items are first supported in version 5.0 of the Lightroom SDK.</b></p> <ul> <li><b>smartPreviewInfo</b>: (table) A table containing information pertaining to the smart preview for the photo. If no smart preview exists, the table is empty. The table has these entries: <ul> <li>smartPreviewPath (string): The path to the smart preview.</li> <li>smartPreviewSize (number): The size of the smart preview in bytes.</li> </ul> </ul> <p><b>The following items are first supported in version 6.0 of the Lightroom SDK.</b></p> <ul> <li><b>gpsImgDirection</b>: (number) The GPS direction for this photo, in degrees (for example, 312.23). Note that only up to four digits beyond the decimal point are stored.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The value of the specified metadata property as the appropriate data type, or nil if not applicable. If no key is specified, returns a table of all available metadata fields as key/value pairs.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:removeKeyword"></a><strong>photo:removeKeyword</strong>(&nbsp;keyword&nbsp;)</dt>
+<dd>
+Removes a keyword from this photo. <p>Must be called from within a <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> or <code><a href="LrCatalog.html">catalog</a>:withProlongedWriteAccessDo</code> gate.</p> <p>This call can be used within the same <code><a href="LrCatalog.html">catalog</a>:with___WriteAccessDo</code> call that created this keyword.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. keyword</dt>
+	<dd>(<code>LrKeyword</code>) The keyword object.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:requestJpegThumbnail"></a><strong>photo:requestJpegThumbnail</strong>(&nbsp;width, height, callback&nbsp;)</dt>
+<dd>
+Requests a JPEG thumbnail of this photo. If the preview system does not already contain a preview for this photo at the requested size, one will be rendered. Request sizes are treated as minimums; the preview that is returned may be larger.  If both dimensions are specified, the smallest preview that satisfies either one is returned. <p>This function must be called from within an asynchronous task started using <code>LrTasks</code>.</p> <p>First supported in version 5.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. width</dt>
+	<dd>(optional, number) The width of the thumbnail you're requesting. Leaving this nil will result in the smallest preview size being returned.</dd>
+	
+	<dt>2. height</dt>
+	<dd>(optional, number) If you're specifying width, this controls the height of the pixels returned.</dd>
+	
+	<dt>3. callback</dt>
+	<dd>(function) The function that will be called when the thumbnail is available. This function receives either one or two parameters: the JPEG data if it is successful, or nil and an error string if it fails.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(object) Request object. Hold a reference to this object until your callback is called, then release it.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:setPropertyForPlugin"></a><strong>photo:setPropertyForPlugin</strong>(&nbsp;plugin, fieldId, value, optVersion&nbsp;)</dt>
+<dd>
+Sets a plug-in-specific metadata value for this photo.  <p>Must be called from within one of the <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> gates (including <code><a href="LrCatalog.html#catalog:withPrivateWriteAccessDo">withPrivateWriteAccessDo</a></code>).</p>  <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. plugin</dt>
+	<dd>(<code>_PLUGIN</code>) The plug-in object.</dd>
+	
+	<dt>2. fieldId</dt>
+	<dd>(string) The field name, as	declared in an <code>LrMetadataProvider</code> script.</dd>
+	
+	<dt>3. value</dt>
+	<dd>(string) The new value for this field. This must agree with data type specified for the field, if any.</dd>
+	
+	<dt>4. optVersion</dt>
+	<dd>(optional, number) The version number for the field (only valid in schema update handlers). (First supported as of Lightroom 3.0.)</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:setRawMetadata"></a><strong>photo:setRawMetadata</strong>(&nbsp;key, value&nbsp;)</dt>
+<dd>
+Sets metadata for this photo.  <p>Must be called from within a <code><a href="LrCatalog.html">catalog</a>:withWriteAccessDo</code> or <code><a href="LrCatalog.html">catalog</a>:withProlongedWriteAccessDo</code> gate.</p>  <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. key</dt>
+	<dd>(string) The metadata item to set. The following keys are recognized: <ul> <li><b>rating</b>: (number) The user rating of the file (number of stars).</li> <li><b>label</b>: (string) The name of assigned color label.</li> <li><b>title</b>: (string) The title of this photo.</li> <li><b>caption</b>: (string) The caption for this photo</li> <li><b>copyName</b>: (string) The name associated with this copy.</li> <li><b>creator</b>: (string) The name of the person that created this image.</li> <li><b>creatorJobTitle</b>: (string) The job title of the person that created this image.</li> <li><b>creatorAddress</b>: (string) The address for the person that created this image.</li> <li><b>creatorCity</b>: (string) The city for the person that created this image.</li> <li><b>creatorStateProvince</b>: (string) The state or province for the person that created this image.</li> <li><b>creatorPostalCode</b>: (string) The postal code for the person that created this image.</li> <li><b>creatorCountry</b>: (string) The country for the person that created this image.</li> <li><b>creatorPhone</b>: (string) The phone number for the person that created this image.</li> <li><b>creatorEmail</b>: (string) The email address for the person that created this image.</li> <li><b>creatorUrl</b>: (string) The web URL for the person that created this image.</li> <li><b>headline</b>: (string) A brief, publishable synopsis or summary of the contents of this image.</li> <li><b>iptcSubjectCode</b>: (string) Values from the IPTC Subject NewsCode Controlled Vocabulary (see: http://www.newscodes.org/).</li> <li><b>descriptionWriter</b>: (string) The name of the person who wrote, edited, or corrected the description of the image. </li> <li><b>iptcCategory</b>: (string) Deprecated field; included for transferring legacy metadata.</li> <li><b>iptcOtherCategories</b>: (string) Deprecated field; included for transferring legacy metadata</li> <li><b>dateCreated</b>: (string) The IPTC-formatted creation date (for example, "2005-09-20T15:10:55Z").</li> <li><b>intellectualGenre</b>: (string) A term to describe the nature of the image in terms of its intellectual or journalistic characteristics, such as daybook, or feature (examples at: http://www.newscodes.org/).</li> <li><b>scene</b>: (string) Values from the IPTC Scene NewsCodes Controlled Vocabulary (see: http://www.newscodes.org/).</li> <li><b>location</b>: (string) Details about a location shown in this image.</li> <li><b>city</b>: (string) The name of the city shown in this image.</li> <li><b>stateProvince</b>: (string) The name of the state shown in this image. </li> <li><b>country</b>: (string) The name of the country shown in this image.</li> <li><b>isoCountryCode</b>: (string) The 2 or 3 letter ISO 3166 Country Code of the country shown in this image.</li> <li><b>jobIdentifier</b>: (string) A number or identifier needed for workflow control or tracking.</li> <li><b>instructions</b>: (string) Information about embargoes, or other restrictions not covered by the Rights Usage field.</li> <li><b>provider</b>: (string) Name of person who should be credited when this image is published.</li> <li><b>source</b>: (string) The original owner of the copyright of this image.</li> <li><b>copyright</b>: (string) The copyright text for this image.</li> <li><b>copyrightState</b>: (string) The copyright state for this image. One of 'unknown', 'copyrighted', or 'public domain'.</li> <li><b>rightsUsageTerms</b>: (string) Instructions on how this image can legally be used.</li> <li><b>copyrightInfoUrl</b></li> <li><b>colorNameForLabel</b>: (string) The color name corresponding to the color label associated with this photo. One of 'red', 'yellow', 'green', 'blue', 'purple', 'none', not case sensitive. Supplying any other string will cause the photo to be displayed with a white color label indicator, just like it would if the same value were typed into the 'Label' field in the 'Metadata' panel. </ul> <p>The following items are first supported in version 3.0 of the Lightroom SDK. For details of IPTC Extension definitions, see <a href="http://www.iptc.org/std/photometadata/2008/specification/">http://www.iptc.org/std/photometadata/2008/specification/</a>. For details of PLUS definitions, see  <a href="http://ns.useplus.org/LDF/ldf-XMPReference">http://ns.useplus.org/LDF/ldf-XMPReference</a> </p> <ul> <li><b>personShown</b>: (string) Name of a person shown in this image.</li> <li><b>locationCreated</b>: (table) The Locations shown in this image. Each element in the table is a table that is a structure named LocationDetails as defined in the IPTC Extension spec.</li> <li><b>locationShown</b>: (table) The locations where this photo was taken. Each element in the table is a table that is a structure named LocationDetails as defined in the IPTC Extension spec.</li> <li><b>nameOfOrgShown</b>: (string) Name of the organization or company featured in this image.</li> <li><b>codeOfOrgShown</b>: (string) Code from a controlled vocabulary for identifying the organization or company featured in this image.</li> <li><b>event</b>: (string) Names or describes the specific event at which this photo was taken.</li> <li><b>artworksShown</b>: (table) A set of metadata about artwork or an object in this image. Each element in the table is a table that is a structure named ArtworkOrObjectDetails, as defined in the IPTC Extension spec.</li> <li><b>additionalModelInfo</b>: (string) Information about the ethnicity and other facets of models in a model-released image.</li> <li><b>modelAge</b>: (string) Age of human models at the time this image was taken in a model-released image.</li> <li><b>minorModelAge</b>: (string) Age of the youngest model pictured in this image, at the time that the image was made.</li> <li><b>modelReleaseStatus</b>: (string) Summarizes the availability and scope of model releases authorizing usage of the likenesses of persons appearing in this image.</li> <li><b>modelReleaseID</b>: (string) A PLUS-ID identifying each Model Release.</li> <li><b>imageSupplier</b>: (table) Identifies the most recent supplier of this photo, who is not necessarily its owner or creator. Each element in the table is a table that is a structure named ImageSupplierDetail defined in PLUS.</li> <li><b>imageSupplierImageId</b>: (string) Identifier assigned by the Image Supplier.</li> <li><b>registryId</b>: (table) Both a Registry Item ID and a Registry Organization ID to record any registration of this item with a registry. Each element in the table is a table that is a structure named RegistryEntryDetail, as defined in the IPTC Extension spec.</li> <li><b>maxAvailWidth</b>: (number) The maximum available width in pixels of the original photo from which this photo has been derived by downsizing.</li> <li><b>maxAvailHeight</b>: (number) The maximum available height in pixels of the original photo from which this photo has been derived by downsizing.</li> <li><b>sourceType</b>: (string) The type of the source of this digital image, selected from a controlled vocabulary.</li> <li><b>imageCreator</b>: (table) Creator or creators of this image. Each element in the table is a table that is a structure named ImageCreatorDetail defined in PLUS.</li> <li><b>copyrightOwner</b>: (table) Owner or owners of the copyright in this licensed image. Each element in the table is a table that is a structure named CopyrightOwnerDetail defined in PLUS. </li> <li><b>licensor</b>: (table) A person or company that should be contacted to obtain a license for using this photo or who has licensed the photo. Each element in the table is a table that is a structure named LicensorDetail defined in PLUS. </li> <li><b>propertyReleaseID</b>: (string) A PLUS-ID identifying each property release.</li> <li><b>propertyReleaseStatus</b>: (string) Summarizes the availability and scope of property releases authorizing usage of the likenesses of persons appearing in this image.</li> </ul> <p>The following items are first supported in version 4.0 of the Lightroom SDK.</p> <ul> <li><b>gps</b>: (table) The location of this photo, for example,  <code>{ latitude = 35.1, longitude = 86.7 }</code>. Pass nil to 'unset'.</li> <li><b>gpsAltitude</b>: (number) The GPS altitude for this photo, in meters, for example, 82.3</li> <li><b>pickStatus</b>: (number) 1 for flag status 'picked', 0 for 'not set', -1 for 'rejected'. </ul> <p><b>The following items are first supported in version 6.0 of the Lightroom SDK.</b></p> <ul> <li><b>gpsImgDirection</b>: (number) The GPS direction for this photo, in degrees (for example, 312.23). Note that only up to four digits beyond the decimal point are stored.</li> </ul></dd>
+	
+	<dt>2. value</dt>
+	<dd>(any) The value to set for this metadata item. See above list for acceptable value types. (String if not otherwise specified.)</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="photo:type"></a><strong>photo:type</strong>()</dt>
+<dd>
+Reports the type of this object. <p>First supported in version 4.1 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) 'LrPhoto'.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="properties"></a>Properties</h2>
+<dl class="function">
+
+
+
+<dt><a name="photo.catalog"></a><strong>photo.catalog</strong> : (Read-Only)</dt>
+<dd>
+(<code>LrCatalog</code>) The catalog object that contains this photo. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<em>See also:</em>
+	
+	<a href="../modules/LrCatalog.html">
+		LrCatalog
+	</a>
+	
+	
+
+</dd>
+
+
+
+
+<dt><a name="photo.localIdentifier"></a><strong>photo.localIdentifier</strong> : (Read-Only)</dt>
+<dd>
+(number) The local identifier of the photo, unique within this catalog. <p>First supported in version 4.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

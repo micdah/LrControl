@@ -1,0 +1,929 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Namespace and Class
+LrFtp | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li><strong>LrFtp</strong></li>
+	
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Namespace and Class
+LrFtp</h1>
+
+<div class="module_description">This namespace and class allows you to send and receive data using FTP. The namespace contains a factory function, <code>LrFtp.create()</code>, for creating an <code>ftpConnection</code> object.  <p>Use this object to connect to remote FTP servers, check for directories and files on the remote system, and upload files. All of these methods block during the network interaction, and must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>.</p>  <p>Functions to access FTP settings and work with FTP paths are called directly from the imported namespace. </p> </div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#LrFtp.appendFtpPaths">LrFtp.appendFtpPaths</a>(&nbsp;root, child&nbsp;)</div>
+	<div class="function_summary">Appends two paths together for use in FTP.</div>
+
+	<div class="function_name"><a href="#LrFtp.create">LrFtp.create</a>(&nbsp;params, autoNegotiate&nbsp;)</div>
+	<div class="function_summary">Creates and return an FTP connection object (<code>ftpConnection</code>).</div>
+
+	<div class="function_name"><a href="#LrFtp.ftpPathValidator">LrFtp.ftpPathValidator</a>(&nbsp;view, inValue&nbsp;)</div>
+	<div class="function_summary">A validator function for use in <code>LrView</code> UI control definitions.</div>
+
+	<div class="function_name"><a href="#LrFtp.makeFtpPresetPopup">LrFtp.makeFtpPresetPopup</a>(&nbsp;params&nbsp;)</div>
+	<div class="function_summary">Creates and returns a pop-up menu view object for accessing FTP presets.</div>
+
+	<div class="function_name"><a href="#LrFtp.queryForPasswordIfNeeded">LrFtp.queryForPasswordIfNeeded</a>(&nbsp;ftpSettings&nbsp;)</div>
+	<div class="function_summary">Prompts the user for a password, but only if the preset was created with 'store password' unchecked.</div>
+
+	<div class="function_name"><a href="#ftpConnection:disconnect">ftpConnection:disconnect</a>()</div>
+	<div class="function_summary">Disconnects this connection from the server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:exists">ftpConnection:exists</a>(&nbsp;filename&nbsp;)</div>
+	<div class="function_summary">Tests for the existance of a file or directory on the remote system.</div>
+
+	<div class="function_name"><a href="#ftpConnection:getContents">ftpConnection:getContents</a>(&nbsp;remoteFileName&nbsp;)</div>
+	<div class="function_summary">Retrieves the contents of a file or directory on the remote server and returns it as a string.</div>
+
+	<div class="function_name"><a href="#ftpConnection:makeDirectory">ftpConnection:makeDirectory</a>(&nbsp;directoryName&nbsp;)</div>
+	<div class="function_summary">Creates a directory on the remote server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:pRemoveDirectory">ftpConnection:pRemoveDirectory</a>(&nbsp;directoryName&nbsp;)</div>
+	<div class="function_summary">Removes a directory on the remote server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:pRemoveFile">ftpConnection:pRemoveFile</a>(&nbsp;filename&nbsp;)</div>
+	<div class="function_summary">Removes a file on the remote server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:putFile">ftpConnection:putFile</a>(&nbsp;theLocalFilePath, destFileName&nbsp;)</div>
+	<div class="function_summary">Sends a file from the local filesystem to the remote server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:removeDirectory">ftpConnection:removeDirectory</a>(&nbsp;directoryName&nbsp;)</div>
+	<div class="function_summary">Removes a directory on the remote server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:removeFile">ftpConnection:removeFile</a>(&nbsp;filename&nbsp;)</div>
+	<div class="function_summary">Removes a file on the remote server.</div>
+
+	<div class="function_name"><a href="#ftpConnection:toTable">ftpConnection:toTable</a>()</div>
+	<div class="function_summary">Converts the properties of this FTP connection back into a Lua table, the same as the one passed to <code>LrFtp.create()</code> to create the object.</div>
+
+
+
+	<div class="property_name"><a href="#ftpConnection.connected">ftpConnection.connected</a></div>
+	<div class="property_summary">(Boolean) True if a connection exists.</div>
+
+	<div class="property_name"><a href="#ftpConnection.passive">ftpConnection.passive</a></div>
+	<div class="property_summary">(string) When protocol is "ftp", the kind of passive connection to attempt.</div>
+
+	<div class="property_name"><a href="#ftpConnection.password">ftpConnection.password</a></div>
+	<div class="property_summary">(string) The password to accompany the username in authentication.</div>
+
+	<div class="property_name"><a href="#ftpConnection.path">ftpConnection.path</a></div>
+	<div class="property_summary">(string) The remote path to use when sending or receiving files from the server.</div>
+
+	<div class="property_name"><a href="#ftpConnection.port">ftpConnection.port</a></div>
+	<div class="property_summary">(integer) The network port the server is using to host the FTP service.</div>
+
+	<div class="property_name"><a href="#ftpConnection.protocol">ftpConnection.protocol</a></div>
+	<div class="property_summary">(string) The type of FTP connection to use, one of "ftp" or "sftp".</div>
+
+	<div class="property_name"><a href="#ftpConnection.server">ftpConnection.server</a></div>
+	<div class="property_summary">(string) The server name or IP address for this FTP connection.</div>
+
+	<div class="property_name"><a href="#ftpConnection.username">ftpConnection.username</a></div>
+	<div class="property_summary">(string) The username to authenticate the connection.</div>
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="LrFtp.appendFtpPaths"></a><strong>LrFtp.appendFtpPaths</strong>(&nbsp;root, child&nbsp;)</dt>
+<dd>
+Appends two paths together for use in FTP.  Often an FTP preset contains a parent directory in which the user wants to put multiple subdirectories. Use this function to generate the final destination directory for upload by combining the parent directory with the child directory. The function ensures that a single directory separator is inserted between the two path parts. If the child path starts with a '/' then the root path is not used. It ensures the result ends in a trailing '/', unless the result is the empty string. It does <b>not</b> resolve relative paths using '..' or '.'. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. root</dt>
+	<dd>(string) The root path.</dd>
+	
+	<dt>2. child</dt>
+	<dd>(string) The subdirectory path.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The path that results from combining the root and child.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFtp.create"></a><strong>LrFtp.create</strong>(&nbsp;params, autoNegotiate&nbsp;)</dt>
+<dd>
+Creates and return an FTP connection object (<code>ftpConnection</code>). This method must be called from within within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. params</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>passive</b>: (string) The type of passive connection to make: "none", "normal" or "enhanced".</li> <li><b>password</b>: (string) The password to accompany the username in authentication.</li> <li><b>path</b>: (string) The remote path to use when sending or receiving files from the server.</li> <li><b>port</b>: (integer) The network port the server is using to host the FTP service.</li> <li><b>protocol</b>: (string) The type of FTP connection to use, "ftp" or "sftp".</li> <li><b>server</b>: (string) The server name or IP address for this FTP connection.</li> <li><b>username</b>: (string) The username to authenticate the connection.</li> </ul></dd>
+	
+	<dt>2. autoNegotiate</dt>
+	<dd>(Boolean) True to prompt the user for retry if the connection cannot be completed due to an invalid password or an SSH host-key issue.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>ftpConnection</code>) The new FTP connection object, or nil and an error message if the connection failed.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFtp.ftpPathValidator"></a><strong>LrFtp.ftpPathValidator</strong>(&nbsp;view, inValue&nbsp;)</dt>
+<dd>
+A validator function for use in <code>LrView</code> UI control definitions. Backslashes are converted to forward slashes, and a notice is presented to the user. If the value contains a new-line character, everything after and including the new-line is removed. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. view</dt>
+	<dd>(<code>LrView</code>) The view object.</dd>
+	
+	<dt>2. inValue</dt>
+	<dd>(any) The proposed new value for the view.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(Boolean) True if the value is valid
+	
+	<li>(any) The new value for the view. If valid, this is the same as <code>inValue</code>.
+	
+	<li>(string) An error message to be displayed if the value was invalid.
+	
+</ol>
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrView.html">
+		LrView</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="LrFtp.makeFtpPresetPopup"></a><strong>LrFtp.makeFtpPresetPopup</strong>(&nbsp;params&nbsp;)</dt>
+<dd>
+Creates and returns a pop-up menu view object for accessing FTP presets. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. params</dt>
+	<dd>(table) a table with these fields <ul> <li><b>factory</b>: (LrViewFactory) The view factory.</li> <li><b>properties</b>: (table) The property table.</li> <li><b>valueBinding</b>: (table) The key in the property table for the preset.</li> <li><b>itemsBinding</b>: (table) The key in the property table for the preset items list.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) A view object of type <code>popup_menu</code>, created by the provided factory, with bindings set to display and change the FTP preset value.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFtp.queryForPasswordIfNeeded"></a><strong>LrFtp.queryForPasswordIfNeeded</strong>(&nbsp;ftpSettings&nbsp;)</dt>
+<dd>
+Prompts the user for a password, but only if the preset was created with 'store password' unchecked. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ftpSettings</dt>
+	<dd></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(boolean) True if the password was successfully entered. False if the user cancelled the prompt.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:disconnect"></a><strong>ftpConnection:disconnect</strong>()</dt>
+<dd>
+Disconnects this connection from the server. Once disconnected, this connection cannot be reused. This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. Throws an exception in the event of an error. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:exists"></a><strong>ftpConnection:exists</strong>(&nbsp;filename&nbsp;)</dt>
+<dd>
+Tests for the existance of a file or directory on the remote system. at the current <code>ftpConnection.path</code>. This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. filename</dt>
+	<dd>(string) The name of the resource to test.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean, string) <ul> <li>On success: False if the resource does not exist, 'file' if it exists as a file, and 'directory' if it exist as a directory</li> <li>On failure: Nil and an error message.</li></ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:getContents"></a><strong>ftpConnection:getContents</strong>(&nbsp;remoteFileName&nbsp;)</dt>
+<dd>
+Retrieves the contents of a file or directory on the remote server and returns it as a string. If the remote name is a path separator character ('/'), a file listing for the current <code>ftpConnection.path</code> will be returned. <p>This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. Throws an exception in the event of an error.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. remoteFileName</dt>
+	<dd>(string) The remote file name, or a path separator character ('/'). To specify the containing directory, set the <code>ftpConnection.path</code> property to the name of an existing directory.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The contents of the remote file, or the file listing for the FTP connection's path.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:makeDirectory"></a><strong>ftpConnection:makeDirectory</strong>(&nbsp;directoryName&nbsp;)</dt>
+<dd>
+Creates a directory on the remote server. The current <code>ftpConnection.path</code> must exist on the server as a directory. There must not exist any file or directory of this name at the destination location. This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. Throws an exception in the event of an error. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. directoryName</dt>
+	<dd>(string) The name of the directory to create.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if the operation succeeds and a subsequent check shows the directory to exist. False if the operation succeeds but the check shows it to be missing.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:pRemoveDirectory"></a><strong>ftpConnection:pRemoveDirectory</strong>(&nbsp;directoryName&nbsp;)</dt>
+<dd>
+Removes a directory on the remote server. The same as <code>removeDirectory()</code>, except that it returns success or failure rather than throwing an exception. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. directoryName</dt>
+	<dd>(string) The name of the directory to remove.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(Boolean) True if the function completed correctly
+	
+	<li>(string or Boolean) On failure, the error message. On success, true if a check for the directory after the operation completed shows it to be deleted.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:pRemoveFile"></a><strong>ftpConnection:pRemoveFile</strong>(&nbsp;filename&nbsp;)</dt>
+<dd>
+Removes a file on the remote server. The same as <code>removeFile()</code>, except that it returns success or failure rather than throwing an exception. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. filename</dt>
+	<dd>(string) The name of the file to remove.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(Boolean) True if the function completed correctly
+	
+	<li>(string/Boolean) On failure, the error message. On success, true if a check for the file after the operation completed shows it to be deleted.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:putFile"></a><strong>ftpConnection:putFile</strong>(&nbsp;theLocalFilePath, destFileName&nbsp;)</dt>
+<dd>
+Sends a file from the local filesystem to the remote server. To specify an upload destination, set the connection to a given directory by setting the path property. The upload destination must already exist as a directory. This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. Throws an exception in the event of an error. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. theLocalFilePath</dt>
+	<dd>(string) The local file path, using the local system path separator.</dd>
+	
+	<dt>2. destFileName</dt>
+	<dd>(string) The destination file name</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:removeDirectory"></a><strong>ftpConnection:removeDirectory</strong>(&nbsp;directoryName&nbsp;)</dt>
+<dd>
+Removes a directory on the remote server. The current <code>ftpConnection.path</code> must exist on the server as a directory. There must exist an empty directory with this name at the destination location. This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. Throws an exception on error. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. directoryName</dt>
+	<dd>(string) The name of the directory to remove.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if a check for the directory after the operation completes shows it to be deleted.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:removeFile"></a><strong>ftpConnection:removeFile</strong>(&nbsp;filename&nbsp;)</dt>
+<dd>
+Removes a file on the remote server. The current <code>ftpConnection.path</code> must exist on the server as a directory. There must exist a file with this name at the destination location. This method must be called from within an asynchronous task started by <a href="LrTasks.html"><code>LrTasks</code></a>. Throws an exception in the event of an error. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. filename</dt>
+	<dd>(string) The name of the file to remove.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if a check for the file after the remove completed shows it to be deleted.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection:toTable"></a><strong>ftpConnection:toTable</strong>()</dt>
+<dd>
+Converts the properties of this FTP connection back into a Lua table, the same as the one passed to <code>LrFtp.create()</code> to create the object. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(table) A table of entries for all the properties on this connection.
+
+
+
+<h3>See also</h3>
+	
+	<a href="#LrFtp.create">
+		LrFtp.create</a>
+	
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="properties"></a>Properties</h2>
+<dl class="function">
+
+
+
+<dt><a name="ftpConnection.connected"></a><strong>ftpConnection.connected</strong> : (Read-Only)</dt>
+<dd>
+(Boolean) True if a connection exists. Even if the connection exists, it could time out or experience network problems at any time, so the fact of connection does not guarantee the success of subsequent operations. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.passive"></a><strong>ftpConnection.passive</strong> : (Read-Only)</dt>
+<dd>
+(string) When protocol is "ftp", the kind of passive connection to attempt. One of "none", "normal", or "enhanced". When protocol is "sftp", this is not used. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.password"></a><strong>ftpConnection.password</strong> : (Read-Only)</dt>
+<dd>
+(string) The password to accompany the username in authentication. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.path"></a><strong>ftpConnection.path</strong> : (Read/Write)</dt>
+<dd>
+(string) The remote path to use when sending or receiving files from the server. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.port"></a><strong>ftpConnection.port</strong> : (Read-Only)</dt>
+<dd>
+(integer) The network port the server is using to host the FTP service. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.protocol"></a><strong>ftpConnection.protocol</strong> : (Read-Only)</dt>
+<dd>
+(string) The type of FTP connection to use, one of "ftp" or "sftp". <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.server"></a><strong>ftpConnection.server</strong> : (Read-Only)</dt>
+<dd>
+(string) The server name or IP address for this FTP connection. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="ftpConnection.username"></a><strong>ftpConnection.username</strong> : (Read-Only)</dt>
+<dd>
+(string) The username to authenticate the connection. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

@@ -1,0 +1,726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Namespace
+LrStringUtils | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li><strong>LrStringUtils</strong></li>
+	
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Namespace
+LrStringUtils</h1>
+
+<div class="module_description">This namespace provides utility functions for string manipulation. All of these functions assume UTF-8 encoding for strings, unless a different encoding is specifically mentioned in the documentation. <p>Access the functions directly from the imported namespace.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#LrStringUtils.byteString">LrStringUtils.byteString</a>(&nbsp;number, precision&nbsp;)</div>
+	<div class="function_summary">Converts a number into a string representation suitable for displaying byte values.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.compareStrings">LrStringUtils.compareStrings</a>(&nbsp;string1, string2&nbsp;)</div>
+	<div class="function_summary">Compares two strings using the operating system's localized string comparison.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.decodeBase64">LrStringUtils.decodeBase64</a>(&nbsp;string&nbsp;)</div>
+	<div class="function_summary">Decodes a string from base-64 encoding.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.encodeBase64">LrStringUtils.encodeBase64</a>(&nbsp;string&nbsp;)</div>
+	<div class="function_summary">Encodes a string in base-64 encoding.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.isOnlyAscii">LrStringUtils.isOnlyAscii</a>(&nbsp;string&nbsp;)</div>
+	<div class="function_summary">Reports whether a string contains only 7-bit ASCII characters.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.localizedStringSort">LrStringUtils.localizedStringSort</a>(&nbsp;strings&nbsp;)</div>
+	<div class="function_summary">Sorts an array of strings using the operating system's localized string comparison.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.lower">LrStringUtils.lower</a>(&nbsp;string&nbsp;)</div>
+	<div class="function_summary">Converts a string to lowercase using the operating system's localized case conversion.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.numberToString">LrStringUtils.numberToString</a>(&nbsp;number, precision&nbsp;)</div>
+	<div class="function_summary">Formats a number as a string with an optional limit on precision.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.numberToStringWithSeparators">LrStringUtils.numberToStringWithSeparators</a>(&nbsp;number, precision&nbsp;)</div>
+	<div class="function_summary">Formats a number as a string with thousands separators with an optional limit on precision.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.trimWhitespace">LrStringUtils.trimWhitespace</a>(&nbsp;string&nbsp;)</div>
+	<div class="function_summary">Removes whitespace from the beginning and end of a string.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.truncate">LrStringUtils.truncate</a>(&nbsp;string, maxBytes&nbsp;)</div>
+	<div class="function_summary">Truncates a string to a maximum number of bytes, preserving the validity of the UTF-8 encoding.</div>
+
+	<div class="function_name"><a href="#LrStringUtils.upper">LrStringUtils.upper</a>(&nbsp;string&nbsp;)</div>
+	<div class="function_summary">Converts a string to uppercase using the operating system's localized case conversion.</div>
+
+
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="LrStringUtils.byteString"></a><strong>LrStringUtils.byteString</strong>(&nbsp;number, precision&nbsp;)</dt>
+<dd>
+Converts a number into a string representation suitable for displaying byte values. The function transforms the number appropriately and adds an indicator for bytes, kilobytes, megabytes, and so on. <p> For example, a number n between 1 and 1024 results in the string "n bytes". A number between 1024 and 1024^2 results in the string "n KB", and so on. </p> <p> The byte indicators are "bytes", "KB", "MB", "GB", "TB", and "PB"</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. number</dt>
+	<dd>(number) The number of bytes.</dd>
+	
+	<dt>2. precision</dt>
+	<dd>(optional, number) The total number of digits to show. left and right of the decimal point. The numeric value is rounded to this degree of precision, but trailing zeros are not removed. Default is 2. For example, using the default precision, the call <code>LrStringUtils.byteString( 2000000 )</code> returns "1.90 MB".</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The formatted string for the number of bytes.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.compareStrings"></a><strong>LrStringUtils.compareStrings</strong>(&nbsp;string1, string2&nbsp;)</dt>
+<dd>
+Compares two strings using the operating system's localized string comparison. This is a wrapper for Lua's <code>table.sort</code> function, with this function as the comparator. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string1</dt>
+	<dd>(string) The first string.</dd>
+	
+	<dt>2. string2</dt>
+	<dd>(string) The second string.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if string1 < string2 according to the user's locale, false otherwise.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.decodeBase64"></a><strong>LrStringUtils.decodeBase64</strong>(&nbsp;string&nbsp;)</dt>
+<dd>
+Decodes a string from base-64 encoding. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The base-64 encoded version of string</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The decoded version of string
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.encodeBase64"></a><strong>LrStringUtils.encodeBase64</strong>(&nbsp;string&nbsp;)</dt>
+<dd>
+Encodes a string in base-64 encoding. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The string to encode.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The base-64 encoded version of the string.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.isOnlyAscii"></a><strong>LrStringUtils.isOnlyAscii</strong>(&nbsp;string&nbsp;)</dt>
+<dd>
+Reports whether a string contains only 7-bit ASCII characters. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The string to evaluate.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) True if this string contains only 7-bit ASCII characters; false if any other data type is present or any byte is >= 128
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.localizedStringSort"></a><strong>LrStringUtils.localizedStringSort</strong>(&nbsp;strings&nbsp;)</dt>
+<dd>
+Sorts an array of strings using the operating system's localized string comparison. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. strings</dt>
+	<dd>(table) An array of strings to sort.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) The sorted array of strings.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.lower"></a><strong>LrStringUtils.lower</strong>(&nbsp;string&nbsp;)</dt>
+<dd>
+Converts a string to lowercase using the operating system's localized case conversion. Unlike the Lua <code>string.lower</code> function, this function properly converts characters outside the 7-bit ASCII space. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The string to convert.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The lowercase version of the string.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.numberToString"></a><strong>LrStringUtils.numberToString</strong>(&nbsp;number, precision&nbsp;)</dt>
+<dd>
+Formats a number as a string with an optional limit on precision. Does not insert separators for thousands. For example, <code>LrStringUtils.numberToString( 43500, 2 )</code> returns "43500.00", not "43,500.00"). <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. number</dt>
+	<dd>(number) The  number to format.</dd>
+	
+	<dt>2. precision</dt>
+	<dd>(optional, number) The number of digits to allow after the decimal point.Default is 0.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The formatted number string.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.numberToStringWithSeparators"></a><strong>LrStringUtils.numberToStringWithSeparators</strong>(&nbsp;number, precision&nbsp;)</dt>
+<dd>
+Formats a number as a string with thousands separators with an optional limit on precision. Insert thousands separators with the correct grouping according to user locale. For example, <code>LrStringUtils.numberToString( 43500, 2 )</code> returns "43,500.00", not "43500.00").
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. number</dt>
+	<dd>(number) The  number to format.</dd>
+	
+	<dt>2. precision</dt>
+	<dd>(optional, number) The number of digits to allow after the decimal point.Default is 0.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The formatted number string.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.trimWhitespace"></a><strong>LrStringUtils.trimWhitespace</strong>(&nbsp;string&nbsp;)</dt>
+<dd>
+Removes whitespace from the beginning and end of a string. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The string to trim.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The string without leading and trailing whitespace.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.truncate"></a><strong>LrStringUtils.truncate</strong>(&nbsp;string, maxBytes&nbsp;)</dt>
+<dd>
+Truncates a string to a maximum number of bytes, preserving the validity of the UTF-8 encoding. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The string to truncate.</dd>
+	
+	<dt>2. maxBytes</dt>
+	<dd>(number) The maximum number of bytes (not characters) to return</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The truncated string.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrStringUtils.upper"></a><strong>LrStringUtils.upper</strong>(&nbsp;string&nbsp;)</dt>
+<dd>
+Converts a string to uppercase using the operating system's localized case conversion. Unlike the Lua <code>string.upper</code> function, this function properly converts characters outside the 7-bit ASCII space. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. string</dt>
+	<dd>(string) The string to convert.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The uppercase version of the string.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

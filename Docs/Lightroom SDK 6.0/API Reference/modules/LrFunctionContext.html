@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Namespace and Class
+LrFunctionContext | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li><strong>LrFunctionContext</strong></li>
+	
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Namespace and Class
+LrFunctionContext</h1>
+
+<div class="module_description">This namespace and class helps you clean up resources following the execution of a function. You can register any number of cleanup handlers to respond to the success or failure of a function. <p>You must create property tables within a function context, so that Lightroom can remove notifications when the table is no longer needed. See <a href="LrBinding.html">LrBinding.makePropertyTable()</a>.</p> <p>Access the calling functions, such as <code>LrFunctionContext.callWithContext()</code>, directly from the imported namespace.</p> <p>You do not create instances of <code>LrFunctionContext</code> directly. They are created by the calling functions, and exist only for the lifetime of the function call or task. A <code>functionContext</code> object is passed as the first parameter of the call, followed by any other parameters you provide. Use the passed object to provide the cleanup handlers for the called function execution.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#LrFunctionContext.callWithContext">LrFunctionContext.callWithContext</a>(&nbsp;name, func, ...&nbsp;)</div>
+	<div class="function_summary">Calls the main function, then calls all of the cleanup handlers before returning control.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.callWithContext_noyield">LrFunctionContext.callWithContext_noyield</a>(&nbsp;name, func, ...&nbsp;)</div>
+	<div class="function_summary">Same as callWithContext, but calls the function in a fashion that disables LrTasks.yield from working.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.callWithEmptyEnvironment">LrFunctionContext.callWithEmptyEnvironment</a>(&nbsp;func, ...&nbsp;)</div>
+	<div class="function_summary">Runs the main function in a known-safe function environment.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.callWithEnvironment">LrFunctionContext.callWithEnvironment</a>(&nbsp;func, env, ...&nbsp;)</div>
+	<div class="function_summary">Runs the main function in a caller-provided function environment.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.pcallWithContext">LrFunctionContext.pcallWithContext</a>(&nbsp;name, func, ...&nbsp;)</div>
+	<div class="function_summary">Makes a protected call, like Lua's standard <code>pcall</code>, but calls all of the cleanup handlers before returning control.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.pcallWithContext_noyield">LrFunctionContext.pcallWithContext_noyield</a>(&nbsp;name, func, ...&nbsp;)</div>
+	<div class="function_summary">Same as <code>pcallWithContext</code>, but calls the function in a fashion that disables <code>LrTasks.yield</code> from working.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.pcallWithEmptyEnvironment">LrFunctionContext.pcallWithEmptyEnvironment</a>(&nbsp;func, ...&nbsp;)</div>
+	<div class="function_summary">Runs the main function in a known-safe function environment, catching any exceptions that occur.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.pcallWithEnvironment">LrFunctionContext.pcallWithEnvironment</a>(&nbsp;func, env, ...&nbsp;)</div>
+	<div class="function_summary">Runs the main function in a caller-provided function environment, catching any exceptions that occur.</div>
+
+	<div class="function_name"><a href="#LrFunctionContext.postAsyncTaskWithContext">LrFunctionContext.postAsyncTaskWithContext</a>(&nbsp;name, func&nbsp;)</div>
+	<div class="function_summary">Runs the main function in an asynchronous/cooperative task, then calls any cleanup handlers.</div>
+
+	<div class="function_name"><a href="#functionContext:addCleanupHandler">functionContext:addCleanupHandler</a>(&nbsp;func&nbsp;)</div>
+	<div class="function_summary">Registers a cleanup handler in an instance.</div>
+
+	<div class="function_name"><a href="#functionContext:addFailureHandler">functionContext:addFailureHandler</a>(&nbsp;func&nbsp;)</div>
+	<div class="function_summary">Registers a failure handler in an instance.</div>
+
+	<div class="function_name"><a href="#functionContext:addOperationTitleForError">functionContext:addOperationTitleForError</a>(&nbsp;title&nbsp;)</div>
+	<div class="function_summary">Attaches a string to this function context to be shown in any error dialog triggered by <code>LrDialogs.attachErrorDialogToFunctionContext</code>.</div>
+
+
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="LrFunctionContext.callWithContext"></a><strong>LrFunctionContext.callWithContext</strong>(&nbsp;name, func, ...&nbsp;)</dt>
+<dd>
+Calls the main function, then calls all of the cleanup handlers before returning control. <p>Call this function directly from the imported namespace.</p> <p>If this is called from within an asynchronous task (that is, a task started from <code>LrTasks.startAsyncTask()</code>), it uses <code>LrTasks.pcall()</code> to make a yield-safe call. If an error is thrown by the  main function, that error is rethrown after the cleanup handlers are called. </p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) A name for this context (used only for debugging)</dd>
+	
+	<dt>2. func</dt>
+	<dd>(function) The main function to call.</dd>
+	
+	<dt>3. ...</dt>
+	<dd>Other parameters passed directly to the main function. The function-context instance is inserted in front of these parameters.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The call results; that is, whatever is returned from the main function.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrTasks.html#startAsyncTask">
+		LrTasks.startAsyncTask</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.callWithContext_noyield"></a><strong>LrFunctionContext.callWithContext_noyield</strong>(&nbsp;name, func, ...&nbsp;)</dt>
+<dd>
+Same as callWithContext, but calls the function in a fashion that disables LrTasks.yield from working. Use if you need to ensure that the called function is completed as an atomic unit. <p>Call this function directly from the imported namespace.</p> <p>If this is called from within an asynchronous task (that is, a task started from <code>LrTasks.startAsyncTask()</code>), it uses <code>LrTasks.pcall()</code> to make a yield-safe call. If an error is thrown by the  main function, that error is rethrown after the cleanup handlers are called. </p> <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) A name for this context (used only for debugging)</dd>
+	
+	<dt>2. func</dt>
+	<dd>(function) The main function to call.</dd>
+	
+	<dt>3. ...</dt>
+	<dd>Other parameters passed directly to the main function. The function-context instance is inserted in front of these parameters.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The call results; that is, whatever is returned from the main function.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrTasks.html#startAsyncTask">
+		LrTasks.startAsyncTask</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.callWithEmptyEnvironment"></a><strong>LrFunctionContext.callWithEmptyEnvironment</strong>(&nbsp;func, ...&nbsp;)</dt>
+<dd>
+Runs the main function in a known-safe function environment. Equivalent to <code>setfenv( func, {} ); return func( ... )</code>. <p>The passed-in function is subjected to string.dump for safety reasons, so any variables declared in the scope of the calling function are not automatically passed through to the inner function. In particular, imported namespaces and classes do not carry through.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. func</dt>
+	<dd>(function) The main function to call, with an empty environment.</dd>
+	
+	<dt>2. ...</dt>
+	<dd>(any) Further arguments are passed through to the function.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The call results; that is, whatever is returned from the main function.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.callWithEnvironment"></a><strong>LrFunctionContext.callWithEnvironment</strong>(&nbsp;func, env, ...&nbsp;)</dt>
+<dd>
+Runs the main function in a caller-provided function environment. Equivalent to <code>setfenv( func, env ); return func( ... )</code>. <p>The passed-in function is subjected to string.dump for safety reasons, so any variables declared in the scope of the calling function are not automatically passed through to the inner function. In particular, imported namespaces and classes do not carry through.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. func</dt>
+	<dd>(function) The main function to call, with an empty environment.</dd>
+	
+	<dt>2. env</dt>
+	<dd>(table) The function environment to use.</dd>
+	
+	<dt>3. ...</dt>
+	<dd>(any) Further arguments are passed through to the function.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The call results; that is, whatever is returned from the main function.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.pcallWithContext"></a><strong>LrFunctionContext.pcallWithContext</strong>(&nbsp;name, func, ...&nbsp;)</dt>
+<dd>
+Makes a protected call, like Lua's standard <code>pcall</code>, but calls all of the cleanup handlers before returning control. <p>Call this function directly from the imported namespace.</p> <p>If this is called from within an asynchronous task (that is, a task started from <code>LrTasks.startAsyncTask()</code>), it uses <code>LrTasks.pcall()</code> to make a yield-safe call. The cleanup handlers are deferred until the coroutine runs to completion or failure. They are not called when yielding. </p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) A name for this context (used only for debugging)</dd>
+	
+	<dt>2. func</dt>
+	<dd>(function) The main function to call.</dd>
+	
+	<dt>3. ...</dt>
+	<dd>Other parameters passed directly to the main function. The function-context instance is inserted in front of these parameters.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The pcall results; that is, a success/failure value, followed by any other return values of the called function.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrTasks.html#startAsyncTask">
+		LrTasks.startAsyncTask</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.pcallWithContext_noyield"></a><strong>LrFunctionContext.pcallWithContext_noyield</strong>(&nbsp;name, func, ...&nbsp;)</dt>
+<dd>
+Same as <code>pcallWithContext</code>, but calls the function in a fashion that disables <code>LrTasks.yield</code> from working. Use if you need to ensure that the called function is completed as an atomic unit. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) A name for this context (used only for debugging)</dd>
+	
+	<dt>2. func</dt>
+	<dd>(function) The main function to call.</dd>
+	
+	<dt>3. ...</dt>
+	<dd>Other parameters passed directly to the main function. The function-context instance is inserted in front of these parameters.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(any) The pcall results; that is, a success/failure value, followed by any other return values of the called function.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrTasks.html#startAsyncTask">
+		LrTasks.startAsyncTask</a>, 
+	
+	<a href="../modules/LrTasks.html#yield">
+		LrTasks.yield</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.pcallWithEmptyEnvironment"></a><strong>LrFunctionContext.pcallWithEmptyEnvironment</strong>(&nbsp;func, ...&nbsp;)</dt>
+<dd>
+Runs the main function in a known-safe function environment, catching any exceptions that occur. Equivalent to <code>setfenv( func, {} ); return pcall( func, ... )</code>. <p>The passed-in function is subjected to string.dump for safety reasons, so any variables declared in the scope of the calling function are not automatically passed through to the inner function. In particular, imported namespaces and classes do not carry through.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. func</dt>
+	<dd>(function) The main function to call, with an empty environment.</dd>
+	
+	<dt>2. ...</dt>
+	<dd>(any) Further arguments are passed through to the function.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(Boolean) True if the call succeeded, false if an error occurred
+	
+	<li>(any) The call results; that is, whatever is returned from the main function.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.pcallWithEnvironment"></a><strong>LrFunctionContext.pcallWithEnvironment</strong>(&nbsp;func, env, ...&nbsp;)</dt>
+<dd>
+Runs the main function in a caller-provided function environment, catching any exceptions that occur. Equivalent to <code>setfenv( func, {} ); return pcall( func, ... )</code>. <p>Variables declared in the scope of the calling function are NOT automatically passed through to the inner function. In particular, imported namespaces and classes do not carry through.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. func</dt>
+	<dd>(function) The main function to call, with an empty environment.</dd>
+	
+	<dt>2. env</dt>
+	<dd>(table) The function environment to use.</dd>
+	
+	<dt>3. ...</dt>
+	<dd>(any) Further arguments are passed through to the function.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(Boolean) True if the call succeeded, false if an error occurred
+	
+	<li>(any) The call results; that is, whatever is returned from the main function.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrFunctionContext.postAsyncTaskWithContext"></a><strong>LrFunctionContext.postAsyncTaskWithContext</strong>(&nbsp;name, func&nbsp;)</dt>
+<dd>
+Runs the main function in an asynchronous/cooperative task, then calls any cleanup handlers. <p>Call this function directly from the imported namespace.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) A name for this context (used only for debugging)</dd>
+	
+	<dt>2. func</dt>
+	<dd>(function) The main function to run asynchronously, This function receives the LrFunctionContext object as its one and only parameter.</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrTasks.html#startAsyncTask">
+		LrTasks.startAsyncTask</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="functionContext:addCleanupHandler"></a><strong>functionContext:addCleanupHandler</strong>(&nbsp;func&nbsp;)</dt>
+<dd>
+Registers a cleanup handler in an instance. This function is called when the main function finishes or throws an error. Cleanup handlers are called in reverse order of registration; that is, the last cleanup handler registered is called first. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. func</dt>
+	<dd>(function) The function to call upon completion of the main function. The parameters are the results from <code>pcall()</code>; that is, a success/failure value, followed by other results or the failure message.</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrErrors.html#isCanceledError">
+		LrErrors.isCanceledError</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="functionContext:addFailureHandler"></a><strong>functionContext:addFailureHandler</strong>(&nbsp;func&nbsp;)</dt>
+<dd>
+Registers a failure handler in an instance. This function is called only if the main function fails; that is, throws an error. This is a convenience function. It calls your registered cleanup handler with a wrapper around your function that calls through in the event of a failure. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. func</dt>
+	<dd>(function) The function to call if the main function fails. The parameters are the results from <code>pcall()</code>; that is, false (failure) followed by the failure message.</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrErrors.html#isCanceledError">
+		LrErrors.isCanceledError</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="functionContext:addOperationTitleForError"></a><strong>functionContext:addOperationTitleForError</strong>(&nbsp;title&nbsp;)</dt>
+<dd>
+Attaches a string to this function context to be shown in any error dialog triggered by <code>LrDialogs.attachErrorDialogToFunctionContext</code>. This string acts as a title to the actual error message, which is shown in smaller text below this message. Use the form "Unable to perform operation." <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. title</dt>
+	<dd>(string) The descriptive string to be shown on error.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

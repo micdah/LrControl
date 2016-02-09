@@ -1,0 +1,914 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Class
+LrWebViewFactory | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li><strong>LrWebViewFactory</strong></li>
+	
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Class
+LrWebViewFactory</h1>
+
+<div class="module_description">This class specializes the view factory for use with web-engine plug-ins. An instance is provided to a web engine's <code>views()</code> function. You cannot create an instance in any other context. <p>The <code>LrWebViewFactory</code> object is only available in web engines.<p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#webViewFactory:checkbox_and_color_row">webViewFactory:checkbox_and_color_row</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row containing a check box, a label, and a color well, within a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:checkbox_row">webViewFactory:checkbox_row</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row containing a label and a checkbox, within a column container in a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:color_content_column">webViewFactory:color_content_column</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a container for color swatches within a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:content_column">webViewFactory:content_column</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a general-purpose container within a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:content_section">webViewFactory:content_section</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a generic column-layout container within a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:header_section">webViewFactory:header_section</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a generic row-layout container within a header section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:header_section_label">webViewFactory:header_section_label</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a label with an appropriate color, font, size and margins to be used as a section header.</div>
+
+	<div class="function_name"><a href="#webViewFactory:identity_plate">webViewFactory:identity_plate</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates an identity plate control.</div>
+
+	<div class="function_name"><a href="#webViewFactory:label_and_color_row">webViewFactory:label_and_color_row</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row containing a label and a color well, within a <code>color_content_column</code> in a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:labeled_text_input">webViewFactory:labeled_text_input</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row containing a label and an edit text, with optional most-recently-used (MRU) menu.</div>
+
+	<div class="function_name"><a href="#webViewFactory:metadataModeControl">webViewFactory:metadataModeControl</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row containing a pop-up menu with metadata mode choices, within a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:panel_content">webViewFactory:panel_content</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a top-level Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:popup_row">webViewFactory:popup_row</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row container for <code>popup_menu</code> controls.</div>
+
+	<div class="function_name"><a href="#webViewFactory:row">webViewFactory:row</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a generic row-layout container within a section in a Web-module panel, with correct spacing and horizontal fill.</div>
+
+	<div class="function_name"><a href="#webViewFactory:row_column_picker">webViewFactory:row_column_picker</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a control for selecting the number of rows and columns in a grid.</div>
+
+	<div class="function_name"><a href="#webViewFactory:slider_content_column">webViewFactory:slider_content_column</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a container for <code>slider_row</code> views within a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:slider_row">webViewFactory:slider_row</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a row containing a label, a slider, and an edit text, within a <code>slider_content_column</code> in a section in a Web-module panel.</div>
+
+	<div class="function_name"><a href="#webViewFactory:subdivided_sections">webViewFactory:subdivided_sections</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a section within a Web-module panel created by <code>panel_content()</code>.</div>
+
+	<div class="function_name"><a href="#webViewFactory:warning_icon">webViewFactory:warning_icon</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates a small symbol that appears to warn the user about a specific property value.</div>
+
+
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="webViewFactory:checkbox_and_color_row"></a><strong>webViewFactory:checkbox_and_color_row</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row containing a check box, a label, and a color well, within a section in a Web-module panel. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> <li><b>color</b> (<code>LrColor</code>) The color for the well. Use <code>LrView.bind()</code> to tie this to your data model.</li> <li><b>enabled</b> (Boolean) When true, the checkbox is checked and the color well is enabled. Use <code>LrView.bind()</code> to tie this to your data model.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The checkbox-and-color row view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:checkbox_row"></a><strong>webViewFactory:checkbox_row</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row containing a label and a checkbox, within a column container in a section in a Web-module panel. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> <li><b>value</b> (special). Use <code>LrView.bind()</code> to tie the checkbox to a Boolean value in your data model. </li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The checkbox-row view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:color_content_column"></a><strong>webViewFactory:color_content_column</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a container for color swatches within a section in a Web-module panel. Has a column layout(that is, <code>place='vertical'</code>) and appropriate spacing and margins for properly positioning <code>label_and_color_row</code> elements. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The color-content column view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:content_column"></a><strong>webViewFactory:content_column</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a general-purpose container within a section in a Web-module panel. Has a column layout and appropriate spacing	and margins for properly positioning labels, checkboxes, and so on. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The content column view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:content_section"></a><strong>webViewFactory:content_section</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a generic column-layout container within a section in a Web-module panel. This can contain checkboxes or other labels that do not require any additional indentation. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The content-section view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:header_section"></a><strong>webViewFactory:header_section</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a generic row-layout container within a header section in a Web-module panel. This can contain checkboxes or other labels that do not require any additional indentation, used as the first element of a section.
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The header-section view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:header_section_label"></a><strong>webViewFactory:header_section_label</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a label with an appropriate color, font, size and margins to be used as a section header. Must be the immediate child of a <code>subdivided_sections</code> view. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The header-section-label view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:identity_plate"></a><strong>webViewFactory:identity_plate</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates an identity plate control. Must be the immediate child of a <code>subdivided_sections</code> container within a Web-module panel. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> <li><b>value</b> (special). Use <code>LrView.bind()</code> to tie the value of the control to a value in your data model. </li> <li><b>enabled</b> (Boolean) Use <code>LrView.bind()</code> to tie the enabled state of the control to a Boolean value in your data model. </li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The identity-plate view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:label_and_color_row"></a><strong>webViewFactory:label_and_color_row</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row containing a label and a color well, within a <code>color_content_column</code> in a section in a Web-module panel. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> <li><b>color</b> (special) Use <code>LrView.bind()</code> to tie this to a color value your data model.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The label-and-color row view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:labeled_text_input"></a><strong>webViewFactory:labeled_text_input</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row containing a label and an edit text, with optional most-recently-used (MRU) menu. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> <li><b>wraps</b> (Boolean) When true, wrap long text to the next line.</li> <li><b>value</b> (string) The value of the edit text. Use <code>LrView.bind()</code> to tie this to your data model. </li> <li><b>tracking</b> (string) The tracking value of the edit text. Use <code>LrView.bind()</code> to tie this to your data model. </li> <li><b>preference_key</b> (string, optional) The name of the preference key in which to store the list of most recently used (MRU) items.  If omitted, a prefence key is generated based on the key used in the value binding.</li> <li><b>include_mru</b> (Boolean, optional) When true, include the most-recently-used (MRU) menu. Default is true. </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The labeled text-input view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:metadataModeControl"></a><strong>webViewFactory:metadataModeControl</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row containing a pop-up menu with metadata mode choices, within a section in a Web-module panel.
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>value</b> (mode) The metadata mode. Use <code>LrView.bind()</code> to tie this to your data model.</li> <li><b>title</b> (string) The localizable label text for the row.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The metadata-mode view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:panel_content"></a><strong>webViewFactory:panel_content</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a top-level Web-module panel. Use only at the top level of containment; immediate children are created with <code>subdivided_sections()</code>. Each child section within this container is separated by a heavy black divider line. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The panel view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:popup_row"></a><strong>webViewFactory:popup_row</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row container for <code>popup_menu</code> controls. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The popup row view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:row"></a><strong>webViewFactory:row</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a generic row-layout container within a section in a Web-module panel, with correct spacing and horizontal fill. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The row view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:row_column_picker"></a><strong>webViewFactory:row_column_picker</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a control for selecting the number of rows and columns in a grid. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>rows</b> (number) The number of rows that are selected</li> <li><b>columns</b> (number) The number of columns that are selected</li> <li><b>max_rows</b> (number)  The maximum number of rows.</li> <li><b>max_columns</b> (number)  The maximum number of columns.</li> <li><b>min_rows</b> (number)  The minimum number of rows.</li> <li><b>min_columns</b> (number)  The minimum number of columns.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The row & column control view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:slider_content_column"></a><strong>webViewFactory:slider_content_column</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a container for <code>slider_row</code> views within a section in a Web-module panel. Has a column layout(that is, <code>place='vertical'</code>) and appropriate spacing and margins for properly positioning <code>slider_row</code> controls. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The slider-content column view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:slider_row"></a><strong>webViewFactory:slider_row</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a row containing a label, a slider, and an edit text, within a <code>slider_content_column</code> in a section in a Web-module panel. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>title</b> (string) The localizable display text.</li> <li><b>value</b> (number) The current displayed value for the slider. Use <code>LrView.bind()</code> to tie this to your data model.</li> <li><b>tracking</b> (value) The current value, updated while tracking, or nil if not tracking. Use <code>LrView.bind()</code> to tie this to your data model.</li> <li><b>tracking_value</b> (value) When the mouse is actively dragging the slider, the value echoed to <code>tracking</code>.</li> <li><b>unit</b> (string) The label to put after the edit text, as a unit.</li> <li><b>min</b> (number) The minimum slider value.</li> <li><b>max</b> (number) The maximum slider value.</li> <li><b>width_in_digits</b> (number) The amount of room in digits to leave for the edit field.</li> <li><b>precision</b> (number) The number of decimal places of precision for the slider value.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The slider row view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:subdivided_sections"></a><strong>webViewFactory:subdivided_sections</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a section within a Web-module panel created by <code>panel_content()</code>. Each child view within this container is separated by a light gray divider line. This container sets appropriate margins for aligning headers and checkboxes. Its children are row, column, and heading containers. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul><li><a href="LrView child layout properties.html">Child layout properties</a></li> <li><a href="LrView node layout properties.html">Node layout properties</a></li> </ul></li></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The sections view.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="webViewFactory:warning_icon"></a><strong>webViewFactory:warning_icon</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates a small symbol that appears to warn the user about a specific property value.
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) A table with fields for any: <ul> <li><b>visibility</b> (table) A table describing what property controls the visibility of the icon, and also a method for transforming the property. <ul> <li><b>key</b> (string) The bound property. </li> <li><b>whenNotEqual</b> (string, optional) The icon becomes visible when the bound property is not equal to this value. Provide this or <code>whenEqual</code>, not both.</li> <li><b>whenEqual</b> (string, optional) The icon becomes visible when the bound property is equal to this value. Provide this or <code>whenNotEqual</code>, not both.</li> </ul> <li><b>tooltip</b> (string) A message displayed when the cursor hovers over the control.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrView</code>) The warning-icon view.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

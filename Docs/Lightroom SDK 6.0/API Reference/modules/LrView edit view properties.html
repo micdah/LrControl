@@ -1,0 +1,571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>View attributes
+LrView edit view properties | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li><strong>LrView edit view properties</strong></li>
+	
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>View attributes
+LrView edit view properties</h1>
+
+<div class="module_description">These properties are used by controls with editable text: <code>edit_field</code>, <code>combo_box</code>, and <code>password_field</code>. <p>Properties marked for numeric edit fields are not applicable to <code>combo_box</code> or <code>password_field</code> controls.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+
+
+	<div class="property_name"><a href="#alignment">alignment</a></div>
+	<div class="property_summary">Alignment of text in frame.</div>
+
+	<div class="property_name"><a href="#auto_completion">auto_completion</a></div>
+	<div class="property_summary">True to auto-complete as the user types, using the <code>completion</code> table.</div>
+
+	<div class="property_name"><a href="#completion">completion</a></div>
+	<div class="property_summary">A table of strings for completion, or, on Mac, it can also be a function that returns a table of strings.</div>
+
+	<div class="property_name"><a href="#immediate">immediate</a></div>
+	<div class="property_summary">True to validate the value as the user is typing.</div>
+
+	<div class="property_name"><a href="#increment">increment</a></div>
+	<div class="property_summary">For numeric edit fields, increment the value by this amount if Shift is not down.</div>
+
+	<div class="property_name"><a href="#large_increment">large_increment</a></div>
+	<div class="property_summary">For numeric edit fields, increment the value by this amount if Shift is held down.</div>
+
+	<div class="property_name"><a href="#max">max</a></div>
+	<div class="property_summary">For numeric edit fields, the maximum value allowed.</div>
+
+	<div class="property_name"><a href="#min">min</a></div>
+	<div class="property_summary">For numeric edit fields, the minimum value allowed.</div>
+
+	<div class="property_name"><a href="#placeholder_string">placeholder_string</a></div>
+	<div class="property_summary">A placeholder displayed by the field until a value is supplied or, on Windows, the user puts focus on the item.</div>
+
+	<div class="property_name"><a href="#precision">precision</a></div>
+	<div class="property_summary">For numeric edit fields, the number of decimal places to display.</div>
+
+	<div class="property_name"><a href="#string_to_value">string_to_value</a></div>
+	<div class="property_summary">An optional conversion function, called to convert the display string to a non-string value.</div>
+
+	<div class="property_name"><a href="#text_color">text_color</a></div>
+	<div class="property_summary">The color of displayed text.</div>
+
+	<div class="property_name"><a href="#validate">validate</a></div>
+	<div class="property_summary">A function called to validate the value.</div>
+
+	<div class="property_name"><a href="#value">value</a></div>
+	<div class="property_summary">The display text.</div>
+
+	<div class="property_name"><a href="#value_to_string">value_to_string</a></div>
+	<div class="property_summary">An optional conversion function, called to convert a non-string value to a display string.</div>
+
+	<div class="property_name"><a href="#wraps">wraps</a></div>
+	<div class="property_summary">True to wrap text.</div>
+
+
+
+</div>
+
+
+
+
+
+<h2><a name="properties"></a>Properties</h2>
+<dl class="function">
+
+
+
+<dt><a name="alignment"></a><strong>alignment</strong> : (Read-Only)</dt>
+<dd>
+Alignment of text in frame. Values are 'left', 'center', 'right'. (string, default: 'left') <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="auto_completion"></a><strong>auto_completion</strong> : (Read-Only)</dt>
+<dd>
+True to auto-complete as the user types, using the <code>completion</code> table. On Mac, 'completion' can also be a function. (Boolean, default: false)
+
+
+</dd>
+
+
+
+
+<dt><a name="completion"></a><strong>completion</strong> : (Read-Only)</dt>
+<dd>
+A table of strings for completion, or, on Mac, it can also be a function that returns a table of strings. (table or function, default: nil) The function takes this form: <pre>myCompletion( view, partialWord )</pre> <p>Parameters:</p> <ol><li><b>view</b> (LrView) This control. </li> <li><b>partialWord</b> (any) The partial word to be completed. </li></ol> <p>Returns:</p> <ol><li><b>result</b> (array of strings) Strings that can complete the partial word. </li></ol> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="immediate"></a><strong>immediate</strong> : (Read-Only)</dt>
+<dd>
+True to validate the value as the user is typing. The validate function is called for every change, but the new value returned by the validate function does not replace the text the user is typing until the field loses the input focus. <p>When false, the value is committed when the control	loses the input focus. In Windows, this happens when the user types Enter or clicks outside the control. In Mac OS, it happens only when the user types Enter; clicking outside the control does not cause it to lose focus and commit.</p> (Boolean, default: false) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="increment"></a><strong>increment</strong> : (Read-Only)</dt>
+<dd>
+For numeric edit fields, increment the value by this amount if Shift is not down. If the precision is 0 then the default is 1, otherwise the default is 0.1. (number, default: 1 or 0.1) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="large_increment"></a><strong>large_increment</strong> : (Read-Only)</dt>
+<dd>
+For numeric edit fields, increment the value by this amount if Shift is held down. If the precision is 0 then the default is 10, otherwise the	default is 1. (number, default: 10 or 1) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="max"></a><strong>max</strong> : (Read-Only)</dt>
+<dd>
+For numeric edit fields, the maximum value allowed. (number, default: nil) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="min"></a><strong>min</strong> : (Read-Only)</dt>
+<dd>
+For numeric edit fields, the minimum value allowed. (number, default: nil) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="placeholder_string"></a><strong>placeholder_string</strong> : (Read-Only)</dt>
+<dd>
+A placeholder displayed by the field until a value is supplied or, on Windows, the user puts focus on the item. (String, default: nil) <p>e.g. <code>placeholder_string = "Enter your new value here"</code></p>
+
+
+</dd>
+
+
+
+
+<dt><a name="precision"></a><strong>precision</strong> : (Read-Only)</dt>
+<dd>
+For numeric edit fields, the number of decimal places to display. If specified, the field is numeric. (number, default: 2) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="string_to_value"></a><strong>string_to_value</strong> : (Read-Only)</dt>
+<dd>
+An optional conversion function, called to convert the display string to a non-string value. (function, default: nil) The function takes this form: <pre>myStringToValue( view, string )</pre> <p>Parameters:</p> <ol><li><b>view</b> (LrView) This control. </li> <li><b>string</b> (any) The display string. </li></ol> <p>Returns:</p> <ol><li><b>result</b> (any) Value of the required type. </li></ol> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="text_color"></a><strong>text_color</strong> : (Read-Only)</dt>
+<dd>
+The color of displayed text. Mac only for Lightroom 3 and earlier. (LrColor, default: black)
+
+
+</dd>
+
+
+
+
+<dt><a name="validate"></a><strong>validate</strong> : (Read-Only)</dt>
+<dd>
+A function called to validate the value. (function, default: nil) The function takes this form: <pre>myValidate( view, value )</pre> <p>Parameters:</p> <ol><li><b>view</b> (LrView) This control. </li> <li><b>value</b> (any) The value to validate. </li></ol> <p>Returns three values:</p> <ol><li><b>result</b> (Boolean) True if value was valid. </li> <li><b>value</b> (any) The new value. </li> <li><b>message</b> (string)  If result is false, an error message.</li></ol> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="value"></a><strong>value</strong> : (Read-Only)</dt>
+<dd>
+The display text. (any, default: nil) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="value_to_string"></a><strong>value_to_string</strong> : (Read-Only)</dt>
+<dd>
+An optional conversion function, called to convert a non-string value to a display string. (function, default: nil) The function takes this form: <pre>myValueToString( view, value )</pre> <p>Parameters:</p> <ol><li><b>view</b> (LrView) This control. </li> <li><b>value</b> (any) The entered value. </li></ol> <p>Returns:</p> <ol><li><b>result</b> (string) Display string. </li></ol> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="wraps"></a><strong>wraps</strong> : (Read-Only)</dt>
+<dd>
+True to wrap text. Mac only. (Boolean, default: true)
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

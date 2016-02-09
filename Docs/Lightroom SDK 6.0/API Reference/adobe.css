@@ -1,0 +1,134 @@
+body {
+	padding-left: 1.25em;
+	font-family: Verdana, Arial, sans-serif;
+}
+
+a, a:link, a:visited, a:hover {
+	text-decoration: none;
+	font-weight: normal;
+}
+a, a:link { color: #C00; }
+a:visited { color: #777; }
+a:hover{ color: black; text-decoration: underline; }
+
+pre {
+    font-family: "Andale Mono", monospace;
+    margin-left: 1.5em;
+}
+
+p { margin-left: 0; }
+
+#adobe_header {
+	background-color: #CECECE;
+	margin-left: -11px;
+}
+#adobe_header img {
+	display: block;
+	padding: 0;
+	margin: 0;
+}
+
+#container {
+	margin: 0;
+	background: none;
+}
+#main {
+	margin: 0;
+	max-width: 65em;
+	background: none;
+	border: none;
+}
+
+#navigation {
+	float: right;
+	width: 18em;
+	font-size: 85%;
+	margin: 0 1em 0 4em;
+	padding: .5em;
+	vertical-align: top;
+	background-color: #CECECE;
+}
+
+#content {
+	margin: 1em 0 4em 0;
+	padding: 0;
+	border: none;
+}
+
+.module_description {
+	margin-left: 1.5em;
+}
+.module_summary_index {
+	margin: 1em 0 1em 1.5em;
+}
+
+.module_name, .function_name, .property_name {
+	margin: .8em 0 .15em 0;
+}
+.module_name a, .function_name a, .property_name a {
+	font-weight: bold !important;
+	color: #444;
+}
+.module_type, .function_type, .property_type {
+	font-weight: normal;
+	font-size: 80%;
+	color: #999;
+	text-transform: lowercase;
+}
+.module_summary, .function_summary, .property_summary {
+	color: #666;
+	font-size: 90%;
+	margin-left: 1.5em;
+}
+dl.function > dd {
+	margin-top: .3em;
+	font-size: 90%;
+	color: #444;
+}
+dl.function dd h3 {
+	margin: .5em 0 .5em -1em;
+	font-size: 110%;
+	color: #333;
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+dl.param_list dd {
+	padding-bottom: .5em;
+}
+
+dl.param_list dt {
+	padding-top: 0;
+	border: none;
+	color: #222;
+}
+
+
+table#footer-links {
+	background: url( 1dot.gif ) repeat-x top left;
+	border: none;
+	border-collapse: none;
+	padding-top: 6px;
+	margin: 0 0 3em 0;
+}
+table#footer-links td {
+    border: none;
+    padding: 0;
+}
+
+#copyright {
+	margin: 1em 0 .3em 0;
+	color: #666;
+	font-size: 87%;
+}
+.footerlink {
+	vertical-align: top;
+	padding: 0 2em 0 0;
+}
+.footerlink a, .footerlink a:hover, .footerlink a:visited {
+	font-weight: normal;
+}
+td.leftborder {
+	background: url( 1dot.gif ) repeat-y top left;
+	padding-left: 6px !important;
+}

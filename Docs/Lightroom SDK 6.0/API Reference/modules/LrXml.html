@@ -1,0 +1,789 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Namespace and Class
+LrXml | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li><strong>LrXml</strong></li>
+	
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Namespace and Class
+LrXml</h1>
+
+<div class="module_description">This namespace and class allows you create and examine XML documents. The namespace functions allow you to create an XML builder object, and to parse existing XML documents into read-only XML DOM objects. <ul> <li>The XML builder object (<code>builderInstance</code>) allows you to create and manipulate XML documents. </li> <li>The XML DOM object (<code>xmlDomInstance</code>) is read-only, and allows you to examine an existing XML document.</li> </ul> <p>Text values added to or retrieved from the XML document will automatically be entity encoded and decoded, where required by the <a href="http://www.w3.org/TR/2006/REC-xml11-20060816/">XML 1.1 recommendation</a>. Please refer to the recommendation (especially sections 2.4 and 4.6) for definitions of the entities supported and when their use is required.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#LrXml.createXmlBuilder">LrXml.createXmlBuilder</a>(&nbsp;omitDeclaration&nbsp;)</div>
+	<div class="function_summary">Creates an XML builder object (<code>builderInstance</code>) for constructing an XML document.</div>
+
+	<div class="function_name"><a href="#LrXml.parseXml">LrXml.parseXml</a>(&nbsp;xmlString&nbsp;)</div>
+	<div class="function_summary">Parses a string containing valid XML to create and return a read-only XML DOM object (<code>xmlDomInstance</code>) which you can use to examine the XML content.</div>
+
+	<div class="function_name"><a href="#builderInstance:append">builderInstance:append</a>(&nbsp;otherXmlBuilder&nbsp;)</div>
+	<div class="function_summary">Appends all the XML in another <code>builderInstance</code> to this one at the current point.The other object must not have any unclosed blocks.</div>
+
+	<div class="function_name"><a href="#builderInstance:beginBlock">builderInstance:beginBlock</a>(&nbsp;name, attributes&nbsp;)</div>
+	<div class="function_summary">Adds an XML opening tag to this XML document.</div>
+
+	<div class="function_name"><a href="#builderInstance:comment">builderInstance:comment</a>(&nbsp;contents&nbsp;)</div>
+	<div class="function_summary">Appends an XML comment to this XML document.</div>
+
+	<div class="function_name"><a href="#builderInstance:endBlock">builderInstance:endBlock</a>()</div>
+	<div class="function_summary">Adds an XML closing tag to this XML document.</div>
+
+	<div class="function_name"><a href="#builderInstance:serialize">builderInstance:serialize</a>()</div>
+	<div class="function_summary">Retrieves the complete XML document as a string.</div>
+
+	<div class="function_name"><a href="#builderInstance:tag">builderInstance:tag</a>(&nbsp;name, value, attributes&nbsp;)</div>
+	<div class="function_summary">Adds a single tag to this XML document, with an optional text child node.</div>
+
+	<div class="function_name"><a href="#builderInstance:text">builderInstance:text</a>(&nbsp;value&nbsp;)</div>
+	<div class="function_summary">Adds a text node to this XML document.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:attributes">xmlDomInstance:attributes</a>()</div>
+	<div class="function_summary">Retrieves the attributes of this element node.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:childAtIndex">xmlDomInstance:childAtIndex</a>(&nbsp;index&nbsp;)</div>
+	<div class="function_summary">Retrieves a child of this element node by index.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:childCount">xmlDomInstance:childCount</a>()</div>
+	<div class="function_summary">Reports the number of children of this element node.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:name">xmlDomInstance:name</a>()</div>
+	<div class="function_summary">Retrieves the name of the <code>xml</code> node from this XML document.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:serialize">xmlDomInstance:serialize</a>()</div>
+	<div class="function_summary">Converts the XML encapsulated by this object into its string representation.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:text">xmlDomInstance:text</a>()</div>
+	<div class="function_summary">Retrieves the text of the <code>xml</code> node from this XML document.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:transform">xmlDomInstance:transform</a>(&nbsp;xsltString&nbsp;)</div>
+	<div class="function_summary">Transforms this XML into string output by applying an XSLT transformation.</div>
+
+	<div class="function_name"><a href="#xmlDomInstance:type">xmlDomInstance:type</a>()</div>
+	<div class="function_summary">Retrieves the type of the <code>xml</code> node from this XML document.</div>
+
+
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="LrXml.createXmlBuilder"></a><strong>LrXml.createXmlBuilder</strong>(&nbsp;omitDeclaration&nbsp;)</dt>
+<dd>
+Creates an XML builder object (<code>builderInstance</code>) for constructing an XML document. Use the methods of the resulting object to create the document contents, and to serialize the resulting XML into a string. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. omitDeclaration</dt>
+	<dd>(Boolean). True to omit the XML declaration (&lt;?xml version="1.0"?&gt;) when this document is serialized to a string.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>builderInstance</code>) A new XML builder object.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="LrXml.parseXml"></a><strong>LrXml.parseXml</strong>(&nbsp;xmlString&nbsp;)</dt>
+<dd>
+Parses a string containing valid XML to create and return a read-only XML DOM object (<code>xmlDomInstance</code>) which you can use to examine the XML content. The returned DOM object is the root of a tree of DOM objects for the XML nodes in the document. Use the <code>xmlDomInstance</code> functions to traverse the node tree. <p>The DOM object is an interface to a platform-specific XML parser. There can be variation in how whitespace, XML processing instructions, and other subtle aspects of XML are handled. Use caution when parsing XML. Do not assume elements are at a particular index. Instead, iterate child nodes and test by name and type to find a particular node.  For example one parser might return a text node for the whitespace separating two elements, while another removes the whitespace; or one might skip comments while another includes them.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. xmlString</dt>
+	<dd>(string) A string containing XML.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>xmlDomInstance</code>) A new XML DOM instance, the root node of the XML node tree.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:append"></a><strong>builderInstance:append</strong>(&nbsp;otherXmlBuilder&nbsp;)</dt>
+<dd>
+Appends all the XML in another <code>builderInstance</code> to this one at the current point.The other object must not have any unclosed blocks. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. otherXmlBuilder</dt>
+	<dd>(<code>builderInstance</code>) Another XML builder object.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:beginBlock"></a><strong>builderInstance:beginBlock</strong>(&nbsp;name, attributes&nbsp;)</dt>
+<dd>
+Adds an XML opening tag to this XML document. This must be closed later by a call to <code>endBlock()</code>. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) The name of the tag.</dd>
+	
+	<dt>2. attributes</dt>
+	<dd>(table, optional) A set of attribute names and values. The keys and values in this table are converted to strings using <code>tostring()</code>.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:comment"></a><strong>builderInstance:comment</strong>(&nbsp;contents&nbsp;)</dt>
+<dd>
+Appends an XML comment to this XML document. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. contents</dt>
+	<dd>(string) The text of the new XML comment.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:endBlock"></a><strong>builderInstance:endBlock</strong>()</dt>
+<dd>
+Adds an XML closing tag to this XML document. This must be balance a preceding call to <code>beginBlock()</code>. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:serialize"></a><strong>builderInstance:serialize</strong>()</dt>
+<dd>
+Retrieves the complete XML document as a string. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) The serialized XML document.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:tag"></a><strong>builderInstance:tag</strong>(&nbsp;name, value, attributes&nbsp;)</dt>
+<dd>
+Adds a single tag to this XML document, with an optional text child node. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(string) The name of the new XML element.</dd>
+	
+	<dt>2. value</dt>
+	<dd>(string, optional) The text content of the new element.</dd>
+	
+	<dt>3. attributes</dt>
+	<dd>(table, optional) A set of attribute names and values. The keys and values in this table are converted to strings using <code>tostring()</code>.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="builderInstance:text"></a><strong>builderInstance:text</strong>(&nbsp;value&nbsp;)</dt>
+<dd>
+Adds a text node to this XML document. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. value</dt>
+	<dd>(string) The text content of the new element.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:attributes"></a><strong>xmlDomInstance:attributes</strong>()</dt>
+<dd>
+Retrieves the attributes of this element node. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(table) The attributes as a table, keyed by attribute name. Each entry is itself a table containing keys for "value", "namespace", and "name". If this is not an element node, returns nil.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:childAtIndex"></a><strong>xmlDomInstance:childAtIndex</strong>(&nbsp;index&nbsp;)</dt>
+<dd>
+Retrieves a child of this element node by index. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. index</dt>
+	<dd></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>xmlDomInstance</code>)The child node, or nil if this is not an element node.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:childCount"></a><strong>xmlDomInstance:childCount</strong>()</dt>
+<dd>
+Reports the number of children of this element node. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(number) The number of children, or nil if this node is not an element node.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:name"></a><strong>xmlDomInstance:name</strong>()</dt>
+<dd>
+Retrieves the name of the <code>xml</code> node from this XML document. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(string) The name of the <code>xml</code> node.
+	
+	<li>(string) The namespace of the <code>xml</code> node.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:serialize"></a><strong>xmlDomInstance:serialize</strong>()</dt>
+<dd>
+Converts the XML encapsulated by this object into its string representation. The result does not include an XML declaration. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) The XML as a string.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:text"></a><strong>xmlDomInstance:text</strong>()</dt>
+<dd>
+Retrieves the text of the <code>xml</code> node from this XML document. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) The text of the <code>xml</code> node.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:transform"></a><strong>xmlDomInstance:transform</strong>(&nbsp;xsltString&nbsp;)</dt>
+<dd>
+Transforms this XML into string output by applying an XSLT transformation. <p>Depending on the operating system, the result of the transform can contain different amounts and/or kinds of whitespace.  To normalize the result, apply a substitution pattern such as this: <code>string.gsub( result, "[\r\n	 ]+", " " )</code> This must be called on the root node. <p><b>Note:</b> The error messages from this function can be misleading. If you see the message "out of memory", you may want to review the application or OS console for other messages that may be more helpful.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. xsltString</dt>
+	<dd>(string): A valid XSLT style sheet, as a string.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) The output of the XSLT transformation.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="xmlDomInstance:type"></a><strong>xmlDomInstance:type</strong>()</dt>
+<dd>
+Retrieves the type of the <code>xml</code> node from this XML document. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) The node type, one of "element", "text", "comment", "processinginstruction"
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

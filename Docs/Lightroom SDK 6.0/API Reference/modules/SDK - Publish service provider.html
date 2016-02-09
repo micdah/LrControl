@@ -1,0 +1,1405 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Plug-in provided
+SDK - Publish service provider | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li><strong>SDK - Publish service provider</strong></li>
+	
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Plug-in provided
+SDK - Publish service provider</h1>
+
+<div class="module_description">The <i>service definition script</i> for a publish service provider associates the code and hooks that extend the behavior of Lightroom's Publish features with their implementation for your plug-in. The plug-in's <code>Info.lua</code> file identifies this script in the <code>LrExportServiceProvider</code> entry. The script must define the needed callback functions and properties (with the required names and syntax) and assign them to members of the table that it returns. <p>The <code>FlickrPublishSupport.lua</code> file of the Flickr sample plug-in provides examples of and documentation for the hooks that a plug-in must provide in order to define a publish service. Because much of the functionality of a publish service is the same as that of an export service, this example builds upon that defined in the <code>FlickrExportServiceProvider.lua</code> file.</p> <p>The service definition script for a publish service should return a table that contains: <ul><li>A pair of functions that initialize and terminate your publish service. </li> <li>Optional items that define the desired customizations for the Publish dialog. These can restrict the built-in services offered by the dialog, or customize the dialog by defining new sections. </li> <li> A function that defines the publish operation to be performed on rendered photos (required).</li> <li> Additional functions and/or properties to customize the publish operation.</li> </ul> <p>Most of these functions are the same as those defined for an export service provider. Publish services, unlike export services, cannot create presets. (You could think of the publish service itself as an export preset.) The settings tables passed to these callback functions contain only Lightroom-defined settings, and settings that have been explicitly declared in the <code>exportPresetFields</code> list of the publish service. A callback function that you define for a publish service cannot make any changes to the settings table passed to it.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#publishServiceProvider.addCommentToPublishedPhoto">publishServiceProvider.addCommentToPublishedPhoto</a>(&nbsp;publishSettings, remotePhotoId, commentText&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user adds a new comment to a published photo in the Library module's Comments panel.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.canAddCommentsToService">publishServiceProvider.canAddCommentsToService</a>(&nbsp;publishSettings&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called whenever a published photo is selected in the Library module.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.deleteFirstOnPublish">publishServiceProvider.deleteFirstOnPublish</a>()</div>
+	<div class="function_summary">This (optional) plug-in defined callback function is called when publishing has been initiated, and should simply return true or false to indicate whether any deletion of photos from the service should take place before any publishing of new images and updating of previously published images.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.deletePhotosFromPublishedCollection">publishServiceProvider.deletePhotosFromPublishedCollection</a>(&nbsp;publishSettings, arrayOfPhotoIds, deletedCallback, localCollectionId&nbsp;)</div>
+	<div class="function_summary">This plug-in defined callback function is called when one or more photos have been removed from a published collection and need to be removed from the service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.deletePublishedCollection">publishServiceProvider.deletePublishedCollection</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">This plug-in callback function is called when the user has deleted a published collection via the Publish Services panel user interface.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.didCreateNewPublishService">publishServiceProvider.didCreateNewPublishService</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user creates a new publish service via the Publish Manager dialog.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.didUpdatePublishService">publishServiceProvider.didUpdatePublishService</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user creates a new publish service via the Publish Manager dialog.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.endDialogForCollectionSetSettings">publishServiceProvider.endDialogForCollectionSetSettings</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user closes the dialog for creating a new published collection set or editing an existing one.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.endDialogForCollectionSettings">publishServiceProvider.endDialogForCollectionSettings</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user closes the dialog for creating a new published collection or editing an existing one.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.getCollectionBehaviorInfo">publishServiceProvider.getCollectionBehaviorInfo</a>(&nbsp;publishSettings&nbsp;)</div>
+	<div class="function_summary">(optional) If you provide this plug-in defined callback function, Lightroom calls it to retrieve the default collection behavior for this publish service, then use that information to create a built-in <i>default collection</i> for this service (if one does not yet exist).</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.getCommentsFromPublishedCollection">publishServiceProvider.getCommentsFromPublishedCollection</a>(&nbsp;publishSettings, arrayOfPhotoInfo, commentCallback&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called (if supplied) to retrieve comments from the remote service, for a single collection of photos that have been published through this service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.getRatingsFromPublishedCollection">publishServiceProvider.getRatingsFromPublishedCollection</a>(&nbsp;publishSettings, arrayOfPhotoInfo, ratingCallback&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called (if supplied) to retrieve ratings from the remote service, for a single collection of photos that have been published through this service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.goToPublishedCollection">publishServiceProvider.goToPublishedCollection</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user chooses the "Go to Published Collection" context-menu item.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.goToPublishedPhoto">publishServiceProvider.goToPublishedPhoto</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user chooses the "Go to Published Photo" context-menu item.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.imposeSortOrderOnPublishedCollection">publishServiceProvider.imposeSortOrderOnPublishedCollection</a>(&nbsp;publishSettings, info, remoteIdSequence&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called after each time that photos are published via this service assuming the published collection is set to "User Order." Your plug-in should ensure that the photos are displayed in the designated sequence on the service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.metadataThatTriggersRepublish">publishServiceProvider.metadataThatTriggersRepublish</a>(&nbsp;publishSettings&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called whenever a new publish service is created and whenever the settings for a publish service are changed.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.renamePublishedCollection">publishServiceProvider.renamePublishedCollection</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">This plug-in callback function is called when the user has renamed a published collection via the Publish Services panel user interface.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.reparentPublishedCollection">publishServiceProvider.reparentPublishedCollection</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">This plug-in callback function is called when the user has reparented a published collection via the Publish Services panel user interface.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.shouldDeletePhotosFromServiceOnDeleteFromCatalog">publishServiceProvider.shouldDeletePhotosFromServiceOnDeleteFromCatalog</a>(&nbsp;publishSettings, nPhotos&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user has attempted to delete one or more photos from the Lightroom catalog that are published through your service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.shouldDeletePublishService">publishServiceProvider.shouldDeletePublishService</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user has attempted to delete the publish service from Lightroom.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.shouldDeletePublishedCollection">publishServiceProvider.shouldDeletePublishedCollection</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user has attempted to delete one or more published collections defined by your plug-in from Lightroom.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.shouldReverseSequenceForPublishedCollection">publishServiceProvider.shouldReverseSequenceForPublishedCollection</a>(&nbsp;publishSettings, collectionInfo&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when new or updated photos are about to be published to the service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.updateCollectionSetSettings">publishServiceProvider.updateCollectionSetSettings</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user has changed the per-collection set settings defined via the <code>viewForCollectionSetSettings</code> callback.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.updateCollectionSettings">publishServiceProvider.updateCollectionSettings</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user has changed the per-collection settings defined via the <code>viewForCollectionSettings</code> callback.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.validatePublishedCollectionName">publishServiceProvider.validatePublishedCollectionName</a>(&nbsp;proposedName&nbsp;)</div>
+	<div class="function_summary">This plug-in defined callback function is called when the user attempts to change the name of a collection, to validate that the new name is acceptable for this service.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.viewForCollectionSetSettings">publishServiceProvider.viewForCollectionSetSettings</a>(&nbsp;f, publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user creates a new published collection set or edits an existing one.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.viewForCollectionSettings">publishServiceProvider.viewForCollectionSettings</a>(&nbsp;f, publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user creates a new published collection or edits an existing one.</div>
+
+	<div class="function_name"><a href="#publishServiceProvider.willDeletePublishService">publishServiceProvider.willDeletePublishService</a>(&nbsp;publishSettings, info&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user has confirmed the deletion of the publish service from Lightroom.</div>
+
+
+
+	<div class="property_name"><a href="#publishServiceProvider.disableRenamePublishedCollection">publishServiceProvider.disableRenamePublishedCollection</a></div>
+	<div class="property_summary">(Boolean) This plug-in defined value, when true, disables (dims) the Rename Published Collection command in the context menu of the Publish Services panel for all published collections created by this service.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.disableRenamePublishedCollectionSet">publishServiceProvider.disableRenamePublishedCollectionSet</a></div>
+	<div class="property_summary">(Boolean) This plug-in defined value, when true, disables (dims) the Rename Published Collection Set command in the context menu of the Publish Services panel for all published collection sets created by this service.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.publish_fallbackNameBinding">publishServiceProvider.publish_fallbackNameBinding</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the behavior of the Description entry in the Publish Manager dialog.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.small_icon">publishServiceProvider.small_icon</a></div>
+	<div class="property_summary">(string) Plug-in defined value is the filename of the icon to be displayed for this publish service provider, in the Publish Services panel, the Publish Manager dialog, and in the header shown when a published collection is selected.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.supportsCustomSortOrder">publishServiceProvider.supportsCustomSortOrder</a></div>
+	<div class="property_summary">(Boolean) If this plug-in defined property is set to true, Lightroom will enable collections from this service to be sorted manually and will call the <a href="#publishServiceProvider.imposeSortOrderOnPublishedCollection"><code>imposeSortOrderOnPublishedCollection</code></a> callback to cause photos to be sorted on the service after each Publish cycle.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForGoToPublishedCollection">publishServiceProvider.titleForGoToPublishedCollection</a></div>
+	<div class="property_summary">When set to the string "disable", the "Go to Published Collection" context-menu item is disabled (dimmed) for this publish service.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForGoToPublishedPhoto">publishServiceProvider.titleForGoToPublishedPhoto</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value overrides the label for the "Go to Published Photo" context-menu item, allowing you to use something more appropriate to your service.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPhotoRating">publishServiceProvider.titleForPhotoRating</a></div>
+	<div class="property_summary">(optional, string) This plug-in defined property allows you to customize the name of the viewer-defined ratings that are obtained from the service via <a href="#publishServiceProvider.getRatingsFromPublishedCollection"><code>getRatingsFromPublishedCollection</code></a>.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPublishedCollection">publishServiceProvider.titleForPublishedCollection</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the name of a published collection to match the terminology used on the service you are targeting.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPublishedCollectionSet">publishServiceProvider.titleForPublishedCollectionSet</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the name of a published collection set to match the terminology used on the service you are targeting.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPublishedCollectionSet_standalone">publishServiceProvider.titleForPublishedCollectionSet_standalone</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the name of a published collection to match the terminology used on the service you are targeting.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPublishedCollection_standalone">publishServiceProvider.titleForPublishedCollection_standalone</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the name of a published collection to match the terminology used on the service you are targeting.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPublishedSmartCollection">publishServiceProvider.titleForPublishedSmartCollection</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the name of a published smart collection to match the terminology used on the service you are targeting.</div>
+
+	<div class="property_name"><a href="#publishServiceProvider.titleForPublishedSmartCollection_standalone">publishServiceProvider.titleForPublishedSmartCollection_standalone</a></div>
+	<div class="property_summary">(optional, string) Plug-in defined value customizes the name of a published smart collection to match the terminology used on the service you are targeting.</div>
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="publishServiceProvider.addCommentToPublishedPhoto"></a><strong>publishServiceProvider.addCommentToPublishedPhoto</strong>(&nbsp;publishSettings, remotePhotoId, commentText&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user adds a new comment to a published photo in the Library module's Comments panel. Your implementation should publish the comment to the service. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. remotePhotoId</dt>
+	<dd>(string or number) The remote ID of the photo as previously assigned via a call to <code>exportRendition:recordRemotePhotoId()</code>.</dd>
+	
+	<dt>3. commentText</dt>
+	<dd>(string) The text of the new comment.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if comment was successfully added to service.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.canAddCommentsToService"></a><strong>publishServiceProvider.canAddCommentsToService</strong>(&nbsp;publishSettings&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called whenever a published photo is selected in the Library module. Your implementation should return true if there is a viable connection to the publish service and comments can be added at this time. If this function is not implemented, the new comment section of the Comments panel in the Library is left enabled at all times for photos published by this service. If you implement this function, it allows you to disable the Comments panel temporarily if, for example, the connection to your server is down. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if comments can be added at this time.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.deleteFirstOnPublish"></a><strong>publishServiceProvider.deleteFirstOnPublish</strong>()</dt>
+<dd>
+This (optional) plug-in defined callback function is called when publishing has been initiated, and should simply return true or false to indicate whether any deletion of photos from the service should take place before any publishing of new images and updating of previously published images. The default behavior is to perform the deletion of images which have been removed from the published collection in Lightroom as the last step in a publishing operation, but this callback allows the plug-in to alter the timing of the deletion in cases where that is desirable. <p>First supported in version 4.0 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.deletePhotosFromPublishedCollection"></a><strong>publishServiceProvider.deletePhotosFromPublishedCollection</strong>(&nbsp;publishSettings, arrayOfPhotoIds, deletedCallback, localCollectionId&nbsp;)</dt>
+<dd>
+This plug-in defined callback function is called when one or more photos have been removed from a published collection and need to be removed from the service. If the service you are supporting allows photos to be deleted via its API, you should do that from this function. <p>As each photo is deleted, you should call the <code>deletedCallback</code> function to inform Lightroom that the deletion was successful. This will cause Lightroom to remove the photo from the "Delete Photos to Remove" group in the Library grid.</p> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. arrayOfPhotoIds</dt>
+	<dd>(table) The remote photo IDs that were declared by this plug-in when they were published.</dd>
+	
+	<dt>3. deletedCallback</dt>
+	<dd>(function) This function must be called for each photo ID as soon as the deletion is confirmed by the remote service. It takes a single argument: the photo ID from the arrayOfPhotoIds array.</dd>
+	
+	<dt>4. localCollectionId</dt>
+	<dd>(number) The local identifier for the collection for which photos are being removed.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.deletePublishedCollection"></a><strong>publishServiceProvider.deletePublishedCollection</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+This plug-in callback function is called when the user has deleted a published collection via the Publish Services panel user interface. This is your plug-in's opportunity to make the corresponding change on the service. (Note that this callback function is only invoked when the user clicks the 'Delete' button in the dialog which Lightroom presents to alert the user of what happens to photos which have been published via this published collection. If the user chooses to leave the photos in their published location, the function is not called.) <p>If your plug-in is unable to update the remote service for any reason, you should throw a Lua error from this function via <code>error()</code> or a related built-in function. This causes Lightroom to present a dialog asking the user whether to revert the change, or proceed with the change locally while informing the user this will leave the equivalent collection unaltered on the remote service.</p> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (string) The new name being assigned to this collection.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> </li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a> or <a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection object being renamed.</li> <li><b>remoteId</b>: (string or number) The ID for this published collection that was stored via <a href="LrExportSession.html#exportSession:recordRemoteCollectionId"><code>exportSession:recordRemoteCollectionId</code></a></li> <li><b>remoteUrl</b>: (optional, string) The URL, if any, that was recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.didCreateNewPublishService"></a><strong>publishServiceProvider.didCreateNewPublishService</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user creates a new publish service via the Publish Manager dialog. It allows your plug-in to perform additional initialization. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>connectionName</b>: (string) the name of the newly-created service</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.didUpdatePublishService"></a><strong>publishServiceProvider.didUpdatePublishService</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user creates a new publish service via the Publish Manager dialog. It allows your plug-in to perform additional initialization. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>connectionName</b>: (string) the name of the newly-created service</li> <li><b>nPublishedPhotos</b>: (number) how many photos are currently published on the service</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>changedMoreThanName</b>: (boolean) true if any setting other than the name (description) has changed</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.endDialogForCollectionSetSettings"></a><strong>publishServiceProvider.endDialogForCollectionSetSettings</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user closes the dialog for creating a new published collection set or editing an existing one. It is only called if you have also provided the <code>viewForCollectionSetSettings</code> callback, and is your opportunity to clean up any tasks or processes you may have started while the dialog was running. <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>Your code should <b>not</b> update the server from here. That should be done via the <code>updateCollectionSetSettings</code> callback. (If, for instance, the settings changes are later undone; this callback will not be called again; <code>updateCollectionSetSettings</code> will be.)</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) plug-in specific settings for this collection set. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection set. These settings can be accessed via <a href="LrPublishedCollectionSet.html#pubCollectionSet:getCollectionSetInfoSummary"><code>LrPublishedCollectionSet:getCollectionSetInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans.</li> <li><b>collectionType</b>: (string) "collectionSet"</li> <li><b>isDefaultCollection</b>: (boolean) true if this is the default collection (will always be false)</li> <li><b>name</b>: (string) If the dialog was canceled, the name of the collection (or collection set) which was selected when the create or edit operation was initiated. If no published collection or collection set was selected, the name of the publish service it belongs to. If the dialog was dismissed with Edit or Create, the name of the collection set when the dialog was dismissed.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> This field is only present when editing an existing published collection set. </li> <li><b>pluginContext</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) This is a place for your plug-in to store transient state while the collection set settings dialog is running. It will be passed to your plug-in during the <code>endDialogForCollectionSettings</code> and then discarded.</li> <li><b>publishedCollectionSet</b>: (<a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection set object being edited.</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>why</b>: (string) Why the dialog was closed. Either "ok" or "cancel". </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.endDialogForCollectionSettings"></a><strong>publishServiceProvider.endDialogForCollectionSettings</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user closes the dialog for creating a new published collection or editing an existing one. It is only called if you have also provided the <code>viewForCollectionSettings</code> callback, and is your opportunity to clean up any tasks or processes you may have started while the dialog was running. <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>Your code should <b>not</b> update the server from here. That should be done via the <code>updateCollectionSettings</code> callback. (If, for instance, the settings changes are later undone; this callback is not called again, but <code>updateCollectionSettings</code> is.)</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) Plug-in specific settings for this collection. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection. These settings can be accessed via <a href="LrPublishedCollection.html#pubCollection:getCollectionInfoSummary"><code>LrPublishedCollection:getCollectionInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans.</li> <li><b>collectionType</b>: (string) Either "collection" or "smartCollection"</li> <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (string) If the dialog was canceled, the name of the collection (or collection set) which was selected when the create or edit operation was initiated. If no published collection or collection set was selected, the name of the publish service it belongs to. If the dialog was dismissed with Edit or Create, the name of the collection when the dialog was dismissed.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> This field is only present when editing an existing published collection. </li> <li><b>pluginContext</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) This is a place for your plug-in to store transient state while the collection settings dialog is running. It is passed to your plug-in's <code>endDialogForCollectionSettings</code> callback, and then discarded.</li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a>) The published collection object being edited.</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object to which this collection belongs.</li> <li><b>why</b>: (string) The button that was used to close the dialog, one of "ok" or "cancel". </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.getCollectionBehaviorInfo"></a><strong>publishServiceProvider.getCollectionBehaviorInfo</strong>(&nbsp;publishSettings&nbsp;)</dt>
+<dd>
+(optional) If you provide this plug-in defined callback function, Lightroom calls it to retrieve the default collection behavior for this publish service, then use that information to create a built-in <i>default collection</i> for this service (if one does not yet exist). This special collection is marked in italics and always listed at the top of the list of published collections. <p>This callback should return a table that configures the default collection. The elements of the configuration table are optional, and default as shown.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) A table with the following fields: <ul> <li><b>defaultCollectionName</b>: (string) The name for the default collection. If not specified, the name is "untitled" (or a language-appropriate equivalent). </li> <li><b>defaultCollectionCanBeDeleted</b>: (Boolean) True to allow the user to delete the default collection. Default is true. </li> <li><b>canAddCollection</b>: (Boolean)  True to allow the user to add collections through the UI. Default is true. </li> <li><b>maxCollectionSetDepth</b>: (number) A maximum depth to which collection sets can be nested, or zero to disallow collection sets. If not specified, unlimited nesting is allowed. </li> </ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.getCommentsFromPublishedCollection"></a><strong>publishServiceProvider.getCommentsFromPublishedCollection</strong>(&nbsp;publishSettings, arrayOfPhotoInfo, commentCallback&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called (if supplied) to retrieve comments from the remote service, for a single collection of photos that have been published through this service. This function is called: <ul> <li>For every photo in the published collection each time <i>any</i> photo in the collection is published or re-published.</li> <li>When the user clicks the Refresh button in the Library module's Comments panel.</li> <li>After the user adds a new comment to a photo in the Library module's Comments panel.</li> </ul> <p>This function is not called for unpublished photos or collections that do not contain any published photos.</p> <p>The body of this function should have a loop that looks like this:</p> <pre> function publishServiceProvider.getCommentsFromPublishedCollection( settings, arrayOfPhotoInfo, commentCallback )<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;for i, photoInfo in ipairs( arrayOfPhotoInfo ) do<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Get comments from service.<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local comments = (depends on your plug-in's service)<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Convert comments to Lightroom's format.<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local commentList = {}<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for i, comment in ipairs( comments ) do<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;table.insert( commentList, {<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commentId = (comment ID, if any, from service),<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commentText = (text of user comment),<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dateCreated = (date comment was created, if available; Cocoa date format),<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;username = (user ID, if any, from service),<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;realname = (user's actual name, if available),<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} )<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Call Lightroom's callback function to register comments.<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commentCallback { publishedPhoto = photoInfo, comments = commentList }<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;end<br/> <br/> end </pre> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. arrayOfPhotoInfo</dt>
+	<dd>(table) An array of tables with a member table for each photo. Each member table has these fields: <ul> <li><b>photo</b>: (<a href="LrPhoto.html"><code>LrPhoto</code></a>) The photo object.</li> <li><b>publishedPhoto</b>: (<a href="LrPublishedPhoto.html"><code>LrPublishedPhoto</code></a>) The publishing data for that photo.</li> <li><b>remoteId</b>: (string or number) The remote systems unique identifier for the photo, as previously recorded by the plug-in.</li> <li><b>url</b>: (string, optional) The URL for the photo, as assigned by the remote service and previously recorded by the plug-in.</li> <li><b>commentCount</b>: (number) The number of existing comments for this photo in Lightroom's catalog database.</li> </ul></dd>
+	
+	<dt>3. commentCallback</dt>
+	<dd>(function) A callback function that your implementation should call to record new comments for each photo; see example.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.getRatingsFromPublishedCollection"></a><strong>publishServiceProvider.getRatingsFromPublishedCollection</strong>(&nbsp;publishSettings, arrayOfPhotoInfo, ratingCallback&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called (if supplied) to retrieve ratings from the remote service, for a single collection of photos that have been published through this service. This function is called: <ul> <li>For every photo in the published collection each time <i>any</i> photo in the collection is published or re-published.</li> <li>When the user clicks the Refresh button in the Library module's Comments panel.</li> <li>After the user adds a new comment to a photo in the Library module's Comments panel.</li> </ul> <p>The body of this function should have a loop that looks like this:</p> <pre> function publishServiceProvider.getRatingsFromPublishedCollection( settings, arrayOfPhotoInfo, ratingCallback )<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;for i, photoInfo in ipairs( arrayOfPhotoInfo ) do<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Get ratings from service.<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;local ratings = (depends on your plug-in's service)<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- WARNING: The value for ratings must be a single number.<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- This number is displayed in the Comments panel, but is not<br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- otherwise parsed by Lightroom.<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- Call Lightroom's callback function to register rating.<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ratingCallback { publishedPhoto = photoInfo, rating = rating }<br/> <br/> &nbsp;&nbsp;&nbsp;&nbsp;end<br/> <br/> end </pre> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. arrayOfPhotoInfo</dt>
+	<dd>(table) An array of tables with a member table for each photo. Each member table has these fields: <ul> <li><b>photo</b>: (<a href="LrPhoto.html"><code>LrPhoto</code></a>) The photo object.</li> <li><b>publishedPhoto</b>: (<a href="LrPublishedPhoto.html"><code>LrPublishedPhoto</code></a>) The publishing data for that photo.</li> <li><b>remoteId</b>: (string or number) The remote systems unique identifier for the photo, as previously recorded by the plug-in.</li> <li><b>url</b>: (string, optional) The URL for the photo, as assigned by the remote service and previously recorded by the plug-in.</li> </ul></dd>
+	
+	<dt>3. ratingCallback</dt>
+	<dd>(function) A callback function that your implementation should call to record new ratings for each photo; see example.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.goToPublishedCollection"></a><strong>publishServiceProvider.goToPublishedCollection</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user chooses the "Go to Published Collection" context-menu item. <p>If this function is not provided, Lightroom uses the URL	recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>.</p> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>publishedCollection</b>: (LrPublishedCollection) The published collection object.</li> <li><b>publishedCollectionInfo</b>: A table containing  publication information for this published collection. <ul> <li><b>isDefaultCollection</b>: (boolean) true if this is the default collection (will always be false)</li> <li><b>name</b>: (string) the name of this collection set</li> <li><b>parents</b>: (table) array of information about parents of this collection set; each element of the array will contain: <ul> <li><b>localCollectionId</b>: (number) local collection ID</li> <li><b>name</b>: (string) name of the collection set</li> <li><b>remoteCollectionId</b>: (number of string) remote collection ID</li> </ul> </li> </ul> </li>  <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service to which this collection belongs.</li>  <li><b>remoteId</b>: (string or number) The ID for this published collection that was stored via <a href="LrExportSession.html#exportSession:recordRemoteCollectionId"> <code>exportSession:recordRemoteCollectionId</code></a> </li>  <li><b>remoteUrl</b>: (optional, string) The URL, if any, that was recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>. </li>  </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.goToPublishedPhoto"></a><strong>publishServiceProvider.goToPublishedPhoto</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user chooses the "Go to Published Photo" context-menu item. <p>If this function is not provided, Lightroom invokes the URL recorded for the published photo via <a href="LrExportRendition.html#exportRendition:recordPublishedPhotoUrl"><code>exportRendition:recordPublishedPhotoUrl</code></a>.</p> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>publishedCollectionInfo</b>: A table containing  publication information for this published collection. <ul> <li><b>isDefaultCollection</b>: (boolean) true if this is the default collection (will always be false)</li> <li><b>name</b>: (string) the name of this collection set</li> <li><b>parents</b>: (table) array of information about parents of this collection set; each element of the array will contain: <ul> <li><b>localCollectionId</b>: (number) local collection ID</li> <li><b>name</b>: (string) name of the collection set</li> <li><b>remoteCollectionId</b>: (number of string) remote collection ID</li> </ul> </li> </ul> </li> <li><b>photo</b>: (<a href="LrPhoto.html"><code>LrPhoto</code></a>) The photo object. </li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service to which this collection belongs.</li> <li><b>publishedPhoto</b>: (<a href="LrPublishedPhoto.html"><code>LrPublishedPhoto</code></a>) The object that contains information previously recorded about this photo's publication.</li> <li><b>remoteId</b>: (string or number) The ID for this published photo that was stored via <a href="LrExportRendition.html#exportRendition:recordPublishedPhotoId"><code>exportRendition:recordPublishedPhotoId</code></a></li> <li><b>remoteUrl</b>: (optional, string) The URL, if any, that was recorded for the published photo via <a href="LrExportRendition.html#exportRendition:recordPublishedPhotoUrl"><code>exportRendition:recordPublishedPhotoUrl</code></a>.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.imposeSortOrderOnPublishedCollection"></a><strong>publishServiceProvider.imposeSortOrderOnPublishedCollection</strong>(&nbsp;publishSettings, info, remoteIdSequence&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called after each time that photos are published via this service assuming the published collection is set to "User Order." Your plug-in should ensure that the photos are displayed in the designated sequence on the service. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) plug-in specific settings for this collection set. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection set. These settings can be accessed via <a href="LrPublishedCollectionSet.html#pubCollectionSet:getCollectionSetInfoSummary"><code>LrPublishedCollectionSet:getCollectionSetInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans. <li><b>isDefaultCollection</b>: (boolean) true if this is the default collection (will always be false)</li> <li><b>name</b>: (string) the name of this collection set</li> <li><b>parents</b>: (table) array of information about parents of this collection set; each element of the array will contain: <ul> <li><b>localCollectionId</b>: (number) local collection ID</li> <li><b>name</b>: (string) name of the collection set</li> <li><b>remoteCollectionId</b>: (number of string) remote collection ID</li> </ul> </li> <li><b>remoteCollectionId</b>: (string or number) The ID for this published collection that was stored via <a href="LrExportSession.html#exportSession:recordRemoteCollectionId"><code>exportSession:recordRemoteCollectionId</code></a></li> <li><b>publishedUrl</b>: (optional, string) The URL, if any, that was recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>.</li> <ul></dd>
+	
+	<dt>3. remoteIdSequence</dt>
+	<dd>(array of string or number) The IDs for each published photo that was stored via <a href="LrExportRendition.html#exportRendition:recordPublishedPhotoId"><code>exportRendition:recordPublishedPhotoId</code></a></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(boolean) true to reverse the sequence when publishing new photos
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.metadataThatTriggersRepublish"></a><strong>publishServiceProvider.metadataThatTriggersRepublish</strong>(&nbsp;publishSettings&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called whenever a new publish service is created and whenever the settings for a publish service are changed. It allows the plug-in to specify which metadata should be considered when Lightroom determines whether an existing photo should be moved to the "Modified Photos to Re-Publish" status. <p>This is a blocking call.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) A table containing one or more of the following elements as key, Boolean true or false as a value, where true means that a change to the value does trigger republish status, and false means changes to the value are ignored: <ul> <li><b>default</b>: All built-in metadata that appears in XMP for the file. You can override this default behavior by explicitly naming any of these specific fields: <ul> <li><b>rating</b></li> <li><b>label</b></li> <li><b>title</b></li> <li><b>caption</b></li> <li><b>gps</b></li> <li><b>gpsAltitude</b></li> <li><b>creator</b></li> <li><b>creatorJobTitle</b></li> <li><b>creatorAddress</b></li> <li><b>creatorCity</b></li> <li><b>creatorStateProvince</b></li> <li><b>creatorPostalCode</b></li> <li><b>creatorCountry</b></li> <li><b>creatorPhone</b></li> <li><b>creatorEmail</b></li> <li><b>creatorUrl</b></li> <li><b>headline</b></li> <li><b>iptcSubjectCode</b></li> <li><b>descriptionWriter</b></li> <li><b>iptcCategory</b></li> <li><b>iptcOtherCategories</b></li> <li><b>dateCreated</b></li> <li><b>intellectualGenre</b></li> <li><b>scene</b></li> <li><b>location</b></li> <li><b>city</b></li> <li><b>stateProvince</b></li> <li><b>country</b></li> <li><b>isoCountryCode</b></li> <li><b>jobIdentifier</b></li> <li><b>instructions</b></li> <li><b>provider</b></li> <li><b>source</b></li> <li><b>copyright</b></li> <li><b>rightsUsageTerms</b></li> <li><b>copyrightInfoUrl</b></li> <li><b>copyrightStatus</b></li> <li><b>keywords</b> (Applies to keywords marked for inclusion on export only.)</li> </ul> <li><b>customMetadata</b>: All plug-in defined custom metadata (defined by any plug-in).</li> <li><b><i>(plug-in ID)</i>.*</b>: All custom metadata defined by the plug-in with the specified ID.</li> <li><b><i>(plug-in ID).(field ID)</i></b>: One specific custom metadata field defined by the plug-in with the specified ID.</li> </ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.renamePublishedCollection"></a><strong>publishServiceProvider.renamePublishedCollection</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+This plug-in callback function is called when the user has renamed a published collection via the Publish Services panel user interface. This is your plug-in's opportunity to make the corresponding change on the service. <p>If your plug-in is unable to update the remote service for any reason, you should throw a Lua error from this function via <code>error()</code> or a related built-in function. This causes Lightroom to present a dialog asking the user whether to revert the change, or proceed with the change locally while informing the user this will leave the equivalent collection unaltered on the remote service.</p> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (string) The new name being assigned to this collection.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> </li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a> or <a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection object being renamed.</li> <li><b>remoteId</b>: (string or number) The ID for this published collection that was stored via <a href="LrExportSession.html#exportSession:recordRemoteCollectionId"><code>exportSession:recordRemoteCollectionId</code></a></li> <li><b>remoteUrl</b>: (optional, string) The URL, if any, that was recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.reparentPublishedCollection"></a><strong>publishServiceProvider.reparentPublishedCollection</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+This plug-in callback function is called when the user has reparented a published collection via the Publish Services panel user interface. This is your plug-in's opportunity to make the corresponding change on the service. <p>If your plug-in is unable to update the remote service for any reason, you should throw a Lua error from this function via <code>error()</code> or a related built-in function. This causes Lightroom to present a dialog asking the user whether to revert the change, or proceed with the change locally while informing the user this will leave the equivalent collection unaltered on the remote service.</p> <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (string) The new name being assigned to this collection.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> </li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a> or <a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection object being renamed.</li> <li><b>remoteId</b>: (string or number) The ID for this published collection that was stored via <a href="LrExportSession.html#exportSession:recordRemoteCollectionId"><code>exportSession:recordRemoteCollectionId</code></a></li> <li><b>remoteUrl</b>: (optional, string) The URL, if any, that was recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.shouldDeletePhotosFromServiceOnDeleteFromCatalog"></a><strong>publishServiceProvider.shouldDeletePhotosFromServiceOnDeleteFromCatalog</strong>(&nbsp;publishSettings, nPhotos&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user has attempted to delete one or more photos from the Lightroom catalog that are published through your service. It provides an opportunity for you to customize the confirmation dialog. <p>Do not use this hook to actually delete photo(s). Instead, if the user confirms the deletion for all relevant services. Lightroom will call <a href="#publishServiceProvider.deletePhotosFromPublishedCollection"><code>deletePhotosFromPublishedCollection</code></a> for that purpose. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. nPhotos</dt>
+	<dd>(number) The number of photos that are being deleted. At least one of these photos is published through this service; some may only be published on other services or not published at all.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) What action should Lightroom take? <ul> <li><b>"ignore"</b>: Leave the photos on the service and simply forget about them.</li> <li><b>"cancel"</b>: Stop the attempt to delete the photos. <li><b>"delete"</b>: Have Lightroom delete the photos immediately from the service. (Your plug-in will receive a call to its <a href="#publishServiceProvider.deletePhotosFromPublishedCollection"><code>deletePhotosFromPublishedCollection</code></a> in this case.)</li> <li><b>nil</b>: Allow Lightroom's built-in confirmation dialog to be displayed.</li> </ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.shouldDeletePublishService"></a><strong>publishServiceProvider.shouldDeletePublishService</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user has attempted to delete the publish service from Lightroom. It provides an opportunity for you to customize the confirmation dialog. <p>Do not use this hook to actually tear down the service. Instead, use <a href="#publishServiceProvider.willDeletePublishService"><code>willDeletePublishService</code></a> for that purpose. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>nPhotos</b>: (number) The number of photos contained in published collections within this service.</li> <li><b>connectionName</b>: (string) The name assigned to this publish service connection by the user.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) 'cancel', 'delete', or nil (to allow Lightroom's default dialog to be shown instead)
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.shouldDeletePublishedCollection"></a><strong>publishServiceProvider.shouldDeletePublishedCollection</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user has attempted to delete one or more published collections defined by your plug-in from Lightroom. It provides an opportunity for you to customize the confirmation dialog. <p>Do not use this hook to actually tear down the collection(s). Instead, use <a href="#publishServiceProvider.deletePublishedCollection"><code>deletePublishedCollection</code></a> for that purpose. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collections</b>: (array of <a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a> or <a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection objects.</li> <li><b>nPhotos</b>: (number) The number of photos contained in the published collection. Only present if there is a single published collection to be deleted.</li> <li><b>nChildren</b>: (number) The number of child collections contained within the published collection set. Only present if there is a single published collection set to be deleted.</li> <li><b>hasItemsOnService</b>: (boolean) True if one or more photos have been published through the collection(s) to be deleted.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(string) "ignore", "cancel", "delete", or nil (If you return nil, Lightroom's default dialog will be displayed.)
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.shouldReverseSequenceForPublishedCollection"></a><strong>publishServiceProvider.shouldReverseSequenceForPublishedCollection</strong>(&nbsp;publishSettings, collectionInfo&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when new or updated photos are about to be published to the service. It allows you to specify whether the user-specified sort order should be followed as-is or reversed. The Flickr sample plug-in uses this to reverse the order on the Photostream so that photos appear in the Flickr web interface in the same sequence as they are shown in the library grid. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. collectionInfo</dt>
+	<dd></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(boolean) true to reverse the sequence when publishing new photos
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.updateCollectionSetSettings"></a><strong>publishServiceProvider.updateCollectionSetSettings</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user has changed the per-collection set settings defined via the <code>viewForCollectionSetSettings</code> callback. It is your opportunity to update settings on your web service to match the new settings. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>Your code should <b>not</b> use this callback function to clean up from the dialog. This callback will not be called if the user cancels the dialog.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) Plug-in specific settings for this collection set. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection set. These settings can be accessed via <a href="LrPublishedCollectionSet.html#pubCollectionSet:getCollectionSetInfoSummary"><code>LrPublishedCollectionSet:getCollectionSetInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans. <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection (always false in this case).</li> <li><b>name</b>: (string) The name of this collection set.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> </li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection set object being edited.</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.updateCollectionSettings"></a><strong>publishServiceProvider.updateCollectionSettings</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user has changed the per-collection settings defined via the <code>viewForCollectionSettings</code> callback. It is your opportunity to update settings on your web service to match the new settings. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>Your code should <b>not</b> use this callback function to clean up from the dialog. This callback is not be called if the user cancels the dialog.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) Plug-in specific settings for this collection. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection. These settings can be accessed via <a href="LrPublishedCollection.html#pubCollection:getCollectionInfoSummary"><code>LrPublishedCollection:getCollectionInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans. <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (string) The name of this collection.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> </li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a> or <a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection object being edited.</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object to which this collection belongs.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.validatePublishedCollectionName"></a><strong>publishServiceProvider.validatePublishedCollectionName</strong>(&nbsp;proposedName&nbsp;)</dt>
+<dd>
+This plug-in defined callback function is called when the user attempts to change the name of a collection, to validate that the new name is acceptable for this service. <p>This is a blocking call. You should use it only to validate easily-verified characteristics of the name, such as illegal characters in the name. For characteristics that require validation against a server (such as duplicate names), you should accept the name here and reject the name when the server-side operation is attempted.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. proposedName</dt>
+	<dd>(string) The name as currently typed in the new/rename/edit collection dialog.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return values</h3>
+<ol class="retval_list">
+	
+	<li>(Boolean) True if the name is acceptable, false if not
+	
+	<li>(string) If the name is not acceptable, a string that describes the reason, suitable for display.
+	
+</ol>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.viewForCollectionSetSettings"></a><strong>publishServiceProvider.viewForCollectionSetSettings</strong>(&nbsp;f, publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user creates a new published collection set or edits an existing one. It can add additional controls to the dialog box for editing this collection set. These controls can be used to configure behaviors specific to this collection set (such as privacy or appearance on a web service). <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. f</dt>
+	<dd>(<a href="LrView.html#LrView.osFactory"><code>LrView.osFactory</code></a> object) A view factory object.</dd>
+	
+	<dt>2. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>3. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) plug-in specific settings for this collection set. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection set. These settings can be accessed via <a href="LrPublishedCollectionSet.html#pubCollectionSet:getCollectionSetInfoSummary"><code>LrPublishedCollection:getCollectionSetInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans. There are some special properties in this table: <p><code>LR_canSaveCollection</code>, which allows you to disable the Edit or Create button in the collection set dialog. (If set to true, the Edit / Create button is enabled; if false, it is disabled.)</p> <p><code>LR_liveName</code> will be kept current with the value displayed in the name field of the dialog during the life span of the dialog. This enables a plug-in to add an observer to monitor name changes performed in the dialog.</p> <p><code>LR_canEditName</code> allows the plug-in to control whether the edit field containing the collection set name in the dialog is enabled. In the case of new creation, the value defaults to true, meaning that the collection set name is editable via the UI, while in the case of a collection being edited, the value defaults in accordance with what the plug-in specifies (or doesn't specify) via 'publishServiceProvider.disableRenamePublishedCollection'.</p></li> <li><b>collectionType</b>: (string) "collectionSet"</li> <li><b>isDefaultCollection</b>: (Boolean) true if this is the default collection (will always be false)</li> <li><b>name</b>: (string) In the case of edit, the name of this collection set (at the time when the edit operation was initiated), otherwise nil.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> This field is only present when editing an existing published collection set. </li> <li><b>pluginContext</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) This is a place for your plug-in to store transient state while the collection set settings dialog is running. It will be passed to your plug-in during the <code>endDialogForCollectionSettings</code> and then discarded.</li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollectionSet.html"><code>LrPublishedCollectionSet</code></a>) The published collection set object being edited. Will be nil when creating a new collection Set.</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) A single view description created from one of the methods in the view factory. (We recommend that <code>f:groupBox</code> be the outermost view.)
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.viewForCollectionSettings"></a><strong>publishServiceProvider.viewForCollectionSettings</strong>(&nbsp;f, publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user creates a new published collection or edits an existing one. It can add additional controls to the dialog box for editing this collection. These controls can be used to configure behaviors specific to this collection (such as privacy or appearance on a web service). <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. f</dt>
+	<dd>(<a href="LrView.html#LrView.osFactory"><code>LrView.osFactory</code></a> object) A view factory object.</dd>
+	
+	<dt>2. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>3. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>collectionSettings</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) Plug-in specific settings for this collection. The settings in this table are not interpreted by Lightroom in any way, except that they are stored with the collection. These settings can be accessed via <a href="LrPublishedCollection.html#pubCollection:getCollectionInfoSummary"><code>LrPublishedCollection:getCollectionInfoSummary</code></a>. The values in this table must be numbers, strings, or Booleans. There are some special properties in this table: <p><code>LR_canSaveCollection</code>, which allows you to disable the Edit or Create button in the collection dialog. (If set to true, the Edit / Create button is enabled; if false, it is disabled.)</p> <p><code>LR_liveName</code> will be kept current with the value displayed in the name field of the dialog during the life span of the dialog. This enables a plug-in to add an observer to monitor name changes performed in the dialog.</p> <p><code>LR_canEditName</code> allows the plug-in to control whether the edit field containing the collection name in the dialog is enabled. In the case of new creation, the value defaults to true, meaning that the collection name is editable via the UI, while in the case of a collection being edited, the value defaults in accordance with what the plug-in specifies (or doesn't specify) via 'publishServiceProvider.disableRenamePublishedCollection'.</p></li> <li><b>collectionType</b>: (string) Either "collection" or "smartCollection" (see also: <code>viewForCollectionSetSettings</code>)</li> <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (string) In the case of editing, the name of this collection (at the time when the edit operation was initiated), otherwise nil.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>localCollectionId</b>: (number) The local collection ID.</li> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number or string) The remote collection ID assigned by the server.</li> </ul> This field is only present when editing an existing published collection. </li> <li><b>pluginContext</b>: (<a href="LrObservableTable.html"><code>LrObservableTable</code></a>) This is a place for your plug-in to store transient state while the collection settings dialog is running. It is passed to your plug-in's <code>endDialogForCollectionSettings</code> callback, and then discarded.</li> <li><b>publishedCollection</b>: (<a href="LrPublishedCollection.html"><code>LrPublishedCollection</code></a>) The published collection object being edited, or nil when creating a new collection.</li> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object to which this collection belongs.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) A single view description created from one of the methods in the view factory. (We recommend that <code>f:groupBox</code> be the outermost view.)
+
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.willDeletePublishService"></a><strong>publishServiceProvider.willDeletePublishService</strong>(&nbsp;publishSettings, info&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user has confirmed the deletion of the publish service from Lightroom. It provides a final opportunity for	you to remove private data immediately before the publish service is removed from the Lightroom catalog. <p>Do not use this hook to present user interface (aside from progress, if the operation will take a long time). Instead, use <a href="#publishServiceProvider.shouldDeletePublishService"><code>shouldDeletePublishService</code></a> for that purpose. <p>This is not a blocking call. It is called from within a task created using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace. In most cases, you should not need to start your own task within this function.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. publishSettings</dt>
+	<dd>(table) The settings for this publish service, as specified by the user in the Publish Manager dialog. Any changes that you make in this table do not persist beyond the scope of this function call.</dd>
+	
+	<dt>2. info</dt>
+	<dd>(table) A table with these fields: <ul> <li><b>publishService</b>: (<a href="LrPublishService.html"><code>LrPublishService</code></a>) The publish service object.</li> <li><b>nPhotos</b>: (number) The number of photos contained in published collections within this service.</li> <li><b>connectionName</b>: (string) The name assigned to this publish service connection by the user.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="properties"></a>Properties</h2>
+<dl class="function">
+
+
+
+<dt><a name="publishServiceProvider.disableRenamePublishedCollection"></a><strong>publishServiceProvider.disableRenamePublishedCollection</strong> : (Read-Only)</dt>
+<dd>
+(Boolean) This plug-in defined value, when true, disables (dims) the Rename Published Collection command in the context menu of the Publish Services panel for all published collections created by this service. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.disableRenamePublishedCollectionSet"></a><strong>publishServiceProvider.disableRenamePublishedCollectionSet</strong> : (Read-Only)</dt>
+<dd>
+(Boolean) This plug-in defined value, when true, disables (dims) the Rename Published Collection Set command in the context menu of the Publish Services panel for all published collection sets created by this service. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.publish_fallbackNameBinding"></a><strong>publishServiceProvider.publish_fallbackNameBinding</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the behavior of the Description entry in the Publish Manager dialog. If the user does not provide an explicit name choice, Lightroom can provide one based on another entry in the publishSettings property table. This entry contains the name of the property that should be used in this case.
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.small_icon"></a><strong>publishServiceProvider.small_icon</strong> : (Read-Only)</dt>
+<dd>
+(string) Plug-in defined value is the filename of the icon to be displayed for this publish service provider, in the Publish Services panel, the Publish Manager dialog, and in the header shown when a published collection is selected. The icon must be in PNG format and no more than 24 pixels wide or 19 pixels tall. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.supportsCustomSortOrder"></a><strong>publishServiceProvider.supportsCustomSortOrder</strong> : (Read-Only)</dt>
+<dd>
+(Boolean) If this plug-in defined property is set to true, Lightroom will enable collections from this service to be sorted manually and will call the <a href="#publishServiceProvider.imposeSortOrderOnPublishedCollection"><code>imposeSortOrderOnPublishedCollection</code></a> callback to cause photos to be sorted on the service after each Publish cycle.
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForGoToPublishedCollection"></a><strong>publishServiceProvider.titleForGoToPublishedCollection</strong> : (Read-Only)</dt>
+<dd>
+When set to the string "disable", the "Go to Published Collection" context-menu item is disabled (dimmed) for this publish service. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForGoToPublishedPhoto"></a><strong>publishServiceProvider.titleForGoToPublishedPhoto</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value overrides the label for the "Go to Published Photo" context-menu item, allowing you to use something more appropriate to your service. Set to the special value "disable" to disable (dim) the menu item for this service. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPhotoRating"></a><strong>publishServiceProvider.titleForPhotoRating</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) This plug-in defined property allows you to customize the name of the viewer-defined ratings that are obtained from the service via <a href="#publishServiceProvider.getRatingsFromPublishedCollection"><code>getRatingsFromPublishedCollection</code></a>. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPublishedCollection"></a><strong>publishServiceProvider.titleForPublishedCollection</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the name of a published collection to match the terminology used on the service you are targeting. <p>This string is typically used in combination with verbs that take action on the published collection, such as "Create ^1" or "Rename ^1".</p> <p>If not provided, Lightroom uses the default name, "Published Collection." </p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPublishedCollectionSet"></a><strong>publishServiceProvider.titleForPublishedCollectionSet</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the name of a published collection set to match the terminology used on the service you are targeting. <p>This string is typically used in combination with verbs that take action on the published collection set, such as "Create ^1" or "Rename ^1".</p> <p>If not provided, Lightroom uses the default name, "Published Collection Set." </p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPublishedCollectionSet_standalone"></a><strong>publishServiceProvider.titleForPublishedCollectionSet_standalone</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the name of a published collection to match the terminology used on the service you are targeting. <p>Unlike <code>titleForPublishedCollectionSet</code>, this string is typically used by itself. In English, these strings may be the same, but in other languages (notably German), you may have to use a different form of the name to be gramatically correct. If you are localizing your plug-in, use a separate translation key to make this possible.</p> <p>If not provided, Lightroom uses the value of <code>titleForPublishedCollectionSet</code> instead.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPublishedCollection_standalone"></a><strong>publishServiceProvider.titleForPublishedCollection_standalone</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the name of a published collection to match the terminology used on the service you are targeting. <p>Unlike <code>titleForPublishedCollection</code>, this string is typically used by itself. In English, these strings nay be the same, but in other languages (notably German), you may have to use a different form of the name to be gramatically correct. If you are localizing your plug-in, use a separate translation key to make this possible.</p> <p>If not provided, Lightroom uses the value of <code>titleForPublishedCollection</code> instead.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPublishedSmartCollection"></a><strong>publishServiceProvider.titleForPublishedSmartCollection</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the name of a published smart collection to match the terminology used on the service you are targeting. <p>This string is typically used in combination with verbs that take action on the published smart collection, such as "Create ^1" or "Rename ^1".</p> <p>If not provided, Lightroom uses the default name, "Published Smart Collection." </p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="publishServiceProvider.titleForPublishedSmartCollection_standalone"></a><strong>publishServiceProvider.titleForPublishedSmartCollection_standalone</strong> : (Read-Only)</dt>
+<dd>
+(optional, string) Plug-in defined value customizes the name of a published smart collection to match the terminology used on the service you are targeting. <p>Unlike <code>titleForPublishedSmartCollection</code>, this string is typically used by itself. In English, these strings may be the same, but in other languages (notably German), you may have to use a different form of the name to be gramatically correct. If you are localizing your plug-in, use a separate translation key to make this possible.</p> <p>If not provided, Lightroom uses the value of <code>titleForPublishedSmartCollectionSet</code> instead.</p> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

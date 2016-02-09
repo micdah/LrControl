@@ -1,0 +1,711 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Plug-in provided
+SDK - Export service provider | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li><strong>SDK - Export service provider</strong></li>
+	
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Plug-in provided
+SDK - Export service provider</h1>
+
+<div class="module_description">The <i>service definition script</i> for an export service provider defines the hooks that your plug-in uses to extend the behavior of Lightroom's Export features. The plug-in's <code>Info.lua</code> file identifies this script in the <code>LrExportServiceProvider</code> entry. <p>The service definition script should return a table that contains: <ul><li>A pair of functions that initialize and terminate your export service. </li> <li>Settings that you define for your export service.</li> <li>One or more items that define the desired customizations for the Export dialog. These can restrict the built-in services offered by the dialog, or customize the dialog by defining new sections. </li> <li> A function that defines the export operation to be performed on rendered photos (required).</li> </ul> <p>The <code>FlickrExportServiceProvider.lua</code> file of the Flickr sample plug-in provides examples of and documentation for the hooks that a plug-in must provide in order to define an export service. Lightroom expects your plug-in to define the needed callbacks and properties with the required names and syntax. </p> <p>Unless otherwise noted, all of the hooks in this section are available to both Export and Publish service provider plug-ins. If your plug-in supports Lightroom's Publish feature, you should also read the API reference section <a href="SDK%20-%20Publish%20service%20provider.html">publish service provider</a>.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#exportServiceProvider.endDialog">exportServiceProvider.endDialog</a>(&nbsp;propertyTable, why&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user chooses a different export service provider in the Export or Publish dialog or closes the dialog.</div>
+
+	<div class="function_name"><a href="#exportServiceProvider.processRenderedPhotos">exportServiceProvider.processRenderedPhotos</a>(&nbsp;functionContext, exportContext&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called for each exported photo after it is rendered by Lightroom and after all post-process actions have been applied to it.</div>
+
+	<div class="function_name"><a href="#exportServiceProvider.sectionsForBottomOfDialog">exportServiceProvider.sectionsForBottomOfDialog</a>(&nbsp;f, propertyTable&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user chooses this export service provider in the Export or Publish dialog.</div>
+
+	<div class="function_name"><a href="#exportServiceProvider.sectionsForTopOfDialog">exportServiceProvider.sectionsForTopOfDialog</a>(&nbsp;f, propertyTable&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user chooses this export service provider in the Export or Publish dialog.</div>
+
+	<div class="function_name"><a href="#exportServiceProvider.startDialog">exportServiceProvider.startDialog</a>(&nbsp;propertyTable&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called when the user chooses this export service provider in the Export or Publish dialog, or when the destination is already selected when the dialog is invoked, (remembered from the previous export operation).</div>
+
+	<div class="function_name"><a href="#exportServiceProvider.updateExportSettings">exportServiceProvider.updateExportSettings</a>(&nbsp;exportSettings&nbsp;)</div>
+	<div class="function_summary">(optional) This plug-in defined callback function is called at the beginning of each export and publish session before the rendition objects are generated.</div>
+
+
+
+	<div class="property_name"><a href="#exportServiceProvider.allowColorSpaces">exportServiceProvider.allowColorSpaces</a></div>
+	<div class="property_summary">(optional) Plug-in defined value restricts the available color space choices in the Export or Publish dialogs to those named.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.allowFileFormats">exportServiceProvider.allowFileFormats</a></div>
+	<div class="property_summary">(optional) Plug-in defined value restricts the available file format choices in the Export or Publish dialogs to those named.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.allowVideoExportPresets">exportServiceProvider.allowVideoExportPresets</a></div>
+	<div class="property_summary">(optional) Plug-in defined value restricts the available video export preset choices in the Export or Publish dialogs to those named.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.canExportToTemporaryLocation">exportServiceProvider.canExportToTemporaryLocation</a></div>
+	<div class="property_summary">(optional, Boolean) If your plug-in allows the display of the exportLocation section, this property controls whether the item "Temporary folder" is available.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.canExportVideo">exportServiceProvider.canExportVideo</a></div>
+	<div class="property_summary">(optional, Boolean)  When plug-in defined value is true, both video and still photos can be exported through this plug-in.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.disallowColorSpaces">exportServiceProvider.disallowColorSpaces</a></div>
+	<div class="property_summary">(optional) Plug-in defined value suppresses the named color spaces from the list of available color space choices in the Export or Publish dialogs.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.disallowFileFormats">exportServiceProvider.disallowFileFormats</a></div>
+	<div class="property_summary">(optional) Plug-in defined value suppresses the named file formats from the list of available file format choices in the Export or Publish dialogs.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.disallowVideoExportPresets">exportServiceProvider.disallowVideoExportPresets</a></div>
+	<div class="property_summary">(optional) Plug-in defined value suppresses the named video export preset choices from the Export or Publish dialogs.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.exportPresetFields">exportServiceProvider.exportPresetFields</a></div>
+	<div class="property_summary">(optional) Plug-in defined value declares which fields in your property table should be saved as part of an export preset or a publish service connection.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.hidePrintResolution">exportServiceProvider.hidePrintResolution</a></div>
+	<div class="property_summary">(optional, Boolean) Plug-in defined value is true to hide print resolution controls in the Image Sizing section of the Export or Publish dialog.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.hideSections">exportServiceProvider.hideSections</a></div>
+	<div class="property_summary">(optional) Plug-in defined value suppresses the display of the named sections in the Export or Publish dialogs.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.showSections">exportServiceProvider.showSections</a></div>
+	<div class="property_summary">(optional) Plug-in defined value restricts the display of sections in the Export or Publish dialog to those named.</div>
+
+	<div class="property_name"><a href="#exportServiceProvider.supportsIncrementalPublish">exportServiceProvider.supportsIncrementalPublish</a></div>
+	<div class="property_summary">(optional) Plug-in defined value declares whether this plug-in supports the Lightroom publish feature.</div>
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="exportServiceProvider.endDialog"></a><strong>exportServiceProvider.endDialog</strong>(&nbsp;propertyTable, why&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user chooses a different export service provider in the Export or Publish dialog or closes the dialog. <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. propertyTable</dt>
+	<dd>(table) An observable table that contains the most recent settings for your export or publish plug-in, including both settings that you have defined and Lightroom-defined export settings</dd>
+	
+	<dt>2. why</dt>
+	<dd>(string) The reason this function was called. One of 'ok', 'cancel', or 'changedServiceProvider'</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.processRenderedPhotos"></a><strong>exportServiceProvider.processRenderedPhotos</strong>(&nbsp;functionContext, exportContext&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called for each exported photo after it is rendered by Lightroom and after all post-process actions have been applied to it. This function is responsible for transferring the image file to its destination, as defined by your plug-in. The function that you define is launched within a cooperative task that Lightroom provides. You do not need to start your own task to run this function; and in general, you should not need to start another task from within your processing function. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. functionContext</dt>
+	<dd>(<a href="LrFunctionContext.html"><code>LrFunctionContext</code></a>) function context that you can use to attach clean-up behaviors to this process; this function context terminates as soon as your function exits.</dd>
+	
+	<dt>2. exportContext</dt>
+	<dd>(<a href="LrExportContext.html"><code>LrExportContext</code></a>) Information about your export settings and the photos to be published.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.sectionsForBottomOfDialog"></a><strong>exportServiceProvider.sectionsForBottomOfDialog</strong>(&nbsp;f, propertyTable&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user chooses this export service provider in the Export or Publish dialog. It can create new sections that appear below all of the built-in sections in the dialog. <p>Your plug-in's <a href="#exportServiceProvider.startDialog"><code>startDialog</code></a> function, if any, is called before this function is called.</p> <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. f</dt>
+	<dd>(<a href="LrView.html#LrView.osFactory"><code>LrView.osFactory</code> object) A view factory object</dd>
+	
+	<dt>2. propertyTable</dt>
+	<dd>(table) An observable table that contains the most recent settings for your export or publish plug-in, including both settings that you have defined and Lightroom-defined export settings</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) An array of dialog sections (see example code for details)
+
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.sectionsForTopOfDialog"></a><strong>exportServiceProvider.sectionsForTopOfDialog</strong>(&nbsp;f, propertyTable&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user chooses this export service provider in the Export or Publish dialog. It can create new sections that appear above all of the built-in sections in the dialog (except for the Publish Service section in the Publish dialog, which always appears at the very top). <p>Your plug-in's <a href="#exportServiceProvider.startDialog"><code>startDialog</code></a> function, if any, is called before this function is called.</p> <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. f</dt>
+	<dd>(<a href="LrView.html#LrView.osFactory"><code>LrView.osFactory</code> object) A view factory object.</dd>
+	
+	<dt>2. propertyTable</dt>
+	<dd>(table) An observable table that contains the most recent settings for your export or publish plug-in, including both settings that you have defined and Lightroom-defined export settings</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(table) An array of dialog sections (see example code for details)
+
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.startDialog"></a><strong>exportServiceProvider.startDialog</strong>(&nbsp;propertyTable&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called when the user chooses this export service provider in the Export or Publish dialog, or when the destination is already selected when the dialog is invoked, (remembered from the previous export operation). <p>This is a blocking call. If you need to start a long-running task (such as network access), create a task using the <a href="LrTasks.html"><code>LrTasks</code></a> namespace.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. propertyTable</dt>
+	<dd>(table) An observable table that contains the most recent settings for your export or publish plug-in, including both settings that you have defined and Lightroom-defined export settings</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.updateExportSettings"></a><strong>exportServiceProvider.updateExportSettings</strong>(&nbsp;exportSettings&nbsp;)</dt>
+<dd>
+(optional) This plug-in defined callback function is called at the beginning of each export and publish session before the rendition objects are generated. It provides an opportunity for your plug-in to modify the export settings. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. exportSettings</dt>
+	<dd>(table) The current export settings.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="properties"></a>Properties</h2>
+<dl class="function">
+
+
+
+<dt><a name="exportServiceProvider.allowColorSpaces"></a><strong>exportServiceProvider.allowColorSpaces</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value restricts the available color space choices in the Export or Publish dialogs to those named.  You can use either <code>allowColorSpaces</code> or <code>disallowColorSpaces</code>, but not both. If present, this should be an array containing one or more of the following strings: <ul> <li>sRGB</li> <li>AdobeRGB</li> <li>ProPhotoRGB</li> </ul> <p>Affects the output of still photo files only, not video files. See <a href="#exportServiceProvider.canExportVideo"><code>canExportVideo</code></a>.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.allowFileFormats"></a><strong>exportServiceProvider.allowFileFormats</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value restricts the available file format choices in the Export or Publish dialogs to those named. You can use either <code>allowFileFormats</code> or <code>disallowFileFormats</code>, but not both. If present, this should be an array containing one or more of the following strings: <ul> <li>JPEG</li> <li>PSD</li> <li>TIFF</li> <li>DNG</li> <li>ORIGINAL</li> </ul> <p>This property affects the output of still photo files only; it does not affect the output of video files. See <a href="#exportServiceProvider.canExportVideo"><code>canExportVideo</code></a>.)</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.allowVideoExportPresets"></a><strong>exportServiceProvider.allowVideoExportPresets</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value restricts the available video export preset choices in the Export or Publish dialogs to those named. You can use either <code>allowVideoExportPresets</code> or <code>disallowVideoExportPresets</code>, but not both. If present, this should be an array of tables. Each sub-table must contain a 'formatID' field, which is a string specifying the video export format, and an optional 'presetName' field, which identifies a specific video export preset. The absence of the 'presetName' field will cause all presets of the format in question to be allowed. (As a special case, the string 'original' for the 'formatID' field will allow the 'Original' entry to appear in the 'Video Format' popup menu.) The objects representing available video export presets can be obtained via <a href="LrExportSettings.html#LrExportSettings.videoExportPresets"> <code>LrExportSettings.videoExportPresets</code></a>. Then, in turn, the name string for each preset can be retrieved via a call to each object's <code>name</code> function, and the format ID can be obtained via a call to the <code>formatID</code> function. <p>This property affects the output of video files only; it does not affect the output of still photo files. See <a href="#exportServiceProvider.canExportVideo"><code>canExportVideo</code></a>.</p> <p>First supported in version 4.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.canExportToTemporaryLocation"></a><strong>exportServiceProvider.canExportToTemporaryLocation</strong> : (Read-Only)</dt>
+<dd>
+(optional, Boolean) If your plug-in allows the display of the exportLocation section, this property controls whether the item "Temporary folder" is available. If the user selects this option, the files are rendered into a temporary location on the hard drive, which is deleted when the export finished. <p>If your plug-in hides the exportLocation section, this temporary location behavior is always used.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.canExportVideo"></a><strong>exportServiceProvider.canExportVideo</strong> : (Read-Only)</dt>
+<dd>
+(optional, Boolean)  When plug-in defined value is true, both video and still photos can be exported through this plug-in. If not present or set to false, video files cannot be exported through this plug-in. If set to the string "only", video files can be exported, but not still photos. <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.disallowColorSpaces"></a><strong>exportServiceProvider.disallowColorSpaces</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value suppresses the named color spaces from the list of available color space choices in the Export or Publish dialogs. You can use either <code>allowColorSpaces</code> or <code>disallowColorSpaces</code>, but not both. If present, this should be an array containing one or more of the following strings: <ul> <li>sRGB</li> <li>AdobeRGB</li> <li>ProPhotoRGB</li> </ul> <p>Affects the output of still photo files only, not video files. See <a href="#exportServiceProvider.canExportVideo"><code>canExportVideo</code></a>.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.disallowFileFormats"></a><strong>exportServiceProvider.disallowFileFormats</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value suppresses the named file formats from the list of available file format choices in the Export or Publish dialogs. You can use either <code>allowFileFormats</code> or <code>disallowFileFormats</code>, but not both. If present, this should be an array containing one or more of the following strings: <ul> <li>JPEG</li> <li>PSD</li> <li>TIFF</li> <li>DNG</li> <li>ORIGINAL</li> </ul> <p>Affects the output of still photo files only, not video files. See <a href="#exportServiceProvider.canExportVideo"><code>canExportVideo</code></a>.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.disallowVideoExportPresets"></a><strong>exportServiceProvider.disallowVideoExportPresets</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value suppresses the named video export preset choices from the Export or Publish dialogs. You can use either <code>allowVideoExportPresets</code> or <code>disallowVideoExportPresets</code>, but not both. If present, this should be an array of tables. Each sub-table must contain a 'formatID' field, which is a string specifying the video export format, and an optional 'presetName' field, which identifies a specific video export preset. The absence of the 'presetName' field will cause all presets of the format in question to be disallowed. (As a special case, the string 'original' for the 'formatID' field will cause the 'Original' entry to be absent in the 'Video Format' popup menu.) The objects representing available video export presets can be obtained via <a href="LrExportSettings.html#LrExportSettings.videoExportPresets"> <code>LrExportSettings.videoExportPresets</code></a>. Then, in turn, the name string for each preset can be retrieved via a call to each object's <code>name</code> function, or the format ID can be obtained via a call to the <code>formatID</code> function. <p>This property affects the output of video files only; it does not affect the output of still photo files. See <a href="#exportServiceProvider.canExportVideo"><code>canExportVideo</code></a>.</p> <p>First supported in version 4.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.exportPresetFields"></a><strong>exportServiceProvider.exportPresetFields</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value declares which fields in your property table should be saved as part of an export preset or a publish service connection. If present, should contain an array of items with key and default values. For example: <pre> exportPresetFields = {<br/> &nbsp;&nbsp;&nbsp;&nbsp;{ key = 'nsid', default = "" },<br/> &nbsp;&nbsp;&nbsp;&nbsp;{ key = 'privacy', default = 'public' },<br/> &nbsp;&nbsp;&nbsp;&nbsp;{ key = 'privacy_family', default = false },<br/> &nbsp;&nbsp;&nbsp;&nbsp;{ key = 'privacy_friends', default = false },<br/> }<br/> </pre> <p>The <code>key</code> item should match the values used by your user interface controls.</p> <p>The <code>default</code> item is the value to the first time your plug-in is selected in the Export or Publish dialog. On second and subsequent activations, the values chosen by the user in the previous session are used.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.hidePrintResolution"></a><strong>exportServiceProvider.hidePrintResolution</strong> : (Read-Only)</dt>
+<dd>
+(optional, Boolean) Plug-in defined value is true to hide print resolution controls in the Image Sizing section of the Export or Publish dialog. (Recommended when uploading to most web services.) <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.hideSections"></a><strong>exportServiceProvider.hideSections</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value suppresses the display of the named sections in the Export or Publish dialogs. You can use either <code>hideSections</code> or <code>showSections</code>, but not both. If present, this should be an array containing one or more of the following strings: <ul> <li>exportLocation</li> <li>fileNaming</li> <li>fileSettings</li> <li>imageSettings</li> <li>outputSharpening</li> <li>metadata</li> <li>watermarking</li> <li>video</li> </ul> <p>You cannot suppress display of the "Connection Name" section in the Publish Manager dialog.</p> <p>If you suppress the "exportLocation" section, the files are rendered into a temporary folder which is deleted immediately after the Export operation completes.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.showSections"></a><strong>exportServiceProvider.showSections</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value restricts the display of sections in the Export or Publish dialog to those named. You can use either <code>hideSections</code> or <code>showSections</code>, but not both. If present, this should be an array containing one or more of the following strings: <ul> <li>exportLocation</li> <li>fileNaming</li> <li>fileSettings</li> <li>imageSettings</li> <li>outputSharpening</li> <li>metadata</li> <li>watermarking</li> <li>video</li> </ul> <p>You cannot suppress display of the "Connection Name" section in the Publish Manager dialog.</p> <p>If you suppress the "exportLocation" section, the files are rendered into a temporary folder which is deleted immediately after the Export operation completes.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportServiceProvider.supportsIncrementalPublish"></a><strong>exportServiceProvider.supportsIncrementalPublish</strong> : (Read-Only)</dt>
+<dd>
+(optional) Plug-in defined value declares whether this plug-in supports the Lightroom publish feature. If not present, this plug-in is available in Export only. When true, this plug-in can be used for both Export and Publish. When set to the string "only", the plug-in is visible only in Publish.
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

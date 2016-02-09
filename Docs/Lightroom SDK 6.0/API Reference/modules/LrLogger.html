@@ -1,0 +1,845 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Class and Namespace
+LrLogger | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li><strong>LrLogger</strong></li>
+	
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Class and Namespace
+LrLogger</h1>
+
+<div class="module_description">This class provides a mechanism for writing debug output that can be viewed with an external log viewer application. <p>Use the imported namespace as a constructor; access the functions through the created objects. </p> <p>Common applications for viewing debug output are:</p>  <ul> <li>DebugView (available for download from <a href="http://technet.microsoft.com/en-us/sysinternals/bb896647">Microsoft</a>)</li> <li>WinDBG (available for download from <a href="http://www.microsoft.com/whdc/DevTools/Debugging/default.mspx">Microsoft</a>)</li> <li>Microsoft Developer Studio</li> <li>Console (built-in application on Mac OS: look in /Applications/Utilities)</li> <li>Xcode</li> </ul> <p>Configure loggers using the config.lua file as follows: <ul> <li>Create an entry for each logger of interest by specifying loggers.<i>loggerName</i> = {...} <li>Arguments in the table include <code>logLevel</code> and a string "fatal", "error", "warn", "info", "debug", or "trace". <li>For each valid log level, you can add an entry to modify the behavior of log messages for that level. For example, to log to a file, add the entry <code>trace = 'logfile',</code> <li>To specify an action for all log levels, add the entry <code>action = 'logfile',</code> </ul></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#LrLogger">LrLogger</a>(&nbsp;name&nbsp;)</div>
+	<div class="function_summary">Creates a new logger or finds and returns an existing one.</div>
+
+	<div class="function_name"><a href="#logger:debug">logger:debug</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'debug' messages.</div>
+
+	<div class="function_name"><a href="#logger:debugf">logger:debugf</a>(&nbsp;format, ...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'debug' messages, using string.format to prepare the output.</div>
+
+	<div class="function_name"><a href="#logger:disable">logger:disable</a>()</div>
+	<div class="function_summary">Disables all log output from this logger.</div>
+
+	<div class="function_name"><a href="#logger:enable">logger:enable</a>(&nbsp;actions&nbsp;)</div>
+	<div class="function_summary">Enables specific log output from this logger.</div>
+
+	<div class="function_name"><a href="#logger:error">logger:error</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'error' messages.</div>
+
+	<div class="function_name"><a href="#logger:errorf">logger:errorf</a>(&nbsp;format, ...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'error' messages, using string.format to prepare the output.</div>
+
+	<div class="function_name"><a href="#logger:fatal">logger:fatal</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'fatal' messages.</div>
+
+	<div class="function_name"><a href="#logger:fatalf">logger:fatalf</a>(&nbsp;format, ...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'fatal' messages, using string.format to prepare the output.</div>
+
+	<div class="function_name"><a href="#logger:info">logger:info</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'info' messages.</div>
+
+	<div class="function_name"><a href="#logger:infof">logger:infof</a>(&nbsp;format, ...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'info' messages, using string.format to prepare the output.</div>
+
+	<div class="function_name"><a href="#logger:quick">logger:quick</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Creates optimized versions of specified log functions for use in tight loops.</div>
+
+	<div class="function_name"><a href="#logger:quickf">logger:quickf</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Creates optimized versions of specified log functions for use in tight loops.</div>
+
+	<div class="function_name"><a href="#logger:trace">logger:trace</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'trace' messages.</div>
+
+	<div class="function_name"><a href="#logger:tracef">logger:tracef</a>(&nbsp;format, ...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'trace' messages, using string.format to prepare the output.</div>
+
+	<div class="function_name"><a href="#logger:type">logger:type</a>()</div>
+	<div class="function_summary">Reports the type of this object.</div>
+
+	<div class="function_name"><a href="#logger:warn">logger:warn</a>(&nbsp;...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'warn' messages.</div>
+
+	<div class="function_name"><a href="#logger:warnf">logger:warnf</a>(&nbsp;format, ...&nbsp;)</div>
+	<div class="function_summary">Feeds log output through the action function defined for 'warn' messages, using string.format to prepare the output.</div>
+
+
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="LrLogger"></a><strong>LrLogger</strong>(&nbsp;name&nbsp;)</dt>
+<dd>
+Creates a new logger or finds and returns an existing one. Loggers are silent until configured with <code>LrLogger:enable()</code>. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. name</dt>
+	<dd>(optional, string) A name for this logger.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrLogger</code>) An <code>LrLogger</code> object. <ul> <li> If name matches an existing logger, returns that <code>LrLogger</code> object.</li> <li> If name does not match any existing logger, returns a new, named <code>LrLogger</code> object.</li> <li> If name is nil, returns an application-wide "default" <code>LrLogger</code> object.</li> </ul>
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:debug"></a><strong>logger:debug</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'debug' messages. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>Data to be printed, of any type; <code>tostring()</code> is called on all values.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:debugf"></a><strong>logger:debugf</strong>(&nbsp;format, ...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'debug' messages, using string.format to prepare the output. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. format</dt>
+	<dd>(string) formatting instructions (see Lua's string.format for details)</dd>
+	
+	<dt>2. ...</dt>
+	<dd>Arguments to string.format required by format string</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:disable"></a><strong>logger:disable</strong>()</dt>
+<dd>
+Disables all log output from this logger. Equivalent to <code>logger:enable( false )</code>. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:enable"></a><strong>logger:enable</strong>(&nbsp;actions&nbsp;)</dt>
+<dd>
+Enables specific log output from this logger. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. actions</dt>
+	<dd>(string, function, or table) What action to take for each log action type. For each of the action types, this must be either a function that takes a string (the log message), or one of the following strings: <ul> <li><code>print</code>: print to console log</li> <li><code>traceback</code>: print to console log with stack traceback</li> <li><code>logfile</code>: print to a log file named for the logger. This log file is written to your <code>~/Documents</code> folder in Mac OS, or to your <code>My Documents</code> folder in Windows.</li> </ul>  <p>As a shortcut, you can pass a single string or function, which is applied to all of the log output from this logger.</p></dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:error"></a><strong>logger:error</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'error' messages. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>Data to be printed, of any type; <code>tostring()</code> is called on all values.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:errorf"></a><strong>logger:errorf</strong>(&nbsp;format, ...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'error' messages, using string.format to prepare the output. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. format</dt>
+	<dd>(string) formatting instructions (see Lua's string.format for details)</dd>
+	
+	<dt>2. ...</dt>
+	<dd>Arguments to string.format required by format string</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:fatal"></a><strong>logger:fatal</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'fatal' messages. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>Data to be printed, of any type; <code>tostring()</code> is called on all values.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:fatalf"></a><strong>logger:fatalf</strong>(&nbsp;format, ...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'fatal' messages, using string.format to prepare the output. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. format</dt>
+	<dd>(string) formatting instructions (see Lua's string.format for details)</dd>
+	
+	<dt>2. ...</dt>
+	<dd>Arguments to string.format required by format string</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:info"></a><strong>logger:info</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'info' messages. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>Data to be printed, of any type; <code>tostring()</code> is called on all values.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:infof"></a><strong>logger:infof</strong>(&nbsp;format, ...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'info' messages, using string.format to prepare the output. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. format</dt>
+	<dd>(string) formatting instructions (see Lua's string.format for details)</dd>
+	
+	<dt>2. ...</dt>
+	<dd>Arguments to string.format required by format string</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:quick"></a><strong>logger:quick</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Creates optimized versions of specified log functions for use in tight loops. This version avoids the overhead of the method lookup, and is reduced to a no-op function when logging is disabled. For example: <pre> local warn, info = logger:quick( 'warn', 'info' )<br /> warn( 'something bad happened' ) </pre> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>(one or more strings) The names of log functions to optimize.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(one or more functions) The optimized functions.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:quickf"></a><strong>logger:quickf</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Creates optimized versions of specified log functions for use in tight loops. This version avoids the overhead of the method lookup, and is reduced to a no-op function when logging is disabled. Unlike the functions returned by <code>logger:quick</code>, these functions take <code>string.format</code> instructions. For example: <pre> local warnf, infof = logger:quickf( 'warn', 'info' )<br /> warnf( 'something %s happened', 'bad' ) </pre> <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>(one or more strings) The names of log functions to optimize.</dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(one or more functions) The optimized functions.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:trace"></a><strong>logger:trace</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'trace' messages. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>Data to be printed, of any type; <code>tostring()</code> is called on all values.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:tracef"></a><strong>logger:tracef</strong>(&nbsp;format, ...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'trace' messages, using string.format to prepare the output. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. format</dt>
+	<dd>(string) formatting instructions (see Lua's string.format for details)</dd>
+	
+	<dt>2. ...</dt>
+	<dd>Arguments to string.format required by format string</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:type"></a><strong>logger:type</strong>()</dt>
+<dd>
+Reports the type of this object. <p>First supported in version 4.1 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) 'LrLogger'.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:warn"></a><strong>logger:warn</strong>(&nbsp;...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'warn' messages. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. ...</dt>
+	<dd>Data to be printed, of any type; <code>tostring()</code> is called on all values.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="logger:warnf"></a><strong>logger:warnf</strong>(&nbsp;format, ...&nbsp;)</dt>
+<dd>
+Feeds log output through the action function defined for 'warn' messages, using string.format to prepare the output. <p>First supported in version 2.0 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. format</dt>
+	<dd>(string) formatting instructions (see Lua's string.format for details)</dd>
+	
+	<dt>2. ...</dt>
+	<dd>Arguments to string.format required by format string</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

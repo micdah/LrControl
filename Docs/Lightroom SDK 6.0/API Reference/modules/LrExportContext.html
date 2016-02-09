@@ -1,0 +1,529 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Class
+LrExportContext | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li><strong>LrExportContext</strong></li>
+	
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrProgressScope.html">LrProgressScope</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Class
+LrExportContext</h1>
+
+<div class="module_description">Provides access to the choices a user has made in the Export dialog, and the list of photos to be exported. <p> An <code>LrExportContext</code> object is passed to your plug-in as a parameter to your service script's <code>processRenderedPhotos</code> function. You cannot import the namespace or access the properties and functions in any other way.</p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#exportContext:configureProgress">exportContext:configureProgress</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Configures a progress scope for the export rendering sequence.</div>
+
+	<div class="function_name"><a href="#exportContext:renditions">exportContext:renditions</a>(&nbsp;args&nbsp;)</div>
+	<div class="function_summary">Creates an iterator for all renditions in this export.</div>
+
+	<div class="function_name"><a href="#exportContext:startRendering">exportContext:startRendering</a>()</div>
+	<div class="function_summary">Starts the rendering process in a separate task.</div>
+
+
+
+	<div class="property_name"><a href="#exportContext.exportSession">exportContext.exportSession</a></div>
+	<div class="property_summary">(table) The list of photos and renditions to be exported in this session.</div>
+
+	<div class="property_name"><a href="#exportContext.propertyTable">exportContext.propertyTable</a></div>
+	<div class="property_summary">(table) The property table containing the Export settings defined for your plug-in, along with any built-in Lightroom Export settings that you have not excluded.</div>
+
+	<div class="property_name"><a href="#exportContext.publishService">exportContext.publishService</a></div>
+	<div class="property_summary">(LrPublishService) (only when published) <p>First supported in version 3.0 of the Lightroom SDK.</p> </div>
+
+	<div class="property_name"><a href="#exportContext.publishedCollection">exportContext.publishedCollection</a></div>
+	<div class="property_summary">(LrPublishedCollection) (only when published) <p>First supported in version 3.0 of the Lightroom SDK.</p> </div>
+
+	<div class="property_name"><a href="#exportContext.publishedCollectionInfo">exportContext.publishedCollectionInfo</a></div>
+	<div class="property_summary">(table) Information about published collection (only when published).</div>
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="exportContext:configureProgress"></a><strong>exportContext:configureProgress</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Configures a progress scope for the export rendering sequence. Use in preference to creating a new <code>LrProgressScope</code> object, and call before calling <code>renditions()</code> in this object. This function allows the filenames and thumbnails to be updated properly. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) Arguments in named-argument syntax: <ul> <li><b>title</b>: (string) The display name that identifies the main task; for example, "Exporting files as JPEG". (Note that in the case of publishing, this has no direct effect on the caption displayed.)</li> <li><b>renderPortion</b>: (optional, number) When all renditions have been processed, the progress scope will be at this percent complete. A percentage value [0..1]. </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+(<code>LrProgressScope</code>) A progress scope tied specifically to the export rendering pipeline.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrProgressScope.html">
+		LrProgressScope</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="exportContext:renditions"></a><strong>exportContext:renditions</strong>(&nbsp;args&nbsp;)</dt>
+<dd>
+Creates an iterator for all renditions in this export. Use in preference to <code>LrExportContext.exportSession:renditions()</code>. Calls <code>exportContext:startRendering()</code> if needed, and keeps the progress scope updated properly. <p><b>IMPORTANT:</b> You must call <code>configureProgress()</code> on this object before calling <code>renditions()</code>.</p> <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. args</dt>
+	<dd>(table) Arguments in named-argument syntax: <ul> <li><b>exportContext</b> (<code>LrExportContext</code>): This value is provided.</li> <li><b>progessScope</b> (<code>LrProgressScope</code>): The progress scope.</li> <li><b>renderProgressPortion</b> (number): This value is provided. </li> <li><b>stopIfCanceled</b> (Boolean): True to stop the iterator prematurely if progress scope is canceled.</li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+An iterator for all export renditions.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrExportSession.html">
+		LrExportSession</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="exportContext:startRendering"></a><strong>exportContext:startRendering</strong>()</dt>
+<dd>
+Starts the rendering process in a separate task. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="properties"></a>Properties</h2>
+<dl class="function">
+
+
+
+<dt><a name="exportContext.exportSession"></a><strong>exportContext.exportSession</strong> : (Read-Only)</dt>
+<dd>
+(table) The list of photos and renditions to be exported in this session. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<em>See also:</em>
+	
+	<a href="../modules/LrExportSession.html">
+		LrExportSession
+	</a>
+	
+	
+
+</dd>
+
+
+
+
+<dt><a name="exportContext.propertyTable"></a><strong>exportContext.propertyTable</strong> : (Read-Only)</dt>
+<dd>
+(table) The property table containing the Export settings defined for your plug-in, along with any built-in Lightroom Export settings that you have not excluded. The settings have the values chosen by the user in the Export dialog. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportContext.publishService"></a><strong>exportContext.publishService</strong> : (Read-Only)</dt>
+<dd>
+(LrPublishService) (only when published) <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportContext.publishedCollection"></a><strong>exportContext.publishedCollection</strong> : (Read-Only)</dt>
+<dd>
+(LrPublishedCollection) (only when published) <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+
+
+<dt><a name="exportContext.publishedCollectionInfo"></a><strong>exportContext.publishedCollectionInfo</strong> : (Read-Only)</dt>
+<dd>
+(table) Information about published collection (only when published). Contains the following fields: <ul> <li><b>isDefaultCollection</b>: (Boolean) True if this is the default collection.</li> <li><b>name</b>: (name) The name of this collection.</li> <li><b>parents</b>: (table) An array of information about parents of this collection, in which each element contains: <ul> <li><b>name</b>: (string) Name of the collection set.</li> <li><b>remoteCollectionId</b>: (number of string) The remote collection ID assigned by the server.</li> </ul> </li> <li><b>remoteId</b>: (string or number) The ID for this published collection that was stored via <a href="LrExportSession.html#exportSession:recordRemoteCollectionId"><code>exportSession:recordRemoteCollectionId</code></a>.</li> <li><b>remoteUrl</b>: (optional, string) The URL, if any, that was recorded for the published collection via <a href="LrExportSession.html#exportSession:recordRemoteCollectionUrl"><code>exportSession:recordRemoteCollectionUrl</code></a>.</li> </ul> <p>First supported in version 3.0 of the Lightroom SDK.</p>
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>

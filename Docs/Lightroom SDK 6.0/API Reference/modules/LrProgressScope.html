@@ -1,0 +1,796 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Class and Namespace
+LrProgressScope | Adobe&reg; Photoshop&reg; Lightroom&reg; 5 SDK</title>
+    <link rel="stylesheet" href="../luadoc.css" type="text/css" />
+    <link rel="stylesheet" href="../adobe.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+
+
+
+<div id="adobe_header">
+<img src="../lrapi.png" />
+</div>
+
+
+<div id="container">
+
+<div id="navigation">
+
+
+<h1>
+
+	<a href="../index.html">Index</a>
+
+</h1>
+
+
+<!-- Module list -->
+
+<ul>
+
+	<li>
+		<a href="../modules/LrApplication.html">LrApplication</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrApplicationView.html">LrApplicationView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrBinding.html">LrBinding</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCatalog.html">LrCatalog</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollection.html">LrCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrCollectionSet.html">LrCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrColor.html">LrColor</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDate.html">LrDate</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopController.html">LrDevelopController</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPreset.html">LrDevelopPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDevelopPresetFolder.html">LrDevelopPresetFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrDialogs.html">LrDialogs</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrErrors.html">LrErrors</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportContext.html">LrExportContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportRendition.html">LrExportRendition</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSession.html">LrExportSession</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrExportSettings.html">LrExportSettings</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFileUtils.html">LrFileUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFilterContext.html">LrFilterContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFolder.html">LrFolder</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFtp.html">LrFtp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrFunctionContext.html">LrFunctionContext</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrHttp.html">LrHttp</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrKeyword.html">LrKeyword</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLocalization.html">LrLocalization</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrLogger.html">LrLogger</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMD5.html">LrMD5</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrMath.html">LrMath</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrObservableTable.html">LrObservableTable</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPasswords.html">LrPasswords</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPathUtils.html">LrPathUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhoto.html">LrPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPhotoInfo.html">LrPhotoInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPlugin.html">LrPlugin</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPrefs.html">LrPrefs</a>
+	</li>
+
+	<li><strong>LrProgressScope</strong></li>
+	
+	<li>
+		<a href="../modules/LrPublishService.html">LrPublishService</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollection.html">LrPublishedCollection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedCollectionSet.html">LrPublishedCollectionSet</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrPublishedPhoto.html">LrPublishedPhoto</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrRecursionGuard.html">LrRecursionGuard</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSelection.html">LrSelection</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrShell.html">LrShell</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSlideshow.html">LrSlideshow</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSocket.html">LrSocket</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSounds.html">LrSounds</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrStringUtils.html">LrStringUtils</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrSystemInfo.html">LrSystemInfo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTasks.html">LrTasks</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrTether.html">LrTether</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrUndo.html">LrUndo</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrVideoExportPreset.html">LrVideoExportPreset</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView.html">LrView</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView child layout properties.html">LrView child layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView control view properties.html">LrView control view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView edit view properties.html">LrView edit view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView node layout properties.html">LrView node layout properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView text properties.html">LrView text properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrView view properties.html">LrView view properties</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrWebViewFactory.html">LrWebViewFactory</a>
+	</li>
+
+	<li>
+		<a href="../modules/LrXml.html">LrXml</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Export service provider.html">SDK - Export service provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Metadata tagset provider.html">SDK - Metadata tagset provider</a>
+	</li>
+
+	<li>
+		<a href="../modules/SDK - Publish service provider.html">SDK - Publish service provider</a>
+	</li>
+
+</ul>
+
+
+
+<!-- File list -->
+
+
+
+
+
+</div><!-- id="navigation" -->
+
+<div id="main">
+
+<div id="content">
+
+
+
+<h1>Class and Namespace
+LrProgressScope</h1>
+
+<div class="module_description">This class allows you to provide feedback to the user about the progress of a long-running task. An entry in Lightroom's progress area at the top-left of the catalog window is created for each active progress scope. <p> Scopes can be nested; that is, the UI can show progress in a subsidiary task (such as uploading a single photo) that advances the parent task (such as an upload operation for a set of photos) by a given amount. The parent task is identified by a title above the progress bar, and the current task is identified by a caption below it. </p> <p>Use the imported namespace as a constructor; access the functions through the created objects. </p></div>
+
+
+<h2>Summary</h2>
+
+<div class="module_summary_index">
+
+
+	<div class="function_name"><a href="#LrProgressScope">LrProgressScope</a>(&nbsp;params&nbsp;)</div>
+	<div class="function_summary">Creates a progress scope object.</div>
+
+	<div class="function_name"><a href="#progressScope:attachToFunctionContext">progressScope:attachToFunctionContext</a>(&nbsp;context&nbsp;)</div>
+	<div class="function_summary">Attaches this progress scope to a function context so that it can be cleared when the function ends, regardless of how the function is terminated.</div>
+
+	<div class="function_name"><a href="#progressScope:cancel">progressScope:cancel</a>()</div>
+	<div class="function_summary">Signals that this operation should be canceled.</div>
+
+	<div class="function_name"><a href="#progressScope:done">progressScope:done</a>()</div>
+	<div class="function_summary">Marks this progress scope as complete.</div>
+
+	<div class="function_name"><a href="#progressScope:getParentScope">progressScope:getParentScope</a>()</div>
+	<div class="function_summary">Returns the parent progress scope, if any.</div>
+
+	<div class="function_name"><a href="#progressScope:getPortionComplete">progressScope:getPortionComplete</a>()</div>
+	<div class="function_summary">Retrieves the portion of this task that has been marked as completed.</div>
+
+	<div class="function_name"><a href="#progressScope:isCancelable">progressScope:isCancelable</a>()</div>
+	<div class="function_summary">Reports whether this progress scope can be canceled.</div>
+
+	<div class="function_name"><a href="#progressScope:isCanceled">progressScope:isCanceled</a>()</div>
+	<div class="function_summary">Reports whether this operation been canceled by the user.</div>
+
+	<div class="function_name"><a href="#progressScope:isDone">progressScope:isDone</a>()</div>
+	<div class="function_summary">Reports whether this progress scope has been completed.</div>
+
+	<div class="function_name"><a href="#progressScope:isIndeterminate">progressScope:isIndeterminate</a>()</div>
+	<div class="function_summary">Reports whether this progress scope is indeterminate.</div>
+
+	<div class="function_name"><a href="#progressScope:setCancelable">progressScope:setCancelable</a>(&nbsp;cancelable&nbsp;)</div>
+	<div class="function_summary">Allows or disallows user cancellation of this progress scope.</div>
+
+	<div class="function_name"><a href="#progressScope:setCaption">progressScope:setCaption</a>(&nbsp;caption&nbsp;)</div>
+	<div class="function_summary">Changes the caption that identifies this child task.</div>
+
+	<div class="function_name"><a href="#progressScope:setIndeterminate">progressScope:setIndeterminate</a>()</div>
+	<div class="function_summary">Makes this progress scope indeterminate.</div>
+
+	<div class="function_name"><a href="#progressScope:setPortionComplete">progressScope:setPortionComplete</a>(&nbsp;amountDone, totalAmount&nbsp;)</div>
+	<div class="function_summary">Sets the portion of this task that has been completed.</div>
+
+	<div class="function_name"><a href="#progressScope:type">progressScope:type</a>()</div>
+	<div class="function_summary">Reports the type of this object.</div>
+
+
+
+
+
+</div>
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="LrProgressScope"></a><strong>LrProgressScope</strong>(&nbsp;params&nbsp;)</dt>
+<dd>
+Creates a progress scope object. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. params</dt>
+	<dd>(table) Arguments in named-argument syntax: <ul> <li><b>parent</b>: (optional, LrProgressScope) The parent scope, if this is a child scope.</li> <li><b>parentEndRange</b>: (optional, number) If this is a child scope, the percentage value [0..1] for the degree of completion of the parent scope when this task completed. </li> <li><b>title</b>: (optional, string) For a parent scope, the display name that identifies this scope for its entire lifetime; for example, "Exporting files as JPEG". </li> <li><b>caption</b>: (optional, string) For a child scope, the display name of the current task; for example, "IMG0057.JPG".</li> <li><b>functionContext</b>: (optional, <code>LrFunctionContext</code>) A function context to attach to this progress scope. If provided, the progress scope is terminated when the function scope completes. </li> </ul></dd>
+	
+</dl>
+
+
+
+
+<h3>Return value</h3>
+An <code>LrProgressScope</code> object. Use this object to make function calls.
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrFunctionContext.html">
+		LrFunctionContext</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:attachToFunctionContext"></a><strong>progressScope:attachToFunctionContext</strong>(&nbsp;context&nbsp;)</dt>
+<dd>
+Attaches this progress scope to a function context so that it can be cleared when the function ends, regardless of how the function is terminated. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. context</dt>
+	<dd>(<code>LrFunctionContext</code>) The function context.</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="../modules/LrFunctionContext.html">
+		LrFunctionContext</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:cancel"></a><strong>progressScope:cancel</strong>()</dt>
+<dd>
+Signals that this operation should be canceled. Called when the user clicks the X at the right end of the progress bar in the catalog window. This does not immediately cancel the operation; that happens when the task polls :isCanceled() and stops the operation in response to a true result. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:isCanceled">
+		progressScope:isCanceled</a>, 
+	
+	<a href="#progressScope:isCancelable">
+		progressScope:isCancelable</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:done"></a><strong>progressScope:done</strong>()</dt>
+<dd>
+Marks this progress scope as complete. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:isDone">
+		progressScope:isDone</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:getParentScope"></a><strong>progressScope:getParentScope</strong>()</dt>
+<dd>
+Returns the parent progress scope, if any. <p>First supported in version 4.0 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:getPortionComplete"></a><strong>progressScope:getPortionComplete</strong>()</dt>
+<dd>
+Retrieves the portion of this task that has been marked as completed. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(number) The proportion of the work that has been done, in the range [0..totalAmount].
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:setPortionComplete">
+		progressScope:setPortionComplete</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:isCancelable"></a><strong>progressScope:isCancelable</strong>()</dt>
+<dd>
+Reports whether this progress scope can be canceled. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if scope can be canceled.
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:cancel">
+		progressScope:cancel</a>, 
+	
+	<a href="#progressScope:isCanceled">
+		progressScope:isCanceled</a>, 
+	
+	<a href="#progressScope:setCancelable">
+		progressScope:setCancelable</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:isCanceled"></a><strong>progressScope:isCanceled</strong>()</dt>
+<dd>
+Reports whether this operation been canceled by the user. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if <code>progressScope:cancel()</code> has been called.
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:cancel">
+		progressScope:cancel</a>, 
+	
+	<a href="#progressScope:isCancelable">
+		progressScope:isCancelable</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:isDone"></a><strong>progressScope:isDone</strong>()</dt>
+<dd>
+Reports whether this progress scope has been completed. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if <code>done()</code> has been called
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:done">
+		progressScope:done</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:isIndeterminate"></a><strong>progressScope:isIndeterminate</strong>()</dt>
+<dd>
+Reports whether this progress scope is indeterminate. When a scope is indeterminate, you cannot determine how much of the task remains to be completed. The function <code>progressScope:getPortionComplete()</code> returns -1. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(Boolean) True if <code>setIndeterminate()</code> has been called, false otherwise.
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:getPortionComplete">
+		progressScope:getPortionComplete</a>, 
+	
+	<a href="#progressScope:setIndeterminate">
+		progressScope:setIndeterminate</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:setCancelable"></a><strong>progressScope:setCancelable</strong>(&nbsp;cancelable&nbsp;)</dt>
+<dd>
+Allows or disallows user cancellation of this progress scope. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. cancelable</dt>
+	<dd>(Boolean) True to allow cancellation, false to disallow it.</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:isCanceled">
+		progressScope:isCanceled</a>, 
+	
+	<a href="#progressScope:isCancelable">
+		progressScope:isCancelable</a>, 
+	
+	<a href="#progressScope:cancel">
+		progressScope:cancel</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:setCaption"></a><strong>progressScope:setCaption</strong>(&nbsp;caption&nbsp;)</dt>
+<dd>
+Changes the caption that identifies this child task. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. caption</dt>
+	<dd>(string) The new caption.</dd>
+	
+</dl>
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:setIndeterminate"></a><strong>progressScope:setIndeterminate</strong>()</dt>
+<dd>
+Makes this progress scope indeterminate. When a scope is indeterminate, you cannot determine how much of the task remains to be completed. The function <code>progressScope:getPortionComplete()</code> returns -1. Indeterminate progress scopes are only useful in the context of <code>LrDialogs:showModalProgressDialog()</code>; they do not display properly in the Lightroom catalog window. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:getPortionComplete">
+		progressScope:getPortionComplete</a>, 
+	
+	<a href="#progressScope:isIndeterminate">
+		progressScope:isIndeterminate</a>, 
+	
+	<a href="../modules/LrDialogs.html#showModalProgressDialog">
+		LrDialogs.showModalProgressDialog</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:setPortionComplete"></a><strong>progressScope:setPortionComplete</strong>(&nbsp;amountDone, totalAmount&nbsp;)</dt>
+<dd>
+Sets the portion of this task that has been completed. <p>First supported in version 1.3 of the Lightroom SDK.</p>
+
+
+<h3>Parameters</h3>
+<dl class="param_list">
+	
+	<dt>1. amountDone</dt>
+	<dd>(number) The degree of completion; a value between 0 and totalAmount, inclusive.</dd>
+	
+	<dt>2. totalAmount</dt>
+	<dd>(number) The end value of the range, or nil to use the default range of [0..1]</dd>
+	
+</dl>
+
+
+
+
+
+
+<h3>See also</h3>
+	
+	<a href="#progressScope:getPortionComplete">
+		progressScope:getPortionComplete</a>
+	
+
+</dd>
+
+
+
+
+<dt><a name="progressScope:type"></a><strong>progressScope:type</strong>()</dt>
+<dd>
+Reports the type of this object. <p>First supported in version 4.1 of the Lightroom SDK.</p>
+
+
+
+
+
+<h3>Return value</h3>
+(string) 'LrProgressScope'.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+</div> <!-- id="container" -->	
+
+
+
+<p id="asn-logo"><img src="../asn.gif" width="114" height="45" border="0" alt="Adobe Solutions Network" /></p>
+
+<table id="footer-links" align="left" width="725">
+<tr><td colspan="5"><p id="copyright">Copyright &#169; 2007-2015 Adobe Systems Incorporated. All rights reserved.</p></td></tr>
+<tr>
+<td class="footerlink"><a href="http://www.adobe.com/misc/copyright.html">Terms of Use</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/privacy.html">Online Privacy Policy</a></td>
+<td class="footerlink leftborder"><a href="http://access.adobe.com">Adobe and accessibility</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/aboutadobe/antipiracy/main.html">Avoid software piracy</a></td>
+<td class="footerlink leftborder"><a href="http://www.adobe.com/misc/agreement.html">Permissions and Trademarks</a></td>
+</tr>
+</table>
+
+
+</body>
+</html>
