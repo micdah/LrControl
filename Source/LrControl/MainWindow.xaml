@@ -6,6 +6,19 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Viewbox>
+            <StackPanel Orientation="Horizontal" Width="450" Height="300">
+                <Slider x:Name="Fader1" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader2" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader3" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader4" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader5" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader6" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader7" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Slider x:Name="Fader8" Minimum="0" Maximum="1023" Value="0" Orientation="Vertical" Margin="10" ValueChanged="Fader_OnValueChanged"/>
+                <Button Height="30" Click="MakeRandon_OnClick">Make random</Button>
+                <Button Height="30" Click="SetZero_OnClick">Set 0</Button>
+            </StackPanel>
+        </Viewbox>
     </Grid>
 </Window>
