@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl.csproj", "{9C1D8D80-26C5-491E-96D1-643A6DD54520}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl\LrControl.csproj", "{9C1D8D80-26C5-491E-96D1-643A6DD54520}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midi", "..\..\Libraries\midi-dot-net\Midi\Midi.csproj", "{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midi", "..\Libraries\midi-dot-net\Midi\Midi.csproj", "{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{3D18C536-FA5D-4E7E-B7FC-E7496DFB902C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlPlugin", "..\LrControlPlugin\LrControlPlugin.csproj", "{892ED5AF-E453-4A14-960D-CAE363455EE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlPlugin", "LrControlPlugin\LrControlPlugin.csproj", "{892ED5AF-E453-4A14-960D-CAE363455EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlProxy", "..\LrControlProxy\LrControlProxy.csproj", "{4BD68C41-8C8A-4ABF-9624-0379C2CED801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlProxy", "LrControlProxy\LrControlProxy.csproj", "{4BD68C41-8C8A-4ABF-9624-0379C2CED801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
