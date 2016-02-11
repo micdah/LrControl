@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Midi.Devices;
 using Midi.Enums;
+using Midi.Messages;
 using Control = Midi.Enums.Control;
 
 namespace micdah.LrControl
@@ -13,104 +16,260 @@ namespace micdah.LrControl
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Control _lastControl;
-        private bool _receivingValue;
-        private NrpnDecocer _nrpnDecocer;
-        private NrpnEncoder _nrpnEncoder;
+        private readonly ToggleButton[] _buttons;
+        private readonly Slider[] _sliders;
+
+        private readonly ManualResetEvent _stopAnimation = new ManualResetEvent(false);
+        private IInputDevice _inputDevice;
+        private IOutputDevice _outputDevice;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            var deviceName = "BCF2000";
+            _buttons = new ToggleButton[38];
+            _sliders = new Slider[16];
 
-            StartReceiving(InputDevice.InstalledDevices.Single(x => x.Name == deviceName));
+            MakeFaders();
+            MakeEncoders();
+            MakeButtons();
 
-            var outputDevices = OutputDevice.InstalledDevices;
-            var outputDevice = OutputDevice.InstalledDevices.Single(x => x.Name == deviceName);
-            _nrpnEncoder = new NrpnEncoder(outputDevice);
+            OpenDevices("BCF2000");
 
-            outputDevice.Open();
-
+            SetAllButtons(false);
+            SetAllSliders(slider => slider.Maximum/2);
         }
 
-        private void StartReceiving(InputDevice input)
+        private void OpenDevices(string deviceName)
         {
-            input.Open();
+            _inputDevice = DeviceManager.InputDevices.Single(x => x.Name == deviceName);
+            _inputDevice.Nrpn += InputDeviceOnNrpn;
+            _inputDevice.ControlChange += InputDeviceOnControlChange;
+            _inputDevice.Open();
+            _inputDevice.StartReceiving(null);
 
-            _nrpnDecocer = new NrpnDecocer(input);
-            _nrpnDecocer.OnNrpn += HandleNrpn;
-
-            input.StartReceiving(null);
+            _outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == deviceName);
+            _outputDevice.Open();
         }
 
-        private void HandleNrpn(int parameter, int value)
+        private void MakeEncoders()
         {
-            var slider = GetSlider(parameter);
+            var grid = Encoders;
+            AddRowsAndColumns(grid, 1, 8);
 
-            Dispatcher.InvokeAsync(() =>
+            for (var column = 0; column < 8; column++)
             {
-                _receivingValue = true;
-                slider.Value = value;
-                _receivingValue = false;
-            });
-        }
+                // Button
+                var control = 16 + column;
 
-        private void Fader_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            var parameter = GetParameter((Slider) sender);
-            var value = Convert.ToInt32(e.NewValue);
+                var toggleButton = new ToggleButton
+                {
+                    Margin = new Thickness(5),
+                    HorizontalContentAlignment = HorizontalAlignment.Stretch,
+                    VerticalContentAlignment = VerticalAlignment.Center
+                };
+                Grid.SetRow(toggleButton, 0);
+                Grid.SetColumn(toggleButton, column);
 
-            _nrpnEncoder.SendNrpn(parameter, value);
-        }
+                _buttons[control] = toggleButton;
 
-        private void MakeRandon_OnClick(object sender, RoutedEventArgs e)
-        {
-            var rand = new Random();
+                toggleButton.Checked +=
+                    (sender, args) =>
+                        _outputDevice.SendControlChange(Channel.Channel1, (Control) control, 127);
 
-            for (int i = 0; i < 8; i++)
-            {
-                var slider = GetSlider(i);
-                var value = rand.Next(0, 1023);
+                toggleButton.Unchecked +=
+                    (sender, args) =>
+                        _outputDevice.SendControlChange(Channel.Channel1, (Control) control, 0);
 
-                slider.Value = value;
+                grid.Children.Add(toggleButton);
+
+                // Slider
+                var parameter = 8 + column;
+
+                var slider = new Slider
+                {
+                    //Margin = new Thickness(5),
+                    Minimum = 0,
+                    Maximum = 511,
+                    Orientation = Orientation.Horizontal
+                };
+
+                _sliders[parameter] = slider;
+
+                toggleButton.Content = slider;
+
+                slider.ValueChanged +=
+                    (sender, args) =>
+                        _outputDevice.SendNrpn(Channel.Channel1, parameter, Convert.ToInt32(args.NewValue));
             }
         }
 
-        private void SetZero_OnClick(object sender, RoutedEventArgs e)
+        private void MakeFaders()
         {
-            for (var i = 0; i < 8; i++)
+            var grid = Faders;
+            AddRowsAndColumns(grid, 1, 8);
+
+            for (var column = 0; column < 8; column++)
             {
-                GetSlider(i).Value = 0;
+                var parameter = column;
+
+                var slider = new Slider
+                {
+                    Margin = new Thickness(5),
+                    Minimum = 0,
+                    Maximum = 1023,
+                    Orientation = Orientation.Vertical
+                };
+                Grid.SetRow(slider, 0);
+                Grid.SetColumn(slider, column);
+
+                _sliders[parameter] = slider;
+
+                grid.Children.Add(slider);
+
+                slider.ValueChanged +=
+                    (sender, args) =>
+                        _outputDevice.SendNrpn(Channel.Channel1, parameter, Convert.ToInt32(args.NewValue));
             }
         }
 
-        private Slider GetSlider(int parameter)
+        private void MakeButtons()
         {
-            if (parameter == 0) return Fader1;
-            if (parameter == 1) return Fader2;
-            if (parameter == 2) return Fader3;
-            if (parameter == 3) return Fader4;
-            if (parameter == 4) return Fader5;
-            if (parameter == 5) return Fader6;
-            if (parameter == 6) return Fader7;
-            if (parameter == 7) return Fader8;
-
-            throw new ArgumentException($"There is no fader for parameter {parameter}");
+            MakeButtonGrid(TopButtons, 2, 8, 0);
+            MakeButtonGrid(EncoderGroups, 2, 2, 24);
+            MakeButtonGrid(FunctionButtons, 2, 2, 28);
+            MakeButtonGrid(PresetButtons, 1, 2, 32);
+            MakeButtonGrid(CustomButtons, 2, 2, 34);
         }
 
-        private int GetParameter(Slider fader)
+        private void MakeButtonGrid(Grid grid, int rows, int columns, int index)
         {
-            if (ReferenceEquals(fader, Fader1)) return 0;
-            if (ReferenceEquals(fader, Fader2)) return 1;
-            if (ReferenceEquals(fader, Fader3)) return 2;
-            if (ReferenceEquals(fader, Fader4)) return 3;
-            if (ReferenceEquals(fader, Fader5)) return 4;
-            if (ReferenceEquals(fader, Fader6)) return 5;
-            if (ReferenceEquals(fader, Fader7)) return 6;
-            if (ReferenceEquals(fader, Fader8)) return 7;
+            AddRowsAndColumns(grid, rows, columns);
 
-            throw new ArgumentException($"There is no parameter for fader {fader}");
+            for (var column = 0; column < columns; column++)
+            {
+                for (var row = 0; row < rows; row++)
+                {
+                    var control = index + column*rows + row;
+
+                    var toggleButton = new ToggleButton
+                    {
+                        Margin = new Thickness(5)
+                    };
+                    Grid.SetRow(toggleButton, row);
+                    Grid.SetColumn(toggleButton, column);
+
+                    _buttons[control] = toggleButton;
+
+                    grid.Children.Add(toggleButton);
+
+                    toggleButton.Checked +=
+                        (sender, args) =>
+                            _outputDevice.SendControlChange(Channel.Channel1, (Control) control, 127);
+
+                    toggleButton.Unchecked +=
+                        (sender, args) =>
+                            _outputDevice.SendControlChange(Channel.Channel1, (Control) control, 0);
+                }
+            }
+        }
+
+        private static void AddRowsAndColumns(Grid grid, int rows, int columns)
+        {
+            for (var i = 0; i < rows; i++)
+            {
+                grid.RowDefinitions.Add(new RowDefinition
+                {
+                    Height = new GridLength(1, GridUnitType.Star)
+                });
+            }
+
+            for (var i = 0; i < columns; i++)
+            {
+                grid.ColumnDefinitions.Add(new ColumnDefinition
+                {
+                    Width = new GridLength(1, GridUnitType.Star)
+                });
+            }
+        }
+
+        private void InputDeviceOnNrpn(NrpnMessage msg)
+        {
+            var parameter = msg.Parameter;
+            if (parameter < _sliders.Length)
+            {
+                var value = msg.Value;
+                var slider = _sliders[parameter];
+                if (slider != null)
+                {
+                    Dispatcher.InvokeAsync(() => slider.Value = value);
+                }
+            }
+        }
+
+        private void InputDeviceOnControlChange(ControlChangeMessage msg)
+        {
+            var control = (int) msg.Control;
+            if (control < _buttons.Length)
+            {
+                var isChecked = msg.Value == 127;
+                var button = _buttons[control];
+                if (button != null)
+                {
+                    Dispatcher.InvokeAsync(() => button.IsChecked = isChecked);
+                }
+            }
+        }
+
+        private void SetAllButtons(bool isChecked)
+        {
+            foreach (var button in _buttons) button.IsChecked = isChecked;
+        }
+
+        private void SetAllSliders(Func<Slider, double> sliderValue)
+        {
+            foreach (var slider in _sliders) slider.Value = sliderValue(slider);
+        }
+
+        private void Reset_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetAllButtons(false);
+            SetAllSliders(slider => slider.Maximum/2);
+        }
+
+        private void Aniamte_OnClick(object sender, RoutedEventArgs e)
+        {
+            var toggleButton = (ToggleButton) sender;
+
+            if (toggleButton.IsChecked == true)
+            {
+                ThreadPool.QueueUserWorkItem(state =>
+                {
+                    _stopAnimation.Reset();
+
+                    int steps = 90;
+                    int step = 0;
+
+                    while (_stopAnimation.WaitOne(30) == false)
+                    {
+                        var length = _sliders.Length;
+                        for (var i = 0; i < length; i++)
+                        { 
+                            var slider = _sliders[i];
+                            var localStep = step;
+                            var localI = i;
+                            Dispatcher.InvokeAsync(() => slider.Value = (slider.Maximum/(steps-1))*((localStep + (steps/length*localI))%steps));
+                        }
+
+
+                        step++;
+                    }
+                });
+            }
+            else
+            {
+                _stopAnimation.Set();
+            }
         }
     }
 }
