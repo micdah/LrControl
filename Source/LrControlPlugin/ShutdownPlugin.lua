@@ -18,24 +18,12 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
+local LrControlApp = require 'LrControlApp'
 
-return {
-	LrSdkVersion        = 6.0,
-	LrSdkMinimumVersion = 6.0,
-	LrPluginName        = "LrControl",
-	LrToolkitIdentifier = "dk.micdah.lrcontrol",
-	LrForceInitPlugin	= true,
-	LrInitPlugin        = "Main.lua",
-	LrShutdownPlugin	= "ShutdownPlugin.lua",
-	LrShutdownApp	    = "Shutdown.lua",
-    LrDisablePlugin     = "DisablePlugin.lua",
-    LrEnablePlugin      = "Main.lua",
-	LrPluginInfoUrl     = "https://github.com/micdah/LrControl",
-	LrExportMenuItems	= {
-		{
-			title = "About",
-			file = "About.lua"
-		}
-	},
-	VERSION             = { major = 0, minor = 2, revision = 0, build = 0 }
-}
+-- Increment version to break main loop
+math.randomseed (os.time ())
+currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
+currentLoadVersion = currentLoadVersion + 1
+
+-- Stop application
+LrControlApp.Stop()

@@ -19,11 +19,10 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
 local LrTasks			= import 'LrTasks'
-local LrShell	        = import 'LrShell'
 local LrDialogs         = import 'LrDialogs'
-local LrPathUtils       = import 'LrPathUtils'
 local LrFunctionContext = import 'LrFunctionContext'
 local LrSocket          = import 'LrSocket'
+local LrControlApp      = require 'LrControlApp'
 
 local Options = {
     MessageReceivePort = 52008,
@@ -38,17 +37,19 @@ currentLoadVersion = currentLoadVersion + 1
 
 -- Main task
 local function main(context)
-    LrDialogs.showBezel ("LrControl running, loaded version " .. currentLoadVersion)
-      
-    -- Open sockets  
-    local recieveClient = LrSocket.bind {
+	LrDialogs.showBezel ("LrControl running, loaded version " .. currentLoadVersion)
+    
+    LrControlApp.Start()
+
+		-- Open sockets  
+	local recieveClient = LrSocket.bind {
         functionContext = context,
         plugin			= _PLUGIN,
         port			= Options.MessageReceivePort,
         mode			= 'receive',
         onConnected		= function (socket) end,
         onClosed		= function(socket) socket:reconnect() end,
-        onError			= function (socket, err) socket:reconnect()	end,
+		onError			= function (socket, err) socket:reconnect() end,
         onMessage		= function (_, message)
             if type (message) == "string" then
                 LrDialogs.showBezel ("Received message:" .. message)
@@ -59,21 +60,18 @@ local function main(context)
     }
 
 
-    -- Start LrControl application
-    --LrShell.openFilesInApp ({""}, LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.exe')))
+	-- Start LrControl application
+	--LrShell.openFilesInApp ({""}, LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.exe')))
 
 
-    -- Start wait loop
-    local loadVersion = currentLoadVersion
-    while (loadVersion == currentLoadVersion) do
+	-- Start wait loop
+	math.randomseed (os.time())
+	currentLoadVersion = math.random()
+	local loadVersion = currentLoadVersion
+
+	while (loadVersion == currentLoadVersion or true) do
         LrTasks.sleep(0.25)
-    end
-
-
-    -- Close sockets
-    recieveClient.close()
-
-    LrDialogs.showBezel("LrControl shutting down")
+	end
 end
 
 

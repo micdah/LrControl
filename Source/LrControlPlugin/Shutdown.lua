@@ -18,20 +18,21 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrDialogs = import 'LrDialogs'
+local LrControlApp = require 'LrControlApp'
 
-
-local function shutdownFunction (doneFunction, progressFunction)
-	LrDialogs.showBezel("Shutting down plugin...")
-
-	-- Increment version to break main loop
-	math.randomseed(os.time())
-	currentLoadVersion = rawget (_G, 'currentLoadVersion') or math.random ()
-	currentLoadVersion = currentLoadVersion + 1
-
-	doneFunction()
-end
 
 return {
-	LrShutdownFunction = shutdownFunction
+	LrShutdownFunction = function (doneFunction, progressFunction)
+		progressFunction (i, "Stopping LrControl, closing connections")
+		
+		-- Increment version to break main loop
+		math.randomseed (os.time ())
+		currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
+		currentLoadVersion = currentLoadVersion + 1
+
+		-- Stop application
+        LrControlApp.Stop()
+
+		doneFunction()
+	end
 }
