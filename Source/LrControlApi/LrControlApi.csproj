@@ -43,6 +43,11 @@
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\Range.cs" />
     <Compile Include="IParameter.cs" />
+    <Compile Include="LrApplicationView\ILrApplicationView.cs" />
+    <Compile Include="LrApplicationView\LrApplicationView.cs" />
+    <Compile Include="LrApplicationView\Module.cs" />
+    <Compile Include="LrApplicationView\PrimaryView.cs" />
+    <Compile Include="LrApplicationView\SecondaryView.cs" />
     <Compile Include="LrDevelopController\IDevelopControllerParameter.cs" />
     <Compile Include="LrDevelopController\ILrDevelopController.cs" />
     <Compile Include="LrDevelopController\LrDevelopController.cs" />
@@ -60,6 +65,7 @@
     <Compile Include="LrDevelopController\Parameters\TonePanelParameter.cs" />
     <Compile Include="LrDevelopController\ProcessVersion.cs" />
     <Compile Include="LrDevelopController\Tool.cs" />
+    <Compile Include="LrDialogs\ILrDialogs.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

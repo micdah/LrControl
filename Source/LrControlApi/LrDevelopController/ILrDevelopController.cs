@@ -2,7 +2,7 @@
 
 namespace LrControlApi.LrDevelopController
 {
-    public delegate void AdjustmentChange(string parameter, int newValue);
+    public delegate void AdjustmentChange();
 
     public interface ILrDevelopController
     {

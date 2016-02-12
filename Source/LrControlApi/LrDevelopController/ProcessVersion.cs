@@ -1,4 +1,5 @@
 ﻿using LrControlApi.Common;
+// ReSharper disable InconsistentNaming
 
 namespace LrControlApi.LrDevelopController
 {

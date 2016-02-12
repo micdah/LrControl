@@ -2,7 +2,7 @@
 
 namespace LrControlApi.LrDevelopController
 {
-    public class LrDevelopController : ILrDevelopController
+    internal class LrDevelopController : ILrDevelopController
     {
         public event AdjustmentChange AdjustmentChangeObserver;
         public void Decrement(IDevelopControllerParameter param)
@@ -123,12 +123,6 @@ namespace LrControlApi.LrDevelopController
         public void StopTracking()
         {
             throw new System.NotImplementedException();
-        }
-
-
-        protected virtual void OnAdjustmentChangeObserver(string parameter, int newvalue)
-        {
-            AdjustmentChangeObserver?.Invoke(parameter, newvalue);
         }
     }
 }
