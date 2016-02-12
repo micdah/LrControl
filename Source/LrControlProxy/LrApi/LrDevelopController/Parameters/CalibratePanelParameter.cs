@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using LrControlProxy.Common;
 
 namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class CalibratePanelParameter : Parameter
+    public class CalibratePanelParameter : Parameter<CalibratePanelParameter>, IDevelopControllerParameter
     {
         public static readonly CalibratePanelParameter Profile         = new CalibratePanelParameter("CameraProfile", "Profile", typeof(ProfileValue));
         public static readonly CalibratePanelParameter ShadowTint      = new CalibratePanelParameter("ShadowTint", "Shadows: Tint");
@@ -16,18 +14,6 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         public static readonly CalibratePanelParameter BlueHue         = new CalibratePanelParameter("BlueHue", "Blue Primary: Hue");
         public static readonly CalibratePanelParameter BlueSaturation  = new CalibratePanelParameter("BlueSaturation", "Blue Primary: Saturation");
 
-        public static readonly IList<CalibratePanelParameter> AllParameters =
-            new ReadOnlyCollection<CalibratePanelParameter>(new List<CalibratePanelParameter>
-            {
-                ShadowTint,
-                RedHue,
-                RedSaturation,
-                GreenHue,
-                GreenSaturation,
-                BlueHue,
-                BlueSaturation
-            });
-
         private CalibratePanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
         {
         }
@@ -36,7 +22,7 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         {
         }
 
-        public class ProfileValue : ClassEnum<string>
+        public class ProfileValue : ClassEnum<string,ProfileValue>
         {
             public static readonly ProfileValue AdobeStandard   = new ProfileValue("Adobe Standard");
             public static readonly ProfileValue CameraClear     = new ProfileValue("Adobe Standard");

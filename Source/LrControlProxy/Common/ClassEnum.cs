@@ -1,11 +1,19 @@
-﻿namespace LrControlProxy.Common
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace LrControlProxy.Common
 {
-    public abstract class ClassEnum<TValue>
+    public abstract class ClassEnum<TValue,TEnum>
+        where TEnum : ClassEnum<TValue,TEnum>
     {
+        private static readonly List<TEnum> AllEnumsLookup = new List<TEnum>(); 
+
         protected ClassEnum(string name, TValue value)
         {
             Name = name;
             Value = value;
+
+            AllEnumsLookup.Add((TEnum) this);
         }
         
         public string Name { get; }
@@ -15,5 +23,7 @@
         {
             return Name;
         }
+
+        public static IList<TEnum> Values => new ReadOnlyCollection<TEnum>(AllEnumsLookup);
     }
 }

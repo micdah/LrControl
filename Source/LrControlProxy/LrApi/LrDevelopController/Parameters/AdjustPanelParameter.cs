@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using LrControlProxy.Common;
 
 namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class AdjustPanelParameter : Parameter
+    public class AdjustPanelParameter : Parameter<AdjustPanelParameter>, IDevelopControllerParameter
     {
         public static readonly AdjustPanelParameter WhiteBalance = new AdjustPanelParameter("WhiteBalance", "Whitebalance", typeof(WhiteBalanceValue));
         public static readonly AdjustPanelParameter Temperature  = new AdjustPanelParameter("Temperature", "Whitebalance: Temperature");
@@ -20,23 +17,7 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         public static readonly AdjustPanelParameter Clarity      = new AdjustPanelParameter("Clarity", "Presence: Clarity");
         public static readonly AdjustPanelParameter Vibrance     = new AdjustPanelParameter("Vibrance", "Presence: Vibrance");
         public static readonly AdjustPanelParameter Saturation   = new AdjustPanelParameter("Saturation", "Presence: Saturation");
-
-        public static readonly IList<AdjustPanelParameter> AllParameters =
-            new ReadOnlyCollection<AdjustPanelParameter>(new List<AdjustPanelParameter>
-            {
-                Temperature,
-                Tint,
-                Exposure,
-                Highlights,
-                Shadows,
-                Contrast,
-                Whites,
-                Blacks,
-                Clarity,
-                Vibrance,
-                Saturation
-            });
-
+        
         private AdjustPanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
         {
         }
@@ -45,7 +26,7 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         {
         }
 
-        public class WhiteBalanceValue : ClassEnum<string>
+        public class WhiteBalanceValue : ClassEnum<string,WhiteBalanceValue>
         {
             public static readonly WhiteBalanceValue AsShot = new WhiteBalanceValue("As Shot");
             public static readonly WhiteBalanceValue Auto = new WhiteBalanceValue("Auto");

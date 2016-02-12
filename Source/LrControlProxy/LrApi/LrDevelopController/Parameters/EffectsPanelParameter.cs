@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace LrControlProxy.LrApi.LrDevelopController.Parameters
+﻿namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class EffectsPanelParameter : Parameter
+    public class EffectsPanelParameter : Parameter<EffectsPanelParameter>, IDevelopControllerParameter
     {
         public static readonly EffectsPanelParameter PostCropVignetteStyle             = new EffectsPanelParameter("PostCropVignetteStyle", "Post-Crop Vignetting: Style");
         public static readonly EffectsPanelParameter PostCropVignetteAmount            = new EffectsPanelParameter("PostCropVignetteAmount", "Post-Crop Vignetting: Amount");
@@ -15,21 +12,6 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         public static readonly EffectsPanelParameter GrainSize                         = new EffectsPanelParameter("GrainSize", "Grain: Size");
         public static readonly EffectsPanelParameter GrainFrequency                    = new EffectsPanelParameter("GrainFrequency", "Grain: Roughness");
         public static readonly EffectsPanelParameter Dehaze                            = new EffectsPanelParameter("Dehaze", "Dehaze: Amount");
-
-        public static readonly IList<EffectsPanelParameter> AllParameters =
-            new ReadOnlyCollection<EffectsPanelParameter>(new List<EffectsPanelParameter>
-            {
-                Dehaze,
-                PostCropVignetteAmount,
-                PostCropVignetteMidpoint,
-                PostCropVignetteFeather,
-                PostCropVignetteRoundness,
-                PostCropVignetteStyle,
-                PostCropVignetteHighlightContrast,
-                GrainAmount,
-                GrainSize,
-                GrainFrequency
-            });
 
         private EffectsPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {

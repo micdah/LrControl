@@ -3,7 +3,7 @@ using LrControlProxy.Common;
 
 namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class LensCorrectionsPanelParameter : Parameter
+    public class LensCorrectionsPanelParameter : Parameter<LensCorrectionsPanelParameter>, IDevelopControllerParameter
     {
         public static readonly LensCorrectionsPanelParameter LensProfileDistortionScale          = new LensCorrectionsPanelParameter("LensProfileDistortionScale", "Profile: Distortion Scale");
         public static readonly LensCorrectionsPanelParameter LensProfileVignettingScale          = new LensCorrectionsPanelParameter("LensProfileVignettingScale", "Profile: Vignetting Scale");
@@ -30,7 +30,7 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         {
         }
 
-        public class UprightValue : ClassEnum<int>
+        public class UprightValue : ClassEnum<int,UprightValue>
         {
             public static readonly UprightValue Off = new UprightValue("Auto", 0);
             public static readonly UprightValue Auto = new UprightValue("Auto", 1);

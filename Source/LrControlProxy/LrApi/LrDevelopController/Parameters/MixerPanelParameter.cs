@@ -1,6 +1,6 @@
 ﻿namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class MixerPanelParameter : Parameter
+    public class MixerPanelParameter : Parameter<MixerPanelParameter>, IDevelopControllerParameter
     {
         public static readonly MixerPanelParameter SaturationAdjustmentRed     = new MixerPanelParameter("SaturationAdjustmentRed", "Saturation: Red");
         public static readonly MixerPanelParameter SaturationAdjustmentOrange  = new MixerPanelParameter("SaturationAdjustmentOrange", "Saturation: Orange");

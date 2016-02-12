@@ -1,7 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class LocalizedAdjustmentsParameter : Parameter
+    public class LocalizedAdjustmentsParameter : Parameter<LocalizedAdjustmentsParameter>, IDevelopControllerParameter
     {
         public static readonly LocalizedAdjustmentsParameter Temperature    = new LocalizedAdjustmentsParameter("local_Temperature", "Temperature");
         public static readonly LocalizedAdjustmentsParameter Tint           = new LocalizedAdjustmentsParameter("local_Tint", "Tint");

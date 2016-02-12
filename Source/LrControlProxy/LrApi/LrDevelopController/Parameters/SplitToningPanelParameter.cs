@@ -1,6 +1,6 @@
 ﻿namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class SplitToningPanelParameter : Parameter
+    public class SplitToningPanelParameter : Parameter<SplitToningPanelParameter>, IDevelopControllerParameter
     {
         public static readonly SplitToningPanelParameter SplitToningHighlightHue        = new SplitToningPanelParameter("SplitToningHighlightHue", "Highlights: Hue");
         public static readonly SplitToningPanelParameter SplitToningHighlightSaturation = new SplitToningPanelParameter("SplitToningHighlightSaturation", "Highlights: Saturation");

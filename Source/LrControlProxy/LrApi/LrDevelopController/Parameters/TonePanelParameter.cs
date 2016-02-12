@@ -1,6 +1,6 @@
 ﻿namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class TonePanelParameter : Parameter
+    public class TonePanelParameter : Parameter<TonePanelParameter>, IDevelopControllerParameter
     {
         public static readonly TonePanelParameter ParametricHighlights     = new TonePanelParameter("ParametricHighlights", "Highlights");
         public static readonly TonePanelParameter ParametricLights         = new TonePanelParameter("ParametricLights", "Lights");

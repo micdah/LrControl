@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace LrControlProxy.LrApi.LrDevelopController.Parameters
+﻿namespace LrControlProxy.LrApi.LrDevelopController.Parameters
 {
-    public class DetailPanelParameter : Parameter
+    public class DetailPanelParameter : Parameter<DetailPanelParameter>, IDevelopControllerParameter
     {
         public static readonly DetailPanelParameter Sharpness                       = new DetailPanelParameter("Sharpness", "Sharpening: Amount");
         public static readonly DetailPanelParameter SharpenRadius                   = new DetailPanelParameter("SharpenRadius", "Sharpening: Radius");
@@ -15,22 +12,7 @@ namespace LrControlProxy.LrApi.LrDevelopController.Parameters
         public static readonly DetailPanelParameter ColorNoiseReduction             = new DetailPanelParameter("ColorNoiseReduction", "Noise Reduction: Color");
         public static readonly DetailPanelParameter ColorNoiseReductionDetail       = new DetailPanelParameter("ColorNoiseReductionDetail", "Noise Reduction: Detail");
         public static readonly DetailPanelParameter ColorNoiseReductionSmoothness   = new DetailPanelParameter("ColorNoiseReductionSmoothness", "Noise Reduction: Smoothness");
-
-        public static readonly IList<DetailPanelParameter> AllParameters =
-            new ReadOnlyCollection<DetailPanelParameter>(new List<DetailPanelParameter>
-            {
-                Sharpness,
-                SharpenRadius,
-                SharpenDetail,
-                SharpenEdgeMasking,
-                LuminanceSmoothing,
-                LuminanceNoiseReductionDetail,
-                LuminanceNoiseReductionContrast,
-                ColorNoiseReduction,
-                ColorNoiseReductionDetail,
-                ColorNoiseReductionSmoothness
-            });
-
+        
         private DetailPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
