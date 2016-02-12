@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="LrApi\LrDevelopController\LrDevelopController.cs" />
     <Compile Include="LrApi\LrDevelopController\Panels.cs" />
     <Compile Include="LrApi\LrDevelopController\Parameters\AdjustPanelParameter.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="LrApi\LrDevelopController\Parameters\LensCorrectionsPanelParameter.cs" />
     <Compile Include="LrApi\LrDevelopController\Parameters\LocalizedAdjustmentsParameter.cs" />
     <Compile Include="LrApi\LrDevelopController\Parameters\MixerPanelParameter.cs" />
+    <Compile Include="LrApi\LrDevelopController\Parameters\Parameter.cs" />
     <Compile Include="LrApi\LrDevelopController\Parameters\SplitToningPanelParameter.cs" />
     <Compile Include="LrApi\LrDevelopController\Parameters\TonePanelParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
