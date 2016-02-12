@@ -1,7 +1,7 @@
 ﻿using System;
-using LrControlProxy.Common;
+using LrControlApi.Common;
 
-namespace LrControlProxy.LrApi.LrDevelopController.Parameters
+namespace LrControlApi.LrApi.LrDevelopController.Parameters
 {
     public class CalibratePanelParameter : Parameter<CalibratePanelParameter>, IDevelopControllerParameter
     {

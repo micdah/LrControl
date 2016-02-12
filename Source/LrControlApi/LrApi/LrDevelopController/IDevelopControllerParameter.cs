@@ -1,4 +1,4 @@
-﻿namespace LrControlProxy.LrApi.LrDevelopController
+﻿namespace LrControlApi.LrApi.LrDevelopController
 {
     public interface IDevelopControllerParameter : IParameter
     {

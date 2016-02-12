@@ -1,6 +1,6 @@
-﻿using LrControlProxy.Common;
+﻿using LrControlApi.Common;
 
-namespace LrControlProxy.LrApi.LrDevelopController
+namespace LrControlApi.LrApi.LrDevelopController
 {
     public delegate void AdjustmentChange(string parameter, int newValue);
 

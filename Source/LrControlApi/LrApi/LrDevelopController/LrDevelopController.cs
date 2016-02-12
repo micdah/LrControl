@@ -1,7 +1,4 @@
-﻿using System;
-using LrControlProxy.LrApi.LrDevelopController.Parameters;
-
-namespace LrControlProxy.LrApi.LrDevelopController
+﻿namespace LrControlApi.LrApi.LrDevelopController
 {
     public class LrDevelopController
     {

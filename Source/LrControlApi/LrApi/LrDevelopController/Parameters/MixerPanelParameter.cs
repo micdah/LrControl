@@ -1,4 +1,4 @@
-﻿namespace LrControlProxy.LrApi.LrDevelopController.Parameters
+﻿namespace LrControlApi.LrApi.LrDevelopController.Parameters
 {
     public class MixerPanelParameter : Parameter<MixerPanelParameter>, IDevelopControllerParameter
     {

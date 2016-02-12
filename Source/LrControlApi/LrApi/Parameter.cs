@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace LrControlProxy.LrApi
+namespace LrControlApi.LrApi
 {
     public abstract class Parameter<TParameter> : IParameter where TParameter : Parameter<TParameter>
     {

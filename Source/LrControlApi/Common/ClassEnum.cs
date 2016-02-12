@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace LrControlProxy.Common
+namespace LrControlApi.Common
 {
     public abstract class ClassEnum<TValue,TEnum>
         where TEnum : ClassEnum<TValue,TEnum>

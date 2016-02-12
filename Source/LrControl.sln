@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlPlugin", "LrControlPlugin\LrControlPlugin.csproj", "{892ED5AF-E453-4A14-960D-CAE363455EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlProxy", "LrControlProxy\LrControlProxy.csproj", "{4BD68C41-8C8A-4ABF-9624-0379C2CED801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlApi", "LrControlApi\LrControlApi.csproj", "{4BD68C41-8C8A-4ABF-9624-0379C2CED801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

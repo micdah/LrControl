@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LrControlProxy.LrApi
+namespace LrControlApi.LrApi
 {
     public interface IParameter
     {

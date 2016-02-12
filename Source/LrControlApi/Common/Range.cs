@@ -1,4 +1,4 @@
-﻿namespace LrControlProxy.Common
+﻿namespace LrControlApi.Common
 {
     public class Range
     {
