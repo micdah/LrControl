@@ -65,7 +65,10 @@
     <Compile Include="LrDevelopController\Parameters\TonePanelParameter.cs" />
     <Compile Include="LrDevelopController\ProcessVersion.cs" />
     <Compile Include="LrDevelopController\Tool.cs" />
+    <Compile Include="LrDialogs\ConfirmResult.cs" />
+    <Compile Include="LrDialogs\DialogStyle.cs" />
     <Compile Include="LrDialogs\ILrDialogs.cs" />
+    <Compile Include="LrDialogs\LrDialogs.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

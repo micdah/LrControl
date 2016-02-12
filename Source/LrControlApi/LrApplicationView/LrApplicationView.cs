@@ -1,6 +1,6 @@
 ﻿namespace LrControlApi.LrApplicationView
 {
-    public class LrApplicationView : ILrApplicationView
+    internal class LrApplicationView : ILrApplicationView
     {
         public Module GetCurrentModuleName()
         {
