@@ -65,10 +65,6 @@ local function main(context)
 
 
 	-- Start wait loop
-	math.randomseed (os.time())
-	currentLoadVersion = math.random()
-	local loadVersion = currentLoadVersion
-
 	while (loadVersion == currentLoadVersion or true) do
         LrTasks.sleep(0.25)
 	end

@@ -26,8 +26,6 @@ return {
 		progressFunction (i, "Stopping LrControl, closing connections")
 		
 		-- Increment version to break main loop
-		math.randomseed (os.time ())
-		currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
 		currentLoadVersion = currentLoadVersion + 1
 
 		-- Stop application
