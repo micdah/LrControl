@@ -1,7 +1,11 @@
 ﻿namespace LrControlApi.LrApplicationView
 {
+    public delegate void ModuleChangedHandler(Module newModule);
+
     public interface ILrApplicationView
     {
+        event ModuleChangedHandler ModuleChanged;
+
         /// <summary>
         ///     Returns the name of the currently active module.
         /// </summary>

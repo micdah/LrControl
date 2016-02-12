@@ -19,21 +19,7 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
 
-return {
-	LrSdkVersion        = 6.0,
-	LrSdkMinimumVersion = 6.0,
-	LrPluginName        = "LrControl",
-	LrToolkitIdentifier = "dk.micdah.lrcontrol",
-	LrForceInitPlugin	= true,
-	LrInitPlugin        = "Main.lua",
-	LrShutdownPlugin	= "Shutdown.lua",
-	LurShutdownApp	    = "Shutdown.lua",
-	LrPluginInfoUrl     = "https://github.com/micdah/LrControl",
-	LrExportMenuItems	= {
-		{
-			title = "About",
-			file = "About.lua"
-		}
-	},
-	VERSION             = { major = 0, minor = 2, revision = 0, build = 0 }
+loggers.LrControl = {
+	logLevel = "trace",
+	action = "logfile"
 }

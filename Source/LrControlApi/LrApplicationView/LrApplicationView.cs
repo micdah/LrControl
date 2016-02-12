@@ -2,6 +2,8 @@
 {
     internal class LrApplicationView : ILrApplicationView
     {
+        public event ModuleChangedHandler ModuleChanged;
+
         public Module GetCurrentModuleName()
         {
             throw new System.NotImplementedException();
