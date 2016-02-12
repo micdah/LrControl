@@ -95,7 +95,7 @@ namespace LrControlApi.LrDevelopController
             throw new System.NotImplementedException();
         }
 
-        public void SetMultipleAdjustmentThreshold(int seconds)
+        public void SetMultipleAdjustmentThreshold(double seconds)
         {
             throw new System.NotImplementedException();
         }
@@ -105,7 +105,7 @@ namespace LrControlApi.LrDevelopController
             throw new System.NotImplementedException();
         }
 
-        public void SetTrackingDelay(int seconds)
+        public void SetTrackingDelay(double seconds)
         {
             throw new System.NotImplementedException();
         }

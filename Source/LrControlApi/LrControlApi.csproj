@@ -74,6 +74,8 @@
     <Compile Include="LrSelection\Flag.cs" />
     <Compile Include="LrSelection\ILrSelection.cs" />
     <Compile Include="LrSelection\LrSelection.cs" />
+    <Compile Include="LrUndo\ILrUndo.cs" />
+    <Compile Include="LrUndo\LrUndo.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

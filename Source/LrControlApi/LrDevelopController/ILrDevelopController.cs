@@ -140,7 +140,7 @@ namespace LrControlApi.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        void SetMultipleAdjustmentThreshold(int seconds);
+        void SetMultipleAdjustmentThreshold(double seconds);
 
         /// <summary>
         ///     Sets the process version of the current photo.
@@ -154,7 +154,7 @@ namespace LrControlApi.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        void SetTrackingDelay(int seconds);
+        void SetTrackingDelay(double seconds);
 
         /// <summary>
         ///     Sets the value of a Develop adjustment for the current photo.

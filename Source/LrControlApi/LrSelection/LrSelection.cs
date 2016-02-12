@@ -1,6 +1,6 @@
 ﻿namespace LrControlApi.LrSelection
 {
-    public class LrSelection : ILrSelection
+    internal class LrSelection : ILrSelection
     {
         public void ClearLabels()
         {
