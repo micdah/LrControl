@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.LrApi.LrDevelopController.Parameters
+﻿namespace LrControlApi.LrDevelopController.Parameters
 {
     public class SplitToningPanelParameter : Parameter<SplitToningPanelParameter>, IDevelopControllerParameter
     {

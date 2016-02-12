@@ -1,6 +1,6 @@
 ﻿using LrControlApi.Common;
 
-namespace LrControlApi.LrApi.LrDevelopController
+namespace LrControlApi.LrDevelopController
 {
     public class Tool : ClassEnum<string, Tool>
     {

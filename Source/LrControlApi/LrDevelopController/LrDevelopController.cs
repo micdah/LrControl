@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.LrApi.LrDevelopController
+﻿namespace LrControlApi.LrDevelopController
 {
     public class LrDevelopController
     {
