@@ -4,10 +4,10 @@ namespace LrControlApi.LrSelection
 {
     public class Direction : ClassEnum<string, Direction>
     {
-        public static readonly Direction Left  = new Direction("Left", "left");
-        public static readonly Direction Right = new Direction("Right", "right");
+        public static readonly Direction Left  = new Direction("left", "Left");
+        public static readonly Direction Right = new Direction("right", "Right");
 
-        private Direction(string name, string value) : base(name, value)
+        private Direction(string value, string name) : base(value, name)
         {
         }
     }

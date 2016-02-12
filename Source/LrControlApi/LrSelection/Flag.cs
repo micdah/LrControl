@@ -4,11 +4,11 @@ namespace LrControlApi.LrSelection
 {
     public class Flag : ClassEnum<int, Flag>
     {
-        public static readonly Flag None = new Flag("None", 0);
-        public static readonly Flag Pick = new Flag("Pick", 1);
-        public static readonly Flag Reject = new Flag("Reject", -1);
+        public static readonly Flag None = new Flag(0, "None");
+        public static readonly Flag Pick = new Flag(1, "Pick");
+        public static readonly Flag Reject = new Flag(-1, "Reject");
         
-        private Flag(string name, int value) : base(name, value)
+        private Flag(int value, string name) : base(value, name)
         {
         }
     }

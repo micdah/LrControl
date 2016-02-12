@@ -4,15 +4,15 @@ namespace LrControlApi.LrSelection
 {
     public class ColorLabel : ClassEnum<string, ColorLabel>
     {
-        public static readonly ColorLabel Red    = new ColorLabel("Red", "red");
-        public static readonly ColorLabel Yellow = new ColorLabel("Yellow", "yellow");
-        public static readonly ColorLabel Green  = new ColorLabel("Green", "green");
-        public static readonly ColorLabel Blue   = new ColorLabel("Blue", "blue");
-        public static readonly ColorLabel Purple = new ColorLabel("Purple", "purple");
-        public static readonly ColorLabel Other  = new ColorLabel("Other", "other");
-        public static readonly ColorLabel None   = new ColorLabel("None", "none");
+        public static readonly ColorLabel Red    = new ColorLabel("red", "Red");
+        public static readonly ColorLabel Yellow = new ColorLabel("yellow", "Yellow");
+        public static readonly ColorLabel Green  = new ColorLabel("green", "Green");
+        public static readonly ColorLabel Blue   = new ColorLabel("blue", "Blue");
+        public static readonly ColorLabel Purple = new ColorLabel("purple", "Purple");
+        public static readonly ColorLabel Other  = new ColorLabel("other", "Other");
+        public static readonly ColorLabel None   = new ColorLabel("none", "None");
 
-        private ColorLabel(string name, string value) : base(name, value)
+        private ColorLabel(string value, string name) : base(value, name)
         {
         }
     }

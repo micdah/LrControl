@@ -32,13 +32,13 @@ namespace LrControlApi.LrDevelopController.Parameters
 
         public class UprightValue : ClassEnum<int,UprightValue>
         {
-            public static readonly UprightValue Off      = new UprightValue("Off", 0);
-            public static readonly UprightValue Auto     = new UprightValue("Auto", 1);
-            public static readonly UprightValue Full     = new UprightValue("Full", 2);
-            public static readonly UprightValue Level    = new UprightValue("Level", 3);
-            public static readonly UprightValue Vertical = new UprightValue("Vertical", 4);
+            public static readonly UprightValue Off      = new UprightValue(0, "Off");
+            public static readonly UprightValue Auto     = new UprightValue(1, "Auto");
+            public static readonly UprightValue Full     = new UprightValue(2, "Full");
+            public static readonly UprightValue Level    = new UprightValue(3, "Level");
+            public static readonly UprightValue Vertical = new UprightValue(4, "Vertical");
 
-            private UprightValue(string name, int value) : base(name, value)
+            private UprightValue(int value, string name) : base(value, name)
             {
             }
         }

@@ -5,14 +5,14 @@ namespace LrControlApi.LrApplicationView
 {
     public class Module : ClassEnum<string, Module>
     {
-        public static readonly Module Library   = new Module("Module", "module");
-        public static readonly Module Develop   = new Module("Develop", "develop");
-        public static readonly Module Map       = new Module("Map", "map");
-        public static readonly Module Slideshow = new Module("Slideshow", "slideshow");
-        public static readonly Module Print     = new Module("Print", "print");
-        public static readonly Module Web       = new Module("Web", "web");
+        public static readonly Module Library   = new Module("module", "Module");
+        public static readonly Module Develop   = new Module("develop", "Develop");
+        public static readonly Module Map       = new Module("map", "Map");
+        public static readonly Module Slideshow = new Module("slideshow", "Slideshow");
+        public static readonly Module Print     = new Module("print", "Print");
+        public static readonly Module Web       = new Module("web", "Web");
 
-        private Module(string name, string value) : base(name, value)
+        private Module(string value, string name) : base(value, name)
         {
         }
     }

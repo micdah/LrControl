@@ -4,11 +4,11 @@ namespace LrControlApi.LrDialogs
 {
     public class DialogStyle : ClassEnum<string, DialogStyle>
     {
-        public static readonly DialogStyle Info     = new DialogStyle("Info", "info");
-        public static readonly DialogStyle Warning  = new DialogStyle("Warning", "warning");
-        public static readonly DialogStyle Critical = new DialogStyle("Critical", "critical");
+        public static readonly DialogStyle Info     = new DialogStyle("info", "Info");
+        public static readonly DialogStyle Warning  = new DialogStyle("warning", "Warning");
+        public static readonly DialogStyle Critical = new DialogStyle("critical", "Critical");
 
-        private DialogStyle(string name, string value) : base(name, value)
+        private DialogStyle(string value, string name) : base(value, name)
         {
         }
     }

@@ -4,12 +4,12 @@ namespace LrControlApi.LrDialogs
 {
     public class ConfirmResult : ClassEnum<string, ConfirmResult>
     {
-        public static readonly ConfirmResult Ok     = new ConfirmResult("Ok", "ok");
-        public static readonly ConfirmResult Cancel = new ConfirmResult("Cancel", "cancel");
-        public static readonly ConfirmResult Other  = new ConfirmResult("Other", "other");
+        public static readonly ConfirmResult Ok     = new ConfirmResult("ok", "Ok");
+        public static readonly ConfirmResult Cancel = new ConfirmResult("cancel", "Cancel");
+        public static readonly ConfirmResult Other  = new ConfirmResult("other", "Other");
 
 
-        private ConfirmResult(string name, string value) : base(name, value)
+        private ConfirmResult(string value, string name) : base(value, name)
         {
         }
     }

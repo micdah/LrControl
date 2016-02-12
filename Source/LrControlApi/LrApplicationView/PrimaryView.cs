@@ -4,17 +4,17 @@ namespace LrControlApi.LrApplicationView
 {
     public class PrimaryView : ClassEnum<string, PrimaryView>
     {
-        public static readonly PrimaryView Loupe                        = new PrimaryView("Loupe", "loupe");
-        public static readonly PrimaryView Grid                         =new PrimaryView("Grid", "grid");
-        public static readonly PrimaryView Compare                      = new PrimaryView("Compare", "compare");
-        public static readonly PrimaryView Survey                       = new PrimaryView("Survey", "survey");
-        public static readonly PrimaryView People                       = new PrimaryView("People", "people");
-        public static readonly PrimaryView DevelopLoupe                 = new PrimaryView("Develop Loupe", "develop_loupe");
-        public static readonly PrimaryView DevelopBeforeAfterHorizontal = new PrimaryView("Develop Before/After Horizontal", "develop_before_after_horiz");
-        public static readonly PrimaryView DevelopBeforeAfterVertical   = new PrimaryView("Develop Before/After Vertical", "develop_before_after_vert");
-        public static readonly PrimaryView DevelopBefore                = new PrimaryView("Develop Before", "develop_before");
+        public static readonly PrimaryView Loupe                        = new PrimaryView("loupe", "Loupe");
+        public static readonly PrimaryView Grid                         =new PrimaryView("grid", "Grid");
+        public static readonly PrimaryView Compare                      = new PrimaryView("compare", "Compare");
+        public static readonly PrimaryView Survey                       = new PrimaryView("survey", "Survey");
+        public static readonly PrimaryView People                       = new PrimaryView("people", "People");
+        public static readonly PrimaryView DevelopLoupe                 = new PrimaryView("develop_loupe", "Develop Loupe");
+        public static readonly PrimaryView DevelopBeforeAfterHorizontal = new PrimaryView("develop_before_after_horiz", "Develop Before/After Horizontal");
+        public static readonly PrimaryView DevelopBeforeAfterVertical   = new PrimaryView("develop_before_after_vert", "Develop Before/After Vertical");
+        public static readonly PrimaryView DevelopBefore                = new PrimaryView("develop_before", "Develop Before");
 
-        private PrimaryView(string name, string value) : base(name, value)
+        private PrimaryView(string value, string name) : base(value, name)
         {
         }
     }

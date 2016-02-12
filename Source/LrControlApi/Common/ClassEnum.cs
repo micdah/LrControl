@@ -8,7 +8,7 @@ namespace LrControlApi.Common
     {
         private static readonly List<TEnum> AllEnumsLookup = new List<TEnum>(); 
 
-        protected ClassEnum(string name, TValue value)
+        protected ClassEnum(TValue value, string name)
         {
             Name = name;
             Value = value;

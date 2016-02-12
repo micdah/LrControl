@@ -54,7 +54,7 @@
     <Compile Include="LrDevelopController\Panels.cs" />
     <Compile Include="LrDevelopController\Parameters\AdjustPanelParameter.cs" />
     <Compile Include="LrDevelopController\Parameters\CalibratePanelParameter.cs" />
-    <Compile Include="LrDevelopController\Parameters\CropAngleParameter.cs" />
+    <Compile Include="LrDevelopController\Parameters\CropParameter.cs" />
     <Compile Include="LrDevelopController\Parameters\DetailPanelParameter.cs" />
     <Compile Include="LrDevelopController\Parameters\EffectsPanelParameter.cs" />
     <Compile Include="LrDevelopController\Parameters\EnablePanelParameter.cs" />
