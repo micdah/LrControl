@@ -69,6 +69,11 @@
     <Compile Include="LrDialogs\DialogStyle.cs" />
     <Compile Include="LrDialogs\ILrDialogs.cs" />
     <Compile Include="LrDialogs\LrDialogs.cs" />
+    <Compile Include="LrSelection\ColorLabel.cs" />
+    <Compile Include="LrSelection\Direction.cs" />
+    <Compile Include="LrSelection\Flag.cs" />
+    <Compile Include="LrSelection\ILrSelection.cs" />
+    <Compile Include="LrSelection\LrSelection.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
