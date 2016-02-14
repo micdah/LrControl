@@ -2,6 +2,11 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using log4net;
+using log4net.Appender;
+using log4net.Core;
+using log4net.Layout;
+using log4net.Repository.Hierarchy;
 
 namespace micdah.LrControl
 {
@@ -15,11 +20,37 @@ namespace micdah.LrControl
             if (IsShutdownRequest(e))
             {
                 TerminateAllInstances();
+                return;
             }
 
-            var mainWindow = new MainWindow();
+            SetupLogging();
 
+            var mainWindow = new MainWindow();
             mainWindow.Show();
+        }
+
+        private void SetupLogging()
+        {
+            var hierarchy = (Hierarchy) LogManager.GetRepository();
+
+            var patternLayout = new PatternLayout
+            {
+                ConversionPattern = "%date [%thread] %-5level %logger - %message\n"
+            };
+            patternLayout.ActivateOptions();
+
+
+            var consoleAppender = new ColoredConsoleAppender
+            {
+                Threshold = Level.Debug,
+                Layout = patternLayout
+            };
+            consoleAppender.ActivateOptions();
+            hierarchy.Root.AddAppender(consoleAppender);
+
+
+            hierarchy.Root.Level = Level.Debug;
+            hierarchy.Configured = true;
         }
 
         private static bool IsShutdownRequest(StartupEventArgs e)

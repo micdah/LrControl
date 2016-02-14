@@ -46,7 +46,8 @@
   <ItemGroup>
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\Range.cs" />
-    <Compile Include="Communicator.cs" />
+    <Compile Include="Communication\PluginClient.cs" />
+    <Compile Include="Communication\SocketWrapper.cs" />
     <Compile Include="IParameter.cs" />
     <Compile Include="LrApplicationView\ILrApplicationView.cs" />
     <Compile Include="LrApplicationView\LrApplicationView.cs" />

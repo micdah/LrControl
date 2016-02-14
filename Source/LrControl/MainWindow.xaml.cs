@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using LrControlApi;
+using LrControlApi.Communication;
 
 namespace micdah.LrControl
 {
@@ -12,14 +13,14 @@ namespace micdah.LrControl
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Communicator _communicator;
+        private PluginClient _pluginClient;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            _communicator = new Communicator(52008, 52009);
-            _communicator.Open();
+            _pluginClient = new PluginClient(52008, 52009);
+            _pluginClient.Open();
         }
         
         private void ButtonBase_OnClick(object sender, RoutedEventArgs args)
@@ -40,7 +41,7 @@ namespace micdah.LrControl
             var message = Message.Text;
 
             String response;
-            if (_communicator.SendMessage(message, out response))
+            if (_pluginClient.SendMessage(message, out response))
             {
                 Response.Text = response;
             }
