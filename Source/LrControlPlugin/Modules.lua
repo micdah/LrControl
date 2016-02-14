@@ -66,6 +66,9 @@ local function deserializeArgument(arg)
     elseif typeArg == "S" then
         -- String
         return value
+    elseif typeArg == "B" then
+        -- Boolean 0/1
+        return value == "1"
     end
     
     -- Unknown

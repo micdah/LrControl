@@ -1,12 +1,13 @@
+using System;
 using System.Text;
-using LrControlApi.LrControl;
+using LrControlApi.Common;
 
 namespace LrControlApi.Communication
 {
     internal class MessageProtocol<TModule>
     {
-        private readonly PluginClient _pluginClient;
         private readonly string _moduleName;
+        private readonly PluginClient _pluginClient;
 
         public MessageProtocol(PluginClient pluginClient)
         {
@@ -14,7 +15,7 @@ namespace LrControlApi.Communication
             _moduleName = typeof (TModule).Name;
         }
 
-        public void Send(string method, params string[] args)
+        public void Invoke(string method, params object[] args)
         {
             var message = FormatMessage(_moduleName, method, args);
 
@@ -30,9 +31,11 @@ namespace LrControlApi.Communication
             }
         }
 
-        public string SendWithResponse(string method, params string[] args)
+        public string InvokeWithResult(string method, params object[] args)
         {
-            var message = FormatMessage(_moduleName, method, args);
+            var lowerFirstMethod = char.ToLowerInvariant(method[0]) + method.Substring(1);
+
+            var message = FormatMessage(_moduleName, lowerFirstMethod, args);
             string response;
             if (!_pluginClient.SendMessage(message, out response))
             {
@@ -42,17 +45,62 @@ namespace LrControlApi.Communication
             return response;
         }
 
-        private static string FormatMessage(string module, string method, params string[] args)
+        private static string FormatMessage(string module, string method, params object[] args)
         {
             var builder = new StringBuilder($"{module}.{method}");
 
             if (args != null && args.Length > 0)
             {
                 builder.Append(' ');
-                builder.Append(string.Join(",", args));
+
+                for (var i = 0; i < args.Length; i++)
+                {
+                    builder.Append(i == 0 ? ' ' : '\u001E');
+                    var arg = args[i];
+
+                    if (arg is IParameter)
+                    {
+                        var parameter = (IParameter) arg;
+                        AppendTypedArgument(builder, parameter.Name);
+                    }
+                    else if (arg is ClassEnum)
+                    {
+                        var classEnum = (ClassEnum) arg;
+                        AppendTypedArgument(builder, classEnum.ObjectValue);
+                    }
+                    else
+                    {
+                        AppendTypedArgument(builder, arg);
+                    }
+                }
             }
 
             return builder.ToString();
+        }
+
+        private static void AppendTypedArgument(StringBuilder builder, object arg)
+        {
+            if (arg is string)
+            {
+                builder.Append("S");
+                builder.Append((string) arg);
+            }
+            else if (arg is int)
+            {
+                builder.Append("N");
+                builder.Append((int) arg);
+            }
+            else if (arg is double)
+            {
+                builder.Append("N");
+                builder.Append((double) arg);
+            } else if (arg is bool)
+            {
+                builder.Append("B");
+                builder.Append((bool) arg ? 1 : 0);
+            }
+
+            throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
         }
     }
 }

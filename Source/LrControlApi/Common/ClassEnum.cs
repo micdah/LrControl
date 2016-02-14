@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace LrControlApi.Common
 {
-    public abstract class ClassEnum<TValue,TEnum>
-        where TEnum : ClassEnum<TValue,TEnum>
+    public abstract class ClassEnum<TValue, TEnum> : ClassEnum
+        where TEnum : ClassEnum<TValue, TEnum>
     {
-        private static readonly List<TEnum> AllEnumsLookup = new List<TEnum>(); 
+        private static readonly List<TEnum> AllEnumsLookup = new List<TEnum>();
 
         protected ClassEnum(TValue value, string name)
         {
@@ -15,15 +16,27 @@ namespace LrControlApi.Common
 
             AllEnumsLookup.Add((TEnum) this);
         }
-        
+
         public string Name { get; }
         public TValue Value { get; }
+
+        public override object ObjectValue => Value;
+
+        public static IList<TEnum> AllValues => new ReadOnlyCollection<TEnum>(AllEnumsLookup);
+
+        public static TEnum GetEnumForValue(TValue value)
+        {
+            return AllValues.FirstOrDefault(e => e.Value.Equals(value));
+        }  
 
         public override string ToString()
         {
             return Name;
         }
+    }
 
-        public static IList<TEnum> Values => new ReadOnlyCollection<TEnum>(AllEnumsLookup);
+    public abstract class ClassEnum
+    {
+        public abstract object ObjectValue { get; }
     }
 }

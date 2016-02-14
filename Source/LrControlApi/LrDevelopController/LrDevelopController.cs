@@ -3,24 +3,21 @@ using LrControlApi.Communication;
 
 namespace LrControlApi.LrDevelopController
 {
-    internal class LrDevelopController : ILrDevelopController
+    internal class LrDevelopController : ModuleBase<LrDevelopController>, ILrDevelopController
     {
-        private readonly MessageProtocol<LrDevelopController> _pluginClient;
-
-        public LrDevelopController(MessageProtocol<LrDevelopController> pluginClient)
+        public LrDevelopController(MessageProtocol<LrDevelopController> messageProtocol) : base(messageProtocol)
         {
-            _pluginClient = pluginClient;
         }
 
         public event AdjustmentChange AdjustmentChangeObserver;
         public void Decrement(IDevelopControllerParameter param)
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(Decrement), param);
         }
 
         public ProcessVersion GetProcessVersion()
         {
-            throw new System.NotImplementedException();
+            return InvokeWithResult<ProcessVersion,string>(nameof(GetProcessVersion));;
         }
 
         public Range GetRange(IDevelopControllerParameter param)
@@ -30,62 +27,62 @@ namespace LrControlApi.LrDevelopController
 
         public Tool GetSelectedTool()
         {
-            throw new System.NotImplementedException();
+            return InvokeWithResult<Tool, string>(nameof(GetSelectedTool));
         }
 
         public object GetValue(IDevelopControllerParameter param)
         {
-            throw new System.NotImplementedException();
+            return InvokeWithResult(nameof(GetValue), param);
         }
 
         public void Increment(IDevelopControllerParameter param)
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(Increment), param);
         }
 
         public void ResetAllDevelopAdjustments()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetAllDevelopAdjustments));
         }
 
         public void ResetBrushing()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetBrushing));
         }
 
         public void ResetCircularGradient()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetCircularGradient));
         }
 
         public void ResetCrop()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetCrop));
         }
 
         public void ResetGradient()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetGradient));
         }
 
         public void ResetRedEye()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetRedEye));
         }
 
         public void ResetSpotRemoval()
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetSpotRemoval));
         }
 
         public void ResetToDefault(IDevelopControllerParameter param)
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(ResetToDefault), param);
         }
 
         public void RevealAdjustedControls(bool reveal)
         {
-            throw new System.NotImplementedException();
+            Invoke(nameof(RevealAdjustedControls), reveal);
         }
 
         public void RevealPanel(IDevelopControllerParameter param)

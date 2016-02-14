@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ApiException.cs" />
     <Compile Include="Common\ClassEnum.cs" />
+    <Compile Include="Common\ModuleBase.cs" />
     <Compile Include="Common\Range.cs" />
     <Compile Include="Communication\MessageProtocol.cs" />
     <Compile Include="Communication\PluginClient.cs" />

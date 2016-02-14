@@ -1,19 +1,17 @@
-﻿using LrControlApi.Communication;
+﻿using LrControlApi.Common;
+using LrControlApi.Communication;
 
 namespace LrControlApi.LrControl
 {
-    internal class LrControl : ILrControl
+    internal class LrControl : ModuleBase<LrControl>, ILrControl
     {
-        private readonly MessageProtocol<LrControl> _messageProtocol;
-
-        public LrControl(MessageProtocol<LrControl> messageProtocol)
+        public LrControl(MessageProtocol<LrControl> messageProtocol) : base(messageProtocol)
         {
-            _messageProtocol = messageProtocol;
         }
 
         public string GetApiVersion()
         {
-            return _messageProtocol.SendWithResponse("getApiVersion");
+            return InvokeWithResult("getApiVersion");
         }
     }
 }
