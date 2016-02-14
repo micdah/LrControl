@@ -7,6 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="300">
     <Grid>
-        <Button Click="ButtonBase_OnClick">Send</Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0">Message</Label>
+        <TextBox Grid.Row="1" x:Name="Message" Margin="3" KeyUp="Message_OnKeyUp"/>
+
+        <Button Grid.Row="2" Padding="3" Margin="3" Click="ButtonBase_OnClick">Send</Button>
+        
+        <Label Grid.Row="3">Response</Label>
+        <TextBox Grid.Row="4" x:Name="Response" IsReadOnly="True"/>
     </Grid>
 </Window>

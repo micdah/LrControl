@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,12 +46,14 @@
   <ItemGroup>
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\Range.cs" />
+    <Compile Include="Communicator.cs" />
     <Compile Include="IParameter.cs" />
     <Compile Include="LrApplicationView\ILrApplicationView.cs" />
     <Compile Include="LrApplicationView\LrApplicationView.cs" />
     <Compile Include="LrApplicationView\Module.cs" />
     <Compile Include="LrApplicationView\PrimaryView.cs" />
     <Compile Include="LrApplicationView\SecondaryView.cs" />
+    <Compile Include="LrControlApi.cs" />
     <Compile Include="LrDevelopController\IDevelopControllerParameter.cs" />
     <Compile Include="LrDevelopController\ILrDevelopController.cs" />
     <Compile Include="LrDevelopController\LrDevelopController.cs" />
@@ -78,6 +84,9 @@
     <Compile Include="LrUndo\LrUndo.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

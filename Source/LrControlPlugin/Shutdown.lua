@@ -22,15 +22,17 @@ local LrControlApp = require 'LrControlApp'
 
 
 return {
-	LrShutdownFunction = function (doneFunction, progressFunction)
-		progressFunction (i, "Stopping LrControl, closing connections")
-		
-		-- Increment version to break main loop
-		currentLoadVersion = currentLoadVersion + 1
+    LrShutdownFunction = function (doneFunction, progressFunction)
+        progressFunction (i, "Stopping LrControl, closing connections")
 
-		-- Stop application
+        -- Stop application
         LrControlApp.Stop()
 
-		doneFunction()
-	end
+        -- Increment version to break main loop
+        math.randomseed(os.time())
+        currentLoadVersion = rawget(_G, "currentLoadVersion") or math.random()
+        currentLoadVersion = currentLoadVersion + 1
+
+        doneFunction()
+    end
 }

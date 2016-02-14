@@ -35,46 +35,93 @@ math.randomseed(os.time())
 currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
 currentLoadVersion = currentLoadVersion + 1
 
+
+local function processMessage(message, sendSocket)
+    -- Respond to test
+    if message == "test" then
+        sendSocket:send("test ack\n")
+    else
+        sendSocket:send("unknown command\n")
+    end
+end
+
+
 -- Main task
 local function main(context)
-	LrDialogs.showBezel ("LrControl running, loaded version " .. currentLoadVersion)
-    
-    LrControlApp.Start()
+    LrDialogs.showBezel ("LrControl running, loaded version " .. currentLoadVersion)
 
-		-- Open sockets  
-	local recieveClient = LrSocket.bind {
+    local autoReconnect = true
+
+    -- Open send socket
+    local sendSocket = nil
+    local function openSendSocket()
+        if sendSocket ~= nil then
+            sendSocket:close()
+        end
+
+        sendSocket = LrSocket.bind {
+            functionContext = context,
+            plugin = _PLUGIN,
+            port = Options.MessageSendPort,
+            mode = 'send',
+            onError = function(socket, err)
+                if autoReconnect then
+                    socket:reconnect()
+                end
+            end,
+        }
+    end
+
+    openSendSocket()
+
+    -- Open recieve socket  
+    local receiveSocket = LrSocket.bind {
         functionContext = context,
         plugin			= _PLUGIN,
         port			= Options.MessageReceivePort,
         mode			= 'receive',
-        onConnected		= function (socket) end,
-        onClosed		= function(socket) socket:reconnect() end,
-		onError			= function (socket, err) socket:reconnect() end,
-        onMessage		= function (_, message)
-            if type (message) == "string" then
-                LrDialogs.showBezel ("Received message:" .. message)
-            else
-                LrDialogs.showbezel("Received non-string message...")
+        onMessage		= function (socket, message)
+            processMessage(message, sendSocket)
+        end,
+        onError         = function(socket, err)
+            if autoReconnect then
+                socket:reconnect() 
             end
-        end
+        end,
+        onClosed        = function(socket) 
+            if autoReconnect then
+                socket:reconnect() 
+                openSendSocket()
+            end
+        end,
     }
 
+    
+    -- Start LrControl application
+    LrControlApp.Start()
 
-	-- Start LrControl application
-	--LrShell.openFilesInApp ({""}, LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.exe')))
 
-
-	-- Start wait loop
-	while (loadVersion == currentLoadVersion or true) do
+    -- Start wait loop
+    local loadVersion = currentLoadVersion
+    while (loadVersion == currentLoadVersion) do
         LrTasks.sleep(0.25)
-	end
+    end
+
+    LrDialogs.showBezel("Stopping LrControl")
+
+    -- Close sockets
+    autoReconnect = false
+    receiveSocket:close()
+    if sendSocket ~= nil then
+        sendSocket:close()
+    end
+
+    LrDialogs.showBezel("LrControl stopped")
 end
 
 
 
 -- Start main task
---LrTasks.startAsyncTask(main, "LrControl Main task")
---LrFunctionContext.postAsyncTaskWithContext("LrControl Main task", main)
 LrTasks.startAsyncTask(function()
     LrFunctionContext.callWithContext("LrControl context", main)
 end)

@@ -20,8 +20,10 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 local LrControlApp = require 'LrControlApp'
 
--- Increment version to break main loop
-currentLoadVersion = currentLoadVersion + 1
-
 -- Stop application
 LrControlApp.Stop()
+
+-- Increment version to break main loop
+math.randomseed(os.time())
+currentLoadVersion = rawget(_G, "currentLoadVersion") or math.random()
+currentLoadVersion = currentLoadVersion + 1
