@@ -7,14 +7,15 @@ namespace LrControlApi
 {
     public class Communicator
     {
+        private const string HostName = "localhost";
         private static readonly ILog Log = LogManager.GetLogger(typeof (Communicator));
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
+        private readonly int _receivePort;
 
         private readonly int _sendPort;
-        private readonly int _receivePort;
-        
-        private Socket _sendSocket;
         private Socket _receiveSocket;
+
+        private Socket _sendSocket;
 
         public Communicator(int sendPort, int receivePort)
         {
@@ -22,84 +23,82 @@ namespace LrControlApi
             _receivePort = receivePort;
         }
 
+        public bool IsConnected => _sendSocket != null && _receiveSocket != null;
+
         public bool Open()
         {
             if (_sendSocket != null && _receiveSocket != null)
                 throw new InvalidOperationException("Already connected, Close first");
 
+            Log.Debug($"Opening send (port {_sendPort}) and receive (port {_receivePort}) sockets");
+
+            _sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+            {
+                SendTimeout       = 500,
+                ReceiveTimeout    = 500,
+                SendBufferSize    = 8192,
+                ReceiveBufferSize = 8192,
+            };
+            _receiveSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+            {
+                SendTimeout       = 500,
+                ReceiveTimeout    = 500,
+                SendBufferSize    = 8192,
+                ReceiveBufferSize = 8192,
+            };
+
             try
             {
-                _sendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _sendSocket.Connect("localhost", _sendPort);
+                _sendSocket.Connect(HostName, _sendPort);
+                _receiveSocket.Connect(HostName, _receivePort);
 
-                _receiveSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                _receiveSocket.Connect("localhost", _receivePort);
+                return true;
             }
             catch (SocketException e)
             {
-                Console.WriteLine(e);
+                Log.Error("An error occurred while trying to open connection to LrControlPlugin", e);
                 return false;
             }
-
-            return true;
         }
 
         public void Close()
         {
-            if (_sendSocket != null)
-            {
-                if (_sendSocket.Connected)
-                    _sendSocket.Close();
-                _sendSocket.Dispose();
-                _sendSocket = null;
-            }
-
-            if (_receiveSocket != null)
-            {
-                if (_receiveSocket.Connected)
-                    _receiveSocket.Close();
-                _receiveSocket.Dispose();
-                _receiveSocket = null;
-            }
+            Close(ref _sendSocket);
+            Close(ref _receiveSocket);
         }
 
-        public bool IsConnected => _sendSocket != null && _receiveSocket != null;
-
-        public string SendMessage(string message)
+        public bool SendMessage(string message, out string response)
         {
+            if (!IsConnected) throw new InvalidOperationException("Cannot send a message, when not open");
+
             if (message == null)
                 throw new ArgumentNullException(nameof(message));
 
             if (message.Contains("\n"))
                 throw new ArgumentException("Must not contain newline characters", nameof(message));
 
-            if (!IsConnected) return null;
-
             try
             {
-                FlushMessages();
+                if (!FlushMessages())
+                {
+                    response = null;
+                    return false;
+                }
 
                 var messageBytes = Encoding.UTF8.GetBytes(message + "\n");
                 _sendSocket.Send(messageBytes);
 
-                return ReceiveMessage();
+                return ReceiveMessage(out response);
             }
-            catch (Exception e)
+            catch (SocketException e)
             {
-                Console.WriteLine(e);
-                return null;
+                Log.Error("An error occurred while trying to send a message", e);
+                response = null;
+                return false;
             }
         }
-        private void FlushMessages()
-        {
-            var available = _receiveSocket.Available;
-            if (available <= 0) return;
 
-            var bytes = new byte[available];
-            _receiveSocket.Receive(bytes);
-        }
-
-        public string ReceiveMessage()
+        public bool ReceiveMessage(out string response)
         {
             if (_receiveSocket == null)
                 throw new InvalidOperationException("Canont receive message, there is no connection");
@@ -107,20 +106,97 @@ namespace LrControlApi
             var message = new StringBuilder();
             var bytes = new byte[1024];
 
-            while (true)
+            try
             {
-                var receivedBytes = _receiveSocket.Receive(bytes);
-                if (receivedBytes <= 0) continue;
-
-                var part = Encoding.UTF8.GetString(bytes, 0, receivedBytes);
-                message.Append(part);
-
-                if (bytes[receivedBytes - 1] == EndOfLineByte)
+                while (true)
                 {
-                    var str = message.ToString();
-                    return str.Substring(0, str.Length - 1);    // Remove EndOfLine character
+                    var receivedBytes = _receiveSocket.Receive(bytes);
+                    if (receivedBytes <= 0) continue;
+
+                    var part = Encoding.UTF8.GetString(bytes, 0, receivedBytes);
+                    message.Append(part);
+
+                    if (bytes[receivedBytes - 1] == EndOfLineByte)
+                    {
+                        var str = message.ToString();
+                        response = str.Substring(0, str.Length - 1); // Remove EndOfLine character
+                        return true;
+                    }
                 }
             }
+            catch (SocketException e)
+            {
+                Log.Error("An error occurred while trying to receive a message", e);
+
+                response = null;
+                return false;
+            }
+        }
+
+        private bool FlushMessages()
+        {
+            try
+            {
+                var available = _receiveSocket.Available;
+                if (available <= 0) return true;
+
+                var bytes = new byte[available];
+                _receiveSocket.Receive(bytes);
+
+                return true;
+            }
+            catch (SocketException e)
+            {
+                Log.Error("An errorr occurred while trying to flush messages on the receive port", e);
+                Reconnect();
+                return false;
+            }
+        }
+
+        private void Reconnect()
+        {
+            Reconnect(ref _sendSocket, _sendPort);
+            Reconnect(ref _receiveSocket, _receivePort);
+        }
+
+        private static void Reconnect(ref Socket socket, int port)
+        {
+            if (socket.Connected)
+            {
+                try
+                {
+                    socket.Disconnect(true);
+                }
+                catch (Exception e)
+                {
+                    Log.Error("An error occurred while trying to disconect send socket, cannot reuse", e);
+
+                    socket.Dispose();
+                    socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                }
+            }
+            socket.Connect(HostName, port);
+        }
+
+        private static void Close(ref Socket socket)
+        {
+            try
+            {
+                if (socket.Connected)
+                {
+                    socket.Disconnect(false);
+                }
+                socket.Close();
+            }
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while trying to close socket", e);
+            }
+            finally
+            {
+                socket.Dispose();
+            }
+            socket = null;
         }
     }
 }

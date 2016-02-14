@@ -39,10 +39,17 @@ namespace micdah.LrControl
         {
             var message = Message.Text;
 
-            var response = _communicator.SendMessage(message);
+            String response;
+            if (_communicator.SendMessage(message, out response))
+            {
+                Response.Text = response;
+            }
+            else
+            {
+                Response.Text = "An error occurred while trying to send message";
+            }
 
             Message.Text = String.Empty;
-            Response.Text = response;
         }
     }
 }
