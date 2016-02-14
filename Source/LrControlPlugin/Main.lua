@@ -24,7 +24,8 @@ local LrFunctionContext = import 'LrFunctionContext'
 local LrSocket          = import 'LrSocket'
 local LrControlApp      = require 'LrControlApp'
 local serpent           = require 'serpent'
-local Options           = require 'Options' 
+local Options           = require 'Options'
+local Modules           = require 'Modules' 
 
 
 -- Track loaded version, to detect reloads
@@ -34,12 +35,16 @@ currentLoadVersion = currentLoadVersion + 1
 
 
 local function processMessage(message, sendSocket)
-    -- Respond to test
-    if message == "LrControl.getApiVersion" then
-        local version = Options.Version.major.."."..Options.Version.minor
-        sendSocket:send(version.."\n")
+    local success, result = Modules.InterpretCommand(message)
+    
+    if success then
+        if result == nil then
+            result = "ack"
+        end
+        
+        sendSocket:send(result .."\n")
     else
-        sendSocket:send("unknown command\n")
+        senSocket:send("unknown command\n")
     end
 end
 

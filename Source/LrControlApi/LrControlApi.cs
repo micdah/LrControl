@@ -25,6 +25,8 @@ namespace LrControlApi
             _pluginClient.Open();
         }
 
+        public bool IsConnected => _pluginClient.IsConnected;
+
         public ILrControl LrControl => _lrControl;
         public ILrDevelopController LrDevelopController => _lrDevelopController;
 
