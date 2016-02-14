@@ -36,7 +36,6 @@ namespace LrControlApi.Communication
         public bool IsConnected { get; private set; }
 
         public event Action LostConnection;
-        public event Action Reconnected;
 
         public bool Open()
         {
@@ -73,6 +72,8 @@ namespace LrControlApi.Communication
 
             IsOpen = false;
             IsConnected = false;
+
+            Log.Debug($"Socket connected to {_hostName}:{_port} has been closed");
         }
 
         public void Dispose()
@@ -104,7 +105,7 @@ namespace LrControlApi.Communication
 
             try
             {
-                var bytes = Encoding.UTF8.GetBytes(message);
+                var bytes = Encoding.UTF8.GetBytes(message + "\n");
                 _socket.Send(bytes);
                 return true;
             }
@@ -244,7 +245,6 @@ namespace LrControlApi.Communication
 
                         Log.Debug($"Successfully reconnected to {_hostName}:{_port}");
                         IsConnected = true;
-                        OnReconnected();
                     }
                 }
                 else
@@ -316,11 +316,6 @@ namespace LrControlApi.Communication
         protected virtual void OnLostConnection()
         {
             LostConnection?.Invoke();
-        }
-
-        protected virtual void OnReconnected()
-        {
-            Reconnected?.Invoke();
         }
     }
 }

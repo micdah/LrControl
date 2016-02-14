@@ -38,8 +38,8 @@ currentLoadVersion = currentLoadVersion + 1
 
 local function processMessage(message, sendSocket)
     -- Respond to test
-    if message == "test" then
-        sendSocket:send("test ack\n")
+    if message == "LrControl.getApiVersion" then
+        sendSocket:send(_PLUGIN.VERSION.major .."." .. _PLUGIN.VERSION.minor .."\n")
     else
         sendSocket:send("unknown command\n")
     end

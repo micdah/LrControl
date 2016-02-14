@@ -1,16 +1,18 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
+using log4net;
 
 namespace LrControlApi.Communication
 {
     public class PluginClient
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof (PluginClient));
+
         private const string HostName = "localhost";
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
-        
         private readonly SocketWrapper _sendSocket;
         private readonly SocketWrapper _receiveSocket;
-
         private bool _isInsideLostConnectionHandler;
         
         public PluginClient(int sendPort, int receivePort)
@@ -66,7 +68,7 @@ namespace LrControlApi.Communication
                 return false;
             }
 
-            if (!_sendSocket.Send(message + "\n"))
+            if (!_sendSocket.Send(message))
             {
                 response = null;
                 return false;
