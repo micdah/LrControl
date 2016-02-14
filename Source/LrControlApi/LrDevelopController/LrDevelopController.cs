@@ -1,9 +1,17 @@
 ﻿using LrControlApi.Common;
+using LrControlApi.Communication;
 
 namespace LrControlApi.LrDevelopController
 {
     internal class LrDevelopController : ILrDevelopController
     {
+        private readonly MessageProtocol<LrDevelopController> _pluginClient;
+
+        public LrDevelopController(MessageProtocol<LrDevelopController> pluginClient)
+        {
+            _pluginClient = pluginClient;
+        }
+
         public event AdjustmentChange AdjustmentChangeObserver;
         public void Decrement(IDevelopControllerParameter param)
         {

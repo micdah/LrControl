@@ -36,6 +36,7 @@ namespace LrControlApi.Communication
         public bool IsConnected { get; private set; }
 
         public event Action LostConnection;
+        public event Action Connected;
 
         public bool Open()
         {
@@ -245,6 +246,8 @@ namespace LrControlApi.Communication
 
                         Log.Debug($"Successfully reconnected to {_hostName}:{_port}");
                         IsConnected = true;
+
+                        OnConnected();
                     }
                 }
                 else
@@ -316,6 +319,11 @@ namespace LrControlApi.Communication
         protected virtual void OnLostConnection()
         {
             LostConnection?.Invoke();
+        }
+
+        protected virtual void OnConnected()
+        {
+            Connected?.Invoke();
         }
     }
 }

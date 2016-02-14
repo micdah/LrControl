@@ -6,21 +6,38 @@
         xmlns:local="clr-namespace:micdah.LrControl"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Width="100">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Connected: </TextBlock>
+                    <TextBlock x:Name="Connected">?</TextBlock>
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>API Version: </TextBlock>
+                    <TextBlock x:Name="ApiVersion">?</TextBlock>
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
         
-        <Label Grid.Row="0">Message</Label>
-        <TextBox Grid.Row="1" x:Name="Message" Margin="3" KeyUp="Message_OnKeyUp"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-        <Button Grid.Row="2" Padding="3" Margin="3" Click="ButtonBase_OnClick">Send</Button>
-        
-        <Label Grid.Row="3">Response</Label>
-        <TextBox Grid.Row="4" x:Name="Response" IsReadOnly="True"/>
-    </Grid>
+            <Label Grid.Row="0">Message</Label>
+            <TextBox Grid.Row="1" x:Name="Message" Margin="3"/>
+
+            <Button Grid.Row="2" Padding="3" Margin="3">Send</Button>
+
+            <Label Grid.Row="3">Response</Label>
+            <TextBox Grid.Row="4" x:Name="Response" IsReadOnly="True"/>
+        </Grid>
+    </DockPanel>
 </Window>

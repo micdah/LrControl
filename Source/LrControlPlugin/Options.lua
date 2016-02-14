@@ -18,24 +18,11 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
+local Info = require 'Info' 
+
 
 return {
-    LrSdkVersion        = 6.0,
-    LrSdkMinimumVersion = 6.0,
-    LrPluginName        = "LrControl",
-    LrToolkitIdentifier = "dk.micdah.lrcontrol",
-    LrForceInitPlugin	= true,
-    LrInitPlugin        = "Main.lua",
-    LrShutdownPlugin    = "ShutdownPlugin.lua",
-    LrShutdownApp       = "Shutdown.lua",
-    LrDisablePlugin     = "DisablePlugin.lua",
-    LrEnablePlugin      = "Main.lua",
-    LrPluginInfoUrl     = "https://github.com/micdah/LrControl",
-    LrExportMenuItems	= {
-        {
-            title = "About",
-            file = "About.lua"
-        }
-    },
-    VERSION             = { major = 0, minor = 9, revision = 0, build = 0 }
+    Version            = Info.VERSION,
+    MessageReceivePort = 52008,
+    MessageSendPort    = 52009
 }

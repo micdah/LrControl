@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\Range.cs" />
+    <Compile Include="Communication\MessageProtocol.cs" />
     <Compile Include="Communication\PluginClient.cs" />
     <Compile Include="Communication\SocketWrapper.cs" />
     <Compile Include="IParameter.cs" />
@@ -55,6 +56,8 @@
     <Compile Include="LrApplicationView\PrimaryView.cs" />
     <Compile Include="LrApplicationView\SecondaryView.cs" />
     <Compile Include="LrControlApi.cs" />
+    <Compile Include="LrControl\ILrControl.cs" />
+    <Compile Include="LrControl\LrControl.cs" />
     <Compile Include="LrDevelopController\IDevelopControllerParameter.cs" />
     <Compile Include="LrDevelopController\ILrDevelopController.cs" />
     <Compile Include="LrDevelopController\LrDevelopController.cs" />
