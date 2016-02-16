@@ -35,7 +35,7 @@
         public static readonly MixerPanelParameter GrayMixerPurple             = new MixerPanelParameter("GrayMixerPurple", "Black & White Mix: Purple");
         public static readonly MixerPanelParameter GrayMixerMagenta            = new MixerPanelParameter("GrayMixerMagenta", "Black & White Mix: Magenta");
 
-        static Mixerpanel()
+        static MixerPanelParameter()
         {
             AddParameters(SaturationAdjustmentRed, SaturationAdjustmentOrange, SaturationAdjustmentYellow,
                 SaturationAdjustmentGreen, SaturationAdjustmentAqua, SaturationAdjustmentBlue,
