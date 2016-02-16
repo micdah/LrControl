@@ -8,6 +8,12 @@
         public static readonly SplitToningPanelParameter SplitToningShadowHue           = new SplitToningPanelParameter("SplitToningShadowHue", "Shadows: Hue");
         public static readonly SplitToningPanelParameter SplitToningShadowSaturation    = new SplitToningPanelParameter("SplitToningShadowSaturation", "Shadows: Saturation");
 
+        static SplitToningPanelParameter()
+        {
+            AddParameters(SplitToningHighlightHue, SplitToningHighlightSaturation, SplitToningBalance,
+                SplitToningShadowHue, SplitToningShadowSaturation);
+        }
+
         private SplitToningPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }

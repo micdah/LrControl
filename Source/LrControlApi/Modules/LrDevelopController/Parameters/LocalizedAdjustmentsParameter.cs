@@ -19,6 +19,12 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly LocalizedAdjustmentsParameter Moire          = new LocalizedAdjustmentsParameter("local_Moire", "Moiré");
         public static readonly LocalizedAdjustmentsParameter Defringe       = new LocalizedAdjustmentsParameter("local_Defringe", "Defringe");
 
+        static LocalizedAdjustmentsParameter()
+        {
+            AddParameters(Temperature, Tint, Exposure, Contrast, Highlights, Shadows, Whites, Blacks, Clarity, Dehaze,
+                Saturation, Sharpness, LuminanceNoise, Moire, Defringe);
+        }
+
         private LocalizedAdjustmentsParameter(string value, string name) : base(name, value, typeof(int))
         {
         }

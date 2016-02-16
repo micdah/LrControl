@@ -35,6 +35,18 @@
         public static readonly MixerPanelParameter GrayMixerPurple             = new MixerPanelParameter("GrayMixerPurple", "Black & White Mix: Purple");
         public static readonly MixerPanelParameter GrayMixerMagenta            = new MixerPanelParameter("GrayMixerMagenta", "Black & White Mix: Magenta");
 
+        static Mixerpanel()
+        {
+            AddParameters(SaturationAdjustmentRed, SaturationAdjustmentOrange, SaturationAdjustmentYellow,
+                SaturationAdjustmentGreen, SaturationAdjustmentAqua, SaturationAdjustmentBlue,
+                SaturationAdjustmentPurple, SaturationAdjustmentMagenta, HueAdjustmentRed, HueAdjustmentOrange,
+                HueAdjustmentYellow, HueAdjustmentGreen, HueAdjustmentAqua, HueAdjustmentBlue, HueAdjustmentPurple,
+                HueAdjustmentMagenta, LuminanceAdjustmentRed, LuminanceAdjustmentOrange, LuminanceAdjustmentYellow,
+                LuminanceAdjustmentGreen, LuminanceAdjustmentAqua, LuminanceAdjustmentBlue, LuminanceAdjustmentPurple,
+                LuminanceAdjustmentMagenta, GrayMixerRed, GrayMixerOrange, GrayMixerYellow, GrayMixerGreen,
+                GrayMixerAqua, GrayMixerBlue, GrayMixerPurple, GrayMixerMagenta);
+        }
+
         private MixerPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }

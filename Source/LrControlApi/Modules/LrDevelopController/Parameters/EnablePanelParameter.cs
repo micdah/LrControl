@@ -16,6 +16,13 @@
         public static readonly EnablePanelParameter PaintBasedCorrections            = new EnablePanelParameter("EnablePaintBasedCorrections", "Enable Adjustment Brush");
         public static readonly EnablePanelParameter GrayscaleMix                     = new EnablePanelParameter("EnableGrayscaleMix", "Enable Black & White Mix");
 
+        static EnablePanelParameter()
+        {
+            AddParameters(ToneCurve, ColorAdjustments, SplitToning, Detail, LensCorrections, Effects, Calibration,
+                Retouch, RedEye, GradientBasedCorrections, CircularGradientBasedCorrections, PaintBasedCorrections,
+                GrayscaleMix);
+        }
+
         private EnablePanelParameter(string value, string name) : base(name, value, typeof(bool))
         {
         }

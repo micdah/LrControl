@@ -9,6 +9,11 @@
         public static readonly CropParameter CropTop         = new CropParameter("CropTop", "Crop Top");
         public static readonly CropParameter CropBottom      = new CropParameter("CropBottom", "Crop Bottom");
 
+        static CropParameter()
+        {
+            AddParameters(StraightenAngle, CropAngle, CropLeft, CropRight, CropTop, CropBottom);
+        }
+
         private CropParameter(string value, string name) : base(name, value, typeof(int))
         {
         }

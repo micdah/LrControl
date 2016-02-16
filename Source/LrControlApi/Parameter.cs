@@ -13,8 +13,6 @@ namespace micdah.LrControlApi
             Value = value;
             Name = name;
             ValueType = valueType;
-
-            AllParametersLookup.Add((TParameter) this);
         }
 
         public string Value { get; }
@@ -27,6 +25,9 @@ namespace micdah.LrControlApi
 
         public Type ValueType { get; }
 
-        public static IList<TParameter> AllParameters => new ReadOnlyCollection<TParameter>(AllParametersLookup);
+        protected static void AddParameters(params TParameter[] parameters)
+        {
+            AllParametersLookup.AddRange(parameters);
+        }
     }
 }

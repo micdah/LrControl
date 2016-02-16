@@ -14,6 +14,11 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly CalibratePanelParameter BlueHue         = new CalibratePanelParameter("BlueHue", "Blue Primary: Hue");
         public static readonly CalibratePanelParameter BlueSaturation  = new CalibratePanelParameter("BlueSaturation", "Blue Primary: Saturation");
 
+        static CalibratePanelParameter()
+        {
+            AddParameters(Profile, ShadowTint, RedHue, RedSaturation, GreenHue, GreenSaturation, BlueHue, BlueSaturation);
+        }
+
         private CalibratePanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
         {
         }

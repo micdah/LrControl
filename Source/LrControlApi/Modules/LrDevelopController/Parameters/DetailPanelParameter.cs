@@ -12,6 +12,13 @@
         public static readonly DetailPanelParameter ColorNoiseReduction             = new DetailPanelParameter("ColorNoiseReduction", "Noise Reduction: Color");
         public static readonly DetailPanelParameter ColorNoiseReductionDetail       = new DetailPanelParameter("ColorNoiseReductionDetail", "Noise Reduction: Detail");
         public static readonly DetailPanelParameter ColorNoiseReductionSmoothness   = new DetailPanelParameter("ColorNoiseReductionSmoothness", "Noise Reduction: Smoothness");
+
+        static DetailPanelParameter()
+        {
+            AddParameters(Sharpness, SharpenRadius, SharpenDetail, SharpenEdgeMasking, LuminanceSmoothing,
+                LuminanceNoiseReductionDetail, LuminanceNoiseReductionContrast, ColorNoiseReduction,
+                ColorNoiseReductionDetail, ColorNoiseReductionSmoothness);
+        }
         
         private DetailPanelParameter(string value, string name) : base(name, value, typeof(int))
         {

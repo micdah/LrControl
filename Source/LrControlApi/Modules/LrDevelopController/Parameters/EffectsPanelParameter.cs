@@ -13,6 +13,13 @@
         public static readonly EffectsPanelParameter GrainFrequency                    = new EffectsPanelParameter("GrainFrequency", "Grain: Roughness");
         public static readonly EffectsPanelParameter Dehaze                            = new EffectsPanelParameter("Dehaze", "Dehaze: Amount");
 
+        static EffectsPanelParameter()
+        {
+            AddParameters(PostCropVignetteStyle, PostCropVignetteAmount, PostCropVignetteMidpoint,
+                PostCropVignetteRoundness, PostCropVignetteFeather, PostCropVignetteHighlightContrast, GrainAmount,
+                GrainSize, GrainFrequency, Dehaze);
+        }
+
         private EffectsPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }

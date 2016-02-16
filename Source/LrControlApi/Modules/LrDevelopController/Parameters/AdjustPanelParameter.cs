@@ -17,6 +17,12 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly AdjustPanelParameter Clarity      = new AdjustPanelParameter("Clarity", "Presence: Clarity");
         public static readonly AdjustPanelParameter Vibrance     = new AdjustPanelParameter("Vibrance", "Presence: Vibrance");
         public static readonly AdjustPanelParameter Saturation   = new AdjustPanelParameter("Saturation", "Presence: Saturation");
+
+        static AdjustPanelParameter()
+        {
+            AddParameters(WhiteBalance, Temperature, Tint, Exposure, Contrast, Highlights, Shadows, Whites, Blacks,
+                Clarity, Vibrance, Saturation);
+        }
         
         private AdjustPanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
         {

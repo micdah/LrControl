@@ -10,6 +10,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         }
 
         public event AdjustmentChange AdjustmentChangeObserver;
+
         public bool Decrement(IDevelopControllerParameter param)
         {
             return Invoke(nameof(Decrement), param);

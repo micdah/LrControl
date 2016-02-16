@@ -22,6 +22,14 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly LensCorrectionsPanelParameter PerspectiveAspect                   = new LensCorrectionsPanelParameter("PerspectiveAspect", "Transform: Aspect");
         public static readonly LensCorrectionsPanelParameter PerspectiveUpright                  = new LensCorrectionsPanelParameter("PerspectiveUpright", "Upright", typeof(UprightValue));
 
+        static LensCorrectionsPanelParameter()
+        {
+            AddParameters(LensProfileDistortionScale, LensProfileVignettingScale, LensProfileChromaticAberrationScale,
+                DefringePurpleAmount, DefringePurpleHueLo, DefringePurpleHueHi, DefringeGreenAmount, DefringeGreenHueLo,
+                DefringeGreenHueHi, LensManualDistortionAmount, PerspectiveVertical, PerspectiveHorizontal,
+                PerspectiveRotate, PerspectiveScale, PerspectiveAspect, PerspectiveUpright);
+        }
+
         private LensCorrectionsPanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
         {
         }
