@@ -89,7 +89,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        bool GetValue<TEnum, TValue>(out ClassEnum<TValue, TEnum> value, IParameter<TEnum> param)
+        bool GetValue<TEnum, TValue>(out TEnum value, IParameter<ClassEnum<TValue,TEnum>> param)
             where TEnum : ClassEnum<TValue, TEnum>;
 
         /// <summary>

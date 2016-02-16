@@ -8,11 +8,7 @@ namespace micdah.LrControlApi.Modules.LrDialogs
         public static readonly DialogStyle Warning  = new DialogStyle("warning", "Warning");
         public static readonly DialogStyle Critical = new DialogStyle("critical", "Critical");
 
-        static DialogStyle()
-        {
-            AddEnums(Info,Warning,Critical);
-        }
-
+        
         private DialogStyle(string value, string name) : base(value, name)
         {
         }

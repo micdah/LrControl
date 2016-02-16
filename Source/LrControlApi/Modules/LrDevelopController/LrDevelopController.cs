@@ -66,7 +66,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(out value, nameof(GetValue), param);
         }
 
-        public bool GetValue<TEnum,TValue>(out ClassEnum<TValue,TEnum> value, IParameter<TEnum> param)
+        public bool GetValue<TEnum,TValue>(out TEnum value, IParameter<ClassEnum<TValue, TEnum>> param)
             where TEnum : ClassEnum<TValue,TEnum>
         {
             TValue result;

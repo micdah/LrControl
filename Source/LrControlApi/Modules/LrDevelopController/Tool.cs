@@ -12,11 +12,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         public static readonly Tool RadialFilter        = new Tool("circularGradient", "Radial Filter");
         public static readonly Tool AdjustmentBrush     = new Tool("localized", "Adjustment Brush");
 
-        static Tool()
-        {
-            AddEnums(Loupe, Crop, SpotRemoval, RedEye, GraduatedFilter, RadialFilter, AdjustmentBrush);
-        }
-
+        
         private Tool(string value, string name) : base(value, name)
         {
         }

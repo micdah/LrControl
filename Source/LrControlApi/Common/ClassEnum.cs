@@ -1,22 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using log4net;
+using System.Reflection;
 
 namespace micdah.LrControlApi.Common
 {
     public abstract class ClassEnum<TValue, TEnum> : IClassEnum<TValue>
         where TEnum : ClassEnum<TValue, TEnum>
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ClassEnum<TValue, TEnum>));
-        private static readonly List<TEnum> AllEnumsLookup = new List<TEnum>();
+        private static readonly Lazy<IList<TEnum>> AllEnums = new Lazy<IList<TEnum>>(GetAllEnums);
 
         protected ClassEnum(TValue value, string name)
         {
             Name = name;
             Value = value;
         }
-
-        public static IList<TEnum> AllEnums => AllEnumsLookup.AsReadOnly(); 
 
         public string Name { get; }
         public TValue Value { get; }
@@ -26,14 +24,26 @@ namespace micdah.LrControlApi.Common
             return Name;
         }
 
-        public static TEnum GetEnumForValue(TValue value)
+        private static IList<TEnum> GetAllEnums()
         {
-            return AllEnumsLookup.FirstOrDefault(e => e.Value.Equals(value));
+            var all = new List<TEnum>();
+
+            var fields = typeof (TEnum).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
+            foreach (var info in fields)
+            {
+                var value = info.GetValue(null) as TEnum;
+                if (value != null)
+                {
+                    all.Add(value);
+                }
+            }
+
+            return all;
         }
 
-        protected static void AddEnums(params TEnum[] enums)
+        public static TEnum GetEnumForValue(TValue value)
         {
-            AllEnumsLookup.AddRange(enums);
+            return AllEnums.Value.FirstOrDefault(e => e.Value.Equals(value));
         }
     }
 }

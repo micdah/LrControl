@@ -67,7 +67,6 @@
     <Compile Include="Modules\LrDevelopController\ILrDevelopController.cs" />
     <Compile Include="Modules\LrDevelopController\LrDevelopController.cs" />
     <Compile Include="Modules\LrDevelopController\Panels.cs" />
-    <Compile Include="Modules\LrDevelopController\ParameterGroup.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\AdjustPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\CalibratePanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\CropParameter.cs" />
@@ -77,6 +76,8 @@
     <Compile Include="Modules\LrDevelopController\Parameters\LensCorrectionsPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\LocalizedAdjustmentsParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\MixerPanelParameter.cs" />
+    <Compile Include="Modules\LrDevelopController\Parameters\ParameterGroup.cs" />
+    <Compile Include="Modules\LrDevelopController\Parameters\Parameters.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\SplitToningPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\TonePanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\ProcessVersion.cs" />

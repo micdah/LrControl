@@ -13,11 +13,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         public static readonly Panel Effects                   = new Panel("effectsPanel", "Effects");
         public static readonly Panel CameraCalibration         = new Panel("calibratePanel", "Camera Calibration");
 
-        static Panel()
-        {
-            AddEnums(Basic, ToneCurve, ColorAdjustment, SplitToning, Detail, LensCorrections, Effects, CameraCalibration);
-        }
-
+        
         private Panel(string value, string name) : base(value, name)
         {
         }

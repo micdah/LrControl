@@ -10,11 +10,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         public static readonly ProcessVersion PV2010 = new ProcessVersion("2010");
         public static readonly ProcessVersion PV2012 = new ProcessVersion("2012");
 
-        static ProcessVersion()
-        {
-            AddEnums(PV2003, PV2010, PV2012);
-        }
-
+        
         private ProcessVersion(string name) : base(name, name)
         {
         }
