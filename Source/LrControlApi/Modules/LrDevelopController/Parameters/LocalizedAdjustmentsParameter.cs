@@ -19,7 +19,7 @@ namespace LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly LocalizedAdjustmentsParameter Moire          = new LocalizedAdjustmentsParameter("local_Moire", "Moiré");
         public static readonly LocalizedAdjustmentsParameter Defringe       = new LocalizedAdjustmentsParameter("local_Defringe", "Defringe");
 
-        private LocalizedAdjustmentsParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private LocalizedAdjustmentsParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
     }

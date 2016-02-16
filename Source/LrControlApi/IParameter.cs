@@ -4,8 +4,8 @@ namespace LrControlApi
 {
     public interface IParameter
     {
+        string Value { get; }
         string Name { get; }
-        string DisplayName { get; }
         Type ValueType { get; }
         string ToString();
     }

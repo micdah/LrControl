@@ -22,6 +22,16 @@ local LrDevelopController = import 'LrDevelopController'
 local LrApplicationView   = import 'LrApplicationView'
 local Options             = require 'Options'
 
+local function requireModule(moduelName,f)
+    return function(...)
+        if LrApplicationView.getCurrentModuleName() ~= moduleName then 
+            error("Not in "..moduleName.." module")
+        else
+            return f(...)
+        end
+    end
+end
+
 return {
     LrControl = {
         getApiVersion = function() 
@@ -29,11 +39,11 @@ return {
         end
     },
     LrDevelopController = {
-        getSelectedTool = function()
-            if LrApplicationView.getCurrentModuleName() ~= "develop" then
-                error("Not in develop module")
-            end
-            return LrDevelopController.getSelectedTool()
+        decrement       = requireModule("develop", function(param) 
+            LrDevelopController.decrement(param)) 
+        end,
+        getSelectedTool = requireModule("develop", function() 
+            return LrDevelopController.getSelectedTool() 
         end
     }
 }

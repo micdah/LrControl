@@ -35,7 +35,7 @@
         public static readonly MixerPanelParameter GrayMixerPurple             = new MixerPanelParameter("GrayMixerPurple", "Black & White Mix: Purple");
         public static readonly MixerPanelParameter GrayMixerMagenta            = new MixerPanelParameter("GrayMixerMagenta", "Black & White Mix: Magenta");
 
-        private MixerPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private MixerPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
     }

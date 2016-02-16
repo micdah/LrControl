@@ -8,21 +8,21 @@ namespace LrControlApi
     {
         private static readonly List<TParameter> AllParametersLookup = new List<TParameter>();
 
-        protected Parameter(string name, string displayName, Type valueType)
+        protected Parameter(string name, string value, Type valueType)
         {
+            Value = value;
             Name = name;
-            DisplayName = displayName;
             ValueType = valueType;
 
             AllParametersLookup.Add((TParameter) this);
         }
 
+        public string Value { get; }
         public string Name { get; }
-        public string DisplayName { get; }
 
         public override string ToString()
         {
-            return DisplayName;
+            return Name;
         }
 
         public Type ValueType { get; }

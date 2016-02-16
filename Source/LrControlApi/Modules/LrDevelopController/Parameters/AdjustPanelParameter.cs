@@ -18,11 +18,11 @@ namespace LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly AdjustPanelParameter Vibrance     = new AdjustPanelParameter("Vibrance", "Presence: Vibrance");
         public static readonly AdjustPanelParameter Saturation   = new AdjustPanelParameter("Saturation", "Presence: Saturation");
         
-        private AdjustPanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
+        private AdjustPanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
         {
         }
 
-        private AdjustPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private AdjustPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
 

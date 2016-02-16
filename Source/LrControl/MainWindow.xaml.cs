@@ -1,5 +1,6 @@
 ﻿using System.Windows;
-using LrControlApi.LrDevelopController;
+using LrControlApi.Modules.LrDevelopController;
+using LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace micdah.LrControl
 {
@@ -39,6 +40,11 @@ namespace micdah.LrControl
             {
                 Dispatcher.InvokeAsync(() => SelectedTool.Text = tool.Name);
             }
+        }
+
+        private void Decrement_OnClick(object sender, RoutedEventArgs e)
+        {
+            _api.LrDevelopController.Decrement(AdjustPanelParameter.Exposure);
         }
     }
 }

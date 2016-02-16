@@ -14,11 +14,11 @@ namespace LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly CalibratePanelParameter BlueHue         = new CalibratePanelParameter("BlueHue", "Blue Primary: Hue");
         public static readonly CalibratePanelParameter BlueSaturation  = new CalibratePanelParameter("BlueSaturation", "Blue Primary: Saturation");
 
-        private CalibratePanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
+        private CalibratePanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
         {
         }
 
-        private CalibratePanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private CalibratePanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
 

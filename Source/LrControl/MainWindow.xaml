@@ -33,6 +33,8 @@
 
             <Button Grid.Row="0" Padding="3" Margin="3" Click="GetSelectedTool_OnClick">Get selected tool</Button>
             <TextBox Grid.Row="1" x:Name="SelectedTool" IsReadOnly="True"/>
+
+            <Button Grid.Row="2" Padding="3" Margin="3" Click="Decrement_OnClick">Decrement exposure</Button>
         </Grid>
     </DockPanel>
 </Window>

@@ -22,11 +22,11 @@ namespace LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly LensCorrectionsPanelParameter PerspectiveAspect                   = new LensCorrectionsPanelParameter("PerspectiveAspect", "Transform: Aspect");
         public static readonly LensCorrectionsPanelParameter PerspectiveUpright                  = new LensCorrectionsPanelParameter("PerspectiveUpright", "Upright", typeof(UprightValue));
 
-        private LensCorrectionsPanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
+        private LensCorrectionsPanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
         {
         }
 
-        private LensCorrectionsPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private LensCorrectionsPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
 

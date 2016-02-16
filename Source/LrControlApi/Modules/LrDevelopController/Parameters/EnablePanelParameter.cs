@@ -16,7 +16,7 @@
         public static readonly EnablePanelParameter PaintBasedCorrections            = new EnablePanelParameter("EnablePaintBasedCorrections", "Enable Adjustment Brush");
         public static readonly EnablePanelParameter GrayscaleMix                     = new EnablePanelParameter("EnableGrayscaleMix", "Enable Black & White Mix");
 
-        private EnablePanelParameter(string name, string displayName) : base(name, displayName, typeof(bool))
+        private EnablePanelParameter(string value, string name) : base(name, value, typeof(bool))
         {
         }
     }

@@ -10,7 +10,7 @@
         public static readonly TonePanelParameter ParametricMidtoneSplit   = new TonePanelParameter("ParametricMidtoneSplit", "Midtone Split");
         public static readonly TonePanelParameter ParametricHighlightSplit = new TonePanelParameter("ParametricHighlightSplit", "Highlight Split");
 
-        private TonePanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private TonePanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
     }

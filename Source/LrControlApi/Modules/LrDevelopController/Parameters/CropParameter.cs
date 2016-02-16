@@ -9,7 +9,7 @@
         public static readonly CropParameter CropTop         = new CropParameter("CropTop", "Crop Top");
         public static readonly CropParameter CropBottom      = new CropParameter("CropBottom", "Crop Bottom");
 
-        private CropParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private CropParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
     }

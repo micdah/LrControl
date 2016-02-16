@@ -81,8 +81,6 @@ namespace LrControlApi.Communication
 
             if (args != null && args.Length > 0)
             {
-                builder.Append(' ');
-
                 for (var i = 0; i < args.Length; i++)
                 {
                     builder.Append(i == 0 ? ' ' : RecordSeparator);
@@ -91,7 +89,7 @@ namespace LrControlApi.Communication
                     if (arg is IParameter)
                     {
                         var parameter = (IParameter) arg;
-                        AppendTypedArgument(builder, parameter.Name);
+                        AppendTypedArgument(builder, parameter.Value);
                     }
                     else if (arg is ClassEnum)
                     {
@@ -129,8 +127,10 @@ namespace LrControlApi.Communication
                 builder.Append("B");
                 builder.Append((bool) arg ? 1 : 0);
             }
-
-            throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
+            else
+            {
+                throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
+            }
         }
 
         private bool SendMessage(out string response, string method, params object[] args)

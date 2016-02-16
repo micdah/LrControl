@@ -13,7 +13,7 @@
         public static readonly EffectsPanelParameter GrainFrequency                    = new EffectsPanelParameter("GrainFrequency", "Grain: Roughness");
         public static readonly EffectsPanelParameter Dehaze                            = new EffectsPanelParameter("Dehaze", "Dehaze: Amount");
 
-        private EffectsPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private EffectsPanelParameter(string value, string name) : base(name, value, typeof(int))
         {
         }
     }
