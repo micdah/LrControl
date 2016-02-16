@@ -1,14 +1,14 @@
 ﻿using System;
 using LrControlApi.Communication;
-using LrControlApi.LrControl;
-using LrControlApi.LrDevelopController;
+using LrControlApi.Modules.LrControl;
+using LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlApi
 {
     public class LrControlApi : IDisposable
     {
-        private readonly LrControl.LrControl _lrControl;
-        private readonly LrDevelopController.LrDevelopController _lrDevelopController;
+        private readonly LrControl _lrControl;
+        private readonly LrDevelopController _lrDevelopController;
         private readonly PluginClient _pluginClient;
 
         public LrControlApi(int sendPort, int receivePort)
@@ -16,10 +16,10 @@ namespace LrControlApi
             _pluginClient = new PluginClient(sendPort, receivePort);
             _pluginClient.ConnectionStatus += OnConnectionStatus;
 
-            _lrControl = new LrControl.LrControl(new MessageProtocol<LrControl.LrControl>(_pluginClient));
+            _lrControl = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
             _lrDevelopController =
-                new LrDevelopController.LrDevelopController(
-                    new MessageProtocol<LrDevelopController.LrDevelopController>(_pluginClient));
+                new LrDevelopController(
+                    new MessageProtocol<LrDevelopController>(_pluginClient));
 
 
             _pluginClient.Open();
