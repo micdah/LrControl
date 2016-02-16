@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading;
 using log4net;
 
-namespace LrControlApi.Communication
+namespace micdah.LrControlApi.Communication
 {
     public delegate void ConnectionStatusHandler(bool connected);
 

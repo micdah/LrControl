@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Modules.LrDevelopController.Parameters
+﻿namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
     public class EffectsPanelParameter : Parameter<EffectsPanelParameter>, IDevelopControllerParameter
     {

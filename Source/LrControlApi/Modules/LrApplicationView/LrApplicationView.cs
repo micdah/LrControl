@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Modules.LrApplicationView
+﻿namespace micdah.LrControlApi.Modules.LrApplicationView
 {
     internal class LrApplicationView : ILrApplicationView
     {

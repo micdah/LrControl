@@ -1,6 +1,6 @@
-﻿using LrControlApi.Common;
+﻿using micdah.LrControlApi.Common;
 
-namespace LrControlApi.Modules.LrSelection
+namespace micdah.LrControlApi.Modules.LrSelection
 {
     public class ColorLabel : ClassEnum<string, ColorLabel>
     {

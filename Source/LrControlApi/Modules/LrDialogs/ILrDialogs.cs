@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Modules.LrDialogs
+﻿namespace micdah.LrControlApi.Modules.LrDialogs
 {
     public interface ILrDialogs
     {

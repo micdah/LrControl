@@ -22,7 +22,7 @@ local LrDevelopController = import 'LrDevelopController'
 local LrApplicationView   = import 'LrApplicationView'
 local Options             = require 'Options'
 
-local function requireModule(moduelName,f)
+local function requireModule(moduleName,f)
     return function(...)
         if LrApplicationView.getCurrentModuleName() ~= moduleName then 
             error("Not in "..moduleName.." module")
@@ -40,10 +40,13 @@ return {
     },
     LrDevelopController = {
         decrement       = requireModule("develop", function(param) 
-            LrDevelopController.decrement(param)) 
-        end,
+            LrDevelopController.decrement(param) 
+        end),
+        getProcessVersion = requireModule("develop", function() 
+            LrDevelopController.getProcessVersion()
+        end),
         getSelectedTool = requireModule("develop", function() 
             return LrDevelopController.getSelectedTool() 
-        end
+        end)
     }
 }

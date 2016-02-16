@@ -1,7 +1,7 @@
-﻿using LrControlApi.Common;
-using LrControlApi.Communication;
+﻿using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Communication;
 
-namespace LrControlApi.Modules.LrDevelopController
+namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     internal class LrDevelopController : ModuleBase<LrDevelopController>, ILrDevelopController
     {

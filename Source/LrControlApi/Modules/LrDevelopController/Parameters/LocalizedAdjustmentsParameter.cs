@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace LrControlApi.Modules.LrDevelopController.Parameters
+namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
     public class LocalizedAdjustmentsParameter : Parameter<LocalizedAdjustmentsParameter>, IDevelopControllerParameter
     {

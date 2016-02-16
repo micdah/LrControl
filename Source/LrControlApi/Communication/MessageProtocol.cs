@@ -1,9 +1,9 @@
 using System;
 using System.Text;
 using log4net;
-using LrControlApi.Common;
+using micdah.LrControlApi.Common;
 
-namespace LrControlApi.Communication
+namespace micdah.LrControlApi.Communication
 {
     internal class MessageProtocol<TModule>
     {
@@ -137,6 +137,12 @@ namespace LrControlApi.Communication
         {
             var lowerFirstMethod = char.ToLowerInvariant(method[0]) + method.Substring(1);
             var message = FormatMessage(_moduleName, lowerFirstMethod, args);
+
+            if (!_pluginClient.IsConnected)
+            {
+                Log.Warn("Not connected to plugin, cannot send message '{message}'");
+                return False(out response);
+            }
 
             if (!_pluginClient.SendMessage(message, out response))
             {

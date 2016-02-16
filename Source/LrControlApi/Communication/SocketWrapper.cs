@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using log4net;
 
-namespace LrControlApi.Communication
+namespace micdah.LrControlApi.Communication
 {
     internal class SocketWrapper : IDisposable
     {

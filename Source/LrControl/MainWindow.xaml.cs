@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using LrControlApi.Modules.LrDevelopController;
-using LrControlApi.Modules.LrDevelopController.Parameters;
+using micdah.LrControlApi.Modules.LrDevelopController;
+using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace micdah.LrControl
 {

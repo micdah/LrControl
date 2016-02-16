@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Modules.LrDevelopController
+﻿namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     public interface IDevelopControllerParameter : IParameter
     {

@@ -122,7 +122,7 @@ local function interpretCommand(modules,command)
     -- Lookup method
     local method,args = getMethod(module,methodAndArgs)
     if method == nil then  
-        return errorMessage("Unknown method")
+        return errorMessage("Unknown method: "..method)
     end
     
     -- Invoke method

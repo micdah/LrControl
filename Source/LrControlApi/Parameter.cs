@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace LrControlApi
+namespace micdah.LrControlApi
 {
     public abstract class Parameter<TParameter> : IParameter where TParameter : Parameter<TParameter>
     {

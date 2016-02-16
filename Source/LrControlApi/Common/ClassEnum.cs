@@ -2,7 +2,7 @@
 using System.Linq;
 using log4net;
 
-namespace LrControlApi.Common
+namespace micdah.LrControlApi.Common
 {
     public abstract class ClassEnum<TValue, TEnum> : ClassEnum
         where TEnum : ClassEnum<TValue, TEnum>

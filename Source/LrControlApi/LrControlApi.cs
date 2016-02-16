@@ -1,9 +1,9 @@
 ﻿using System;
-using LrControlApi.Communication;
-using LrControlApi.Modules.LrControl;
-using LrControlApi.Modules.LrDevelopController;
+using micdah.LrControlApi.Communication;
+using micdah.LrControlApi.Modules.LrControl;
+using micdah.LrControlApi.Modules.LrDevelopController;
 
-namespace LrControlApi
+namespace micdah.LrControlApi
 {
     public class LrControlApi : IDisposable
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LrControlApi
+namespace micdah.LrControlApi
 {
     public interface IParameter
     {

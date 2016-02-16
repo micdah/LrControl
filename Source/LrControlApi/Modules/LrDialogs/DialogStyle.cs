@@ -1,6 +1,6 @@
-﻿using LrControlApi.Common;
+﻿using micdah.LrControlApi.Common;
 
-namespace LrControlApi.Modules.LrDialogs
+namespace micdah.LrControlApi.Modules.LrDialogs
 {
     public class DialogStyle : ClassEnum<string, DialogStyle>
     {

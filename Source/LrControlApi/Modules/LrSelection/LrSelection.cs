@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Modules.LrSelection
+﻿namespace micdah.LrControlApi.Modules.LrSelection
 {
     internal class LrSelection : ILrSelection
     {

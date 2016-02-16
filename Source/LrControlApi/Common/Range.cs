@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Common
+﻿namespace micdah.LrControlApi.Common
 {
     public class Range
     {

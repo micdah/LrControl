@@ -1,7 +1,7 @@
 ﻿using System;
-using LrControlApi.Common;
+using micdah.LrControlApi.Common;
 
-namespace LrControlApi.Modules.LrDevelopController.Parameters
+namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
     public class LensCorrectionsPanelParameter : Parameter<LensCorrectionsPanelParameter>, IDevelopControllerParameter
     {

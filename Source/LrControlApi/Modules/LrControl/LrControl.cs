@@ -1,7 +1,7 @@
-﻿using LrControlApi.Common;
-using LrControlApi.Communication;
+﻿using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Communication;
 
-namespace LrControlApi.Modules.LrControl
+namespace micdah.LrControlApi.Modules.LrControl
 {
     internal class LrControl : ModuleBase<LrControl>, ILrControl
     {

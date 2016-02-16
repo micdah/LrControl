@@ -1,6 +1,6 @@
-﻿using LrControlApi.Common;
+﻿using micdah.LrControlApi.Common;
 
-namespace LrControlApi.Modules.LrDevelopController
+namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     public class Tool : ClassEnum<string, Tool>
     {

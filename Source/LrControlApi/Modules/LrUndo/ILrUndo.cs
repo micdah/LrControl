@@ -1,4 +1,4 @@
-﻿namespace LrControlApi.Modules.LrUndo
+﻿namespace micdah.LrControlApi.Modules.LrUndo
 {
     public interface ILrUndo
     {

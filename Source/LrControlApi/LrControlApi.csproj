@@ -7,7 +7,7 @@
     <ProjectGuid>{4BD68C41-8C8A-4ABF-9624-0379C2CED801}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LrControlApi</RootNamespace>
+    <RootNamespace>micdah.LrControlApi</RootNamespace>
     <AssemblyName>LrControlApi</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiException.cs" />
+    <Compile Include="Common\Attributes\RequireModuleAttribute.cs" />
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\ModuleBase.cs" />
     <Compile Include="Common\Range.cs" />

@@ -1,7 +1,6 @@
-﻿using System;
-using LrControlApi.Communication;
+﻿using micdah.LrControlApi.Communication;
 
-namespace LrControlApi.Common
+namespace micdah.LrControlApi.Common
 {
     internal abstract class ModuleBase<TModule>
     {
