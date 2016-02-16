@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using log4net;
 using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace micdah.LrControlApi.Communication
 {

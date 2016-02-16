@@ -16,6 +16,8 @@ namespace micdah.LrControlApi.Common
             Value = value;
         }
 
+        public static IList<TEnum> AllEnums => AllEnumsLookup.AsReadOnly(); 
+
         public string Name { get; }
         public TValue Value { get; }
 

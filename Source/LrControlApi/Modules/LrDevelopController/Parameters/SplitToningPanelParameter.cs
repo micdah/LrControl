@@ -2,29 +2,18 @@
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class SplitToningPanelParameter : Parameter<SplitToningPanelParameter>
+    public class SplitToningPanelParameter : ParameterGroup<SplitToningPanelParameter>
     {
-        public static readonly IDevelopControllerParameter<int> SplitToningHighlightHue        = new IntParameter("SplitToningHighlightHue", "Highlights: Hue");
-        public static readonly IDevelopControllerParameter<int> SplitToningHighlightSaturation = new IntParameter("SplitToningHighlightSaturation", "Highlights: Saturation");
-        public static readonly IDevelopControllerParameter<int> SplitToningBalance             = new IntParameter("SplitToningBalance", "Balance");
-        public static readonly IDevelopControllerParameter<int> SplitToningShadowHue           = new IntParameter("SplitToningShadowHue", "Shadows: Hue");
-        public static readonly IDevelopControllerParameter<int> SplitToningShadowSaturation    = new IntParameter("SplitToningShadowSaturation", "Shadows: Saturation");
+        public static readonly IParameter<int> SplitToningHighlightHue        = new Parameter<int>("SplitToningHighlightHue", "Highlights: Hue");
+        public static readonly IParameter<int> SplitToningHighlightSaturation = new Parameter<int>("SplitToningHighlightSaturation", "Highlights: Saturation");
+        public static readonly IParameter<int> SplitToningBalance             = new Parameter<int>("SplitToningBalance", "Balance");
+        public static readonly IParameter<int> SplitToningShadowHue           = new Parameter<int>("SplitToningShadowHue", "Shadows: Hue");
+        public static readonly IParameter<int> SplitToningShadowSaturation    = new Parameter<int>("SplitToningShadowSaturation", "Shadows: Saturation");
 
         static SplitToningPanelParameter()
         {
             AddParameters(SplitToningHighlightHue, SplitToningHighlightSaturation, SplitToningBalance,
                 SplitToningShadowHue, SplitToningShadowSaturation);
-        }
-
-        private SplitToningPanelParameter(string name, string displayName) : base(name, displayName)
-        {
-        }
-
-        private class IntParameter : SplitToningPanelParameter, IDevelopControllerParameter<int>
-        {
-            public IntParameter(string name, string displayName) : base(name, displayName)
-            {
-            }
         }
     }
 }

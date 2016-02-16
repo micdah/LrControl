@@ -16,7 +16,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         [LuaMethod, LuaRequireModule("develop")]
-        bool Decrement(IDevelopControllerParameter param);
+        bool Decrement(IParameter param);
 
         /// <summary>
         ///     Returns the process version of the current photo.
@@ -34,7 +34,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="param"></param>
         /// <returns></returns>
         [LuaMethod, LuaRequireModule("develop")]
-        bool GetRange(out Range range, IDevelopControllerParameter param);
+        bool GetRange(out Range range, IParameter param);
 
         /// <summary>
         ///     Reports which tool mode is active in Develop.
@@ -53,7 +53,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="param"></param>
         /// <returns></returns>
         [LuaMethod, LuaRequireModule("develop")]
-        bool GetValue(out int value, IDevelopControllerParameter<int> param);
+        bool GetValue(out int value, IParameter<int> param);
 
         /// <summary>
         ///     Gets the value of a Develop adjustment for the current photo.
@@ -62,7 +62,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        bool GetValue(out double value, IDevelopControllerParameter<double> param);
+        bool GetValue(out double value, IParameter<double> param);
 
         /// <summary>
         ///     Gets the value of a Develop adjustment for the current photo.
@@ -71,7 +71,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        bool GetValue(out bool value, IDevelopControllerParameter<bool> param);
+        bool GetValue(out bool value, IParameter<bool> param);
 
         /// <summary>
         ///     Gets the value of a Develop adjustment for the current photo.
@@ -80,7 +80,17 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        bool GetValue(out string value, IDevelopControllerParameter<string> param);
+        bool GetValue(out string value, IParameter<string> param);
+
+        /// <summary>
+        ///     Gets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        bool GetValue<TEnum, TValue>(out ClassEnum<TValue, TEnum> value, IParameter<TEnum> param)
+            where TEnum : ClassEnum<TValue, TEnum>;
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.
@@ -88,7 +98,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         [LuaMethod, LuaRequireModule("develop")]
-        bool Increment(IDevelopControllerParameter param);
+        bool Increment(IParameter param);
 
         /// <summary>
         ///     Resets all Develop adjustments for the current photo.
@@ -145,7 +155,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         [LuaMethod, LuaRequireModule("develop")]
-        bool ResetToDefault(IDevelopControllerParameter param);
+        bool ResetToDefault(IParameter param);
 
         /// <summary>
         ///     Enables a mode where adjusting a parameter causes that panel to be automatically revealed in the panel track.
@@ -161,7 +171,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         [LuaMethod, LuaRequireModule("develop")]
-        bool RevealPanel(IDevelopControllerParameter param);
+        bool RevealPanel(IParameter param);
 
         /// <summary>
         ///     Expands and scrolls into view the panel with the given ID.
@@ -216,7 +226,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="param"></param>
         /// <param name="value"></param>
         [LuaMethod, LuaRequireModule("develop")]
-        bool SetValue(IDevelopControllerParameter<int> param, int value);
+        bool SetValue(IParameter<int> param, int value);
 
         /// <summary>
         ///     Sets the value of a Develop adjustment for the current photo.
@@ -224,7 +234,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        bool SetValue(IDevelopControllerParameter<double> param, double value);
+        bool SetValue(IParameter<double> param, double value);
 
         /// <summary>
         ///     Sets the value of a Develop adjustment for the current photo.
@@ -232,7 +242,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        bool SetValue(IDevelopControllerParameter<bool> param, bool value);
+        bool SetValue(IParameter<bool> param, bool value);
 
         /// <summary>
         ///     Sets the value of a Develop adjustment for the current photo.
@@ -240,7 +250,16 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        bool SetValue(IDevelopControllerParameter<string> param, string value);
+        bool SetValue(IParameter<string> param, string value);
+
+        /// <summary>
+        ///     Sets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="value"></param>
+        bool SetValue<TEnum, TValue>(IParameter<TEnum> param, ClassEnum<TValue,TEnum> value)
+            where TEnum : ClassEnum<TValue,TEnum>;
 
         /// <summary>
         ///     Temporarily puts the Develop module into its tracking state, causing faster, lower-quailty redraw and preventing
@@ -250,7 +269,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         [LuaMethod, LuaRequireModule("develop")]
-        bool StartTracking(IDevelopControllerParameter param);
+        bool StartTracking(IParameter param);
 
         /// <summary>
         ///     Causes Develop module to exit its tracking state immediately, creating a single history state for all changes that

@@ -2,40 +2,40 @@
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class MixerPanelParameter : Parameter<MixerPanelParameter>
+    public class MixerPanelParameter : ParameterGroup<MixerPanelParameter>
     {
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentRed     = new IntParameter("SaturationAdjustmentRed", "Saturation: Red");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentOrange  = new IntParameter("SaturationAdjustmentOrange", "Saturation: Orange");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentYellow  = new IntParameter("SaturationAdjustmentYellow", "Saturation: Yellow");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentGreen   = new IntParameter("SaturationAdjustmentGreen", "Saturation: Green");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentAqua    = new IntParameter("SaturationAdjustmentAqua", "Saturation: Aqua");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentBlue    = new IntParameter("SaturationAdjustmentBlue", "Saturation: Blue");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentPurple  = new IntParameter("SaturationAdjustmentPurple", "Saturation: Purple");
-        public static readonly IDevelopControllerParameter<int> SaturationAdjustmentMagenta = new IntParameter("SaturationAdjustmentMagenta", "Saturation: Magenta");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentRed            = new IntParameter("HueAdjustmentRed", "Hue: Red");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentOrange         = new IntParameter("HueAdjustmentOrange", "Hue: Orange");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentYellow         = new IntParameter("HueAdjustmentYellow", "Hue: Yellow");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentGreen          = new IntParameter("HueAdjustmentGreen", "Hue: Green");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentAqua           = new IntParameter("HueAdjustmentAqua", "Hue: Aqua");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentBlue           = new IntParameter("HueAdjustmentBlue", "Hue: Blue");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentPurple         = new IntParameter("HueAdjustmentPurple", "Hue: Purple");
-        public static readonly IDevelopControllerParameter<int> HueAdjustmentMagenta        = new IntParameter("HueAdjustmentMagenta", "Hue: Magenta");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentRed      = new IntParameter("LuminanceAdjustmentRed", "Luminance: Red");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentOrange   = new IntParameter("LuminanceAdjustmentOrange", "Luminance: Orange");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentYellow   = new IntParameter("LuminanceAdjustmentYellow", "Luminance: Yellow");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentGreen    = new IntParameter("LuminanceAdjustmentGreen", "Luminance: Green");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentAqua     = new IntParameter("LuminanceAdjustmentAqua", "Luminance: Aqua");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentBlue     = new IntParameter("LuminanceAdjustmentBlue", "Luminance: Blue");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentPurple   = new IntParameter("LuminanceAdjustmentPurple", "Luminance: Purple");
-        public static readonly IDevelopControllerParameter<int> LuminanceAdjustmentMagenta  = new IntParameter("LuminanceAdjustmentMagenta", "Luminance: Magenta");
-        public static readonly IDevelopControllerParameter<int> GrayMixerRed                = new IntParameter("GrayMixerRed", "Black & White Mix: Red");
-        public static readonly IDevelopControllerParameter<int> GrayMixerOrange             = new IntParameter("GrayMixerOrange", "Black & White Mix: Orange");
-        public static readonly IDevelopControllerParameter<int> GrayMixerYellow             = new IntParameter("GrayMixerYellow", "Black & White Mix: Yellow");
-        public static readonly IDevelopControllerParameter<int> GrayMixerGreen              = new IntParameter("GrayMixerGreen", "Black & White Mix: Green");
-        public static readonly IDevelopControllerParameter<int> GrayMixerAqua               = new IntParameter("GrayMixerAqua", "Black & White Mix: Aqua");
-        public static readonly IDevelopControllerParameter<int> GrayMixerBlue               = new IntParameter("GrayMixerBlue", "Black & White Mix: Blue");
-        public static readonly IDevelopControllerParameter<int> GrayMixerPurple             = new IntParameter("GrayMixerPurple", "Black & White Mix: Purple");
-        public static readonly IDevelopControllerParameter<int> GrayMixerMagenta            = new IntParameter("GrayMixerMagenta", "Black & White Mix: Magenta");
+        public static readonly IParameter<int> SaturationAdjustmentRed     = new Parameter<int>("SaturationAdjustmentRed", "Saturation: Red");
+        public static readonly IParameter<int> SaturationAdjustmentOrange  = new Parameter<int>("SaturationAdjustmentOrange", "Saturation: Orange");
+        public static readonly IParameter<int> SaturationAdjustmentYellow  = new Parameter<int>("SaturationAdjustmentYellow", "Saturation: Yellow");
+        public static readonly IParameter<int> SaturationAdjustmentGreen   = new Parameter<int>("SaturationAdjustmentGreen", "Saturation: Green");
+        public static readonly IParameter<int> SaturationAdjustmentAqua    = new Parameter<int>("SaturationAdjustmentAqua", "Saturation: Aqua");
+        public static readonly IParameter<int> SaturationAdjustmentBlue    = new Parameter<int>("SaturationAdjustmentBlue", "Saturation: Blue");
+        public static readonly IParameter<int> SaturationAdjustmentPurple  = new Parameter<int>("SaturationAdjustmentPurple", "Saturation: Purple");
+        public static readonly IParameter<int> SaturationAdjustmentMagenta = new Parameter<int>("SaturationAdjustmentMagenta", "Saturation: Magenta");
+        public static readonly IParameter<int> HueAdjustmentRed            = new Parameter<int>("HueAdjustmentRed", "Hue: Red");
+        public static readonly IParameter<int> HueAdjustmentOrange         = new Parameter<int>("HueAdjustmentOrange", "Hue: Orange");
+        public static readonly IParameter<int> HueAdjustmentYellow         = new Parameter<int>("HueAdjustmentYellow", "Hue: Yellow");
+        public static readonly IParameter<int> HueAdjustmentGreen          = new Parameter<int>("HueAdjustmentGreen", "Hue: Green");
+        public static readonly IParameter<int> HueAdjustmentAqua           = new Parameter<int>("HueAdjustmentAqua", "Hue: Aqua");
+        public static readonly IParameter<int> HueAdjustmentBlue           = new Parameter<int>("HueAdjustmentBlue", "Hue: Blue");
+        public static readonly IParameter<int> HueAdjustmentPurple         = new Parameter<int>("HueAdjustmentPurple", "Hue: Purple");
+        public static readonly IParameter<int> HueAdjustmentMagenta        = new Parameter<int>("HueAdjustmentMagenta", "Hue: Magenta");
+        public static readonly IParameter<int> LuminanceAdjustmentRed      = new Parameter<int>("LuminanceAdjustmentRed", "Luminance: Red");
+        public static readonly IParameter<int> LuminanceAdjustmentOrange   = new Parameter<int>("LuminanceAdjustmentOrange", "Luminance: Orange");
+        public static readonly IParameter<int> LuminanceAdjustmentYellow   = new Parameter<int>("LuminanceAdjustmentYellow", "Luminance: Yellow");
+        public static readonly IParameter<int> LuminanceAdjustmentGreen    = new Parameter<int>("LuminanceAdjustmentGreen", "Luminance: Green");
+        public static readonly IParameter<int> LuminanceAdjustmentAqua     = new Parameter<int>("LuminanceAdjustmentAqua", "Luminance: Aqua");
+        public static readonly IParameter<int> LuminanceAdjustmentBlue     = new Parameter<int>("LuminanceAdjustmentBlue", "Luminance: Blue");
+        public static readonly IParameter<int> LuminanceAdjustmentPurple   = new Parameter<int>("LuminanceAdjustmentPurple", "Luminance: Purple");
+        public static readonly IParameter<int> LuminanceAdjustmentMagenta  = new Parameter<int>("LuminanceAdjustmentMagenta", "Luminance: Magenta");
+        public static readonly IParameter<int> GrayMixerRed                = new Parameter<int>("GrayMixerRed", "Black & White Mix: Red");
+        public static readonly IParameter<int> GrayMixerOrange             = new Parameter<int>("GrayMixerOrange", "Black & White Mix: Orange");
+        public static readonly IParameter<int> GrayMixerYellow             = new Parameter<int>("GrayMixerYellow", "Black & White Mix: Yellow");
+        public static readonly IParameter<int> GrayMixerGreen              = new Parameter<int>("GrayMixerGreen", "Black & White Mix: Green");
+        public static readonly IParameter<int> GrayMixerAqua               = new Parameter<int>("GrayMixerAqua", "Black & White Mix: Aqua");
+        public static readonly IParameter<int> GrayMixerBlue               = new Parameter<int>("GrayMixerBlue", "Black & White Mix: Blue");
+        public static readonly IParameter<int> GrayMixerPurple             = new Parameter<int>("GrayMixerPurple", "Black & White Mix: Purple");
+        public static readonly IParameter<int> GrayMixerMagenta            = new Parameter<int>("GrayMixerMagenta", "Black & White Mix: Magenta");
 
         static MixerPanelParameter()
         {
@@ -47,17 +47,6 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
                 LuminanceAdjustmentGreen, LuminanceAdjustmentAqua, LuminanceAdjustmentBlue, LuminanceAdjustmentPurple,
                 LuminanceAdjustmentMagenta, GrayMixerRed, GrayMixerOrange, GrayMixerYellow, GrayMixerGreen,
                 GrayMixerAqua, GrayMixerBlue, GrayMixerPurple, GrayMixerMagenta);
-        }
-
-        private MixerPanelParameter(string name, string displayName) : base(name, displayName)
-        {
-        }
-
-        private class IntParameter : MixerPanelParameter, IDevelopControllerParameter<int>
-        {
-            public IntParameter(string name, string displayName) : base(name, displayName)
-            {
-            }
         }
     }
 }

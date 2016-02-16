@@ -25,13 +25,13 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Padding="3" Margin="3" Click="DoStuff_OnClick">Do stuff</Button>
+            <Button Grid.Row="0" Padding="3" Margin="3" Click="GetAllParameterValues_OnClick">Do stuff</Button>
             <TextBox Grid.Row="1" x:Name="Response" IsReadOnly="True"/>
 
             <Button Grid.Row="2" Padding="3" Margin="3" Click="Decrement_OnClick">Decrement exposure</Button>

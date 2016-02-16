@@ -2,31 +2,20 @@
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class TonePanelParameter : Parameter<TonePanelParameter>
+    public class TonePanelParameter : ParameterGroup<TonePanelParameter>
     {
-        public static readonly IDevelopControllerParameter<int> ParametricHighlights     = new IntParameter("ParametricHighlights", "Highlights");
-        public static readonly IDevelopControllerParameter<int> ParametricLights         = new IntParameter("ParametricLights", "Lights");
-        public static readonly IDevelopControllerParameter<int> ParametricDarks          = new IntParameter("ParametricDarks", "Darks");
-        public static readonly IDevelopControllerParameter<int> ParametricShadows        = new IntParameter("ParametricShadows", "Shadows");
-        public static readonly IDevelopControllerParameter<int> ParametricShadowSplit    = new IntParameter("ParametricShadowSplit", "Shadow Split");
-        public static readonly IDevelopControllerParameter<int> ParametricMidtoneSplit   = new IntParameter("ParametricMidtoneSplit", "Midtone Split");
-        public static readonly IDevelopControllerParameter<int> ParametricHighlightSplit = new IntParameter("ParametricHighlightSplit", "Highlight Split");
+        public static readonly IParameter<int> ParametricHighlights     = new Parameter<int>("ParametricHighlights", "Highlights");
+        public static readonly IParameter<int> ParametricLights         = new Parameter<int>("ParametricLights", "Lights");
+        public static readonly IParameter<int> ParametricDarks          = new Parameter<int>("ParametricDarks", "Darks");
+        public static readonly IParameter<int> ParametricShadows        = new Parameter<int>("ParametricShadows", "Shadows");
+        public static readonly IParameter<int> ParametricShadowSplit    = new Parameter<int>("ParametricShadowSplit", "Shadow Split");
+        public static readonly IParameter<int> ParametricMidtoneSplit   = new Parameter<int>("ParametricMidtoneSplit", "Midtone Split");
+        public static readonly IParameter<int> ParametricHighlightSplit = new Parameter<int>("ParametricHighlightSplit", "Highlight Split");
 
         static TonePanelParameter()
         {
             AddParameters(ParametricHighlights, ParametricLights, ParametricDarks, ParametricShadows,
                 ParametricShadowSplit, ParametricMidtoneSplit, ParametricHighlightSplit);
-        }
-
-        private TonePanelParameter(string name, string displayName) : base(name, displayName)
-        {
-        }
-
-        private class IntParameter : TonePanelParameter, IDevelopControllerParameter<int>
-        {
-            public IntParameter(string name, string displayName) : base(name, displayName)
-            {
-            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Text;
+using System.Windows;
+using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace micdah.LrControl
@@ -30,9 +32,19 @@ namespace micdah.LrControl
             });
         }
 
-        private void DoStuff_OnClick(object sender, RoutedEventArgs e)
+        private void GetAllParameterValues_OnClick(object sender, RoutedEventArgs e)
         {
-            int value;
+            var response = new StringBuilder();
+            response.AppendLine("Adjust panel parameters");
+            foreach (var param in AdjustPanelParameter.AllParameters)
+            {
+                
+            }
+
+            _api.LrDevelopController.SetValue(AdjustPanelParameter.WhiteBalance, WhiteBalanceValue.AsShot);
+
+
+            double value;
             if (_api.LrDevelopController.GetValue(out value, AdjustPanelParameter.Exposure))
             {
                 Dispatcher.InvokeAsync(() => Response.Text = $"Value = {value}");

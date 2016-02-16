@@ -50,9 +50,7 @@
     <Compile Include="Common\Attributes\LuaRequireModuleAttribute.cs" />
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\IClassEnum.cs" />
-    <Compile Include="Common\IParameter.cs" />
     <Compile Include="Common\ModuleBase.cs" />
-    <Compile Include="Common\Parameter.cs" />
     <Compile Include="Common\Range.cs" />
     <Compile Include="Communication\MessageProtocol.cs" />
     <Compile Include="Communication\PluginClient.cs" />
@@ -65,10 +63,11 @@
     <Compile Include="Modules\LrApplicationView\SecondaryView.cs" />
     <Compile Include="Modules\LrControl\ILrControl.cs" />
     <Compile Include="Modules\LrControl\LrControl.cs" />
-    <Compile Include="Modules\LrDevelopController\IDevelopControllerParameter.cs" />
+    <Compile Include="Modules\LrDevelopController\IParameter.cs" />
     <Compile Include="Modules\LrDevelopController\ILrDevelopController.cs" />
     <Compile Include="Modules\LrDevelopController\LrDevelopController.cs" />
     <Compile Include="Modules\LrDevelopController\Panels.cs" />
+    <Compile Include="Modules\LrDevelopController\ParameterGroup.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\AdjustPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\CalibratePanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\CropParameter.cs" />
@@ -81,7 +80,10 @@
     <Compile Include="Modules\LrDevelopController\Parameters\SplitToningPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\TonePanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\ProcessVersion.cs" />
+    <Compile Include="Modules\LrDevelopController\ProfileValue.cs" />
     <Compile Include="Modules\LrDevelopController\Tool.cs" />
+    <Compile Include="Modules\LrDevelopController\UprightValue.cs" />
+    <Compile Include="Modules\LrDevelopController\WhiteBalanceValue.cs" />
     <Compile Include="Modules\LrDialogs\ConfirmResult.cs" />
     <Compile Include="Modules\LrDialogs\DialogStyle.cs" />
     <Compile Include="Modules\LrDialogs\ILrDialogs.cs" />

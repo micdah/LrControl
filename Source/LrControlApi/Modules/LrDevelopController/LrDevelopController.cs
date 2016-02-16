@@ -1,5 +1,4 @@
-﻿using System;
-using micdah.LrControlApi.Common;
+﻿using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Communication;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController
@@ -12,7 +11,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
 
         public event AdjustmentChange AdjustmentChangeObserver;
 
-        public bool Decrement(IDevelopControllerParameter param)
+        public bool Decrement(IParameter param)
         {
             return Invoke(nameof(Decrement), param);
         }
@@ -27,7 +26,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return processVersion != null;
         }
 
-        public bool GetRange(out Range range, IDevelopControllerParameter param)
+        public bool GetRange(out Range range, IParameter param)
         {
             int min, max;
             if (!Invoke(out min, out max, nameof(GetRange), param))
@@ -47,27 +46,40 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return tool != null;
         }
 
-        public bool GetValue(out int value, IDevelopControllerParameter<int> param)
+        public bool GetValue(out int value, IParameter<int> param)
         {
             return Invoke(out value, nameof(GetValue), param);
         }
 
-        public bool GetValue(out double value, IDevelopControllerParameter<double> param)
+        public bool GetValue(out double value, IParameter<double> param)
         {
             return Invoke(out value, nameof(GetValue), param);
         }
 
-        public bool GetValue(out bool value, IDevelopControllerParameter<bool> param)
+        public bool GetValue(out bool value, IParameter<bool> param)
         {
             return Invoke(out value, nameof(GetValue), param);
         }
 
-        public bool GetValue(out string value, IDevelopControllerParameter<string> param)
+        public bool GetValue(out string value, IParameter<string> param)
         {
             return Invoke(out value, nameof(GetValue), param);
         }
-        
-        public bool Increment(IDevelopControllerParameter param)
+
+        public bool GetValue<TEnum,TValue>(out ClassEnum<TValue,TEnum> value, IParameter<TEnum> param)
+            where TEnum : ClassEnum<TValue,TEnum>
+        {
+            TValue result;
+            if (Invoke(out result, nameof(GetValue), param))
+            {
+                value = ClassEnum<TValue, TEnum>.GetEnumForValue(result);
+                return true;
+            }
+            value = null;
+            return false;
+        }
+
+        public bool Increment(IParameter param)
         {
             return Invoke(nameof(Increment), param);
         }
@@ -107,7 +119,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(ResetSpotRemoval));
         }
 
-        public bool ResetToDefault(IDevelopControllerParameter param)
+        public bool ResetToDefault(IParameter param)
         {
             return Invoke(nameof(ResetToDefault), param);
         }
@@ -117,7 +129,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(RevealAdjustedControls), reveal);
         }
 
-        public bool RevealPanel(IDevelopControllerParameter param)
+        public bool RevealPanel(IParameter param)
         {
             return Invoke(nameof(RevealPanel), param);
         }
@@ -147,27 +159,33 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(SetTrackingDelay), seconds);
         }
 
-        public bool SetValue(IDevelopControllerParameter<int> param, int value)
+        public bool SetValue(IParameter<int> param, int value)
         {
             return Invoke(nameof(SetValue), param, value);
         }
 
-        public bool SetValue(IDevelopControllerParameter<double> param, double value)
+        public bool SetValue(IParameter<double> param, double value)
         {
             return Invoke(nameof(SetValue), param, value);
         }
 
-        public bool SetValue(IDevelopControllerParameter<bool> param, bool value)
+        public bool SetValue(IParameter<bool> param, bool value)
         {
             return Invoke(nameof(SetValue), param, value);
         }
 
-        public bool SetValue(IDevelopControllerParameter<string> param, string value)
+        public bool SetValue(IParameter<string> param, string value)
         {
             return Invoke(nameof(SetValue), param, value);
         }
-        
-        public bool StartTracking(IDevelopControllerParameter param)
+
+        public bool SetValue<TEnum,TValue>(IParameter<TEnum> param, ClassEnum<TValue,TEnum> enumClass)
+            where TEnum : ClassEnum<TValue,TEnum>
+        {
+            return Invoke(nameof(SetValue), param, enumClass.Value);
+        }
+
+        public bool StartTracking(IParameter param)
         {
             return Invoke(nameof(StartTracking), param);
         }
