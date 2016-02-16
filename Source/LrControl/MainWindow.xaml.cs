@@ -39,6 +39,8 @@ namespace micdah.LrControl
 
         private void GetAllParameterValues_OnClick(object sender, RoutedEventArgs e)
         {
+            _api.LrDialogs.ShowBezel("Getting all develop parameters...");
+
             var response = new StringBuilder();
 
             Module module;

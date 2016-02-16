@@ -60,6 +60,8 @@ local function deserializeArgument(arg)
     elseif typeArg == "B" then
         -- Boolean 0/1
         return value == "1"
+    elseif typeArg == "L" then 
+        return nil
     end
     
     -- Unknown

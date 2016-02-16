@@ -3,6 +3,7 @@ using micdah.LrControlApi.Communication;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrControl;
 using micdah.LrControlApi.Modules.LrDevelopController;
+using micdah.LrControlApi.Modules.LrDialogs;
 
 namespace micdah.LrControlApi
 {
@@ -12,6 +13,7 @@ namespace micdah.LrControlApi
         private readonly LrControl _lrControl;
         private readonly LrDevelopController _lrDevelopController;
         private readonly LrApplicationView _lrApplicationView;
+        private readonly LrDialogs _lrDialogs;
 
         public LrControlApi(int sendPort, int receivePort)
         {
@@ -21,7 +23,7 @@ namespace micdah.LrControlApi
             _lrControl           = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
             _lrDevelopController = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
             _lrApplicationView   = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
-
+            _lrDialogs           = new LrDialogs(new MessageProtocol<LrDialogs>(_pluginClient));
 
             _pluginClient.Open();
         }
@@ -31,6 +33,7 @@ namespace micdah.LrControlApi
         public ILrControl LrControl => _lrControl;
         public ILrDevelopController LrDevelopController => _lrDevelopController;
         public ILrApplicationView LrApplicationView => _lrApplicationView;
+        public ILrDialogs LrDialogs => _lrDialogs;
 
         public void Dispose()
         {

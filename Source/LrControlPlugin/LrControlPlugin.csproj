@@ -69,6 +69,12 @@
       <DependentUpon>ModulesLrDevelopController.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ModulesLrDialogs.lua">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModulesLrDialogs.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ModuleTools.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -96,6 +102,10 @@
     <Content Include="ModulesLrDevelopController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModulesLrDevelopController.lua</LastGenOutput>
+    </Content>
+    <Content Include="ModulesLrDialogs.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrDialogs.lua</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

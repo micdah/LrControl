@@ -1,6 +1,6 @@
 --[[----------------------------------------------------------------------------
 
-Copyright © 2016 Michael Dahl
+Copyright ? 2016 Michael Dahl
 
 This file is part of LrControl.
 
@@ -18,19 +18,25 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrDevelopController        = import 'LrDevelopController'
-local Options                    = require 'Options'
-local ModulesLrDevelopController = require 'ModulesLrDevelopController' 
-local ModulesLrApplicationView   = require 'ModulesLrApplicationView'
-local ModulesLrDialogs           = require 'ModulesLrDialogs'
+
+local LrDialogs   = import 'LrDialogs'
+local ModuleTools = require 'ModuleTools'
 
 return {
-    LrControl = {
-        getApiVersion = function() 
-            return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor
-        end
-    },
-    LrDevelopController = ModulesLrDevelopController,
-    LrApplicationView   = ModulesLrApplicationView,
-    LrDialogs           = ModulesLrDialogs,
+    confirm   = function(message,info,actionVerb,cancelVerb,otherVerb)
+        return LrDialogs.confirm(message,info,actionVerb,cancelVerb,otherVerb)
+    end,
+    
+    message   = function(message,info,style)
+        LrDialogs.message(message,info,style)
+    end,
+    
+    showBezel = function(message,fadeDelay)
+        LrDialogs.showBezel(message,fadeDelay)
+    end,
+    
+    showError = function(errorString)
+        LrDialogs.showError(errorString)
+    end,
+    
 }

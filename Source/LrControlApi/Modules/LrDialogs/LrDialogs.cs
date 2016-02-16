@@ -1,26 +1,33 @@
-﻿namespace micdah.LrControlApi.Modules.LrDialogs
+﻿using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Communication;
+
+namespace micdah.LrControlApi.Modules.LrDialogs
 {
-    internal class LrDialogs : ILrDialogs
+    internal class LrDialogs : ModuleBase<LrDialogs>, ILrDialogs
     {
-        public ConfirmResult Confirm(string message, string info = null, string actionVerb = "OK", string cancelVerb = "Cancel",
+        public LrDialogs(MessageProtocol<LrDialogs> messageProtocol) : base(messageProtocol)
+        {
+        }
+
+        public bool Confirm(out ConfirmResult confirmResult, string message, string info, string actionVerb, string cancelVerb,
             string otherVerb = null)
         {
-            throw new System.NotImplementedException();
+            return Invoke(out confirmResult, nameof(Confirm), message, info, actionVerb, cancelVerb, otherVerb);
         }
 
-        public void Message(string message, string info = null, DialogStyle style = null)
+        public bool Message(string message, string info = null, DialogStyle style = null)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(message), info, style);
         }
 
-        public void ShowBezel(string message, double? fadeDelay = null)
+        public bool ShowBezel(string message, double? fadeDelay = null)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ShowBezel), message, fadeDelay);
         }
 
-        public void ShowError(string errorString)
+        public bool ShowError(string errorString)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ShowError), errorString);
         }
     }
 }

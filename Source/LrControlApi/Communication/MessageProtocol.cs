@@ -152,7 +152,10 @@ namespace micdah.LrControlApi.Communication
 
         private static void AppendTypedArgument(StringBuilder builder, object arg)
         {
-            if (arg is string)
+            if (arg == null)
+            {
+                builder.Append("L");
+            } else if (arg is string)
             {
                 builder.Append("S");
                 builder.Append((string) arg);
