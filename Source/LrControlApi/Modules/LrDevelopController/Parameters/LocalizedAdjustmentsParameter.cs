@@ -18,7 +18,7 @@
         public readonly IParameter<int> Moire          = new Parameter<int>("local_Moire", "Moiré");
         public readonly IParameter<int> Defringe       = new Parameter<int>("local_Defringe", "Defringe");
 
-        internal LocalizedAdjustmentsParameter()
+        internal LocalizedAdjustmentsParameter() : base("Localized Adjustments")
         {
             AddParameters(Temperature, Tint, Exposure, Contrast, Highlights, Shadows, Whites, Blacks, Clarity, Dehaze,
                 Saturation, Sharpness, LuminanceNoise, Moire, Defringe);

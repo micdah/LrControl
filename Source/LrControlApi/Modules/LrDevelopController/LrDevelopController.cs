@@ -28,7 +28,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
 
         public bool GetRange(out Range range, IParameter param)
         {
-            int min, max;
+            double min, max;
             if (!Invoke(out min, out max, nameof(GetRange), param))
                 return False(out range);
 

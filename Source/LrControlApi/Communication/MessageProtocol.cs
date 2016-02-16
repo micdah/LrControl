@@ -39,6 +39,9 @@ namespace micdah.LrControlApi.Communication
             if (!SendMessage(out response, method, args))
                 return False(out result);
 
+            if (response == "ack")
+                return False(out result);
+
             return DecodeTypedString(response, out result);
         }
 
@@ -46,6 +49,9 @@ namespace micdah.LrControlApi.Communication
         {
             string response;
             if (!SendMessage(out response, method, args))
+                return False(out result1, out result2);
+
+            if (response == "ack")
                 return False(out result1, out result2);
 
             string[] results;
@@ -62,6 +68,9 @@ namespace micdah.LrControlApi.Communication
         {
             string response;
             if (!SendMessage(out response, method, args))
+                return False(out result1, out result2, out result3);
+
+            if (response == "ack")
                 return False(out result1, out result2, out result3);
 
             string[] results;

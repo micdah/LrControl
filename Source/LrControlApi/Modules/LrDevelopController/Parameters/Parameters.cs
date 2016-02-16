@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
     public static class Parameters
@@ -11,7 +13,24 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         public static readonly LensCorrectionsPanelParameter LensCorrectionsPanelParameters = new LensCorrectionsPanelParameter();
         public static readonly LocalizedAdjustmentsParameter LocalizedAdjustmentsParameters = new LocalizedAdjustmentsParameter();
         public static readonly MixerPanelParameter MixerPanelParameters                     = new MixerPanelParameter();
-        public static readonly SplitToningPanelParameter SplitToningPanelParameter          = new SplitToningPanelParameter();
+        public static readonly SplitToningPanelParameter SplitToningPanelParameters          = new SplitToningPanelParameter();
         public static readonly TonePanelParameter TonePanelParameters                       = new TonePanelParameter();
+
+        public static IList<ParameterGroup> AllGroups =>
+
+            new List<ParameterGroup>
+            {
+                AdjustPanelParameters,
+                CalibratePanelParameters,
+                CropParameters,
+                DetailPanelParameters,
+                EffectsPanelParameters,
+                EnablePanelParameters,
+                LensCorrectionsPanelParameters,
+                LocalizedAdjustmentsParameters,
+                MixerPanelParameters,
+                SplitToningPanelParameters,
+                TonePanelParameters
+            };
     }
 }

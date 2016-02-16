@@ -80,6 +80,7 @@
     <Compile Include="Modules\LrDevelopController\Parameters\Parameters.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\SplitToningPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\TonePanelParameter.cs" />
+    <Compile Include="Modules\LrDevelopController\PostCropVignetteStyle.cs" />
     <Compile Include="Modules\LrDevelopController\ProcessVersion.cs" />
     <Compile Include="Modules\LrDevelopController\ProfileValue.cs" />
     <Compile Include="Modules\LrDevelopController\Tool.cs" />

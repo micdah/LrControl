@@ -10,7 +10,7 @@
         public readonly IParameter<int> ParametricMidtoneSplit   = new Parameter<int>("ParametricMidtoneSplit", "Midtone Split");
         public readonly IParameter<int> ParametricHighlightSplit = new Parameter<int>("ParametricHighlightSplit", "Highlight Split");
 
-        internal TonePanelParameter()
+        internal TonePanelParameter() : base("Tone Curve")
         {
             AddParameters(ParametricHighlights, ParametricLights, ParametricDarks, ParametricShadows,
                 ParametricShadowSplit, ParametricMidtoneSplit, ParametricHighlightSplit);

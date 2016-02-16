@@ -35,7 +35,7 @@
         public readonly IParameter<int> GrayMixerPurple             = new Parameter<int>("GrayMixerPurple", "Black & White Mix: Purple");
         public readonly IParameter<int> GrayMixerMagenta            = new Parameter<int>("GrayMixerMagenta", "Black & White Mix: Magenta");
 
-        internal MixerPanelParameter()
+        internal MixerPanelParameter() : base("HSL / Color / B&W")
         {
             AddParameters(SaturationAdjustmentRed, SaturationAdjustmentOrange, SaturationAdjustmentYellow,
                 SaturationAdjustmentGreen, SaturationAdjustmentAqua, SaturationAdjustmentBlue,

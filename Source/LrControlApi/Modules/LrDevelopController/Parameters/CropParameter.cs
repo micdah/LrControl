@@ -2,14 +2,14 @@
 {
     public class CropParameter : ParameterGroup
     {
-        public readonly IParameter<int> StraightenAngle = new Parameter<int>("straightenAngle", "Angle");
-        public readonly IParameter<int> CropAngle       = new Parameter<int>("CropAngle", "Crop´Angle");
-        public readonly IParameter<int> CropLeft        = new Parameter<int>("CropLeft", "Crop Left");
-        public readonly IParameter<int> CropRight       = new Parameter<int>("CropRight", "Crop Right");
-        public readonly IParameter<int> CropTop         = new Parameter<int>("CropTop", "Crop Top");
-        public readonly IParameter<int> CropBottom      = new Parameter<int>("CropBottom", "Crop Bottom");
+        public readonly IParameter<double> StraightenAngle    = new Parameter<double>("straightenAngle", "Angle");
+        public readonly IParameter<double> CropAngle          = new Parameter<double>("CropAngle", "Crop´Angle");
+        public readonly IParameter<double> CropLeft           = new Parameter<double>("CropLeft", "Crop Left");
+        public readonly IParameter<double> CropRight          = new Parameter<double>("CropRight", "Crop Right");
+        public readonly IParameter<double> CropTop            = new Parameter<double>("CropTop", "Crop Top");
+        public readonly IParameter<double> CropBottom         = new Parameter<double>("CropBottom", "Crop Bottom");
 
-        internal CropParameter()
+        internal CropParameter() : base("Crop & Straigten")
         {
             AddParameters(StraightenAngle, CropAngle, CropLeft, CropRight, CropTop, CropBottom);
         }

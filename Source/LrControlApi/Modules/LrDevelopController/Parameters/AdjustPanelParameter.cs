@@ -17,7 +17,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         public readonly IParameter<int> Vibrance                      = new Parameter<int>("Vibrance", "Presence: Vibrance");
         public readonly IParameter<int> Saturation                    = new Parameter<int>("Saturation", "Presence: Saturation");
 
-        internal AdjustPanelParameter()
+        internal AdjustPanelParameter() : base("Basic")
         {
             AddParameters(WhiteBalance, Temperature, Tint, Exposure, Contrast, Highlights, Shadows, Whites, Blacks,
                 Clarity, Vibrance, Saturation);

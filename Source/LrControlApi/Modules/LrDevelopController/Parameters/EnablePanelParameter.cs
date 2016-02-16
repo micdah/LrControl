@@ -16,7 +16,7 @@
         public readonly IParameter<bool> PaintBasedCorrections            = new Parameter<bool>("EnablePaintBasedCorrections", "Enable Adjustment Brush");
         public readonly IParameter<bool> GrayscaleMix                     = new Parameter<bool>("EnableGrayscaleMix", "Enable Black & White Mix");
 
-        internal EnablePanelParameter()
+        internal EnablePanelParameter() : base("Toggle panels")
         {
             AddParameters(ToneCurve, ColorAdjustments, SplitToning, Detail, LensCorrections, Effects, Calibration,
                 Retouch, RedEye, GradientBasedCorrections, CircularGradientBasedCorrections, PaintBasedCorrections,

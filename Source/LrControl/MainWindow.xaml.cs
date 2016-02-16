@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
@@ -38,8 +40,11 @@ namespace micdah.LrControl
         {
             var response = new StringBuilder();
 
-            response.AppendLine("Adjust panel parameters");
-            EnumerateParameters(response, Parameters.AdjustPanelParameters.AllParameters);
+            foreach (var group in Parameters.AllGroups)
+            {
+                response.AppendLine($"{new String('<', 20)}{group.Name} parameters{new String('>', 20)}");
+                EnumerateParameters(response, group.AllParameters);
+            }
 
             Dispatcher.InvokeAsync(() => Response.Text = response.ToString());
         }
@@ -51,53 +56,76 @@ namespace micdah.LrControl
                 if (param is IParameter<int>)
                 {
                     int value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value, (IParameter<int>) param)
+                    response.Append(_api.LrDevelopController.GetValue(out value, (IParameter<int>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
                 }
                 else if (param is IParameter<double>)
                 {
                     double value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value, (IParameter<double>) param)
+                    response.Append(_api.LrDevelopController.GetValue(out value, (IParameter<double>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
                 }
                 else if (param is IParameter<string>)
                 {
                     string value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value, (IParameter<string>) param)
+                    response.Append(_api.LrDevelopController.GetValue(out value, (IParameter<string>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
                 }
                 else if (param is IParameter<bool>)
                 {
                     bool value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value, (IParameter<bool>) param)
+                    response.Append(_api.LrDevelopController.GetValue(out value, (IParameter<bool>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
                 }
                 else if (param is IParameter<Tool>)
                 {
                     Tool value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value, (IParameter<Tool>) param)
+                    response.Append(_api.LrDevelopController.GetValue(out value, (IParameter<Tool>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
                 }
                 else if (param is IParameter<UprightValue>)
                 {
                     UprightValue value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value, (IParameter<UprightValue>) param)
+                    response.Append(_api.LrDevelopController.GetValue(out value, (IParameter<UprightValue>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
                 }
                 else if (param is IParameter<WhiteBalanceValue>)
                 {
                     WhiteBalanceValue value;
-                    response.AppendLine(_api.LrDevelopController.GetValue(out value,
+                    response.Append(_api.LrDevelopController.GetValue(out value,
                         (IParameter<WhiteBalanceValue>) param)
                         ? $"{param.DisplayName} = {value}"
                         : $"{param.DisplayName} = Error retrieving");
+                } else if (param is IParameter<PostCropVignetteStyle>)
+                {
+                    PostCropVignetteStyle value;
+                    response.Append(_api.LrDevelopController.GetValue(out value,
+                        (IParameter<PostCropVignetteStyle>)param)
+                        ? $"{param.DisplayName} = {value}"
+                        : $"{param.DisplayName} = Error retrieving");
+                } else if (param is IParameter<ProfileValue>)
+                {
+                    ProfileValue value;
+                    response.Append(_api.LrDevelopController.GetValue(out value,
+                        (IParameter<ProfileValue>) param)
+                        ? $"{param.DisplayName} = {value}"
+                        : $"{param.DisplayName} = Error retrieving");
                 }
+                else
+                {
+                    response.Append($"{new String('!', 20)} Unknown parameter {param.GetType()}");
+                }
+
+                Range range;
+                response.AppendLine(_api.LrDevelopController.GetRange(out range, param)
+                    ? $" (min = {range.Minimum}, max = {range.Maximum})"
+                    : " (min = ?, max = ?)");
             }
         }
 

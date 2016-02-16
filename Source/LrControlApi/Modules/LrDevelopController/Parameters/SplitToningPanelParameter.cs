@@ -8,7 +8,7 @@
         public readonly IParameter<int> SplitToningShadowHue           = new Parameter<int>("SplitToningShadowHue", "Shadows: Hue");
         public readonly IParameter<int> SplitToningShadowSaturation    = new Parameter<int>("SplitToningShadowSaturation", "Shadows: Saturation");
 
-        internal SplitToningPanelParameter()
+        internal SplitToningPanelParameter() : base("Split Toning")
         {
             AddParameters(SplitToningHighlightHue, SplitToningHighlightSaturation, SplitToningBalance,
                 SplitToningShadowHue, SplitToningShadowSaturation);

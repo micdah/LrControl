@@ -11,7 +11,7 @@
         public readonly IParameter<int> BlueHue                  = new Parameter<int>("BlueHue", "Blue Primary: Hue");
         public readonly IParameter<int> BlueSaturation           = new Parameter<int>("BlueSaturation", "Blue Primary: Saturation");
 
-        internal CalibratePanelParameter()
+        internal CalibratePanelParameter() : base("Camera calibration")
         {
             AddParameters(Profile, ShadowTint, RedHue, RedSaturation, GreenHue, GreenSaturation, BlueHue, BlueSaturation);
         }
