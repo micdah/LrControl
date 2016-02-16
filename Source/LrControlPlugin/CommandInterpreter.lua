@@ -19,20 +19,12 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
 
-local Modules = {
-    LrControl = {
-        getApiVersion = function() 
-            return "LrControl 0.0", 1.337,true
-        end
-    }
-}
-
-local function getModule(message)
+local function getModule(modules,message)
     local i = string.find(message, "%.")
     if i ~= nil then
         local name = string.sub(message,1, i-1)
         local rest = string.sub(message,i+1)             
-        local module = Modules[name]
+        local module = modules[name]
         
         return module,rest
     else 
@@ -65,6 +57,9 @@ local function deserializeArgument(arg)
     elseif typeArg == "S" then
         -- String
         return value
+    elseif typeArg == "B" then
+        -- Boolean 0/1
+        return value == "1"
     end
     
     -- Unknown
@@ -93,6 +88,10 @@ local function encodeValue(value)
 end
 
 local function encodeResponse(results)
+    if #results == 0 then
+        return "ack"
+    end
+
     local result = nil 
     for i = 1, #results do
         local encodedValue = encodeValue(results[i])
@@ -107,19 +106,23 @@ local function encodeResponse(results)
     return result
 end
 
-local function interpretCommand(command)
+local function errorMessage(message) 
+    return "E"..string.gsub(message, "\n", ", ")
+end
+
+local function interpretCommand(modules,command)
     -- Lookup module 
-    local module,methodAndArgs = getModule(command)
+    local module,methodAndArgs = getModule(modules,command)
     if module == nil then
-        return "unknown module"
+        return errorMessage("Unknown module")
     elseif methodAndArgs == nil then
-        return "unknown method"
+        return errorMessage("Missing method and arguments")
     end
     
     -- Lookup method
     local method,args = getMethod(module,methodAndArgs)
     if method == nil then  
-        return "unknown method"
+        return errorMessage("Unknown method")
     end
     
     -- Invoke method
@@ -133,12 +136,7 @@ local function interpretCommand(command)
     return encodeResponse({result1, result2, result3})
 end
 
-local result = interpretCommand("LrControl.getApiVersion")
-
-print(result)
-
-local str = "foo\nbar\nbaz"
-print(str)
-
-local str2 = string.gsub(str, "\n", ", ")
-print(str2)
+return {
+    InterpretCommand = interpretCommand,
+    ErrorMessage     = errorMessage,
+}

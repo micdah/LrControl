@@ -18,125 +18,22 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local Options = require 'Options'
+local LrDevelopController = import 'LrDevelopController'
+local LrApplicationView   = import 'LrApplicationView'
+local Options             = require 'Options'
 
-local Modules = {
+return {
     LrControl = {
         getApiVersion = function() 
             return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor
         end
-    }
-}
-
-local function getModule(message)
-    local i = string.find(message, "%.")
-    if i ~= nil then
-        local name = string.sub(message,1, i-1)
-        local rest = string.sub(message,i+1)             
-        local module = Modules[name]
-        
-        return module,rest
-    else 
-        return nil,message
-    end
-end
-
-local function getMethod(module,methodAndArgs)
-    local i = string.find(methodAndArgs, "%s")
-    local methodName = methodAndArgs
-    local args = nil
-    
-    -- Check if there are arguments
-    if i ~= nil then
-        methodName = string.sub(methodAndArgs, 1, i-1)
-        args = string.sub(methodAndArgs, i+1)
-    end
-    
-    local method = module[methodName]
-    return method,args
-end
-
-local function deserializeArgument(arg) 
-    local typeArg = string.sub(arg, 1, 1)
-    local value   = string.sub(arg, 2)
-    
-    if typeArg == "N" then
-        -- Number
-        return tonumber(value)
-    elseif typeArg == "S" then
-        -- String
-        return value
-    elseif typeArg == "B" then
-        -- Boolean 0/1
-        return value == "1"
-    end
-    
-    -- Unknown
-    return nil
-end
-
-local function interpretArguments(args)
-    local list = {}
-    for arg in string.gmatch(args,"([^\30]+)") do
-        list[#list+1] = deserializeArgument(arg)
-    end
-    return unpack(list)
-end
-
-local function encodeValue(value) 
-    local type = type(value)
-    if type == "string" then
-        return "S"..value
-    elseif type == "number" then
-        return "N"..tostring(value)
-    elseif type == "boolean" then
-        return "B"..(value and "1" or "0")
-    else
-        return value
-    end
-end
-
-local function encodeResponse(results)
-    local result = nil 
-    for i = 1, #results do
-        local encodedValue = encodeValue(results[i])
-    
-        if result ~= nil then
-            result = result.."\30"..encodedValue
-        else
-            result = encodedValue
+    },
+    LrDevelopController = {
+        getSelectedTool = function()
+            if LrApplicationView.getCurrentModuleName() ~= "develop" then
+                error("Not in develop module")
+            end
+            return LrDevelopController.getSelectedTool()
         end
-    end
-    
-    return result
-end
-
-local function interpretCommand(command)
-    -- Lookup module 
-    local module,methodAndArgs = getModule(command)
-    if module == nil then
-        return "unknown module"
-    elseif methodAndArgs == nil then
-        return "unknown method"
-    end
-    
-    -- Lookup method
-    local method,args = getMethod(module,methodAndArgs)
-    if method == nil then  
-        return "unknown method"
-    end
-    
-    -- Invoke method
-    local result1, result2, result3
-    if args ~= nil then
-        result1, result2, result3 = method(interpretArguments(args))
-    else
-        result1, result2, result3 = method()
-    end
-    
-    return encodeResponse({result1, result2, result3})
-end
-
-return {
-    InterpretCommand = interpretCommand
+    }
 }

@@ -138,9 +138,16 @@ namespace LrControlApi.Communication
             var lowerFirstMethod = char.ToLowerInvariant(method[0]) + method.Substring(1);
             var message = FormatMessage(_moduleName, lowerFirstMethod, args);
 
-            if (_pluginClient.SendMessage(message, out response)) return true;
+            if (!_pluginClient.SendMessage(message, out response))
+            {
+                Log.Warn($"Was unable to send message '{message}'");
+                return false;
+            }
 
-            Log.Warn($"Was unable to send message '{message}'");
+            // Check for error codes
+            if (response[0] != 'E') return true;
+
+            Log.Warn($"Error received '{response.Substring(1)}' after sending message '{message}'");
             return false;
         }
 

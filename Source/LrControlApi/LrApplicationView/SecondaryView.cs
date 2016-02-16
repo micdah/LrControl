@@ -13,6 +13,11 @@ namespace LrControlApi.LrApplicationView
         public static readonly SecondaryView Survey      = new SecondaryView("survey", "Survey");
         public static readonly SecondaryView Slideshow   = new SecondaryView("slideshow", "Slidesohw");
 
+        static SecondaryView()
+        {
+            AddEnums(Loupe, LiveLoupe, LockedLoupe, Grid, Compare, Survey, Slideshow);
+        }
+
         private SecondaryView(string value, string name) : base(value, name)
         {
         }

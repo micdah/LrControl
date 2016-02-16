@@ -37,6 +37,11 @@ namespace LrControlApi.LrDevelopController.Parameters
             public static readonly WhiteBalanceValue Shade       = new WhiteBalanceValue("Shade");
             public static readonly WhiteBalanceValue Tungsten    = new WhiteBalanceValue("Tungsten");
 
+            static WhiteBalanceValue()
+            {
+                AddEnums(AsShot, Auto, Cloudy, Daylight, Flash, Flourescent, Shade, Tungsten);
+            }
+
             private WhiteBalanceValue(string name) : base(name, name)
             {
             }

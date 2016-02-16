@@ -14,6 +14,12 @@ namespace LrControlApi.LrApplicationView
         public static readonly PrimaryView DevelopBeforeAfterVertical   = new PrimaryView("develop_before_after_vert", "Develop Before/After Vertical");
         public static readonly PrimaryView DevelopBefore                = new PrimaryView("develop_before", "Develop Before");
 
+        static PrimaryView()
+        {
+            AddEnums(Loupe, Grid, Compare, Survey, People, DevelopLoupe, DevelopBeforeAfterHorizontal,
+                DevelopBeforeAfterVertical, DevelopBefore);
+        }
+
         private PrimaryView(string value, string name) : base(value, name)
         {
         }

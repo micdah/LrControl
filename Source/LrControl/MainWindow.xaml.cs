@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using LrControlApi.LrDevelopController;
 
 namespace micdah.LrControl
 {
@@ -15,6 +16,8 @@ namespace micdah.LrControl
 
             UpdateConnectionStatus(false, null);
 
+            var tool = Tool.Loupe;
+
             _api = new LrControlApi.LrControlApi(52008, 52009);
             _api.ConnectionStatus += UpdateConnectionStatus;
         }
@@ -27,6 +30,15 @@ namespace micdah.LrControl
                 Connected.Text = connected ? "yes" : "no";
                 ApiVersion.Text = connected ? apiVersion : string.Empty;
             });
+        }
+
+        private void GetSelectedTool_OnClick(object sender, RoutedEventArgs e)
+        {
+            Tool tool;
+            if (_api.LrDevelopController.GetSelectedTool(out tool))
+            {
+                Dispatcher.InvokeAsync(() => SelectedTool.Text = tool.Name);
+            }
         }
     }
 }
