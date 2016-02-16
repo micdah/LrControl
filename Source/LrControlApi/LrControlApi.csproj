@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiException.cs" />
-    <Compile Include="Common\Attributes\NativeModuleAttribute.cs" />
-    <Compile Include="Common\Attributes\MethodAttribute.cs" />
-    <Compile Include="Common\Attributes\RequireModuleAttribute.cs" />
+    <Compile Include="Common\Attributes\LuaNativeModuleAttribute.cs" />
+    <Compile Include="Common\Attributes\LuaMethodAttribute.cs" />
+    <Compile Include="Common\Attributes\LuaRequireModuleAttribute.cs" />
     <Compile Include="Common\ClassEnum.cs" />
     <Compile Include="Common\IClassEnum.cs" />
     <Compile Include="Common\IParameter.cs" />

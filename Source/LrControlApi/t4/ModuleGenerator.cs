@@ -9,7 +9,7 @@ namespace micdah.LrControlApi.t4
     public class ModuleGenerator : GeneratorBase
     {
         private readonly Type _moduleType;
-        private NativeModuleAttribute _nativeModule;
+        private LuaNativeModuleAttribute _luaNativeModule;
         
 
         public ModuleGenerator(Type moduleType)
@@ -31,10 +31,10 @@ namespace micdah.LrControlApi.t4
 
         private void GenerateImports()
         {
-            _nativeModule = GetAttribute<NativeModuleAttribute>(_moduleType);
-            var pad = PaddingOf(new List<string> { _nativeModule.Module, "ModuleTools" }, x => x);
+            _luaNativeModule = GetAttribute<LuaNativeModuleAttribute>(_moduleType);
+            var pad = PaddingOf(new List<string> { _luaNativeModule.Module, "ModuleTools" }, x => x);
 
-            Line($"local {_nativeModule.Module.PadRight(pad)} = import '{_nativeModule.Module}'");
+            Line($"local {_luaNativeModule.Module.PadRight(pad)} = import '{_luaNativeModule.Module}'");
 
             Line($"local {"ModuleTools".PadRight(pad)} = require 'ModuleTools'");
         }
@@ -64,7 +64,7 @@ namespace micdah.LrControlApi.t4
 
             Line($"{name.PadRight(pad)} = ");
 
-            var requireModule = GetAttribute<RequireModuleAttribute>(info);
+            var requireModule = GetAttribute<LuaRequireModuleAttribute>(info);
             if (requireModule != null)
             {
                 Append($"ModuleTools.RequireModule(\"{requireModule.Module}\", ");
@@ -87,7 +87,7 @@ namespace micdah.LrControlApi.t4
                 {
                     Append("return ");
                 }
-                Append($"{_nativeModule.Module}.{name}({parameters})");
+                Append($"{_luaNativeModule.Module}.{name}({parameters})");
             }
 
             // Function end

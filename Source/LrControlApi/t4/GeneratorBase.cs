@@ -47,7 +47,7 @@ namespace micdah.LrControlApi.t4
         protected List<MethodInfo> GetAllMetohds(Type type)
         {
             return type.GetMethods()
-                .Where(info => GetAttribute<MethodAttribute>(info) != null)
+                .Where(info => GetAttribute<LuaMethodAttribute>(info) != null)
                 .ToList();
         }
 

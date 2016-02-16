@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Text;
 using log4net;
 using micdah.LrControlApi.Common;
@@ -76,6 +75,30 @@ namespace micdah.LrControlApi.Communication
             return result;
         }
 
+        private bool SendMessage(out string response, string method, params object[] args)
+        {
+            var lowerFirstMethod = char.ToLowerInvariant(method[0]) + method.Substring(1);
+            var message = FormatMessage(_moduleName, lowerFirstMethod, args);
+
+            if (!_pluginClient.IsConnected)
+            {
+                Log.Warn("Not connected to plugin, cannot send message '{message}'");
+                return False(out response);
+            }
+
+            if (!_pluginClient.SendMessage(message, out response))
+            {
+                Log.Warn($"Was unable to send message '{message}'");
+                return false;
+            }
+
+            // Check for error codes
+            if (response[0] != 'E') return true;
+
+            Log.Warn($"Error received '{response.Substring(1)}' after sending message '{message}'");
+            return false;
+        }
+
         private static string FormatMessage(string module, string method, params object[] args)
         {
             var builder = new StringBuilder($"{module}.{method}");
@@ -116,7 +139,7 @@ namespace micdah.LrControlApi.Communication
 
             return builder.ToString();
         }
-        
+
         private static void AppendTypedArgument(StringBuilder builder, object arg)
         {
             if (arg is string)
@@ -142,30 +165,6 @@ namespace micdah.LrControlApi.Communication
             {
                 throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
             }
-        }
-
-        private bool SendMessage(out string response, string method, params object[] args)
-        {
-            var lowerFirstMethod = char.ToLowerInvariant(method[0]) + method.Substring(1);
-            var message = FormatMessage(_moduleName, lowerFirstMethod, args);
-
-            if (!_pluginClient.IsConnected)
-            {
-                Log.Warn("Not connected to plugin, cannot send message '{message}'");
-                return False(out response);
-            }
-
-            if (!_pluginClient.SendMessage(message, out response))
-            {
-                Log.Warn($"Was unable to send message '{message}'");
-                return false;
-            }
-
-            // Check for error codes
-            if (response[0] != 'E') return true;
-
-            Log.Warn($"Error received '{response.Substring(1)}' after sending message '{message}'");
-            return false;
         }
 
         private static bool SplitResponse(string response, int expectedValues, out String[] values)

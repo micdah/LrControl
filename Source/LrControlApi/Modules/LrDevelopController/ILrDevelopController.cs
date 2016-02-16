@@ -5,7 +5,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     public delegate void AdjustmentChange();
 
-    [NativeModule("LrDevelopController")]
+    [LuaNativeModule("LrDevelopController")]
     public interface ILrDevelopController
     {
         event AdjustmentChange AdjustmentChangeObserver;
@@ -15,7 +15,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool Decrement(IDevelopControllerParameter param);
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <returns></returns>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool GetProcessVersion(out ProcessVersion processVersion);
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="range"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool GetRange(out Range range, IDevelopControllerParameter param);
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="tool"></param>
         /// <returns></returns>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool GetSelectedTool(out Tool tool);
 
         /// <summary>
@@ -52,64 +52,91 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        [Method, RequireModule("develop")]
-        bool GetValue<T>(out T value, IDevelopControllerParameter<T> param);
+        [LuaMethod, LuaRequireModule("develop")]
+        bool GetValue(out int value, IDevelopControllerParameter<int> param);
+
+        /// <summary>
+        ///     Gets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        bool GetValue(out double value, IDevelopControllerParameter<double> param);
+
+        /// <summary>
+        ///     Gets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        bool GetValue(out bool value, IDevelopControllerParameter<bool> param);
+
+        /// <summary>
+        ///     Gets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        bool GetValue(out string value, IDevelopControllerParameter<string> param);
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool Increment(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Resets all Develop adjustments for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetAllDevelopAdjustments();
 
         /// <summary>
         ///     Clears all localized adjustment brushing from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetBrushing();
 
         /// <summary>
         ///     lears all radial filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetCircularGradient();
 
         /// <summary>
         ///     Resets the crop angle and frame for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetCrop();
 
         /// <summary>
         ///     Clears all graduated filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetGradient();
 
         /// <summary>
         ///     Clears all redeye removal adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetRedEye();
 
         /// <summary>
         ///     Clears all spot removal adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetSpotRemoval();
 
         /// <summary>
@@ -117,7 +144,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool ResetToDefault(IDevelopControllerParameter param);
 
         /// <summary>
@@ -125,7 +152,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="reveal"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool RevealAdjustedControls(bool reveal);
 
         /// <summary>
@@ -133,7 +160,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool RevealPanel(IDevelopControllerParameter param);
 
         /// <summary>
@@ -141,7 +168,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="panel"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool Revealpanel(Panel panel);
 
         /// <summary>
@@ -149,7 +176,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="tool"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool SelectTool(Tool tool);
 
         /// <summary>
@@ -163,7 +190,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool SetMultipleAdjustmentThreshold(double seconds);
 
         /// <summary>
@@ -171,7 +198,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="version"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool SetProcessVersion(ProcessVersion version);
 
         /// <summary>
@@ -179,7 +206,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool SetTrackingDelay(double seconds);
 
         /// <summary>
@@ -188,8 +215,32 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        [Method, RequireModule("develop")]
-        bool SetValue<T>(IDevelopControllerParameter<T> param, T value);
+        [LuaMethod, LuaRequireModule("develop")]
+        bool SetValue(IDevelopControllerParameter<int> param, int value);
+
+        /// <summary>
+        ///     Sets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="value"></param>
+        bool SetValue(IDevelopControllerParameter<double> param, double value);
+
+        /// <summary>
+        ///     Sets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="value"></param>
+        bool SetValue(IDevelopControllerParameter<bool> param, bool value);
+
+        /// <summary>
+        ///     Sets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="value"></param>
+        bool SetValue(IDevelopControllerParameter<string> param, string value);
 
         /// <summary>
         ///     Temporarily puts the Develop module into its tracking state, causing faster, lower-quailty redraw and preventing
@@ -198,7 +249,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool StartTracking(IDevelopControllerParameter param);
 
         /// <summary>
@@ -206,7 +257,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     were made to the parameter that was being tracked.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [Method, RequireModule("develop")]
+        [LuaMethod, LuaRequireModule("develop")]
         bool StopTracking();
     }
 }

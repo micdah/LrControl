@@ -7,8 +7,6 @@ using log4net.Appender;
 using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
-using micdah.LrControlApi.Modules.LrDevelopController;
-using micdah.LrControlApi.t4;
 
 namespace micdah.LrControl
 {
@@ -19,9 +17,6 @@ namespace micdah.LrControl
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            var gen = new ModuleGenerator(typeof (ILrDevelopController));
-            Console.WriteLine(gen.GenerateLuaModule());
-
             if (IsShutdownRequest(e))
             {
                 TerminateAllInstances();

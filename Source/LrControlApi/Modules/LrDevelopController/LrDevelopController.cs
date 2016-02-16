@@ -47,11 +47,26 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return tool != null;
         }
 
-        public bool GetValue<T>(out T value, IDevelopControllerParameter<T> param)
+        public bool GetValue(out int value, IDevelopControllerParameter<int> param)
         {
-            throw new NotImplementedException();
+            return Invoke(out value, nameof(GetValue), param);
         }
 
+        public bool GetValue(out double value, IDevelopControllerParameter<double> param)
+        {
+            return Invoke(out value, nameof(GetValue), param);
+        }
+
+        public bool GetValue(out bool value, IDevelopControllerParameter<bool> param)
+        {
+            return Invoke(out value, nameof(GetValue), param);
+        }
+
+        public bool GetValue(out string value, IDevelopControllerParameter<string> param)
+        {
+            return Invoke(out value, nameof(GetValue), param);
+        }
+        
         public bool Increment(IDevelopControllerParameter param)
         {
             return Invoke(nameof(Increment), param);
@@ -132,11 +147,26 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(SetTrackingDelay), seconds);
         }
 
-        public bool SetValue<T>(IDevelopControllerParameter<T> param, T value)
+        public bool SetValue(IDevelopControllerParameter<int> param, int value)
         {
-            throw new NotImplementedException();
+            return Invoke(nameof(SetValue), param, value);
         }
 
+        public bool SetValue(IDevelopControllerParameter<double> param, double value)
+        {
+            return Invoke(nameof(SetValue), param, value);
+        }
+
+        public bool SetValue(IDevelopControllerParameter<bool> param, bool value)
+        {
+            return Invoke(nameof(SetValue), param, value);
+        }
+
+        public bool SetValue(IDevelopControllerParameter<string> param, string value)
+        {
+            return Invoke(nameof(SetValue), param, value);
+        }
+        
         public bool StartTracking(IDevelopControllerParameter param)
         {
             return Invoke(nameof(StartTracking), param);
