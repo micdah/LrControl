@@ -47,7 +47,7 @@
                 GrayMixerAqua, GrayMixerBlue, GrayMixerPurple, GrayMixerMagenta);
         }
 
-        private MixerPanelParameter(string value, string name) : base(name, value, typeof(int))
+        private MixerPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

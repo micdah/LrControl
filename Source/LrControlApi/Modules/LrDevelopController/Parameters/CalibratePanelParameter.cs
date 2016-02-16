@@ -19,11 +19,11 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
             AddParameters(Profile, ShadowTint, RedHue, RedSaturation, GreenHue, GreenSaturation, BlueHue, BlueSaturation);
         }
 
-        private CalibratePanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
+        private CalibratePanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
         {
         }
 
-        private CalibratePanelParameter(string value, string name) : base(name, value, typeof(int))
+        private CalibratePanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
 

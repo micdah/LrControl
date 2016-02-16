@@ -20,7 +20,7 @@
                 GrainSize, GrainFrequency, Dehaze);
         }
 
-        private EffectsPanelParameter(string value, string name) : base(name, value, typeof(int))
+        private EffectsPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

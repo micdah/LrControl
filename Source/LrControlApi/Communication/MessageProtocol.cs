@@ -89,7 +89,7 @@ namespace micdah.LrControlApi.Communication
                     if (arg is IParameter)
                     {
                         var parameter = (IParameter) arg;
-                        AppendTypedArgument(builder, parameter.Value);
+                        AppendTypedArgument(builder, parameter.Name);
                     }
                     else if (arg is ClassEnum)
                     {

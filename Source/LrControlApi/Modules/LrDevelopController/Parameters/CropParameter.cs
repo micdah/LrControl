@@ -14,7 +14,7 @@
             AddParameters(StraightenAngle, CropAngle, CropLeft, CropRight, CropTop, CropBottom);
         }
 
-        private CropParameter(string value, string name) : base(name, value, typeof(int))
+        private CropParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

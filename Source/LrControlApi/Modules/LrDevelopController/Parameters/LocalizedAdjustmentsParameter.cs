@@ -25,7 +25,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
                 Saturation, Sharpness, LuminanceNoise, Moire, Defringe);
         }
 
-        private LocalizedAdjustmentsParameter(string value, string name) : base(name, value, typeof(int))
+        private LocalizedAdjustmentsParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

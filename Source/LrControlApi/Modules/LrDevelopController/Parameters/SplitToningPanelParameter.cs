@@ -14,7 +14,7 @@
                 SplitToningShadowHue, SplitToningShadowSaturation);
         }
 
-        private SplitToningPanelParameter(string value, string name) : base(name, value, typeof(int))
+        private SplitToningPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

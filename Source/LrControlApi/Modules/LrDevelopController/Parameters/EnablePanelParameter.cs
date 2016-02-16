@@ -23,7 +23,7 @@
                 GrayscaleMix);
         }
 
-        private EnablePanelParameter(string value, string name) : base(name, value, typeof(bool))
+        private EnablePanelParameter(string name, string displayName) : base(name, displayName, typeof(bool))
         {
         }
     }

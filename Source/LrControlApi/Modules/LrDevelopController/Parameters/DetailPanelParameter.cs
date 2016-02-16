@@ -20,7 +20,7 @@
                 ColorNoiseReductionDetail, ColorNoiseReductionSmoothness);
         }
         
-        private DetailPanelParameter(string value, string name) : base(name, value, typeof(int))
+        private DetailPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

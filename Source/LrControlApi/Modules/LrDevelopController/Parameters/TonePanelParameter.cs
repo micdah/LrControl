@@ -16,7 +16,7 @@
                 ParametricShadowSplit, ParametricMidtoneSplit, ParametricHighlightSplit);
         }
 
-        private TonePanelParameter(string value, string name) : base(name, value, typeof(int))
+        private TonePanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
     }

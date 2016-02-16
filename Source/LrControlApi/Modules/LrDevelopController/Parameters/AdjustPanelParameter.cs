@@ -24,11 +24,11 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
                 Clarity, Vibrance, Saturation);
         }
         
-        private AdjustPanelParameter(string value, string name, Type valueType) : base(name, value, valueType)
+        private AdjustPanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
         {
         }
 
-        private AdjustPanelParameter(string value, string name) : base(name, value, typeof(string))
+        private AdjustPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
         {
         }
 
