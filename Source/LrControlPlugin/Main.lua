@@ -34,21 +34,6 @@ currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
 currentLoadVersion = currentLoadVersion + 1
 
 
-local function processMessage(message, sendSocket)
-    local success, result = Modules.InterpretCommand(message)
-    
-    if success then
-        if result == nil then
-            result = "ack"
-        end
-        
-        sendSocket:send(result .."\n")
-    else
-        senSocket:send("unknown command\n")
-    end
-end
-
-
 -- Main task
 local function main(context)
     LrDialogs.showBezel ("LrControl running, loaded version " .. currentLoadVersion)
@@ -84,7 +69,8 @@ local function main(context)
         port			= Options.MessageReceivePort,
         mode			= 'receive',
         onMessage		= function (socket, message)
-            processMessage(message, sendSocket)
+            local result = Modules.InterpretCommand(message)
+            sendSocket:send(result .. "\n")
         end,
         onError         = function(socket, err)
             if autoReconnect then

@@ -83,26 +83,58 @@ local function interpretArguments(args)
     return unpack(list)
 end
 
+local function encodeValue(value) 
+    local type = type(value)
+    if type == "string" then
+        return "S"..value
+    elseif type == "number" then
+        return "N"..tostring(value)
+    elseif type == "boolean" then
+        return "B"..(value and "1" or "0")
+    else
+        return value
+    end
+end
+
+local function encodeResponse(results)
+    local result = nil 
+    for i = 1, #results do
+        local encodedValue = encodeValue(results[i])
+    
+        if result ~= nil then
+            result = result.."\30"..encodedValue
+        else
+            result = encodedValue
+        end
+    end
+    
+    return result
+end
+
 local function interpretCommand(command)
     -- Lookup module 
     local module,methodAndArgs = getModule(command)
-    if module == nil or methodAndArgs == nil then
-        return false,nil
+    if module == nil then
+        return "unknown module"
+    elseif methodAndArgs == nil then
+        return "unknown method"
     end
     
     -- Lookup method
     local method,args = getMethod(module,methodAndArgs)
     if method == nil then  
-        return false,nil
+        return "unknown method"
     end
     
     -- Invoke method
-    local result = nil
+    local result1, result2, result3
     if args ~= nil then
-        return true,method(interpretArguments(args))
+        result1, result2, result3 = method(interpretArguments(args))
     else
-        return true, method()
+        result1, result2, result3 = method()
     end
+    
+    return encodeResponse({result1, result2, result3})
 end
 
 return {
