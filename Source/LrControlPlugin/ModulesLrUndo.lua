@@ -1,6 +1,6 @@
 --[[----------------------------------------------------------------------------
 
-Copyright © 2016 Michael Dahl
+Copyright ? 2016 Michael Dahl
 
 This file is part of LrControl.
 
@@ -18,21 +18,25 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrDevelopController        = import 'LrDevelopController'
-local Options                    = require 'Options'
-local ModulesLrDevelopController = require 'ModulesLrDevelopController' 
-local ModulesLrApplicationView   = require 'ModulesLrApplicationView'
-local ModulesLrDialogs           = require 'ModulesLrDialogs'
-local ModulesLrUndo              = require 'ModulesLrUndo'
+
+local LrUndo      = import 'LrUndo'
+local ModuleTools = require 'ModuleTools'
 
 return {
-    LrControl = {
-        getApiVersion = function() 
-            return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor
-        end
-    },
-    LrDevelopController = ModulesLrDevelopController,
-    LrApplicationView   = ModulesLrApplicationView,
-    LrDialogs           = ModulesLrDialogs,
-    LrUndo              = ModulesLrUndo,
+    canRedo = function()
+        return LrUndo.canRedo()
+    end,
+    
+    canUndo = function()
+        return LrUndo.canUndo()
+    end,
+    
+    redo    = function()
+        LrUndo.redo()
+    end,
+    
+    undo    = function()
+        LrUndo.undo()
+    end,
+    
 }

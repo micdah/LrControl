@@ -1,27 +1,34 @@
-﻿namespace micdah.LrControlApi.Modules.LrUndo
+﻿using micdah.LrControlApi.Common.Attributes;
+
+namespace micdah.LrControlApi.Modules.LrUndo
 {
+    [LuaNativeModule("LrUndo")]
     public interface ILrUndo
     {
         /// <summary>
         ///     Returns true of the redo command is currently enabled.
         /// </summary>
         /// <returns></returns>
-        bool CanRedo();
+        [LuaMethod]
+        bool CanRedo(out bool canRedo);
 
         /// <summary>
         ///     Returns true of the undo command is currently enabled.
         /// </summary>
         /// <returns></returns>
-        bool CanUndo();
+        [LuaMethod]
+        bool CanUndo(out bool canUndo);
 
         /// <summary>
         ///     Redoes the last undone history state.
         /// </summary>
-        void Redo();
+        [LuaMethod]
+        bool Redo();
 
         /// <summary>
         ///     Undoes the last history state.
         /// </summary>
-        void Undo();
+        [LuaMethod]
+        bool Undo();
     }
 }

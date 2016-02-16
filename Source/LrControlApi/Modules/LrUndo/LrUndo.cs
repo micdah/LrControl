@@ -1,25 +1,32 @@
-﻿namespace micdah.LrControlApi.Modules.LrUndo
+﻿using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Communication;
+
+namespace micdah.LrControlApi.Modules.LrUndo
 {
-    internal class LrUndo : ILrUndo
+    internal class LrUndo : ModuleBase<LrUndo>, ILrUndo
     {
-        public bool CanRedo()
+        public LrUndo(MessageProtocol<LrUndo> messageProtocol) : base(messageProtocol)
         {
-            throw new System.NotImplementedException();
         }
 
-        public bool CanUndo()
+        public bool CanRedo(out bool canRedo)
         {
-            throw new System.NotImplementedException();
+            return Invoke(out canRedo, nameof(CanRedo));
         }
 
-        public void Redo()
+        public bool CanUndo(out bool canUndo)
         {
-            throw new System.NotImplementedException();
+            return Invoke(out canUndo, nameof(CanUndo));
         }
 
-        public void Undo()
+        public bool Redo()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(Redo));
+        }
+
+        public bool Undo()
+        {
+            return Invoke(nameof(Undo));
         }
     }
 }
