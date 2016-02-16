@@ -20,12 +20,23 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 local LrApplicationView   = import 'LrApplicationView'
 
-local function requireModule(moduleName,f)
+local function requireModule(moduleNames,f)
+    local modules = {}
+    for name in string.gmatch(moduleNames,"([^,]+)") do
+        modules[#modules+1] = name
+    end
+
     return function(...)
-        if LrApplicationView.getCurrentModuleName() ~= moduleName then 
-            error("Not in "..moduleName.." module")
-        else
-            return f(...)
+        local inCorrectModule = false
+        
+        for i=1, #modules do
+            inCorrectModule = inCorrectModule or LrApplicationView.getCurrentModuleName() == modules[i]
+        end
+        
+        if inCorrectModule then
+           return f(...)
+        else 
+            error("Not in any of the required modules: " .. modulenames)
         end
     end
 end

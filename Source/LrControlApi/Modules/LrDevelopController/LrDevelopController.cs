@@ -136,12 +136,12 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
 
         public bool Revealpanel(Panel panel)
         {
-            return Invoke(nameof(RevealPanel), panel.Value);
+            return Invoke(nameof(RevealPanel), panel);
         }
 
         public bool SelectTool(Tool tool)
         {
-            return Invoke(nameof(SelectTool), tool.Value);
+            return Invoke(nameof(SelectTool), tool);
         }
 
         public bool SetMultipleAdjustmentThreshold(double seconds)
@@ -182,7 +182,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         public bool SetValue<TEnum,TValue>(IParameter<TEnum> param, ClassEnum<TValue,TEnum> enumClass)
             where TEnum : ClassEnum<TValue,TEnum>
         {
-            return Invoke(nameof(SetValue), param, enumClass.Value);
+            return Invoke(nameof(SetValue), param, enumClass);
         }
 
         public bool StartTracking(IParameter param)

@@ -57,6 +57,12 @@
     <None Include="Modules.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ModulesLrApplicationView.lua">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModulesLrApplicationView.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="ModulesLrDevelopController.lua">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +89,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ModulesLrApplicationView.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrApplicationView.lua</LastGenOutput>
+    </Content>
     <Content Include="ModulesLrDevelopController.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModulesLrDevelopController.lua</LastGenOutput>

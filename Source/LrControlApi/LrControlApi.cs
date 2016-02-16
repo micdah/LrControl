@@ -1,5 +1,6 @@
 ﻿using System;
 using micdah.LrControlApi.Communication;
+using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrControl;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
@@ -7,19 +8,19 @@ namespace micdah.LrControlApi
 {
     public class LrControlApi : IDisposable
     {
+        private readonly PluginClient _pluginClient;
         private readonly LrControl _lrControl;
         private readonly LrDevelopController _lrDevelopController;
-        private readonly PluginClient _pluginClient;
+        private readonly LrApplicationView _lrApplicationView;
 
         public LrControlApi(int sendPort, int receivePort)
         {
             _pluginClient = new PluginClient(sendPort, receivePort);
             _pluginClient.ConnectionStatus += OnConnectionStatus;
 
-            _lrControl = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
-            _lrDevelopController =
-                new LrDevelopController(
-                    new MessageProtocol<LrDevelopController>(_pluginClient));
+            _lrControl           = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
+            _lrDevelopController = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
+            _lrApplicationView   = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
 
 
             _pluginClient.Open();
@@ -29,6 +30,7 @@ namespace micdah.LrControlApi
 
         public ILrControl LrControl => _lrControl;
         public ILrDevelopController LrDevelopController => _lrDevelopController;
+        public ILrApplicationView LrApplicationView => _lrApplicationView;
 
         public void Dispose()
         {

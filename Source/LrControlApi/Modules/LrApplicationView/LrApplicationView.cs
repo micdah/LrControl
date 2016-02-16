@@ -1,72 +1,88 @@
-﻿namespace micdah.LrControlApi.Modules.LrApplicationView
+﻿using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Communication;
+
+namespace micdah.LrControlApi.Modules.LrApplicationView
 {
-    internal class LrApplicationView : ILrApplicationView
+    internal class LrApplicationView : ModuleBase<LrApplicationView>, ILrApplicationView
     {
+        public LrApplicationView(MessageProtocol<LrApplicationView> messageProtocol) : base(messageProtocol)
+        {
+        }
+
         public event ModuleChangedHandler ModuleChanged;
-
-        public Module GetCurrentModuleName()
+        public bool GetCurrentModuleName(out Module module)
         {
-            throw new System.NotImplementedException();
+            string result;
+            if (!Invoke(out result, nameof(GetCurrentModuleName)))
+                return False(out module);
+
+            module = Module.GetEnumForValue(result);
+            return module != null;
         }
 
-        public SecondaryView GetSecondaryViewName()
+        public bool GetSecondaryViewName(out SecondaryView secondaryView)
         {
-            throw new System.NotImplementedException();
+            string result;
+            if (!Invoke(out result, nameof(GetSecondaryViewName)))
+                return False(out secondaryView);
+
+            secondaryView = SecondaryView.GetEnumForValue(result);
+            return secondaryView != null;
         }
 
-        public bool IsSecondaryDispalyOn()
+        public bool IsSecondaryDispalyOn(out bool isSecondaryDisplayOn)
         {
-            throw new System.NotImplementedException();
+            return Invoke(out isSecondaryDisplayOn, nameof(IsSecondaryDispalyOn));
         }
 
-        public void ShowSecondaryView(SecondaryView view)
+        public bool ShowSecondaryView(SecondaryView view)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ShowSecondaryView), view);
         }
 
-        public void ShowView(PrimaryView view)
+        public bool ShowView(PrimaryView view)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ShowView), view);
         }
 
-        public void SwitchToModule(Module module)
+        public bool SwitchToModule(Module module)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SwitchToModule), module);
         }
 
-        public void ToggleSecondaryDisplay()
+        public bool ToggleSecondaryDisplay()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ToggleSecondaryDisplay));
         }
 
-        public void ToggleSecondaryDisplayFullscreen()
+        public bool ToggleSecondaryDisplayFullscreen()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ToggleSecondaryDisplayFullscreen));
         }
 
-        public void ToggleZoom()
+        public bool ToggleZoom()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ToggleZoom));
         }
 
-        public void ZoomIn()
+        public bool ZoomIn()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ZoomIn));
         }
 
-        public void ZoomInSome()
+        public bool ZoomInSome()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ZoomInSome));
         }
 
-        public void ZoomOut()
+        public bool ZoomOut()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ZoomOut));
         }
 
-        public void ZoomOutSome()
+        public bool ZoomOutSome()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ZoomOutSome));
         }
     }
 }

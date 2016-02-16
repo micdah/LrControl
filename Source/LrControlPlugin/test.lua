@@ -133,12 +133,15 @@ local function interpretCommand(command)
     return encodeResponse({result1, result2, result3})
 end
 
-local result = interpretCommand("LrControl.getApiVersion")
+--local result = interpretCommand("LrControl.getApiVersion")
+--print(result)
 
-print(result)
+--local str = "foo\nbar\nbaz"
+--print(str)
 
-local str = "foo\nbar\nbaz"
-print(str)
+--local str2 = string.gsub(str, "\n", ", ")
+--print(str2)
 
-local str2 = string.gsub(str, "\n", ", ")
-print(str2)
+for arg in string.gmatch("foo,bar,baz","([^,]+)") do
+    print(arg)
+end

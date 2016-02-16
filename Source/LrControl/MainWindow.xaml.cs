@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
@@ -40,10 +41,23 @@ namespace micdah.LrControl
         {
             var response = new StringBuilder();
 
-            foreach (var group in Parameters.AllGroups)
+            Module module;
+            if (_api.LrApplicationView.GetCurrentModuleName(out module))
             {
-                response.AppendLine($"{new String('<', 20)}{group.Name} parameters{new String('>', 20)}");
-                EnumerateParameters(response, group.AllParameters);
+                if (module != Module.Develop)
+                {
+                    _api.LrApplicationView.SwitchToModule(Module.Develop);
+                }
+
+                foreach (var group in Parameters.AllGroups)
+                {
+                    response.AppendLine($"{new String('<', 20)}{group.Name} parameters{new String('>', 20)}");
+                    EnumerateParameters(response, group.AllParameters);
+                }
+            }
+            else
+            {
+                response.AppendLine("Unable to get current module");
             }
 
             Dispatcher.InvokeAsync(() => Response.Text = response.ToString());

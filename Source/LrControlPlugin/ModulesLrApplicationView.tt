@@ -1,3 +1,10 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".lua" encoding="us-ascii" #>
+<#@ assembly name="$(ProjectDir)\..\LrControlApi\bin\Debug\LrControlApi.dll" #>
+<#
+   var generator = new micdah.LrControlApi.t4.ModuleGenerator(
+		typeof(micdah.LrControlApi.Modules.LrApplicationView.ILrApplicationView));
+#>
 --[[----------------------------------------------------------------------------
 
 Copyright © 2016 Michael Dahl
@@ -18,17 +25,4 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrDevelopController        = import 'LrDevelopController'
-local Options                    = require 'Options'
-local ModulesLrDevelopController = require 'ModulesLrDevelopController' 
-local ModulesLrApplicationView   = require 'ModulesLrApplicationView'
-
-return {
-    LrControl = {
-        getApiVersion = function() 
-            return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor
-        end
-    },
-    LrDevelopController = ModulesLrDevelopController,
-    LrApplicationView   = ModulesLrApplicationView,
-}
+<#= generator.GenerateLuaModule() #>
