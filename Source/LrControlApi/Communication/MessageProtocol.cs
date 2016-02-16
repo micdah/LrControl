@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using log4net;
 using micdah.LrControlApi.Common;
@@ -91,10 +92,20 @@ namespace micdah.LrControlApi.Communication
                         var parameter = (IParameter) arg;
                         AppendTypedArgument(builder, parameter.Name);
                     }
-                    else if (arg is ClassEnum)
+                    else if (arg is IClassEnum<string>)
                     {
-                        var classEnum = (ClassEnum) arg;
-                        AppendTypedArgument(builder, classEnum.ObjectValue);
+                        AppendTypedArgument(builder, ((IClassEnum<string>)arg).Value);
+                    }
+                    else if (arg is IClassEnum<int>)
+                    {
+                        AppendTypedArgument(builder, ((IClassEnum<int>) arg).Value);
+                    } else if (arg is IClassEnum<double>)
+                    {
+                        AppendTypedArgument(builder, ((IClassEnum<double>) arg).Value);
+                    }
+                    else if (arg is IClassEnum<bool>)
+                    {
+                        AppendTypedArgument(builder, ((IClassEnum<bool>)arg).Value);
                     }
                     else
                     {
@@ -105,7 +116,7 @@ namespace micdah.LrControlApi.Communication
 
             return builder.ToString();
         }
-
+        
         private static void AppendTypedArgument(StringBuilder builder, object arg)
         {
             if (arg is string)

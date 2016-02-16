@@ -3,20 +3,20 @@ using micdah.LrControlApi.Common;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class AdjustPanelParameter : Parameter<AdjustPanelParameter>, IDevelopControllerParameter
+    public class AdjustPanelParameter : Parameter<AdjustPanelParameter>
     {
-        public static readonly AdjustPanelParameter WhiteBalance = new AdjustPanelParameter("WhiteBalance", "Whitebalance", typeof(WhiteBalanceValue));
-        public static readonly AdjustPanelParameter Temperature  = new AdjustPanelParameter("Temperature", "Whitebalance: Temperature");
-        public static readonly AdjustPanelParameter Tint         = new AdjustPanelParameter("Tint", "Whitebalance: Tint");
-        public static readonly AdjustPanelParameter Exposure     = new AdjustPanelParameter("Exposure", "Tone: Exposure");
-        public static readonly AdjustPanelParameter Contrast     = new AdjustPanelParameter("Contrast", "Tone: Contrast");
-        public static readonly AdjustPanelParameter Highlights   = new AdjustPanelParameter("Highlights", "Tone: Highlights");
-        public static readonly AdjustPanelParameter Shadows      = new AdjustPanelParameter("Shadows", "Tone: Shadows");
-        public static readonly AdjustPanelParameter Whites       = new AdjustPanelParameter("Whites", "Tone: Whites");
-        public static readonly AdjustPanelParameter Blacks       = new AdjustPanelParameter("Blacks", "Tone: Blacks");
-        public static readonly AdjustPanelParameter Clarity      = new AdjustPanelParameter("Clarity", "Presence: Clarity");
-        public static readonly AdjustPanelParameter Vibrance     = new AdjustPanelParameter("Vibrance", "Presence: Vibrance");
-        public static readonly AdjustPanelParameter Saturation   = new AdjustPanelParameter("Saturation", "Presence: Saturation");
+        public static readonly IDevelopControllerParameter<WhiteBalanceValue> WhiteBalance = new WhiteBalanceParameter("WhiteBalance", "Whitebalance");
+        public static readonly IDevelopControllerParameter<int> Temperature                = new IntParameter("Temperature", "Whitebalance: Temperature");
+        public static readonly IDevelopControllerParameter<int> Tint                       = new IntParameter("Tint", "Whitebalance: Tint");
+        public static readonly IDevelopControllerParameter<int> Exposure                   = new IntParameter("Exposure", "Tone: Exposure");
+        public static readonly IDevelopControllerParameter<int> Contrast                   = new IntParameter("Contrast", "Tone: Contrast");
+        public static readonly IDevelopControllerParameter<int> Highlights                 = new IntParameter("Highlights", "Tone: Highlights");
+        public static readonly IDevelopControllerParameter<int> Shadows                    = new IntParameter("Shadows", "Tone: Shadows");
+        public static readonly IDevelopControllerParameter<int> Whites                     = new IntParameter("Whites", "Tone: Whites");
+        public static readonly IDevelopControllerParameter<int> Blacks                     = new IntParameter("Blacks", "Tone: Blacks");
+        public static readonly IDevelopControllerParameter<int> Clarity                    = new IntParameter("Clarity", "Presence: Clarity");
+        public static readonly IDevelopControllerParameter<int> Vibrance                   = new IntParameter("Vibrance", "Presence: Vibrance");
+        public static readonly IDevelopControllerParameter<int> Saturation                 = new IntParameter("Saturation", "Presence: Saturation");
 
         static AdjustPanelParameter()
         {
@@ -24,11 +24,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
                 Clarity, Vibrance, Saturation);
         }
         
-        private AdjustPanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
-        {
-        }
-
-        private AdjustPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private AdjustPanelParameter(string name, string displayName) : base(name, displayName)
         {
         }
 
@@ -49,6 +45,20 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
             }
 
             private WhiteBalanceValue(string name) : base(name, name)
+            {
+            }
+        }
+
+        private class WhiteBalanceParameter : AdjustPanelParameter, IDevelopControllerParameter<WhiteBalanceValue>
+        {
+            public WhiteBalanceParameter(string name, string displayName) : base(name, displayName)
+            {
+            }
+        }
+
+        private class IntParameter : AdjustPanelParameter, IDevelopControllerParameter<Int32>
+        {
+            public IntParameter(string name, string displayName) : base(name, displayName)
             {
             }
         }

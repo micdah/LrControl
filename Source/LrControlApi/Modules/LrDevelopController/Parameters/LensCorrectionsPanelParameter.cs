@@ -3,24 +3,24 @@ using micdah.LrControlApi.Common;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class LensCorrectionsPanelParameter : Parameter<LensCorrectionsPanelParameter>, IDevelopControllerParameter
+    public class LensCorrectionsPanelParameter : Parameter<LensCorrectionsPanelParameter>
     {
-        public static readonly LensCorrectionsPanelParameter LensProfileDistortionScale          = new LensCorrectionsPanelParameter("LensProfileDistortionScale", "Profile: Distortion Scale");
-        public static readonly LensCorrectionsPanelParameter LensProfileVignettingScale          = new LensCorrectionsPanelParameter("LensProfileVignettingScale", "Profile: Vignetting Scale");
-        public static readonly LensCorrectionsPanelParameter LensProfileChromaticAberrationScale = new LensCorrectionsPanelParameter("LensProfileChromaticAberrationScale", "Profile: Chromatic Aberration Scale");
-        public static readonly LensCorrectionsPanelParameter DefringePurpleAmount                = new LensCorrectionsPanelParameter("DefringePurpleAmount", "Defringe: Purple Amount");
-        public static readonly LensCorrectionsPanelParameter DefringePurpleHueLo                 = new LensCorrectionsPanelParameter("DefringePurpleHueLo", "Defringe: Purple Hue (Low)");
-        public static readonly LensCorrectionsPanelParameter DefringePurpleHueHi                 = new LensCorrectionsPanelParameter("DefringePurpleHueHi", "Defringe: Purple Hue (High)");
-        public static readonly LensCorrectionsPanelParameter DefringeGreenAmount                 = new LensCorrectionsPanelParameter("DefringeGreenAmount", "Defringe: Green Amount");
-        public static readonly LensCorrectionsPanelParameter DefringeGreenHueLo                  = new LensCorrectionsPanelParameter("DefringeGreenHueLo", "Defringe: Green Hue (Low)");
-        public static readonly LensCorrectionsPanelParameter DefringeGreenHueHi                  = new LensCorrectionsPanelParameter("DefringeGreenHueHi", "Defringe: Green Hue (High)");
-        public static readonly LensCorrectionsPanelParameter LensManualDistortionAmount          = new LensCorrectionsPanelParameter("LensManualDistortionAmount", "Transform: Distortion");
-        public static readonly LensCorrectionsPanelParameter PerspectiveVertical                 = new LensCorrectionsPanelParameter("PerspectiveVertical", "Transform: Vertical");
-        public static readonly LensCorrectionsPanelParameter PerspectiveHorizontal               = new LensCorrectionsPanelParameter("PerspectiveHorizontal", "Transform: Horizontal");
-        public static readonly LensCorrectionsPanelParameter PerspectiveRotate                   = new LensCorrectionsPanelParameter("PerspectiveRotate", "Transform: Rotate");
-        public static readonly LensCorrectionsPanelParameter PerspectiveScale                    = new LensCorrectionsPanelParameter("PerspectiveScale", "Transform: Scale");
-        public static readonly LensCorrectionsPanelParameter PerspectiveAspect                   = new LensCorrectionsPanelParameter("PerspectiveAspect", "Transform: Aspect");
-        public static readonly LensCorrectionsPanelParameter PerspectiveUpright                  = new LensCorrectionsPanelParameter("PerspectiveUpright", "Upright", typeof(UprightValue));
+        public static readonly IDevelopControllerParameter<int> LensProfileDistortionScale                   = new IntParameter("LensProfileDistortionScale", "Profile: Distortion Scale");
+        public static readonly IDevelopControllerParameter<int> LensProfileVignettingScale                   = new IntParameter("LensProfileVignettingScale", "Profile: Vignetting Scale");
+        public static readonly IDevelopControllerParameter<int> LensProfileChromaticAberrationScale          = new IntParameter("LensProfileChromaticAberrationScale", "Profile: Chromatic Aberration Scale");
+        public static readonly IDevelopControllerParameter<int> DefringePurpleAmount                         = new IntParameter("DefringePurpleAmount", "Defringe: Purple Amount");
+        public static readonly IDevelopControllerParameter<int> DefringePurpleHueLo                          = new IntParameter("DefringePurpleHueLo", "Defringe: Purple Hue (Low)");
+        public static readonly IDevelopControllerParameter<int> DefringePurpleHueHi                          = new IntParameter("DefringePurpleHueHi", "Defringe: Purple Hue (High)");
+        public static readonly IDevelopControllerParameter<int> DefringeGreenAmount                          = new IntParameter("DefringeGreenAmount", "Defringe: Green Amount");
+        public static readonly IDevelopControllerParameter<int> DefringeGreenHueLo                           = new IntParameter("DefringeGreenHueLo", "Defringe: Green Hue (Low)");
+        public static readonly IDevelopControllerParameter<int> DefringeGreenHueHi                           = new IntParameter("DefringeGreenHueHi", "Defringe: Green Hue (High)");
+        public static readonly IDevelopControllerParameter<int> LensManualDistortionAmount                   = new IntParameter("LensManualDistortionAmount", "Transform: Distortion");
+        public static readonly IDevelopControllerParameter<int> PerspectiveVertical                          = new IntParameter("PerspectiveVertical", "Transform: Vertical");
+        public static readonly IDevelopControllerParameter<int> PerspectiveHorizontal                        = new IntParameter("PerspectiveHorizontal", "Transform: Horizontal");
+        public static readonly IDevelopControllerParameter<int> PerspectiveRotate                            = new IntParameter("PerspectiveRotate", "Transform: Rotate");
+        public static readonly IDevelopControllerParameter<int> PerspectiveScale                             = new IntParameter("PerspectiveScale", "Transform: Scale");
+        public static readonly IDevelopControllerParameter<int> PerspectiveAspect                            = new IntParameter("PerspectiveAspect", "Transform: Aspect");
+        public static readonly IDevelopControllerParameter<UprightValue> PerspectiveUpright                  = new UprightParameter("PerspectiveUpright", "Upright");
 
         static LensCorrectionsPanelParameter()
         {
@@ -30,11 +30,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
                 PerspectiveRotate, PerspectiveScale, PerspectiveAspect, PerspectiveUpright);
         }
 
-        private LensCorrectionsPanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
-        {
-        }
-
-        private LensCorrectionsPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private LensCorrectionsPanelParameter(string name, string displayName) : base(name, displayName)
         {
         }
 
@@ -52,6 +48,20 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
             }
 
             private UprightValue(int value, string name) : base(value, name)
+            {
+            }
+        }
+
+        private class IntParameter : LensCorrectionsPanelParameter, IDevelopControllerParameter<int>
+        {
+            public IntParameter(string name, string displayName) : base(name, displayName)
+            {
+            }
+        }
+        
+        private class UprightParameter : LensCorrectionsPanelParameter, IDevelopControllerParameter<UprightValue>
+        {
+            public UprightParameter(string name, string displayName) : base(name, displayName)
             {
             }
         }

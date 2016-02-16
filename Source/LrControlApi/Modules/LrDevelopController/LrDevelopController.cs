@@ -1,4 +1,5 @@
-﻿using micdah.LrControlApi.Common;
+﻿using System;
+using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Communication;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController
@@ -46,9 +47,9 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return tool != null;
         }
 
-        public bool GetValue(out string value, IDevelopControllerParameter param)
+        public bool GetValue<T>(out T value, IDevelopControllerParameter<T> param)
         {
-            return Invoke(out value, nameof(GetValue), param);
+            throw new NotImplementedException();
         }
 
         public bool Increment(IDevelopControllerParameter param)
@@ -131,21 +132,11 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(SetTrackingDelay), seconds);
         }
 
-        public bool SetValue(IDevelopControllerParameter param, string value)
+        public bool SetValue<T>(IDevelopControllerParameter<T> param, T value)
         {
-            return Invoke(nameof(SetValue), value);
+            throw new NotImplementedException();
         }
 
-        public bool SetValue(IDevelopControllerParameter param, double value)
-        {
-            return Invoke(nameof(SetValue), value);
-        }
-
-        public bool SetValue(IDevelopControllerParameter param, int value)
-        {
-            return Invoke(nameof(SetValue), value);
-        }
-        
         public bool StartTracking(IDevelopControllerParameter param)
         {
             return Invoke(nameof(StartTracking), param);

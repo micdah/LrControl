@@ -1,12 +1,14 @@
-﻿namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
+﻿using micdah.LrControlApi.Common;
+
+namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class SplitToningPanelParameter : Parameter<SplitToningPanelParameter>, IDevelopControllerParameter
+    public class SplitToningPanelParameter : Parameter<SplitToningPanelParameter>
     {
-        public static readonly SplitToningPanelParameter SplitToningHighlightHue        = new SplitToningPanelParameter("SplitToningHighlightHue", "Highlights: Hue");
-        public static readonly SplitToningPanelParameter SplitToningHighlightSaturation = new SplitToningPanelParameter("SplitToningHighlightSaturation", "Highlights: Saturation");
-        public static readonly SplitToningPanelParameter SplitToningBalance             = new SplitToningPanelParameter("SplitToningBalance", "Balance");
-        public static readonly SplitToningPanelParameter SplitToningShadowHue           = new SplitToningPanelParameter("SplitToningShadowHue", "Shadows: Hue");
-        public static readonly SplitToningPanelParameter SplitToningShadowSaturation    = new SplitToningPanelParameter("SplitToningShadowSaturation", "Shadows: Saturation");
+        public static readonly IDevelopControllerParameter<int> SplitToningHighlightHue        = new IntParameter("SplitToningHighlightHue", "Highlights: Hue");
+        public static readonly IDevelopControllerParameter<int> SplitToningHighlightSaturation = new IntParameter("SplitToningHighlightSaturation", "Highlights: Saturation");
+        public static readonly IDevelopControllerParameter<int> SplitToningBalance             = new IntParameter("SplitToningBalance", "Balance");
+        public static readonly IDevelopControllerParameter<int> SplitToningShadowHue           = new IntParameter("SplitToningShadowHue", "Shadows: Hue");
+        public static readonly IDevelopControllerParameter<int> SplitToningShadowSaturation    = new IntParameter("SplitToningShadowSaturation", "Shadows: Saturation");
 
         static SplitToningPanelParameter()
         {
@@ -14,8 +16,15 @@
                 SplitToningShadowHue, SplitToningShadowSaturation);
         }
 
-        private SplitToningPanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private SplitToningPanelParameter(string name, string displayName) : base(name, displayName)
         {
+        }
+
+        private class IntParameter : SplitToningPanelParameter, IDevelopControllerParameter<int>
+        {
+            public IntParameter(string name, string displayName) : base(name, displayName)
+            {
+            }
         }
     }
 }

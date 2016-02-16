@@ -3,27 +3,23 @@ using micdah.LrControlApi.Common;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
-    public class CalibratePanelParameter : Parameter<CalibratePanelParameter>, IDevelopControllerParameter
+    public class CalibratePanelParameter : Parameter<CalibratePanelParameter>
     {
-        public static readonly CalibratePanelParameter Profile         = new CalibratePanelParameter("CameraProfile", "Profile", typeof(ProfileValue));
-        public static readonly CalibratePanelParameter ShadowTint      = new CalibratePanelParameter("ShadowTint", "Shadows: Tint");
-        public static readonly CalibratePanelParameter RedHue          = new CalibratePanelParameter("RedHue", "Red Primary: Hue");
-        public static readonly CalibratePanelParameter RedSaturation   = new CalibratePanelParameter("RedSaturation", "Red Primary: Saturation");
-        public static readonly CalibratePanelParameter GreenHue        = new CalibratePanelParameter("GreenHue", "Green Primary: Hue");
-        public static readonly CalibratePanelParameter GreenSaturation = new CalibratePanelParameter("GreenSaturation", "Green Primary: Saturation");
-        public static readonly CalibratePanelParameter BlueHue         = new CalibratePanelParameter("BlueHue", "Blue Primary: Hue");
-        public static readonly CalibratePanelParameter BlueSaturation  = new CalibratePanelParameter("BlueSaturation", "Blue Primary: Saturation");
+        public static readonly IDevelopControllerParameter<ProfileValue> Profile         = new ProfileParameter("CameraProfile", "Profile");
+        public static readonly IDevelopControllerParameter<int> ShadowTint               = new IntParameter("ShadowTint", "Shadows: Tint");
+        public static readonly IDevelopControllerParameter<int> RedHue                   = new IntParameter("RedHue", "Red Primary: Hue");
+        public static readonly IDevelopControllerParameter<int> RedSaturation            = new IntParameter("RedSaturation", "Red Primary: Saturation");
+        public static readonly IDevelopControllerParameter<int> GreenHue                 = new IntParameter("GreenHue", "Green Primary: Hue");
+        public static readonly IDevelopControllerParameter<int> GreenSaturation          = new IntParameter("GreenSaturation", "Green Primary: Saturation");
+        public static readonly IDevelopControllerParameter<int> BlueHue                  = new IntParameter("BlueHue", "Blue Primary: Hue");
+        public static readonly IDevelopControllerParameter<int> BlueSaturation           = new IntParameter("BlueSaturation", "Blue Primary: Saturation");
 
         static CalibratePanelParameter()
         {
             AddParameters(Profile, ShadowTint, RedHue, RedSaturation, GreenHue, GreenSaturation, BlueHue, BlueSaturation);
         }
 
-        private CalibratePanelParameter(string name, string displayName, Type valueType) : base(name, displayName, valueType)
-        {
-        }
-
-        private CalibratePanelParameter(string name, string displayName) : base(name, displayName, typeof(int))
+        private CalibratePanelParameter(string name, string displayName) : base(name, displayName)
         {
         }
 
@@ -46,6 +42,20 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
             }
 
             private ProfileValue(string name) : base(name, name)
+            {
+            }
+        }
+
+        private class ProfileParameter : CalibratePanelParameter, IDevelopControllerParameter<ProfileValue>
+        {
+            public ProfileParameter(string name, string displayName) : base(name, displayName)
+            {
+            }
+        }
+
+        private class IntParameter : CalibratePanelParameter, IDevelopControllerParameter<int>
+        {
+            public IntParameter(string name, string displayName) : base(name, displayName)
             {
             }
         }

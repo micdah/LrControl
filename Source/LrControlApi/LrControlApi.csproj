@@ -49,12 +49,14 @@
     <Compile Include="Common\Attributes\MethodAttribute.cs" />
     <Compile Include="Common\Attributes\RequireModuleAttribute.cs" />
     <Compile Include="Common\ClassEnum.cs" />
+    <Compile Include="Common\IClassEnum.cs" />
+    <Compile Include="Common\IParameter.cs" />
     <Compile Include="Common\ModuleBase.cs" />
+    <Compile Include="Common\Parameter.cs" />
     <Compile Include="Common\Range.cs" />
     <Compile Include="Communication\MessageProtocol.cs" />
     <Compile Include="Communication\PluginClient.cs" />
     <Compile Include="Communication\SocketWrapper.cs" />
-    <Compile Include="IParameter.cs" />
     <Compile Include="LrControlApi.cs" />
     <Compile Include="Modules\LrApplicationView\ILrApplicationView.cs" />
     <Compile Include="Modules\LrApplicationView\LrApplicationView.cs" />
@@ -91,7 +93,6 @@
     <Compile Include="Modules\LrSelection\LrSelection.cs" />
     <Compile Include="Modules\LrUndo\ILrUndo.cs" />
     <Compile Include="Modules\LrUndo\LrUndo.cs" />
-    <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="t4\GeneratorBase.cs" />
     <Compile Include="t4\ModuleGenerator.cs" />

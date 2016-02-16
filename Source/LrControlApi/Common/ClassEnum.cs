@@ -4,7 +4,7 @@ using log4net;
 
 namespace micdah.LrControlApi.Common
 {
-    public abstract class ClassEnum<TValue, TEnum> : ClassEnum
+    public abstract class ClassEnum<TValue, TEnum> : IClassEnum<TValue>
         where TEnum : ClassEnum<TValue, TEnum>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (ClassEnum<TValue, TEnum>));
@@ -24,8 +24,6 @@ namespace micdah.LrControlApi.Common
             return Name;
         }
 
-        public override object ObjectValue => Value;
-
         public static TEnum GetEnumForValue(TValue value)
         {
             return AllEnumsLookup.FirstOrDefault(e => e.Value.Equals(value));
@@ -35,10 +33,5 @@ namespace micdah.LrControlApi.Common
         {
             AllEnumsLookup.AddRange(enums);
         }
-    }
-
-    public abstract class ClassEnum
-    {
-        public abstract object ObjectValue { get; }
     }
 }

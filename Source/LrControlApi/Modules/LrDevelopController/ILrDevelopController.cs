@@ -53,7 +53,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="param"></param>
         /// <returns></returns>
         [Method, RequireModule("develop")]
-        bool GetValue(out string value, IDevelopControllerParameter param);
+        bool GetValue<T>(out T value, IDevelopControllerParameter<T> param);
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.
@@ -189,25 +189,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="param"></param>
         /// <param name="value"></param>
         [Method, RequireModule("develop")]
-        bool SetValue(IDevelopControllerParameter param, string value);
-
-        /// <summary>
-        ///     Sets the value of a Develop adjustment for the current photo.
-        ///     Must be called while the Develop module is active.
-        /// </summary>
-        /// <param name="param"></param>
-        /// <param name="value"></param>
-        [RequireModule("develop")]
-        bool SetValue(IDevelopControllerParameter param, double value);
-
-        /// <summary>
-        ///     Sets the value of a Develop adjustment for the current photo.
-        ///     Must be called while the Develop module is active.
-        /// </summary>
-        /// <param name="param"></param>
-        /// <param name="value"></param>
-        [RequireModule("develop")]
-        bool SetValue(IDevelopControllerParameter param, int value);
+        bool SetValue<T>(IDevelopControllerParameter<T> param, T value);
 
         /// <summary>
         ///     Temporarily puts the Develop module into its tracking state, causing faster, lower-quailty redraw and preventing
