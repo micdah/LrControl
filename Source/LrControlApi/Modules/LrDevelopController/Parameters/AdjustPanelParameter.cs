@@ -22,7 +22,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
         {
         }
 
-        private AdjustPanelParameter(string value, string name) : base(name, value, typeof(int))
+        private AdjustPanelParameter(string value, string name) : base(name, value, typeof(string))
         {
         }
 

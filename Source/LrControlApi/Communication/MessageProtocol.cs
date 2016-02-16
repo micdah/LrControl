@@ -207,7 +207,7 @@ namespace micdah.LrControlApi.Communication
                     break;
             }
 
-            Log.Warn($"Unable to decode typed string, denoted by {typeArg} and value '{valueString}'");
+            Log.Warn($"Unable to decude value '{valueString}' denoted by {typeArg} to {typeof(TExpectedType).Name}");
 
             value = default(TExpectedType);
             return false;

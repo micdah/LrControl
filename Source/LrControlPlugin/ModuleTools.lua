@@ -18,15 +18,18 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrDevelopController        = import 'LrDevelopController'
-local Options                    = require 'Options'
-local ModulesLrDevelopController = require 'ModulesLrDevelopController' 
+local LrApplicationView   = import 'LrApplicationView'
+
+local function requireModule(moduleName,f)
+    return function(...)
+        if LrApplicationView.getCurrentModuleName() ~= moduleName then 
+            error("Not in "..moduleName.." module")
+        else
+            return f(...)
+        end
+    end
+end
 
 return {
-    LrControl = {
-        getApiVersion = function() 
-            return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor
-        end
-    },
-    LrDevelopController = ModulesLrDevelopController
+    RequireModule = requireModule
 }

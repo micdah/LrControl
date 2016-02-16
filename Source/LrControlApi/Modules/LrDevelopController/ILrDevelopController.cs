@@ -5,6 +5,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     public delegate void AdjustmentChange();
 
+    [NativeModule("LrDevelopController")]
     public interface ILrDevelopController
     {
         event AdjustmentChange AdjustmentChangeObserver;
@@ -14,7 +15,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool Decrement(IDevelopControllerParameter param);
 
         /// <summary>
@@ -22,7 +23,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <returns></returns>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool GetProcessVersion(out ProcessVersion processVersion);
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="range"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool GetRange(out Range range, IDevelopControllerParameter param);
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="tool"></param>
         /// <returns></returns>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool GetSelectedTool(out Tool tool);
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool GetValue(out string value, IDevelopControllerParameter param);
 
         /// <summary>
@@ -59,56 +60,56 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool Increment(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Resets all Develop adjustments for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetAllDevelopAdjustments();
 
         /// <summary>
         ///     Clears all localized adjustment brushing from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetBrushing();
 
         /// <summary>
         ///     lears all radial filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetCircularGradient();
 
         /// <summary>
         ///     Resets the crop angle and frame for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetCrop();
 
         /// <summary>
         ///     Clears all graduated filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetGradient();
 
         /// <summary>
         ///     Clears all redeye removal adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetRedEye();
 
         /// <summary>
         ///     Clears all spot removal adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetSpotRemoval();
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool ResetToDefault(IDevelopControllerParameter param);
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="reveal"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool RevealAdjustedControls(bool reveal);
 
         /// <summary>
@@ -132,7 +133,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool RevealPanel(IDevelopControllerParameter param);
 
         /// <summary>
@@ -140,7 +141,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="panel"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool Revealpanel(Panel panel);
 
         /// <summary>
@@ -148,7 +149,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="tool"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool SelectTool(Tool tool);
 
         /// <summary>
@@ -162,7 +163,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool SetMultipleAdjustmentThreshold(double seconds);
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="version"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool SetProcessVersion(ProcessVersion version);
 
         /// <summary>
@@ -178,7 +179,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool SetTrackingDelay(double seconds);
 
         /// <summary>
@@ -187,7 +188,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool SetValue(IDevelopControllerParameter param, string value);
 
         /// <summary>
@@ -215,7 +216,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool StartTracking(IDevelopControllerParameter param);
 
         /// <summary>
@@ -223,7 +224,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     were made to the parameter that was being tracked.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        [RequireModule("develop")]
+        [Method, RequireModule("develop")]
         bool StopTracking();
     }
 }

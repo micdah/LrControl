@@ -33,12 +33,12 @@ namespace micdah.LrControl
             });
         }
 
-        private void GetSelectedTool_OnClick(object sender, RoutedEventArgs e)
+        private void DoStuff_OnClick(object sender, RoutedEventArgs e)
         {
-            Tool tool;
-            if (_api.LrDevelopController.GetSelectedTool(out tool))
+            string value;
+            if (_api.LrDevelopController.GetValue(out value, AdjustPanelParameter.Exposure))
             {
-                Dispatcher.InvokeAsync(() => SelectedTool.Text = tool.Name);
+                Dispatcher.InvokeAsync(() => Response.Text = value);
             }
         }
 

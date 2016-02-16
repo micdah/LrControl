@@ -1,9 +1,9 @@
 ﻿<#@ template debug="true" hostSpecific="true" #>
-<#@ output extension=".lua" encoding="utf-8" #>
+<#@ output extension=".lua" encoding="us-ascii" #>
+<#@ assembly name="$(ProjectDir)\..\LrControlApi\bin\Debug\LrControlApi.dll" #>
 <#
-   // insert your template code here the tempalte code will be syntaxhighlighted 
-   // and you will have intellisense for all namespaces in the full edition
-   string Greeting = "Hello";
+   var generator = new micdah.LrControlApi.t4.ModuleGenerator(
+		typeof(micdah.LrControlApi.Modules.LrDevelopController.ILrDevelopController));
 #>
 --[[----------------------------------------------------------------------------
 
@@ -25,3 +25,4 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
+<#= generator.GenerateLuaModule() #>
