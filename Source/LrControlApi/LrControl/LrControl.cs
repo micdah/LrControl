@@ -9,9 +9,9 @@ namespace LrControlApi.LrControl
         {
         }
 
-        public string GetApiVersion()
+        public bool GetApiVersion(out string apiVersion)
         {
-            return InvokeWithResult("getApiVersion");
+            return Invoke(out apiVersion, nameof(GetApiVersion));
         }
     }
 }

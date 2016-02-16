@@ -12,6 +12,11 @@ namespace LrControlApi.LrApplicationView
         public static readonly Module Print     = new Module("print", "Print");
         public static readonly Module Web       = new Module("web", "Web");
 
+        static Module()
+        {
+            AddEnums(Library,Develop,Map,Slideshow,Print,Web);
+        }
+
         private Module(string value, string name) : base(value, name)
         {
         }

@@ -12,6 +12,11 @@ namespace LrControlApi.LrSelection
         public static readonly ColorLabel Other  = new ColorLabel("other", "Other");
         public static readonly ColorLabel None   = new ColorLabel("none", "None");
 
+        static ColorLabel()
+        {
+            AddEnums(Red, Yellow, Green, Blue, Purple, Other, None);
+        }
+
         private ColorLabel(string value, string name) : base(value, name)
         {
         }

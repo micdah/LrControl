@@ -18,35 +18,20 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrTasks			= import 'LrTasks'
-local LrDialogs         = import 'LrDialogs'
-local LrFunctionContext = import 'LrFunctionContext'
-local LrSocket          = import 'LrSocket'
-local LrControlApp      = require 'LrControlApp'
-local serpent           = require 'serpent'
-local Options           = require 'Options'
-local Modules           = require 'Modules' 
+local LrTasks			 = import 'LrTasks'
+local LrDialogs          = import 'LrDialogs'
+local LrFunctionContext  = import 'LrFunctionContext'
+local LrSocket           = import 'LrSocket'
+local LrControlApp       = require 'LrControlApp'
+local Options            = require 'Options'
+local Modules            = require 'Modules' 
+local CommandInterpreter = require 'CommandInterpreter'
 
 
 -- Track loaded version, to detect reloads
 math.randomseed(os.time())
 currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
 currentLoadVersion = currentLoadVersion + 1
-
-
-local function processMessage(message, sendSocket)
-    local success, result = Modules.InterpretCommand(message)
-    
-    if success then
-        if result == nil then
-            result = "ack"
-        end
-        
-        sendSocket:send(result .."\n")
-    else
-        senSocket:send("unknown command\n")
-    end
-end
 
 
 -- Main task
@@ -84,7 +69,13 @@ local function main(context)
         port			= Options.MessageReceivePort,
         mode			= 'receive',
         onMessage		= function (socket, message)
-            processMessage(message, sendSocket)
+            local status, result = pcall(CommandInterpreter.InterpretCommand, Modules,message)
+            if status then
+                sendSocket:send(result .. "\n")
+            else
+                local err = CommandInterpreter.ErrorMessage("Lua error: " .. result)
+                sendSocket:send(err .. "\n")
+            end
         end,
         onError         = function(socket, err)
             if autoReconnect then

@@ -31,13 +31,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0">Message</Label>
-            <TextBox Grid.Row="1" x:Name="Message" Margin="3"/>
-
-            <Button Grid.Row="2" Padding="3" Margin="3">Send</Button>
-
-            <Label Grid.Row="3">Response</Label>
-            <TextBox Grid.Row="4" x:Name="Response" IsReadOnly="True"/>
+            <Button Grid.Row="0" Padding="3" Margin="3" Click="GetSelectedTool_OnClick">Get selected tool</Button>
+            <TextBox Grid.Row="1" x:Name="SelectedTool" IsReadOnly="True"/>
         </Grid>
     </DockPanel>
 </Window>

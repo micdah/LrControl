@@ -1,4 +1,5 @@
-﻿using LrControlApi.Common;
+﻿using System.Text;
+using LrControlApi.Common;
 
 namespace LrControlApi.LrDevelopController
 {
@@ -13,121 +14,124 @@ namespace LrControlApi.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        void Decrement(IDevelopControllerParameter param);
+        bool Decrement(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Returns the process version of the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <returns></returns>
-        ProcessVersion GetProcessVersion();
+        bool GetProcessVersion(out ProcessVersion processVersion);
 
         /// <summary>
         ///     Gets the min and max value of a Develop adjustment.
         ///     Must be called while the Develop module is active.
         /// </summary>
+        /// <param name="range"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        Range GetRange(IDevelopControllerParameter param);
+        bool GetRange(out Range range, IDevelopControllerParameter param);
 
         /// <summary>
         ///     Reports which tool mode is active in Develop.
         ///     Must be called while the Develop module is active.
         /// </summary>
+        /// <param name="tool"></param>
         /// <returns></returns>
-        Tool GetSelectedTool();
+        bool GetSelectedTool(out Tool tool);
 
         /// <summary>
         ///     Gets the value of a Develop adjustment for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
+        /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        object GetValue(IDevelopControllerParameter param);
+        bool GetValue(out string value, IDevelopControllerParameter param);
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        void Increment(IDevelopControllerParameter param);
+        bool Increment(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Resets all Develop adjustments for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetAllDevelopAdjustments();
+        bool ResetAllDevelopAdjustments();
 
         /// <summary>
         ///     Clears all localized adjustment brushing from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetBrushing();
+        bool ResetBrushing();
 
         /// <summary>
         ///     lears all radial filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetCircularGradient();
+        bool ResetCircularGradient();
 
         /// <summary>
         ///     Resets the crop angle and frame for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetCrop();
+        bool ResetCrop();
 
         /// <summary>
         ///     Clears all graduated filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetGradient();
+        bool ResetGradient();
 
         /// <summary>
         ///     Clears all redeye removal adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetRedEye();
+        bool ResetRedEye();
 
         /// <summary>
         ///     Clears all spot removal adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void ResetSpotRemoval();
+        bool ResetSpotRemoval();
 
         /// <summary>
         ///     Resets a single Develop adjustment for the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        void ResetToDefault(IDevelopControllerParameter param);
+        bool ResetToDefault(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Enables a mode where adjusting a parameter causes that panel to be automatically revealed in the panel track.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="reveal"></param>
-        void RevealAdjustedControls(bool reveal);
+        bool RevealAdjustedControls(bool reveal);
 
         /// <summary>
         ///     Expands and scrolls into view the panel with the given ID.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        void RevealPanel(IDevelopControllerParameter param);
+        bool RevealPanel(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Expands and scrolls into view the panel with the given ID.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="panel"></param>
-        void Revealpanel(Panel panel);
+        bool Revealpanel(Panel panel);
 
         /// <summary>
         ///     Select a tool mode in Develop.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="tool"></param>
-        void SelectTool(Tool tool);
+        bool SelectTool(Tool tool);
 
         /// <summary>
         ///     Sets the time threshold that determines when adjustments to different parameters will be grouped together into a
@@ -140,21 +144,21 @@ namespace LrControlApi.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        void SetMultipleAdjustmentThreshold(double seconds);
+        bool SetMultipleAdjustmentThreshold(double seconds);
 
         /// <summary>
         ///     Sets the process version of the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="version"></param>
-        void SetProcessVersion(ProcessVersion version);
+        bool SetProcessVersion(ProcessVersion version);
 
         /// <summary>
         ///     Sets the number of seconds that tracking remains enabled after each adjustment is made. The default is 2 seconds.
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="seconds"></param>
-        void SetTrackingDelay(double seconds);
+        bool SetTrackingDelay(double seconds);
 
         /// <summary>
         ///     Sets the value of a Develop adjustment for the current photo.
@@ -162,7 +166,23 @@ namespace LrControlApi.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        void SetValue(IDevelopControllerParameter param, object value);
+        bool SetValue(IDevelopControllerParameter param, string value);
+
+        /// <summary>
+        ///     Sets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="value"></param>
+        bool SetValue(IDevelopControllerParameter param, double value);
+
+        /// <summary>
+        ///     Sets the value of a Develop adjustment for the current photo.
+        ///     Must be called while the Develop module is active.
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="value"></param>
+        bool SetValue(IDevelopControllerParameter param, int value);
 
         /// <summary>
         ///     Temporarily puts the Develop module into its tracking state, causing faster, lower-quailty redraw and preventing
@@ -171,13 +191,13 @@ namespace LrControlApi.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="param"></param>
-        void StartTracking(IDevelopControllerParameter param);
+        bool StartTracking(IDevelopControllerParameter param);
 
         /// <summary>
         ///     Causes Develop module to exit its tracking state immediately, creating a single history state for all changes that
         ///     were made to the parameter that was being tracked.
         ///     Must be called while the Develop module is active.
         /// </summary>
-        void StopTracking();
+        bool StopTracking();
     }
 }
