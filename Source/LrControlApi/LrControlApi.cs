@@ -41,12 +41,12 @@ namespace LrControlApi
         {
             if (connected)
             {
-                try
+                string apiVersion;
+                if (LrControl.GetApiVersion(out apiVersion))
                 {
-                    var apiVersion = LrControl.GetApiVersion();
                     ConnectionStatus?.Invoke(true, apiVersion);
                 }
-                catch (ApiException)
+                else
                 {
                     ConnectionStatus?.Invoke(false, null);
                 }

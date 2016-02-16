@@ -10,124 +10,149 @@ namespace LrControlApi.LrDevelopController
         }
 
         public event AdjustmentChange AdjustmentChangeObserver;
-        public void Decrement(IDevelopControllerParameter param)
+        public bool Decrement(IDevelopControllerParameter param)
         {
-            Invoke(nameof(Decrement), param);
+            return Invoke(nameof(Decrement), param);
         }
 
-        public ProcessVersion GetProcessVersion()
+        public bool GetProcessVersion(out ProcessVersion processVersion)
         {
-            return InvokeWithResult<ProcessVersion,string>(nameof(GetProcessVersion));;
+            string result;
+            if (!Invoke(out result, nameof(GetProcessVersion)))
+                return False(out processVersion);
+
+            processVersion = ProcessVersion.GetEnumForValue(result);
+            return processVersion != null;
         }
 
-        public Range GetRange(IDevelopControllerParameter param)
+        public bool GetRange(out Range range, IDevelopControllerParameter param)
         {
-            throw new System.NotImplementedException();
+            int min, max;
+            if (!Invoke(out min, out max, nameof(GetRange), param))
+                return False(out range);
+
+            range = new Range(min, max);
+            return true;
         }
 
-        public Tool GetSelectedTool()
+        public bool GetSelectedTool(out Tool tool)
         {
-            return InvokeWithResult<Tool, string>(nameof(GetSelectedTool));
+            string result;
+            if (!Invoke(out result, nameof(GetSelectedTool)))
+                return False(out tool);
+
+            tool = Tool.GetEnumForValue(result);
+            return tool != null;
         }
 
-        public object GetValue(IDevelopControllerParameter param)
+        public bool GetValue(out string value, IDevelopControllerParameter param)
         {
-            return InvokeWithResult(nameof(GetValue), param);
+            return Invoke(out value, nameof(GetValue), param);
         }
 
-        public void Increment(IDevelopControllerParameter param)
+        public bool Increment(IDevelopControllerParameter param)
         {
-            Invoke(nameof(Increment), param);
+            return Invoke(nameof(Increment), param);
         }
 
-        public void ResetAllDevelopAdjustments()
+        public bool ResetAllDevelopAdjustments()
         {
-            Invoke(nameof(ResetAllDevelopAdjustments));
+            return Invoke(nameof(ResetAllDevelopAdjustments));
         }
 
-        public void ResetBrushing()
+        public bool ResetBrushing()
         {
-            Invoke(nameof(ResetBrushing));
+            return Invoke(nameof(ResetBrushing));
         }
 
-        public void ResetCircularGradient()
+        public bool ResetCircularGradient()
         {
-            Invoke(nameof(ResetCircularGradient));
+            return Invoke(nameof(ResetCircularGradient));
         }
 
-        public void ResetCrop()
+        public bool ResetCrop()
         {
-            Invoke(nameof(ResetCrop));
+            return Invoke(nameof(ResetCrop));
         }
 
-        public void ResetGradient()
+        public bool ResetGradient()
         {
-            Invoke(nameof(ResetGradient));
+            return Invoke(nameof(ResetGradient));
         }
 
-        public void ResetRedEye()
+        public bool ResetRedEye()
         {
-            Invoke(nameof(ResetRedEye));
+            return Invoke(nameof(ResetRedEye));
         }
 
-        public void ResetSpotRemoval()
+        public bool ResetSpotRemoval()
         {
-            Invoke(nameof(ResetSpotRemoval));
+            return Invoke(nameof(ResetSpotRemoval));
         }
 
-        public void ResetToDefault(IDevelopControllerParameter param)
+        public bool ResetToDefault(IDevelopControllerParameter param)
         {
-            Invoke(nameof(ResetToDefault), param);
+            return Invoke(nameof(ResetToDefault), param);
         }
 
-        public void RevealAdjustedControls(bool reveal)
+        public bool RevealAdjustedControls(bool reveal)
         {
-            Invoke(nameof(RevealAdjustedControls), reveal);
+            return Invoke(nameof(RevealAdjustedControls), reveal);
         }
 
-        public void RevealPanel(IDevelopControllerParameter param)
+        public bool RevealPanel(IDevelopControllerParameter param)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(RevealPanel), param);
         }
 
-        public void Revealpanel(Panel panel)
+        public bool Revealpanel(Panel panel)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(RevealPanel), panel.Value);
         }
 
-        public void SelectTool(Tool tool)
+        public bool SelectTool(Tool tool)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SelectTool), tool.Value);
         }
 
-        public void SetMultipleAdjustmentThreshold(double seconds)
+        public bool SetMultipleAdjustmentThreshold(double seconds)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetMultipleAdjustmentThreshold), seconds);
         }
 
-        public void SetProcessVersion(ProcessVersion version)
+        public bool SetProcessVersion(ProcessVersion version)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetProcessVersion), version.Value);
         }
 
-        public void SetTrackingDelay(double seconds)
+        public bool SetTrackingDelay(double seconds)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetTrackingDelay), seconds);
         }
 
-        public void SetValue(IDevelopControllerParameter param, object value)
+        public bool SetValue(IDevelopControllerParameter param, string value)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetValue), value);
         }
 
-        public void StartTracking(IDevelopControllerParameter param)
+        public bool SetValue(IDevelopControllerParameter param, double value)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetValue), value);
         }
 
-        public void StopTracking()
+        public bool SetValue(IDevelopControllerParameter param, int value)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetValue), value);
+        }
+        
+        public bool StartTracking(IDevelopControllerParameter param)
+        {
+            return Invoke(nameof(StartTracking), param);
+        }
+
+        public bool StopTracking()
+        {
+            return Invoke(nameof(StopTracking));
         }
     }
 }

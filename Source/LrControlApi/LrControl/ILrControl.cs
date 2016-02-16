@@ -6,6 +6,6 @@
         ///     Gets the running plugin version (major.minor)
         /// </summary>
         /// <returns></returns>
-        string GetApiVersion();
+        bool GetApiVersion(out string apiVersion);
     }
 }
