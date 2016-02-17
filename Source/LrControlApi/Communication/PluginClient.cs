@@ -11,7 +11,7 @@ namespace micdah.LrControlApi.Communication
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (PluginClient));
 
-        private const string HostName = "localhost";
+        private const string HostName = "10.211.55.2";//"localhost";
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
         private readonly SocketWrapper _sendSocket;
         private readonly SocketWrapper _receiveSocket;

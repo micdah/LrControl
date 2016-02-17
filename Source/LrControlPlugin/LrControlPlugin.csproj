@@ -75,6 +75,11 @@
       <DependentUpon>ModulesLrDialogs.tt</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ModulesLrSelection.lua">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModulesLrSelection.tt</DependentUpon>
+    </None>
     <None Include="ModulesLrUndo.lua">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -112,6 +117,10 @@
     <Content Include="ModulesLrDialogs.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModulesLrDialogs.lua</LastGenOutput>
+    </Content>
+    <Content Include="ModulesLrSelection.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrSelection.lua</LastGenOutput>
     </Content>
     <Content Include="ModulesLrUndo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -53,8 +53,11 @@ local function main(context)
             port = Options.MessageSendPort,
             mode = 'send',
             onError = function(socket, err)
-                if autoReconnect then
-                    socket:reconnect()
+                if err == "timeout" then
+                    if autoReconnect then
+                        LrDialogs.showBezel("Send socket: reconnecting (" .. os.time() .. ")")
+                        socket:reconnect()
+                    end
                 end
             end,
         }
@@ -78,12 +81,16 @@ local function main(context)
             end
         end,
         onError         = function(socket, err)
-            if autoReconnect then
-                socket:reconnect() 
+            if err == "timeout" then
+                if autoReconnect then
+                    LrDialogs.showBezel("Receive socket: reconnecting (" .. os.time() .. ")") 
+                    socket:reconnect() 
+                end
             end
         end,
         onClosed        = function(socket) 
             if autoReconnect then
+                LrDialogs.showBezel("Receive socket: reconnecting (" .. os.time() .. ")")
                 socket:reconnect() 
                 openSendSocket()
             end
@@ -98,7 +105,7 @@ local function main(context)
     -- Start wait loop
     local loadVersion = currentLoadVersion
     while (loadVersion == currentLoadVersion) do
-        LrTasks.sleep(0.25)
+        LrTasks.sleep(1/2)
     end
 
     LrDialogs.showBezel("Stopping LrControl")

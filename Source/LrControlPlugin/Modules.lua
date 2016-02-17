@@ -23,6 +23,7 @@ local Options                    = require 'Options'
 local ModulesLrDevelopController = require 'ModulesLrDevelopController' 
 local ModulesLrApplicationView   = require 'ModulesLrApplicationView'
 local ModulesLrDialogs           = require 'ModulesLrDialogs'
+local ModulesLrSelection         = require 'ModulesLrSelection'
 local ModulesLrUndo              = require 'ModulesLrUndo'
 
 return {
@@ -34,5 +35,6 @@ return {
     LrDevelopController = ModulesLrDevelopController,
     LrApplicationView   = ModulesLrApplicationView,
     LrDialogs           = ModulesLrDialogs,
+    LrSelection         = ModulesLrSelection,
     LrUndo              = ModulesLrUndo,
 }

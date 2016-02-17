@@ -1,26 +1,33 @@
-﻿namespace micdah.LrControlApi.Modules.LrSelection
+﻿using micdah.LrControlApi.Common.Attributes;
+
+namespace micdah.LrControlApi.Modules.LrSelection
 {
+    [LuaNativeModule("LrSelection")]
     public interface ILrSelection
     {
         /// <summary>
         ///     Clears all color labels from the selection.
         /// </summary>
-        void ClearLabels();
+        [LuaMethod]
+        bool ClearLabels();
 
         /// <summary>
         ///     Decreases the rating of the selection.
         /// </summary>
-        void DecreaseRating();
+        [LuaMethod]
+        bool DecreaseRating();
 
         /// <summary>
         ///     Removes the active photo from the selection.
         /// </summary>
-        void DeselectActive();
+        [LuaMethod]
+        bool DeselectActive();
 
         /// <summary>
         ///     Deselects all photos except for the active photo.
         /// </summary>
-        void DeselectOthers();
+        [LuaMethod]
+        bool DeselectOthers();
 
         /// <summary>
         ///     Extends the existing selection, selecting more photos to its beginning or end. Behaves exactly like the
@@ -28,17 +35,20 @@
         /// </summary>
         /// <param name="direction">either "left" or "right"</param>
         /// <param name="amount">number of photos to add to the selection in that direction</param>
-        void ExtendSelection(Direction direction, int amount);
+        [LuaMethod]
+        bool ExtendSelection(Direction direction, int amount);
 
         /// <summary>
         ///     Sets the flag state of the selction to pick.
         /// </summary>
-        void FlagAsPicked();
+        [LuaMethod]
+        bool FlagAsPicked();
 
         /// <summary>
         ///     Sets the flag state of the selection to reject.
         /// </summary>
-        void FlagAsRejected();
+        [LuaMethod]
+        bool FlagAsRejected();
 
         /// <summary>
         ///     Returns the color label assigned to the active photo, one of: "red", "yellow", "green", "blue", "purple", "other",
@@ -47,66 +57,78 @@
         ///     indicates that the photo has a label that does not match any values in the current set.
         /// </summary>
         /// <returns></returns>
-        ColorLabel GetColorLabel();
+        [LuaMethod]
+        bool GetColorLabel(out ColorLabel colorLabel);
 
         /// <summary>
         ///     Returns the pick flag state of the active photo as a number (-1 = reject, 0 = none, 1 = pick).
         /// </summary>
         /// <returns></returns>
-        Flag GetFlag();
+        [LuaMethod]
+        bool GetFlag(out Flag flag);
 
         /// <summary>
         ///     Returns the rating of the selection as a number (0-5).
         /// </summary>
         /// <returns></returns>
-        int GetRating();
+        [LuaMethod]
+        bool GetRating(out int rating);
 
         /// <summary>
         ///     Increases the rating of the selection.
         /// </summary>
-        void IncreaseRating();
+        [LuaMethod]
+        bool IncreaseRating();
 
         /// <summary>
         ///     Advances the selection to the next photo in the filmstrip.
         /// </summary>
-        void NextPhoto();
+        [LuaMethod]
+        bool NextPhoto();
 
         /// <summary>
         ///     Advances the selection to the previous photo in the filmstrip.
         /// </summary>
-        void PreviousPhoto();
+        [LuaMethod]
+        bool PreviousPhoto();
 
         /// <summary>
         ///     Clears the flag state of the selection.
         /// </summary>
-        void RemoveFlag();
+        [LuaMethod]
+        bool RemoveFlag();
 
         /// <summary>
         ///     Selects all photos in the filmstrip.
         /// </summary>
-        void SelectAll();
+        [LuaMethod]
+        bool SelectAll();
 
         /// <summary>
         ///     Selects the first photo in the selection, or in the entire filmstrip if there is no selection. Only available in
         ///     the Library module.
         /// </summary>
-        void SelectFirstPhoto();
+        [LuaMethod]
+        bool SelectFirstPhoto();
 
         /// <summary>
         ///     Inverts the selection in the filmstrip.
         /// </summary>
-        void SelectInverse();
+        [LuaMethod]
+        bool SelectInverse();
 
         /// <summary>
         ///     Selects the last photo in the selection, or in the entire filmstrip if there is no selection. Only available in the
         ///     Library module.
         /// </summary>
-        void SelectLastPhoto();
+        [LuaMethod]
+        bool SelectLastPhoto();
 
         /// <summary>
         ///     Deselects all photos in the filmstrip.
         /// </summary>
-        void SelectNone();
+        [LuaMethod]
+        bool SelectNone();
 
         /// <summary>
         ///     Sets the color label of the selection, one of: "red", "yellow", "green", "blue", "purple", or "none". The
@@ -114,37 +136,44 @@
         ///     set maps these names to "Red", "Yellow", "Green", "Blue", and "Purple".
         /// </summary>
         /// <param name="label"></param>
-        void SetColorLabel(ColorLabel label);
+        [LuaMethod]
+        bool SetColorLabel(ColorLabel label);
 
         /// <summary>
         ///     Sets the rating of the selection.
         /// </summary>
         /// <param name="rating"></param>
-        void SetRating(int rating);
+        [LuaMethod]
+        bool SetRating(int rating);
 
         /// <summary>
         ///     Toggles the state of the Blue color label of the selection.
         /// </summary>
-        void ToggleBlueLabel();
+        [LuaMethod]
+        bool ToggleBlueLabel();
 
         /// <summary>
         ///     Toggles the state of the Green color label of the selection.
         /// </summary>
-        void ToggleGreenLabel();
+        [LuaMethod]
+        bool ToggleGreenLabel();
 
         /// <summary>
         ///     Toggles the state of the Purple color label of the selection.
         /// </summary>
-        void TogglePurpleLabel();
+        [LuaMethod]
+        bool TogglePurpleLabel();
 
         /// <summary>
         ///     Toggles the state of the Red color label of the selection.
         /// </summary>
-        void ToggleRedLabel();
+        [LuaMethod]
+        bool ToggleRedLabel();
 
         /// <summary>
         ///     Toggles the state of the Yellow color label of the selection.
         /// </summary>
-        void ToggleYellowLabel();
+        [LuaMethod]
+        bool ToggleYellowLabel();
     }
 }

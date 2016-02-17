@@ -17,7 +17,7 @@ namespace micdah.LrControlApi
         private readonly LrDialogs _lrDialogs;
         private readonly LrUndo _lrUndo;
 
-        public LrControlApi(int sendPort, int receivePort)
+        public LrControlApi(int sendPort = 52008, int receivePort = 52009)
         {
             _pluginClient = new PluginClient(sendPort, receivePort);
             _pluginClient.ConnectionStatus += OnConnectionStatus;

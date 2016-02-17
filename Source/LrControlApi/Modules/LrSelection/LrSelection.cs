@@ -1,135 +1,152 @@
-﻿namespace micdah.LrControlApi.Modules.LrSelection
+﻿using micdah.LrControlApi.Common;
+using micdah.LrControlApi.Communication;
+
+namespace micdah.LrControlApi.Modules.LrSelection
 {
-    internal class LrSelection : ILrSelection
+    internal class LrSelection : ModuleBase<LrSelection>, ILrSelection
     {
-        public void ClearLabels()
+        public LrSelection(MessageProtocol<LrSelection> messageProtocol) : base(messageProtocol)
         {
-            throw new System.NotImplementedException();
         }
 
-        public void DecreaseRating()
+        public bool ClearLabels()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ClearLabels));
         }
 
-        public void DeselectActive()
+        public bool DecreaseRating()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(DecreaseRating));
         }
 
-        public void DeselectOthers()
+        public bool DeselectActive()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(DeselectActive));
         }
 
-        public void ExtendSelection(Direction direction, int amount)
+        public bool DeselectOthers()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(DeselectOthers));
         }
 
-        public void FlagAsPicked()
+        public bool ExtendSelection(Direction direction, int amount)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ExtendSelection), direction, amount);
         }
 
-        public void FlagAsRejected()
+        public bool FlagAsPicked()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(FlagAsPicked));
         }
 
-        public ColorLabel GetColorLabel()
+        public bool FlagAsRejected()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(FlagAsRejected));
         }
 
-        public Flag GetFlag()
+        public bool GetColorLabel(out ColorLabel colorLabel)
         {
-            throw new System.NotImplementedException();
+            string result;
+            if (!Invoke(out result, nameof(GetColorLabel)))
+                return False(out colorLabel);
+
+            colorLabel = ColorLabel.GetEnumForValue(result);
+            return colorLabel != null;
         }
 
-        public int GetRating()
+        public bool GetFlag(out Flag flag)
         {
-            throw new System.NotImplementedException();
+            int result;
+            if (!Invoke(out result, nameof(GetFlag)))
+                return False(out flag);
+
+            flag = Flag.GetEnumForValue(result);
+            return flag != null;
         }
 
-        public void IncreaseRating()
+        public bool GetRating(out int rating)
         {
-            throw new System.NotImplementedException();
+            return Invoke(out rating, nameof(GetRating));
         }
 
-        public void NextPhoto()
+        public bool IncreaseRating()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(IncreaseRating));
         }
 
-        public void PreviousPhoto()
+        public bool NextPhoto()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(NextPhoto));
         }
 
-        public void RemoveFlag()
+        public bool PreviousPhoto()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(PreviousPhoto));
         }
 
-        public void SelectAll()
+        public bool RemoveFlag()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(RemoveFlag));
         }
 
-        public void SelectFirstPhoto()
+        public bool SelectAll()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SelectAll));
         }
 
-        public void SelectInverse()
+        public bool SelectFirstPhoto()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SelectFirstPhoto));
         }
 
-        public void SelectLastPhoto()
+        public bool SelectInverse()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SelectInverse));
         }
 
-        public void SelectNone()
+        public bool SelectLastPhoto()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SelectLastPhoto));
         }
 
-        public void SetColorLabel(ColorLabel label)
+        public bool SelectNone()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SelectNone));
         }
 
-        public void SetRating(int rating)
+        public bool SetColorLabel(ColorLabel label)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetColorLabel), label);
         }
 
-        public void ToggleBlueLabel()
+        public bool SetRating(int rating)
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(SetRating), rating);
         }
 
-        public void ToggleGreenLabel()
+        public bool ToggleBlueLabel()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ToggleBlueLabel));
         }
 
-        public void TogglePurpleLabel()
+        public bool ToggleGreenLabel()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ToggleGreenLabel));
         }
 
-        public void ToggleRedLabel()
+        public bool TogglePurpleLabel()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(TogglePurpleLabel));
         }
 
-        public void ToggleYellowLabel()
+        public bool ToggleRedLabel()
         {
-            throw new System.NotImplementedException();
+            return Invoke(nameof(ToggleRedLabel));
+        }
+
+        public bool ToggleYellowLabel()
+        {
+            return Invoke(nameof(ToggleYellowLabel));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace micdah.LrControl
             UpdateConnectionStatus(false, null);
 
 
-            _api = new LrControlApi.LrControlApi(52008, 52009);
+            _api = new LrControlApi.LrControlApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
         }
 
