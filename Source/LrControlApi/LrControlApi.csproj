@@ -52,6 +52,7 @@
     <Compile Include="Common\IClassEnum.cs" />
     <Compile Include="Common\ModuleBase.cs" />
     <Compile Include="Common\Range.cs" />
+    <Compile Include="Common\StartStopThread.cs" />
     <Compile Include="Communication\MessageProtocol.cs" />
     <Compile Include="Communication\PluginClient.cs" />
     <Compile Include="Communication\SocketWrapper.cs" />

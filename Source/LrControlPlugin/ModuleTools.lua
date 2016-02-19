@@ -19,6 +19,7 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
 local LrApplicationView   = import 'LrApplicationView'
+local LrDialogs = import 'LrDialogs'
 
 local function requireModule(moduleNames,f)
     local modules = {}
@@ -41,6 +42,59 @@ local function requireModule(moduleNames,f)
     end
 end
 
+local function addFunction(lookup, uniqueIdentifier, f) 
+    if lookup[uniqueIdentifier] == nil then
+        lookup[uniqueIdentifier] = {}
+    end
+    
+    local list = lookup[uniqueIdentifier]
+    list[#list+1] = f
+end
+
+local beforeFunctions = {}
+
+local function beforeFunction(uniqueIdentifier,f)
+    return function(...)
+        local before = beforeFunctions[uniqueIdentifier]
+        if before ~= nil then
+            for i=1, #before do
+                before[i](...)
+            end
+        end
+        
+        return f(...)
+    end
+end
+
+local function doBeforeFunction(uniqueIdentifier,f) 
+    addFunction(beforeFunctions,uniqueIdentifier,f)
+end
+
+local afterFunctions = {}
+
+local function afterFunction(uniqueIdentifier,f) 
+    return function(...)
+        return (function(...)
+            local after = afterFunctions[uniqueIdentifier]
+            if after ~= nil then
+                for i=1, #after do
+                    after[i](...)
+                end
+            end
+            
+            return ...
+        end)(f(...))
+    end
+end
+
+local function doAfterFunction(uniqueIdentifier,f)
+    addFunction(afterFunctions,uniqueIdentifier,f)
+end
+
 return {
-    RequireModule = requireModule
+    RequireModule    = requireModule,
+    BeforeFunction   = beforeFunction,
+    AfterFunction    = afterFunction,
+    DoBeforeFunction = doBeforeFunction,
+    DoAfterFunction  = doAfterFunction,
 }

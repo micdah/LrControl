@@ -39,6 +39,12 @@
     <None Include="About.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ChangeObserverParameters.lua">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangeObserverParameters.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="CommandInterpreter.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -79,6 +85,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModulesLrSelection.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ModulesLrUndo.lua">
       <AutoGen>True</AutoGen>
@@ -106,6 +113,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ChangeObserverParameters.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ChangeObserverParameters.lua</LastGenOutput>
+    </Content>
     <Content Include="ModulesLrApplicationView.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModulesLrApplicationView.lua</LastGenOutput>

@@ -23,20 +23,32 @@ local LrUndo      = import 'LrUndo'
 local ModuleTools = require 'ModuleTools'
 
 return {
-    canRedo = function()
-        return LrUndo.canRedo()
-    end,
+    canRedo = 
+        ModuleTools.BeforeFunction("LrUndo.canRedo", 
+        ModuleTools.AfterFunction("LrUndo.canRedo", 
+        function()
+            return LrUndo.canRedo()
+        end)),
     
-    canUndo = function()
-        return LrUndo.canUndo()
-    end,
+    canUndo = 
+        ModuleTools.BeforeFunction("LrUndo.canUndo", 
+        ModuleTools.AfterFunction("LrUndo.canUndo", 
+        function()
+            return LrUndo.canUndo()
+        end)),
     
-    redo    = function()
-        LrUndo.redo()
-    end,
+    redo    = 
+        ModuleTools.BeforeFunction("LrUndo.redo", 
+        ModuleTools.AfterFunction("LrUndo.redo", 
+        function()
+            LrUndo.redo()
+        end)),
     
-    undo    = function()
-        LrUndo.undo()
-    end,
+    undo    = 
+        ModuleTools.BeforeFunction("LrUndo.undo", 
+        ModuleTools.AfterFunction("LrUndo.undo", 
+        function()
+            LrUndo.undo()
+        end)),
     
 }

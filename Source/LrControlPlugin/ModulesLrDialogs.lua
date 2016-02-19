@@ -23,20 +23,32 @@ local LrDialogs   = import 'LrDialogs'
 local ModuleTools = require 'ModuleTools'
 
 return {
-    confirm   = function(message,info,actionVerb,cancelVerb,otherVerb)
-        return LrDialogs.confirm(message,info,actionVerb,cancelVerb,otherVerb)
-    end,
+    confirm   = 
+        ModuleTools.BeforeFunction("LrDialogs.confirm", 
+        ModuleTools.AfterFunction("LrDialogs.confirm", 
+        function(message,info,actionVerb,cancelVerb,otherVerb)
+            return LrDialogs.confirm(message,info,actionVerb,cancelVerb,otherVerb)
+        end)),
     
-    message   = function(message,info,style)
-        LrDialogs.message(message,info,style)
-    end,
+    message   = 
+        ModuleTools.BeforeFunction("LrDialogs.message", 
+        ModuleTools.AfterFunction("LrDialogs.message", 
+        function(message,info,style)
+            LrDialogs.message(message,info,style)
+        end)),
     
-    showBezel = function(message,fadeDelay)
-        LrDialogs.showBezel(message,fadeDelay)
-    end,
+    showBezel = 
+        ModuleTools.BeforeFunction("LrDialogs.showBezel", 
+        ModuleTools.AfterFunction("LrDialogs.showBezel", 
+        function(message,fadeDelay)
+            LrDialogs.showBezel(message,fadeDelay)
+        end)),
     
-    showError = function(errorString)
-        LrDialogs.showError(errorString)
-    end,
+    showError = 
+        ModuleTools.BeforeFunction("LrDialogs.showError", 
+        ModuleTools.AfterFunction("LrDialogs.showError", 
+        function(errorString)
+            LrDialogs.showError(errorString)
+        end)),
     
 }

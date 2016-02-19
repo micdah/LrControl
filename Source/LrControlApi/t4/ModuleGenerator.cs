@@ -63,38 +63,44 @@ namespace micdah.LrControlApi.t4
             var name = char.ToLowerInvariant(info.Name[0]) + info.Name.Substring(1);
 
             Line($"{name.PadRight(pad)} = ");
-
-            var requireModule = GetAttribute<LuaRequireModuleAttribute>(info);
-            if (requireModule != null)
-            {
-                Append($"ModuleTools.RequireModule(\"{requireModule.Module}\", ");
-            }
-
-            // Parameters
-            var parameters = string.Join(",", info.GetParameters()
-                .Where(p => !p.IsOut)
-                .Select(p => p.Name));
             
-            // Function declaration
-            Append($"function({parameters})");
-
-            // Function body
-            var hasReturn = info.GetParameters().Any(p => p.IsOut);
             using (Indent())
             {
-                Line();
-                if (hasReturn)
+                var requireModule = GetAttribute<LuaRequireModuleAttribute>(info);
+                if (requireModule != null)
                 {
-                    Append("return ");
+                    Line($"ModuleTools.RequireModule(\"{requireModule.Module}\", ");
                 }
-                Append($"{_luaNativeModule.Module}.{name}({parameters})");
-            }
 
-            // Function end
-            Line("end");
-            if (requireModule != null)
-                Append(")");
-            Append(",");
+                Line($"ModuleTools.BeforeFunction(\"{_luaNativeModule.Module}.{name}\", ");
+                Line($"ModuleTools.AfterFunction(\"{_luaNativeModule.Module}.{name}\", ");
+
+                // Parameters
+                var parameters = string.Join(",", info.GetParameters()
+                    .Where(p => !p.IsOut)
+                    .Select(p => p.Name));
+
+                // Function declaration
+                Line($"function({parameters})");
+
+                // Function body
+                var hasReturn = info.GetParameters().Any(p => p.IsOut);
+                using (Indent())
+                {
+                    Line();
+                    if (hasReturn)
+                    {
+                        Append("return ");
+                    }
+                    Append($"{_luaNativeModule.Module}.{name}({parameters})");
+                }
+
+                // Function end
+                Line("end))");
+                if (requireModule != null)
+                    Append(")");
+                Append(",");
+            }
         }
     }
 }

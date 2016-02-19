@@ -23,56 +23,100 @@ local LrApplicationView = import 'LrApplicationView'
 local ModuleTools       = require 'ModuleTools'
 
 return {
-    getCurrentModuleName             = function()
-        return LrApplicationView.getCurrentModuleName()
-    end,
+    getCurrentModuleName             = 
+        ModuleTools.BeforeFunction("LrApplicationView.getCurrentModuleName", 
+        ModuleTools.AfterFunction("LrApplicationView.getCurrentModuleName", 
+        function()
+            return LrApplicationView.getCurrentModuleName()
+        end)),
     
-    getSecondaryViewName             = function()
-        return LrApplicationView.getSecondaryViewName()
-    end,
+    getSecondaryViewName             = 
+        ModuleTools.BeforeFunction("LrApplicationView.getSecondaryViewName", 
+        ModuleTools.AfterFunction("LrApplicationView.getSecondaryViewName", 
+        function()
+            return LrApplicationView.getSecondaryViewName()
+        end)),
     
-    isSecondaryDispalyOn             = function()
-        return LrApplicationView.isSecondaryDispalyOn()
-    end,
+    isSecondaryDispalyOn             = 
+        ModuleTools.BeforeFunction("LrApplicationView.isSecondaryDispalyOn", 
+        ModuleTools.AfterFunction("LrApplicationView.isSecondaryDispalyOn", 
+        function()
+            return LrApplicationView.isSecondaryDispalyOn()
+        end)),
     
-    showSecondaryView                = function(view)
-        LrApplicationView.showSecondaryView(view)
-    end,
+    showSecondaryView                = 
+        ModuleTools.BeforeFunction("LrApplicationView.showSecondaryView", 
+        ModuleTools.AfterFunction("LrApplicationView.showSecondaryView", 
+        function(view)
+            LrApplicationView.showSecondaryView(view)
+        end)),
     
-    showView                         = function(view)
-        LrApplicationView.showView(view)
-    end,
+    showView                         = 
+        ModuleTools.BeforeFunction("LrApplicationView.showView", 
+        ModuleTools.AfterFunction("LrApplicationView.showView", 
+        function(view)
+            LrApplicationView.showView(view)
+        end)),
     
-    switchToModule                   = function(module)
-        LrApplicationView.switchToModule(module)
-    end,
+    switchToModule                   = 
+        ModuleTools.BeforeFunction("LrApplicationView.switchToModule", 
+        ModuleTools.AfterFunction("LrApplicationView.switchToModule", 
+        function(module)
+            LrApplicationView.switchToModule(module)
+        end)),
     
-    toggleSecondaryDisplay           = function()
-        LrApplicationView.toggleSecondaryDisplay()
-    end,
+    toggleSecondaryDisplay           = 
+        ModuleTools.BeforeFunction("LrApplicationView.toggleSecondaryDisplay", 
+        ModuleTools.AfterFunction("LrApplicationView.toggleSecondaryDisplay", 
+        function()
+            LrApplicationView.toggleSecondaryDisplay()
+        end)),
     
-    toggleSecondaryDisplayFullscreen = function()
-        LrApplicationView.toggleSecondaryDisplayFullscreen()
-    end,
+    toggleSecondaryDisplayFullscreen = 
+        ModuleTools.BeforeFunction("LrApplicationView.toggleSecondaryDisplayFullscreen", 
+        ModuleTools.AfterFunction("LrApplicationView.toggleSecondaryDisplayFullscreen", 
+        function()
+            LrApplicationView.toggleSecondaryDisplayFullscreen()
+        end)),
     
-    toggleZoom                       = ModuleTools.RequireModule("library,develop", function()
-        LrApplicationView.toggleZoom()
-    end),
+    toggleZoom                       = 
+        ModuleTools.RequireModule("library,develop", 
+        ModuleTools.BeforeFunction("LrApplicationView.toggleZoom", 
+        ModuleTools.AfterFunction("LrApplicationView.toggleZoom", 
+        function()
+            LrApplicationView.toggleZoom()
+        end))),
     
-    zoomIn                           = ModuleTools.RequireModule("library,develop", function()
-        LrApplicationView.zoomIn()
-    end),
+    zoomIn                           = 
+        ModuleTools.RequireModule("library,develop", 
+        ModuleTools.BeforeFunction("LrApplicationView.zoomIn", 
+        ModuleTools.AfterFunction("LrApplicationView.zoomIn", 
+        function()
+            LrApplicationView.zoomIn()
+        end))),
     
-    zoomInSome                       = ModuleTools.RequireModule("library,develop", function()
-        LrApplicationView.zoomInSome()
-    end),
+    zoomInSome                       = 
+        ModuleTools.RequireModule("library,develop", 
+        ModuleTools.BeforeFunction("LrApplicationView.zoomInSome", 
+        ModuleTools.AfterFunction("LrApplicationView.zoomInSome", 
+        function()
+            LrApplicationView.zoomInSome()
+        end))),
     
-    zoomOut                          = ModuleTools.RequireModule("library,develop", function()
-        LrApplicationView.zoomOut()
-    end),
+    zoomOut                          = 
+        ModuleTools.RequireModule("library,develop", 
+        ModuleTools.BeforeFunction("LrApplicationView.zoomOut", 
+        ModuleTools.AfterFunction("LrApplicationView.zoomOut", 
+        function()
+            LrApplicationView.zoomOut()
+        end))),
     
-    zoomOutSome                      = ModuleTools.RequireModule("library,develop", function()
-        LrApplicationView.zoomOutSome()
-    end),
+    zoomOutSome                      = 
+        ModuleTools.RequireModule("library,develop", 
+        ModuleTools.BeforeFunction("LrApplicationView.zoomOutSome", 
+        ModuleTools.AfterFunction("LrApplicationView.zoomOutSome", 
+        function()
+            LrApplicationView.zoomOutSome()
+        end))),
     
 }

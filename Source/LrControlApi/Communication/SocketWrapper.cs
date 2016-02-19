@@ -1,43 +1,52 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using log4net;
+using micdah.LrControlApi.Common;
 
 namespace micdah.LrControlApi.Communication
 {
     internal class SocketWrapper : IDisposable
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (SocketWrapper));
-        private static readonly int SocketTimeout = 500;
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SocketWrapper));
+
+        public const int SocketTimeout = 500;
+        private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
+
         private readonly string _hostName;
         private readonly int _port;
-        private readonly ManualResetEvent _reconnectEvent;
-        private readonly ManualResetEvent _stopReconnectThreadEvent;
-        private readonly ManualResetEvent _stopReconnectThreadFinishedEvent;
-        private readonly Stopwatch _stopwatch;
         private readonly byte[] _receiveBuffer = new byte[1024];
-        private Thread _reconnectThread;
+        private readonly bool _receiving;
+        private readonly Stopwatch _stopwatch = new Stopwatch();
+
+        private StartStopThread _receiveThread;
+        private StartStopThread _reconnectThread;
         private Socket _socket;
 
-        public SocketWrapper(string hostName, int port)
+
+        public SocketWrapper(string hostName, int port, bool receiving)
         {
-            _hostName                         = hostName;
-            _port                             = port;
-            _reconnectEvent                   = new ManualResetEvent(false);
-            _stopReconnectThreadEvent         = new ManualResetEvent(false);
-            _stopReconnectThreadFinishedEvent = new ManualResetEvent(false);
-            _stopwatch                        = new Stopwatch();
+            _hostName = hostName;
+            _port = port;
+            _receiving = receiving;
         }
 
         public bool IsOpen { get; private set; }
 
         public bool IsConnected { get; private set; }
 
+        public void Dispose()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+        }
+
         public event Action LostConnection;
         public event Action Connected;
+        public event Action<string> MessageReceived;
 
         public bool Open()
         {
@@ -48,18 +57,19 @@ namespace micdah.LrControlApi.Communication
             if (!TryCreateSocket())
                 return false;
 
-            // Create reconnect thread
-            _reconnectThread = new Thread(ReconnectThreadStart)
+            _reconnectThread = new StartStopThread($"Socket Reconnect Thread (port {_port})", ReconnectIteration);
+
+            if (_receiving)
             {
-                Name         = $"Socket Reconnect Thread (port {_port})",
-                IsBackground = true
-            };
-            _reconnectThread.Start();
+                _receiveThread = new StartStopThread($"Socket Receive Thread (port {_port})", ReceiveIteration);
+            }
 
             // Initial state
             IsOpen = true;
             IsConnected = false;
-            _reconnectEvent.Set();
+            _reconnectThread.Start();
+            if (_receiving)
+                _receiveThread.Start();
 
             return true;
         }
@@ -69,7 +79,12 @@ namespace micdah.LrControlApi.Communication
             if (!IsOpen)
                 throw new InvalidOperationException("Cannot close, is not open");
 
-            StopReconnectThread();
+            _reconnectThread.Dispose();
+            _reconnectThread = null;
+
+            _receiveThread?.Dispose();
+            _receiveThread = null;
+
             CloseSocket();
 
             IsOpen = false;
@@ -78,23 +93,36 @@ namespace micdah.LrControlApi.Communication
             Log.Debug($"Socket connected to {_hostName}:{_port} has been closed");
         }
 
-        public void Dispose()
+        private void CloseSocket()
         {
-            if (IsOpen)
+            try
             {
-                Close();
+                if (_socket.Connected)
+                {
+                    _socket.Disconnect(false);
+                }
+                _socket.Close();
             }
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while trying to close socket", e);
+            }
+            finally
+            {
+                _socket.Dispose();
+            }
+            _socket = null;
         }
 
-        public void Reconnect()
+        public void Reconnect(bool fireEvent = true)
         {
             if (!IsOpen)
                 throw new InvalidOperationException("Canont reconnect, is not open");
 
-            OnLostConnection();
+            if (fireEvent) OnLostConnection();
 
             IsConnected = false;
-            _reconnectEvent.Set();
+            _reconnectThread.Start();
         }
 
         public bool Send(string message)
@@ -120,7 +148,7 @@ namespace micdah.LrControlApi.Communication
             }
         }
 
-        public bool Receive(out string message, byte stopByte)
+        private bool Receive(out string message, byte stopByte)
         {
             if (!IsOpen)
                 throw new InvalidOperationException("Canont receive whne not open");
@@ -144,9 +172,6 @@ namespace micdah.LrControlApi.Communication
                     {
                         if (_stopwatch.ElapsedMilliseconds > SocketTimeout)
                         {
-                            Log.Error($"Waited more than {SocketTimeout}, probably lost connection");
-                            Reconnect();
-
                             message = null;
                             return false;
                         }
@@ -181,99 +206,33 @@ namespace micdah.LrControlApi.Communication
             }
         }
 
-        public bool Flush()
+        private void ReconnectIteration(Action stop)
         {
-            if (!IsOpen)
-                throw new InvalidOperationException("Cannot flush when not open");
+            _receiveThread?.Stop();
 
-            if (!IsConnected)
-                return false;
+            Log.Debug($"Trying to reconnect to {_hostName}:{_port}");
 
-            try
+            if (TryReconnect())
             {
-                var available = _socket.Available;
-                if (available <= 0) return true;
+                Log.Debug($"Successfully reconnected to {_hostName}:{_port}");
+                IsConnected = true;
 
-                var bytes = new byte[available];
-                _socket.Receive(bytes);
+                OnConnected();
 
-                return true;
-            }
-            catch (SocketException e)
-            {
-                Log.Error("Unable to flush", e);
-                Reconnect();
+                _receiveThread?.Start();
 
-                return false;
+                // Stop reconnect loop, successfully reconnected
+                stop();
             }
         }
 
-        private void CloseSocket()
+        private void ReceiveIteration(Action stop)
         {
-            try
+            string message;
+            if (Receive(out message, EndOfLineByte))
             {
-                if (_socket.Connected)
-                {
-                    _socket.Disconnect(false);
-                }
-                _socket.Close();
+                OnMessageReceived(message);
             }
-            catch (Exception e)
-            {
-                Log.Error("An error occurred while trying to close socket", e);
-            }
-            finally
-            {
-                _socket.Dispose();
-            }
-            _socket = null;
-        }
-
-        private void ReconnectThreadStart()
-        {
-            while (true)
-            {
-                // Wait until reconnect is requested
-                _reconnectEvent.WaitOne();
-
-                if (!_stopReconnectThreadEvent.WaitOne(0))
-                {
-                    Log.Debug($"Trying to reconnect to {_hostName}:{_port}");
-
-                    if (TryReconnect())
-                    {
-                        // Stop reconnect loop, successfully reconnected
-                        _reconnectEvent.Reset();
-
-                        Log.Debug($"Successfully reconnected to {_hostName}:{_port}");
-                        IsConnected = true;
-
-                        OnConnected();
-                    }
-                }
-                else
-                {
-                    // Asked to stop
-                    break;
-                }
-            }
-
-            _stopReconnectThreadFinishedEvent.Set();
-        }
-
-        private void StopReconnectThread()
-        {
-            // Stop reconnect thread
-            _stopReconnectThreadEvent.Set();
-            _reconnectEvent.Set();
-
-            // Wait for thread to stop
-            _stopReconnectThreadFinishedEvent.WaitOne();
-
-            // Reset events
-            _reconnectEvent.Reset();
-            _stopReconnectThreadEvent.Reset();
-            _stopReconnectThreadFinishedEvent.Reset();
         }
 
         private bool TryReconnect()
@@ -282,7 +241,7 @@ namespace micdah.LrControlApi.Communication
 
             if (!TryCreateSocket())
                 return false;
-            
+
             // Try to connect
             try
             {
@@ -302,9 +261,9 @@ namespace micdah.LrControlApi.Communication
             {
                 _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
                 {
-                    SendTimeout       = SocketTimeout,
-                    ReceiveTimeout    = SocketTimeout,
-                    SendBufferSize    = 8192,
+                    SendTimeout = SocketTimeout,
+                    ReceiveTimeout = SocketTimeout,
+                    SendBufferSize = 8192,
                     ReceiveBufferSize = 8192
                 };
 
@@ -317,14 +276,19 @@ namespace micdah.LrControlApi.Communication
             }
         }
 
-        protected virtual void OnLostConnection()
+        private void OnLostConnection()
         {
             LostConnection?.Invoke();
         }
 
-        protected virtual void OnConnected()
+        private void OnConnected()
         {
             Connected?.Invoke();
+        }
+
+        private void OnMessageReceived(string message)
+        {
+            MessageReceived?.Invoke(message);
         }
     }
 }

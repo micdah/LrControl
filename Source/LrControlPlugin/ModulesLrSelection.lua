@@ -23,108 +23,186 @@ local LrSelection = import 'LrSelection'
 local ModuleTools = require 'ModuleTools'
 
 return {
-    clearLabels       = function()
-        LrSelection.clearLabels()
-    end,
+    clearLabels       = 
+        ModuleTools.BeforeFunction("LrSelection.clearLabels", 
+        ModuleTools.AfterFunction("LrSelection.clearLabels", 
+        function()
+            LrSelection.clearLabels()
+        end)),
     
-    decreaseRating    = function()
-        LrSelection.decreaseRating()
-    end,
+    decreaseRating    = 
+        ModuleTools.BeforeFunction("LrSelection.decreaseRating", 
+        ModuleTools.AfterFunction("LrSelection.decreaseRating", 
+        function()
+            LrSelection.decreaseRating()
+        end)),
     
-    deselectActive    = function()
-        LrSelection.deselectActive()
-    end,
+    deselectActive    = 
+        ModuleTools.BeforeFunction("LrSelection.deselectActive", 
+        ModuleTools.AfterFunction("LrSelection.deselectActive", 
+        function()
+            LrSelection.deselectActive()
+        end)),
     
-    deselectOthers    = function()
-        LrSelection.deselectOthers()
-    end,
+    deselectOthers    = 
+        ModuleTools.BeforeFunction("LrSelection.deselectOthers", 
+        ModuleTools.AfterFunction("LrSelection.deselectOthers", 
+        function()
+            LrSelection.deselectOthers()
+        end)),
     
-    extendSelection   = function(direction,amount)
-        LrSelection.extendSelection(direction,amount)
-    end,
+    extendSelection   = 
+        ModuleTools.BeforeFunction("LrSelection.extendSelection", 
+        ModuleTools.AfterFunction("LrSelection.extendSelection", 
+        function(direction,amount)
+            LrSelection.extendSelection(direction,amount)
+        end)),
     
-    flagAsPicked      = function()
-        LrSelection.flagAsPicked()
-    end,
+    flagAsPicked      = 
+        ModuleTools.BeforeFunction("LrSelection.flagAsPicked", 
+        ModuleTools.AfterFunction("LrSelection.flagAsPicked", 
+        function()
+            LrSelection.flagAsPicked()
+        end)),
     
-    flagAsRejected    = function()
-        LrSelection.flagAsRejected()
-    end,
+    flagAsRejected    = 
+        ModuleTools.BeforeFunction("LrSelection.flagAsRejected", 
+        ModuleTools.AfterFunction("LrSelection.flagAsRejected", 
+        function()
+            LrSelection.flagAsRejected()
+        end)),
     
-    getColorLabel     = function()
-        return LrSelection.getColorLabel()
-    end,
+    getColorLabel     = 
+        ModuleTools.BeforeFunction("LrSelection.getColorLabel", 
+        ModuleTools.AfterFunction("LrSelection.getColorLabel", 
+        function()
+            return LrSelection.getColorLabel()
+        end)),
     
-    getFlag           = function()
-        return LrSelection.getFlag()
-    end,
+    getFlag           = 
+        ModuleTools.BeforeFunction("LrSelection.getFlag", 
+        ModuleTools.AfterFunction("LrSelection.getFlag", 
+        function()
+            return LrSelection.getFlag()
+        end)),
     
-    getRating         = function()
-        return LrSelection.getRating()
-    end,
+    getRating         = 
+        ModuleTools.BeforeFunction("LrSelection.getRating", 
+        ModuleTools.AfterFunction("LrSelection.getRating", 
+        function()
+            return LrSelection.getRating()
+        end)),
     
-    increaseRating    = function()
-        LrSelection.increaseRating()
-    end,
+    increaseRating    = 
+        ModuleTools.BeforeFunction("LrSelection.increaseRating", 
+        ModuleTools.AfterFunction("LrSelection.increaseRating", 
+        function()
+            LrSelection.increaseRating()
+        end)),
     
-    nextPhoto         = function()
-        LrSelection.nextPhoto()
-    end,
+    nextPhoto         = 
+        ModuleTools.BeforeFunction("LrSelection.nextPhoto", 
+        ModuleTools.AfterFunction("LrSelection.nextPhoto", 
+        function()
+            LrSelection.nextPhoto()
+        end)),
     
-    previousPhoto     = function()
-        LrSelection.previousPhoto()
-    end,
+    previousPhoto     = 
+        ModuleTools.BeforeFunction("LrSelection.previousPhoto", 
+        ModuleTools.AfterFunction("LrSelection.previousPhoto", 
+        function()
+            LrSelection.previousPhoto()
+        end)),
     
-    removeFlag        = function()
-        LrSelection.removeFlag()
-    end,
+    removeFlag        = 
+        ModuleTools.BeforeFunction("LrSelection.removeFlag", 
+        ModuleTools.AfterFunction("LrSelection.removeFlag", 
+        function()
+            LrSelection.removeFlag()
+        end)),
     
-    selectAll         = function()
-        LrSelection.selectAll()
-    end,
+    selectAll         = 
+        ModuleTools.BeforeFunction("LrSelection.selectAll", 
+        ModuleTools.AfterFunction("LrSelection.selectAll", 
+        function()
+            LrSelection.selectAll()
+        end)),
     
-    selectFirstPhoto  = function()
-        LrSelection.selectFirstPhoto()
-    end,
+    selectFirstPhoto  = 
+        ModuleTools.BeforeFunction("LrSelection.selectFirstPhoto", 
+        ModuleTools.AfterFunction("LrSelection.selectFirstPhoto", 
+        function()
+            LrSelection.selectFirstPhoto()
+        end)),
     
-    selectInverse     = function()
-        LrSelection.selectInverse()
-    end,
+    selectInverse     = 
+        ModuleTools.BeforeFunction("LrSelection.selectInverse", 
+        ModuleTools.AfterFunction("LrSelection.selectInverse", 
+        function()
+            LrSelection.selectInverse()
+        end)),
     
-    selectLastPhoto   = function()
-        LrSelection.selectLastPhoto()
-    end,
+    selectLastPhoto   = 
+        ModuleTools.BeforeFunction("LrSelection.selectLastPhoto", 
+        ModuleTools.AfterFunction("LrSelection.selectLastPhoto", 
+        function()
+            LrSelection.selectLastPhoto()
+        end)),
     
-    selectNone        = function()
-        LrSelection.selectNone()
-    end,
+    selectNone        = 
+        ModuleTools.BeforeFunction("LrSelection.selectNone", 
+        ModuleTools.AfterFunction("LrSelection.selectNone", 
+        function()
+            LrSelection.selectNone()
+        end)),
     
-    setColorLabel     = function(label)
-        LrSelection.setColorLabel(label)
-    end,
+    setColorLabel     = 
+        ModuleTools.BeforeFunction("LrSelection.setColorLabel", 
+        ModuleTools.AfterFunction("LrSelection.setColorLabel", 
+        function(label)
+            LrSelection.setColorLabel(label)
+        end)),
     
-    setRating         = function(rating)
-        LrSelection.setRating(rating)
-    end,
+    setRating         = 
+        ModuleTools.BeforeFunction("LrSelection.setRating", 
+        ModuleTools.AfterFunction("LrSelection.setRating", 
+        function(rating)
+            LrSelection.setRating(rating)
+        end)),
     
-    toggleBlueLabel   = function()
-        LrSelection.toggleBlueLabel()
-    end,
+    toggleBlueLabel   = 
+        ModuleTools.BeforeFunction("LrSelection.toggleBlueLabel", 
+        ModuleTools.AfterFunction("LrSelection.toggleBlueLabel", 
+        function()
+            LrSelection.toggleBlueLabel()
+        end)),
     
-    toggleGreenLabel  = function()
-        LrSelection.toggleGreenLabel()
-    end,
+    toggleGreenLabel  = 
+        ModuleTools.BeforeFunction("LrSelection.toggleGreenLabel", 
+        ModuleTools.AfterFunction("LrSelection.toggleGreenLabel", 
+        function()
+            LrSelection.toggleGreenLabel()
+        end)),
     
-    togglePurpleLabel = function()
-        LrSelection.togglePurpleLabel()
-    end,
+    togglePurpleLabel = 
+        ModuleTools.BeforeFunction("LrSelection.togglePurpleLabel", 
+        ModuleTools.AfterFunction("LrSelection.togglePurpleLabel", 
+        function()
+            LrSelection.togglePurpleLabel()
+        end)),
     
-    toggleRedLabel    = function()
-        LrSelection.toggleRedLabel()
-    end,
+    toggleRedLabel    = 
+        ModuleTools.BeforeFunction("LrSelection.toggleRedLabel", 
+        ModuleTools.AfterFunction("LrSelection.toggleRedLabel", 
+        function()
+            LrSelection.toggleRedLabel()
+        end)),
     
-    toggleYellowLabel = function()
-        LrSelection.toggleYellowLabel()
-    end,
+    toggleYellowLabel = 
+        ModuleTools.BeforeFunction("LrSelection.toggleYellowLabel", 
+        ModuleTools.AfterFunction("LrSelection.toggleYellowLabel", 
+        function()
+            LrSelection.toggleYellowLabel()
+        end)),
     
 }

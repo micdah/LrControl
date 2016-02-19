@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Text;
+using System.Collections.Concurrent;
 using System.Threading;
-using log4net;
 
 namespace micdah.LrControlApi.Communication
 {
@@ -9,24 +8,24 @@ namespace micdah.LrControlApi.Communication
 
     internal class PluginClient
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (PluginClient));
-
-        private const string HostName = "10.211.55.2";//"localhost";
-        private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
-        private readonly SocketWrapper _sendSocket;
+        private const string HostName = "localhost";
+        private readonly BlockingCollection<string> _receivedMessages = new BlockingCollection<string>();
         private readonly SocketWrapper _receiveSocket;
-        private bool _isInsideLostConnectionHandler;
-        
+        private readonly object _sendLock = new object();
+        private readonly SocketWrapper _sendSocket;
+        private bool _lastConnectionStatus;
+
         public PluginClient(int sendPort, int receivePort)
         {
-            _sendSocket                    = new SocketWrapper(HostName, sendPort);
-            _receiveSocket                 = new SocketWrapper(HostName, receivePort);
-            _sendSocket.LostConnection    += () => LostConnectionHandler(_sendSocket);
-            _receiveSocket.LostConnection += () => LostConnectionHandler(_receiveSocket);
+            _sendSocket                    = new SocketWrapper(HostName, sendPort, false);
+            _receiveSocket                 = new SocketWrapper(HostName, receivePort, true);
+            _sendSocket.LostConnection    += () => _receiveSocket.Reconnect(false);
+            _receiveSocket.LostConnection += () => _sendSocket.Reconnect(false);
             _sendSocket.Connected         += ConnectedHandler;
             _receiveSocket.Connected      += ConnectedHandler;
+            _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
         }
-
+        
         public bool IsConnected => _sendSocket.IsConnected && _receiveSocket.IsConnected;
 
         public event ConnectionStatusHandler ConnectionStatus;
@@ -68,62 +67,40 @@ namespace micdah.LrControlApi.Communication
             if (message.Contains("\n"))
                 throw new ArgumentException("Must not contain newline characters", nameof(message));
 
-            if (!_receiveSocket.Flush())
+            lock (_sendLock)
             {
-                response = null;
-                return false;
-            }
+                if (!_sendSocket.Send(message))
+                {
+                    response = null;
+                    return false;
+                }
 
-            if (!_sendSocket.Send(message))
-            {
-                response = null;
-                return false;
-            }
+                _receivedMessages.TryTake(out response, SocketWrapper.SocketTimeout);
 
-            return _receiveSocket.Receive(out response, EndOfLineByte);
-        }
-
-        /// <summary>
-        ///     When one socket looses connection, the other probably will also need a reconnect
-        /// </summary>
-        /// <param name="socket"></param>
-        private void LostConnectionHandler(SocketWrapper socket)
-        {
-            if (_isInsideLostConnectionHandler) return;
-
-            _isInsideLostConnectionHandler = true;
-            try
-            {
-                if (socket == _receiveSocket) 
-                    _sendSocket.Reconnect();
-                else if (socket == _sendSocket)
-                    _receiveSocket.Reconnect();
-            }
-            finally
-            {
-                _isInsideLostConnectionHandler = false;
+                return _receiveSocket.Receive(out response, EndOfLineByte);
             }
         }
-
-        private bool _lastConnectionStatus;
 
         private void ConnectedHandler()
         {
             var isConnected = IsConnected;
-            if (_lastConnectionStatus != isConnected)
+            if (_lastConnectionStatus == isConnected) return;
+
+            lock (this)
             {
-                lock (this)
-                {
-                    if (_lastConnectionStatus != isConnected)
-                    {
-                        _lastConnectionStatus = isConnected;
-                        OnConnectionStatus(IsConnected);
-                    }
-                }
+                if (_lastConnectionStatus == isConnected) return;
+
+                _lastConnectionStatus = isConnected;
+                OnConnectionStatus(IsConnected);
             }
         }
 
-        protected virtual void OnConnectionStatus(bool connected)
+        private void ReceiveSocketOnMessageReceived(string message)
+        {
+            _receivedMessages.Add(message);
+        }
+
+        private void OnConnectionStatus(bool connected)
         {
             ThreadPool.QueueUserWorkItem(state => ConnectionStatus?.Invoke(connected));
         }
