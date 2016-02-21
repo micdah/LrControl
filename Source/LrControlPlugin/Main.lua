@@ -37,6 +37,11 @@ math.randomseed(os.time())
 currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
 currentLoadVersion = currentLoadVersion + 1
 
+Sockets = {
+    SendSocket = nil,
+    ReceiveSocket = nil,
+}
+
 
 -- Main task
 local function main(context)
@@ -45,13 +50,12 @@ local function main(context)
     local autoReconnect = true
 
     -- Open send socket
-    local sendSocket = nil
     local function openSendSocket()
-        if sendSocket ~= nil then
-            sendSocket:close()
+        if Sockets.SendSocket ~= nil then
+            Sockets.SendSocket:close()
         end
 
-        sendSocket = LrSocket.bind {
+        Sockets.SendSocket = LrSocket.bind {
             functionContext = context,
             plugin = _PLUGIN,
             port = Options.MessageSendPort,
@@ -69,7 +73,7 @@ local function main(context)
     openSendSocket()
     
     -- Open recieve socket  
-    local receiveSocket = LrSocket.bind {
+    Sockets.ReceiveSocket = LrSocket.bind {
         functionContext = context,
         plugin			= _PLUGIN,
         port			= Options.MessageReceivePort,
@@ -77,10 +81,10 @@ local function main(context)
         onMessage		= function (socket, message)
             local status, result = pcall(CommandInterpreter.InterpretCommand, Modules,message)
             if status then
-                sendSocket:send(result .. "\n")
+                Sockets.SendSocket:send(result .. "\n")
             else
                 local err = CommandInterpreter.ErrorMessage("Lua error: " .. result)
-                sendSocket:send(err .. "\n")
+                Sockets.SendSocket:send(err .. "\n")
             end
         end,
         onError         = function(socket, err)
@@ -102,13 +106,13 @@ local function main(context)
         -- Determine which parameters have changed
         for _,param in pairs(ChangeObserverParameters.Parameters) do
             if ChangeObserverParameters.HasChanged(param) then
-                sendSocket:send("Changed:"..param.."\n")
+                Sockets.SendSocket:send("Changed:"..param.."\n")
             end
         end
     end
     
     local function moduleChanged(module) 
-        sendSocket:send("Module:"..module.."\n")
+        Sockets.SendSocket:send("Module:"..module.."\n")
     end
 
     
@@ -118,7 +122,7 @@ local function main(context)
     
     -- Update change observer cache when setValue is called
     ModuleTools.DoBeforeFunction("LrDevelopController.setValue", function(param,value)
-        ChangeObserverParameters.registerValue(param,value) 
+        ChangeObserverParameters.RegisterValue(param,value)
     end)
 
     
@@ -138,7 +142,12 @@ local function main(context)
         -- Check if we need to add adjustment change observer
         if not observerAdded and currentModule == "develop" then
             LrDevelopController.addAdjustmentChangeObserver(context, adjustmentChanged, function(observer)
-                pcall(observer)
+                local success, result = pcall(observer)
+                if not success then
+                    LrDialogs.showBezel("Error in observer: " .. result)
+                else
+                    LrDialogs.showBezel("Succes obesrver")
+                end
             end)
             
             observerAdded = true
@@ -152,9 +161,11 @@ local function main(context)
 
     -- Close sockets
     autoReconnect = false
-    receiveSocket:close()
-    if sendSocket ~= nil then
-        sendSocket:close()
+    if Sockets.ReceiveSocket ~= nil then
+        Sockets.ReceiveSocket:close()
+    end
+    if Sockets.SendSocket ~= nil then
+        Sockets.SendSocket:close()
     end
 
     LrDialogs.showBezel("LrControl stopped")

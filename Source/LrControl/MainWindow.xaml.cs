@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
+using Midi.Devices;
+using Midi.Enums;
 
 namespace micdah.LrControl
 {
@@ -27,6 +30,37 @@ namespace micdah.LrControl
             _api.ConnectionStatus += UpdateConnectionStatus;
             _api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
             _api.LrApplicationView.ModuleChanged += LrApplicationViewOnModuleChanged;
+
+            var exposureRange = new Range(-5, 5);
+            var faderRange = new Range(0, 1023);
+            var inputDevice = DeviceManager.InputDevices.Single(x => x.Name == "BCF2000");
+            inputDevice.Nrpn += msg =>
+            {
+                if (msg.Parameter == 0)
+                {
+                    var value = exposureRange.FromRange(faderRange, msg.Value);
+                    _api.LrDevelopController.SetValue(Parameters.AdjustPanelParameters.Exposure, value);
+                }
+            };
+
+            inputDevice.Open();
+            inputDevice.StartReceiving(null);
+
+            var outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
+            outputDevice.Open();
+
+            _api.LrDevelopController.ParameterChanged += parameter =>
+            {
+                if (parameter == Parameters.AdjustPanelParameters.Exposure)
+                {
+                    double value;
+                    if (_api.LrDevelopController.GetValue(out value, Parameters.AdjustPanelParameters.Exposure))
+                    {
+                        outputDevice.SendNrpn(Channel.Channel1, 0,
+                            Convert.ToInt32(faderRange.FromRange(exposureRange, value)));
+                    }
+                }
+            };
         }
 
         private void LrApplicationViewOnModuleChanged(Module newModule)
@@ -41,7 +75,7 @@ namespace micdah.LrControl
         {
             if (parameter == Parameters.AdjustPanelParameters.Exposure)
             {
-                Double exposure;
+                double exposure;
                 if (_api.LrDevelopController.GetValue(out exposure, Parameters.AdjustPanelParameters.Exposure))
                 {
                     Dispatcher.InvokeAsync(() =>
@@ -172,7 +206,11 @@ namespace micdah.LrControl
 
         private void Decrement_OnClick(object sender, RoutedEventArgs e)
         {
-            _api.LrDevelopController.Decrement(Parameters.AdjustPanelParameters.Exposure);
+            double value;
+            if (_api.LrDevelopController.GetValue(out value, Parameters.AdjustPanelParameters.Exposure))
+            {
+                _api.LrDevelopController.SetValue(Parameters.AdjustPanelParameters.Exposure, value + 0.25);
+            }
         }
     }
 }
