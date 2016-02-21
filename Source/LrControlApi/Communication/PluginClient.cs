@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using micdah.LrControlApi.Modules.LrApplicationView;
 
 namespace micdah.LrControlApi.Communication
 {
     internal delegate void ChangeMessageHandler(string parameterName);
 
+    internal delegate void ModuleMessageHandler(string moduleName);
+
     internal class PluginClient
     {
         private const string HostName = "localhost";
         private const string Changed = "Changed:";
+        private const string Module = "Module:";
 
         private readonly BlockingCollection<string> _receivedMessages = new BlockingCollection<string>();
         private readonly SocketWrapper _receiveSocket;
@@ -31,6 +35,7 @@ namespace micdah.LrControlApi.Communication
         public bool IsConnected => _sendSocket.IsConnected && _receiveSocket.IsConnected;
         public event ConnectionHandler Connection;
         public event ChangeMessageHandler ChangeMessage;
+        public event ModuleMessageHandler ModuleMessage;
 
         public bool Open()
         {
@@ -117,6 +122,10 @@ namespace micdah.LrControlApi.Communication
             {
                 OnChangeMessage(message.Substring(Changed.Length));
             }
+            else if (message.StartsWith(Module))
+            {
+                OnModuleMessage(message.Substring(Module.Length));
+            }
             else
             {
                 _receivedMessages.Add(message);
@@ -138,6 +147,11 @@ namespace micdah.LrControlApi.Communication
         private void OnChangeMessage(string parameterName)
         {
             ThreadPool.QueueUserWorkItem(state => ChangeMessage?.Invoke((string) state), parameterName);
+        }
+
+        protected virtual void OnModuleMessage(string moduleName)
+        {
+            ThreadPool.QueueUserWorkItem(state => ModuleMessage?.Invoke((string)state), moduleName);
         }
     }
 }

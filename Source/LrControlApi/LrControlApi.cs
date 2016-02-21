@@ -28,6 +28,7 @@ namespace micdah.LrControlApi
 
             _pluginClient.Connection    += PluginClientOnConnection;
             _pluginClient.ChangeMessage += name => _lrDevelopController.OnParameterChanged(name);
+            _pluginClient.ModuleMessage += name => _lrApplicationView.OnModuleChanged(name);
 
             _pluginClient.Open();
         }

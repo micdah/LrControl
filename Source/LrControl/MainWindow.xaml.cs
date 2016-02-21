@@ -26,14 +26,30 @@ namespace micdah.LrControl
             _api = new LrControlApi.LrControlApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
             _api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
+            _api.LrApplicationView.ModuleChanged += LrApplicationViewOnModuleChanged;
+        }
+
+        private void LrApplicationViewOnModuleChanged(Module newModule)
+        {
+            Dispatcher.InvokeAsync(() =>
+            {
+                Response.Text = $"Changed module: {newModule.Name}";
+            });
         }
 
         private void LrDevelopControllerOnParameterChanged(IParameter parameter)
         {
-            Dispatcher.InvokeAsync(() =>
+            if (parameter == Parameters.AdjustPanelParameters.Exposure)
             {
-                Response.Text = $"Parameter changed: {parameter.DisplayName}";
-            });
+                Double exposure;
+                if (_api.LrDevelopController.GetValue(out exposure, Parameters.AdjustPanelParameters.Exposure))
+                {
+                    Dispatcher.InvokeAsync(() =>
+                    {
+                        Response.Text = $"{parameter.DisplayName} = {exposure}";
+                    });
+                }
+            }
         }
 
 

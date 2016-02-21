@@ -106,6 +106,10 @@ local function main(context)
             end
         end
     end
+    
+    local function moduleChanged(module) 
+        sendSocket:send("Module:"..module.."\n")
+    end
 
     
     -- Start LrControl application
@@ -117,23 +121,33 @@ local function main(context)
         ChangeObserverParameters.registerValue(param,value) 
     end)
 
-
-    -- Wait for develop module to be opened (also check for shutdown)
+    
+    -- Enter main waiting loop
     local loadVersion = currentLoadVersion
-    while (LrApplicationView.getCurrentModuleName() ~= "develop" and loadVersion == currentLoadVersion) do
+    local lastModule = nil
+    local observerAdded = false
+    
+    while (loadVersion == currentLoadVersion) do
+        -- Chcek if module has changed
+        local currentModule = LrApplicationView.getCurrentModuleName()
+        if lastModule ~= currentModule then
+            moduleChanged(currentModule)
+            lastModule = currentModule
+        end
+        
+        -- Check if we need to add adjustment change observer
+        if not observerAdded and currentModule == "develop" then
+            LrDevelopController.addAdjustmentChangeObserver(context, adjustmentChanged, function(observer)
+                pcall(observer)
+            end)
+            
+            observerAdded = true
+        end
+        
         LrTasks.sleep(1/2)
     end
     
-    if loadVersion == currentLoadVersion then  
-        LrDevelopController.addAdjustmentChangeObserver(context, adjustmentChanged, function(observer)
-            pcall(observer)
-        end)
-        
-        while (loadVersion == currentLoadVersion) do
-            LrTasks.sleep(1/2)
-        end
-    end
-
+    -- Shutdown plugin
     LrDialogs.showBezel("Stopping LrControl")
 
     -- Close sockets

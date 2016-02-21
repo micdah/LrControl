@@ -10,6 +10,16 @@ namespace micdah.LrControlApi.Modules.LrApplicationView
         }
 
         public event ModuleChangedHandler ModuleChanged;
+
+        public void OnModuleChanged(string moduleName)
+        {
+            var module = Module.GetEnumForValue(moduleName);
+            if (module != null)
+            {
+                ModuleChanged?.Invoke(module);
+            }
+        }
+
         public bool GetCurrentModuleName(out Module module)
         {
             string result;
