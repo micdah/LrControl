@@ -2,16 +2,20 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using log4net;
 using micdah.LrControlApi.Common;
 
 namespace micdah.LrControlApi.Communication
 {
+    public delegate void MessageHandler(string message);
+
+    public delegate void ConnectionHandler(bool connected);
+
     internal class SocketWrapper : IDisposable
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(SocketWrapper));
-
-        public const int SocketTimeout = 500;
+        public const int SocketTimeout = 1000;
+        private static readonly ILog Log = LogManager.GetLogger(typeof (SocketWrapper));
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
 
         private readonly string _hostName;
@@ -33,20 +37,9 @@ namespace micdah.LrControlApi.Communication
         }
 
         public bool IsOpen { get; private set; }
-
         public bool IsConnected { get; private set; }
-
-        public void Dispose()
-        {
-            if (IsOpen)
-            {
-                Close();
-            }
-        }
-
-        public event Action LostConnection;
-        public event Action Connected;
-        public event Action<string> MessageReceived;
+        public event ConnectionHandler Connection;
+        public event MessageHandler MessageReceived;
 
         public bool Open()
         {
@@ -93,33 +86,12 @@ namespace micdah.LrControlApi.Communication
             Log.Debug($"Socket connected to {_hostName}:{_port} has been closed");
         }
 
-        private void CloseSocket()
-        {
-            try
-            {
-                if (_socket.Connected)
-                {
-                    _socket.Disconnect(false);
-                }
-                _socket.Close();
-            }
-            catch (Exception e)
-            {
-                Log.Error("An error occurred while trying to close socket", e);
-            }
-            finally
-            {
-                _socket.Dispose();
-            }
-            _socket = null;
-        }
-
         public void Reconnect(bool fireEvent = true)
         {
             if (!IsOpen)
                 throw new InvalidOperationException("Canont reconnect, is not open");
 
-            if (fireEvent) OnLostConnection();
+            if (fireEvent) OnConnection(false);
 
             IsConnected = false;
             _reconnectThread.Start();
@@ -141,7 +113,7 @@ namespace micdah.LrControlApi.Communication
             }
             catch (SocketException e)
             {
-                Log.Error("Unable to send message '{message}'", e);
+                Log.Error($"Error while sending message '{message}', reconnecting", e);
                 Reconnect();
 
                 return false;
@@ -168,7 +140,7 @@ namespace micdah.LrControlApi.Communication
                 while (true)
                 {
                     var receivedBytes = _socket.Receive(_receiveBuffer);
-                    if (receivedBytes <= 0)
+                    if (receivedBytes == 0)
                     {
                         if (_stopwatch.ElapsedMilliseconds > SocketTimeout)
                         {
@@ -194,8 +166,11 @@ namespace micdah.LrControlApi.Communication
             }
             catch (SocketException e)
             {
-                Log.Error("Unable to receive message", e);
-                Reconnect();
+                if (e.SocketErrorCode != SocketError.TimedOut)
+                {
+                    Log.Error("Error while receiving message, reconnecting", e);
+                    Reconnect();
+                }
 
                 message = null;
                 return false;
@@ -206,19 +181,21 @@ namespace micdah.LrControlApi.Communication
             }
         }
 
-        private void ReconnectIteration(Action stop)
+        private void ReconnectIteration(RequestStopHandler stop)
         {
-            _receiveThread?.Stop();
+            // Stop trying to receive messages, while reconnecting
+            _receiveThread?.Stop(true);
 
             Log.Debug($"Trying to reconnect to {_hostName}:{_port}");
 
             if (TryReconnect())
             {
                 Log.Debug($"Successfully reconnected to {_hostName}:{_port}");
+
                 IsConnected = true;
+                OnConnection(true);
 
-                OnConnected();
-
+                // Start trying to receive messages again
                 _receiveThread?.Start();
 
                 // Stop reconnect loop, successfully reconnected
@@ -226,12 +203,16 @@ namespace micdah.LrControlApi.Communication
             }
         }
 
-        private void ReceiveIteration(Action stop)
+        private void ReceiveIteration(RequestStopHandler stop)
         {
-            string message;
-            if (Receive(out message, EndOfLineByte))
+            string messages;
+            if (Receive(out messages, EndOfLineByte))
             {
-                OnMessageReceived(message);
+                // There can be multiple messages bundled into a single receive
+                foreach (var message in messages.Split('\n'))
+                {
+                    OnMessageReceived(message);
+                }
             }
         }
 
@@ -276,19 +257,43 @@ namespace micdah.LrControlApi.Communication
             }
         }
 
-        private void OnLostConnection()
+        private void CloseSocket()
         {
-            LostConnection?.Invoke();
-        }
-
-        private void OnConnected()
-        {
-            Connected?.Invoke();
+            try
+            {
+                if (_socket.Connected)
+                {
+                    _socket.Disconnect(false);
+                }
+                _socket.Close();
+            }
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while trying to close socket", e);
+            }
+            finally
+            {
+                _socket.Dispose();
+            }
+            _socket = null;
         }
 
         private void OnMessageReceived(string message)
         {
             MessageReceived?.Invoke(message);
+        }
+
+        private void OnConnection(bool connected)
+        {
+            Connection?.Invoke(connected);
+        }
+
+        public void Dispose()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
         }
     }
 }

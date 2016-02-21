@@ -23,12 +23,18 @@ local LrDevelopController = import 'LrDevelopController'
 
 local cache = {}
 
-local function hasChanged(parameter) 
-	return LrDevelopController.getValue(parameter) ~= cache[parameter]
-end
-
 local function registerValue(parameter, value)
 	cache[parameter] = value
+end
+
+local function hasChanged(parameter) 
+    local currentValue = LrDevelopController.getValue(parameter)
+    if currentValue ~= cache[parameter] then
+        registerValue(parameter, currentValue)
+        return true
+    else
+        return false
+    end
 end
 
 local parameters = {

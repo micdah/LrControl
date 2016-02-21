@@ -25,6 +25,15 @@ namespace micdah.LrControl
 
             _api = new LrControlApi.LrControlApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
+            _api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
+        }
+
+        private void LrDevelopControllerOnParameterChanged(IParameter parameter)
+        {
+            Dispatcher.InvokeAsync(() =>
+            {
+                Response.Text = $"Parameter changed: {parameter.DisplayName}";
+            });
         }
 
 

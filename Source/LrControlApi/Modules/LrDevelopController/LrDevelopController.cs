@@ -1,15 +1,33 @@
-﻿using micdah.LrControlApi.Common;
+﻿using System.Collections.Generic;
+using System.Linq;
+using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Communication;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     internal class LrDevelopController : ModuleBase<LrDevelopController>, ILrDevelopController
     {
+        private readonly Dictionary<string, IParameter> _parameterLookup;
+
         public LrDevelopController(MessageProtocol<LrDevelopController> messageProtocol) : base(messageProtocol)
         {
+            _parameterLookup = new Dictionary<string, IParameter>();
+            foreach (var parameter in Parameters.Parameters.AllParameters)
+            {
+                _parameterLookup[parameter.Name] = parameter;
+            }
         }
 
-        public event AdjustmentChange AdjustmentChangeObserver;
+        public event ParameterChangedHandler ParameterChanged;
+
+        public void OnParameterChanged(string parameterName)
+        {
+            IParameter parameter;
+            if (_parameterLookup.TryGetValue(parameterName, out parameter))
+            {
+                ParameterChanged?.Invoke(parameter);
+            }
+        }
 
         public bool Decrement(IParameter param)
         {

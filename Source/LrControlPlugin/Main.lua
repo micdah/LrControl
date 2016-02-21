@@ -97,6 +97,15 @@ local function main(context)
             end
         end,
     }
+    
+    local function adjustmentChanged() 
+        -- Determine which parameters have changed
+        for _,param in pairs(ChangeObserverParameters.Parameters) do
+            if ChangeObserverParameters.HasChanged(param) then
+                sendSocket:send("Changed:"..param.."\n")
+            end
+        end
+    end
 
     
     -- Start LrControl application
@@ -116,30 +125,8 @@ local function main(context)
     end
     
     if loadVersion == currentLoadVersion then  
-        LrDevelopController.addAdjustmentChangeObserver(context, "LrControl", function(observer)
-            -- Determine which parameters have changed
-            local changed = {}
-            for param in ChangeObserverParameters.Parameters do
-                if ChangeObserverParameters.HasChanged(param) then
-                    changed[#changed+1] = param
-                end
-            end
-            
-            -- Send parameters that have changed
-            if #changed > 0 then
-                local msg = 'Changed:'
-                
-                for i=1,#changed do
-                    if i > 1 then   
-                        msg = msg + ","
-                    end
-                    msg = msg + changed[i] 
-                end
-                
-                msg = msg + "\n"
-                
-                sendSocket:send(msg)
-            end
+        LrDevelopController.addAdjustmentChangeObserver(context, adjustmentChanged, function(observer)
+            pcall(observer)
         end)
         
         while (loadVersion == currentLoadVersion) do

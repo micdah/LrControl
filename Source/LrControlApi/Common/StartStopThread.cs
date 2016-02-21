@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Threading;
+using log4net;
 
 namespace micdah.LrControlApi.Common
 {
+    internal delegate void RequestStopHandler();
+
+    internal delegate void IterationHandler(RequestStopHandler stop);
+
     internal class StartStopThread : IDisposable
     {
-        private readonly Action<Action> _iterationFunction;
-        private readonly ManualResetEvent _runEvent = new ManualResetEvent(false);
-        private readonly ManualResetEvent _stopEvent = new ManualResetEvent(false);
-        private readonly ManualResetEvent _stopFinishedEvent = new ManualResetEvent(false);
-        private Thread _thread;
+        private static readonly ILog Log = LogManager.GetLogger(typeof (StartStopThread));
 
-        public StartStopThread(string name, Action<Action> iterationFunction)
+        private readonly IterationHandler _iterationFunction;
+        private readonly ManualResetEvent _runEvent = new ManualResetEvent(false);
+        private readonly ManualResetEvent _stopEvent = new ManualResetEvent(true);
+        private readonly ManualResetEvent _terminatedEvent = new ManualResetEvent(false);
+        private readonly Thread _thread;
+        private bool _terminate;
+
+        public StartStopThread(string name, IterationHandler iterationFunction)
         {
             _iterationFunction = iterationFunction;
-
-            if (_thread != null)
-                throw new InvalidOperationException("Already started");
 
             _thread = new Thread(ThreadStart)
             {
@@ -26,54 +31,59 @@ namespace micdah.LrControlApi.Common
             _thread.Start();
         }
 
+        public void Start()
+        {
+            Log.Debug("Start");
+            _runEvent.Set();
+        }
+
+        public void Stop(bool wait = false)
+        {
+            Log.Debug("Stop");
+            _runEvent.Reset();
+
+            if (wait)
+            {
+                _stopEvent.WaitOne();
+            }
+        }
+
         public void Dispose()
         {
             if (_thread == null) return;
 
-            _stopEvent.Set();
+            // Stop thread
+            _terminate = true;
             _runEvent.Set();
+            _terminatedEvent.WaitOne();
 
-            _stopFinishedEvent.WaitOne();
-
-            _runEvent.Reset();
-            _stopEvent.Reset();
-            _stopFinishedEvent.Reset();
-
-            _thread = null;
-        }
-
-        public void Start()
-        {
-            _runEvent.Set();
-        }
-
-        public void Stop()
-        {
-            if (_thread != null)
-                throw new InvalidOperationException("Not started");
-
-            _runEvent.Reset();
+            _runEvent.Dispose();
+            _stopEvent.Dispose();
+            _terminatedEvent.Dispose();
         }
 
         private void ThreadStart()
         {
-            Action stopAction = () => _runEvent.Reset();
+            RequestStopHandler stop = () => Stop();
 
             while (true)
             {
                 _runEvent.WaitOne();
+                _stopEvent.Reset();
 
-                if (!_stopEvent.WaitOne(0))
+                if (!_terminate)
                 {
-                    _iterationFunction(stopAction);
+                    _iterationFunction(stop);
                 }
                 else
                 {
                     break;
                 }
+
+                _stopEvent.Set();
             }
 
-            _stopFinishedEvent.Set();
+            _terminatedEvent.Set();
         }
     }
 }

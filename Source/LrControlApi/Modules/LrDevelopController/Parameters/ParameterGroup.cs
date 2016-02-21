@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 {
     public abstract class ParameterGroup
     {
-        private readonly List<IParameter> _allParameters = new List<IParameter>();
+        private ReadOnlyCollection<IParameter> _allParameters;
 
         protected ParameterGroup(string name)
         {
@@ -13,11 +14,11 @@ namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
 
         public string Name { get; }
 
-        public IList<IParameter> AllParameters => _allParameters.AsReadOnly();
+        public IList<IParameter> AllParameters => _allParameters;
 
         protected void AddParameters(params IParameter[] parameters)
         {
-            _allParameters.AddRange(parameters);
+            _allParameters = new ReadOnlyCollection<IParameter>(parameters);
         }
     }
 }

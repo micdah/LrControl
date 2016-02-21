@@ -4,31 +4,33 @@ using System.Threading;
 
 namespace micdah.LrControlApi.Communication
 {
-    public delegate void ConnectionStatusHandler(bool connected);
+    internal delegate void ChangeMessageHandler(string parameterName);
 
     internal class PluginClient
     {
         private const string HostName = "localhost";
+        private const string Changed = "Changed:";
+
         private readonly BlockingCollection<string> _receivedMessages = new BlockingCollection<string>();
         private readonly SocketWrapper _receiveSocket;
-        private readonly object _sendLock = new object();
         private readonly SocketWrapper _sendSocket;
+        private readonly object _sendLock = new object();
+        private readonly object _connectionStatusLock = new object();
+
         private bool _lastConnectionStatus;
 
         public PluginClient(int sendPort, int receivePort)
         {
-            _sendSocket                    = new SocketWrapper(HostName, sendPort, false);
-            _receiveSocket                 = new SocketWrapper(HostName, receivePort, true);
-            _sendSocket.LostConnection    += () => _receiveSocket.Reconnect(false);
-            _receiveSocket.LostConnection += () => _sendSocket.Reconnect(false);
-            _sendSocket.Connected         += ConnectedHandler;
-            _receiveSocket.Connected      += ConnectedHandler;
+            _sendSocket                     = new SocketWrapper(HostName, sendPort, false);
+            _receiveSocket                  = new SocketWrapper(HostName, receivePort, true);
+            _sendSocket.Connection         += connected => SocketConnectionHandler(_sendSocket, connected);
+            _receiveSocket.Connection      += connected => SocketConnectionHandler(_receiveSocket, connected);
             _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
         }
-        
-        public bool IsConnected => _sendSocket.IsConnected && _receiveSocket.IsConnected;
 
-        public event ConnectionStatusHandler ConnectionStatus;
+        public bool IsConnected => _sendSocket.IsConnected && _receiveSocket.IsConnected;
+        public event ConnectionHandler Connection;
+        public event ChangeMessageHandler ChangeMessage;
 
         public bool Open()
         {
@@ -69,40 +71,73 @@ namespace micdah.LrControlApi.Communication
 
             lock (_sendLock)
             {
+                // Empty message queue
+                if (_receivedMessages.Count > 0)
+                {
+                    string throwAway;
+                    while (_receivedMessages.TryTake(out throwAway))
+                    {
+                    }
+                }
+
+                // Send message
                 if (!_sendSocket.Send(message))
                 {
                     response = null;
                     return false;
                 }
 
-                _receivedMessages.TryTake(out response, SocketWrapper.SocketTimeout);
-
-                return _receiveSocket.Receive(out response, EndOfLineByte);
+                // Wait for response
+                return _receivedMessages.TryTake(out response, SocketWrapper.SocketTimeout);
             }
         }
 
-        private void ConnectedHandler()
+        private void SocketConnectionHandler(SocketWrapper socket, bool connected)
         {
-            var isConnected = IsConnected;
-            if (_lastConnectionStatus == isConnected) return;
-
-            lock (this)
+            if (!connected)
             {
-                if (_lastConnectionStatus == isConnected) return;
-
-                _lastConnectionStatus = isConnected;
-                OnConnectionStatus(IsConnected);
+                if (socket == _sendSocket)
+                {
+                    _receiveSocket.Reconnect(false);
+                }
+                else
+                {
+                    _sendSocket.Reconnect(false);
+                }
             }
+
+            UpdateConnectionStatus();
         }
 
         private void ReceiveSocketOnMessageReceived(string message)
         {
-            _receivedMessages.Add(message);
+            if (string.IsNullOrEmpty(message)) return;
+
+            if (message.StartsWith(Changed))
+            {
+                OnChangeMessage(message.Substring(Changed.Length));
+            }
+            else
+            {
+                _receivedMessages.Add(message);
+            }
+        }
+        
+        private void UpdateConnectionStatus()
+        {
+            lock (_connectionStatusLock)
+            {
+                var isConnected = IsConnected;
+                if (_lastConnectionStatus == isConnected) return;
+
+                ThreadPool.QueueUserWorkItem(state => Connection?.Invoke((bool)state), isConnected);
+                _lastConnectionStatus = isConnected;
+            }
         }
 
-        private void OnConnectionStatus(bool connected)
+        private void OnChangeMessage(string parameterName)
         {
-            ThreadPool.QueueUserWorkItem(state => ConnectionStatus?.Invoke(connected));
+            ThreadPool.QueueUserWorkItem(state => ChangeMessage?.Invoke((string) state), parameterName);
         }
     }
 }
