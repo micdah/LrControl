@@ -151,14 +151,6 @@ return {
             LrDevelopController.revealPanel(param)
         end))),
     
-    revealpanel                    = 
-        ModuleTools.RequireModule("develop", 
-        ModuleTools.BeforeFunction("LrDevelopController.revealpanel", 
-        ModuleTools.AfterFunction("LrDevelopController.revealpanel", 
-        function(panel)
-            LrDevelopController.revealpanel(panel)
-        end))),
-    
     selectTool                     = 
         ModuleTools.RequireModule("develop", 
         ModuleTools.BeforeFunction("LrDevelopController.selectTool", 

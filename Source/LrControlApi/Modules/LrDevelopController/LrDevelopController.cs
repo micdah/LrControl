@@ -152,7 +152,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(RevealPanel), param);
         }
 
-        public bool Revealpanel(Panel panel)
+        public bool RevealPanel(Panel panel)
         {
             return Invoke(nameof(RevealPanel), panel);
         }

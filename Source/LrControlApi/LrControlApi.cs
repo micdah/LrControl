@@ -4,6 +4,7 @@ using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrControl;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDialogs;
+using micdah.LrControlApi.Modules.LrSelection;
 using micdah.LrControlApi.Modules.LrUndo;
 
 namespace micdah.LrControlApi
@@ -14,6 +15,7 @@ namespace micdah.LrControlApi
         private readonly LrControl _lrControl;
         private readonly LrDevelopController _lrDevelopController;
         private readonly LrDialogs _lrDialogs;
+        private readonly LrSelection _lrSelection;
         private readonly LrUndo _lrUndo;
         private readonly PluginClient _pluginClient;
 
@@ -24,6 +26,7 @@ namespace micdah.LrControlApi
             _lrDevelopController      = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
             _lrApplicationView        = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
             _lrDialogs                = new LrDialogs(new MessageProtocol<LrDialogs>(_pluginClient));
+            _lrSelection              = new LrSelection(new MessageProtocol<LrSelection>(_pluginClient));
             _lrUndo                   = new LrUndo(new MessageProtocol<LrUndo>(_pluginClient));
 
             _pluginClient.Connection    += PluginClientOnConnection;
@@ -42,6 +45,7 @@ namespace micdah.LrControlApi
         public ILrApplicationView LrApplicationView => _lrApplicationView;
 
         public ILrDialogs LrDialogs => _lrDialogs;
+        public ILrSelection LrSelection => _lrSelection;
 
         public ILrUndo LrUndo => _lrUndo;
 

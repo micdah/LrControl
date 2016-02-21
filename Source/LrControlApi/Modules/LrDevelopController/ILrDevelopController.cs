@@ -115,7 +115,7 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         bool ResetBrushing();
 
         /// <summary>
-        ///     lears all radial filter adjustments from the current photo.
+        ///     Clears all radial filter adjustments from the current photo.
         ///     Must be called while the Develop module is active.
         /// </summary>
         [LuaMethod, LuaRequireModule("develop")]
@@ -178,8 +178,8 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         ///     Must be called while the Develop module is active.
         /// </summary>
         /// <param name="panel"></param>
-        [LuaMethod, LuaRequireModule("develop")]
-        bool Revealpanel(Panel panel);
+        [LuaRequireModule("develop")]
+        bool RevealPanel(Panel panel);
 
         /// <summary>
         ///     Select a tool mode in Develop.
