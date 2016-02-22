@@ -5,7 +5,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 using Midi.Enums;
 
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public class ParameterFunction : Function, IDisposable
     {

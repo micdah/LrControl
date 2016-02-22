@@ -9,7 +9,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 using Midi.Devices;
 using Midi.Messages;
 
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public class FunctionGroup : INotifyPropertyChanged
     {

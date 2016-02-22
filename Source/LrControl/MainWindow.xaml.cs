@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using micdah.LrControl.Functions;
+using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrDevelopController;

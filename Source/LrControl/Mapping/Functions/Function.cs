@@ -7,7 +7,7 @@ using Midi.Devices;
 using Midi.Enums;
 using Midi.Messages;
 
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public abstract class Function : INotifyPropertyChanged
     {

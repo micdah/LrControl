@@ -2,7 +2,7 @@ using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using Midi.Enums;
 
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public class EnableFunctionGroupFunction : Function
     {

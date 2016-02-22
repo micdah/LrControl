@@ -1,4 +1,4 @@
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public enum ControllerType
     {

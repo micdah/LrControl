@@ -2,7 +2,7 @@ using System;
 using micdah.LrControlApi.Common;
 using Midi.Enums;
 
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public class MethodFunction : Function
     {

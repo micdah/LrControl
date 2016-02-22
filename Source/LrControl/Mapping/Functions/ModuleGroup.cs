@@ -8,7 +8,7 @@ using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using Midi.Devices;
 
-namespace micdah.LrControl.Functions
+namespace micdah.LrControl.Mapping.Functions
 {
     public class ModuleGroup : INotifyPropertyChanged
     {
