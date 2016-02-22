@@ -64,6 +64,14 @@ namespace micdah.LrControl.Mapping.Functions
             ControllerChanged(controllerValue);
         }
 
+        protected void ShowHud(string message)
+        {
+            if (Settings.ShowHudMessages)
+            {
+                Api.LrDialogs.ShowBezel(message, 0.25);
+            }
+        }
+
         protected abstract void ControllerChanged(int controllerValue);
 
         [NotifyPropertyChangedInvocator]

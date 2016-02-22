@@ -34,7 +34,7 @@
         public readonly IParameter<int> GrayMixerBlue               = new Parameter<int>("GrayMixerBlue", "Black & White Mix: Blue");
         public readonly IParameter<int> GrayMixerPurple             = new Parameter<int>("GrayMixerPurple", "Black & White Mix: Purple");
         public readonly IParameter<int> GrayMixerMagenta            = new Parameter<int>("GrayMixerMagenta", "Black & White Mix: Magenta");
-        public readonly IParameter<bool> ConvertToGrayscale         = new Parameter<bool>("ConvertToGrayscale", "Convert to grayscale (toggle)");
+        public readonly IParameter<bool> ConvertToGrayscale         = new Parameter<bool>("ConvertToGrayscale", "Convert to B&W");
 
         internal MixerPanelParameter() : base("HSL / Color / B&W")
         {

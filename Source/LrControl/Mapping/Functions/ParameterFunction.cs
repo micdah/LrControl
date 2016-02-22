@@ -33,24 +33,15 @@ namespace micdah.LrControl.Mapping.Functions
             api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
         }
 
-        public void Dispose()
-        {
-            if (_controllerChangedTimer != null)
-            {
-                _controllerChangedTimer.Dispose();
-                _controllerChangedTimer = null;
-            }
-        }
-
-        ~ParameterFunction()
-        {
-            Dispose();
-        }
-
         public override void Enable()
         {
             base.Enable();
             UpdateControllerValue();
+        }
+
+        protected override void ControllerChanged(int controllerValue)
+        {
+            _controllerValue = controllerValue;
         }
 
         private void ControllerChangedTimer(object state)
@@ -62,11 +53,6 @@ namespace micdah.LrControl.Mapping.Functions
             _lastControllerValue = value;
         }
 
-        protected override void ControllerChanged(int controllerValue)
-        {
-            _controllerValue = controllerValue;
-        }
-
         private void ControllerChangedFiltered(int controllerValue)
         {
             if (!UpdateRange()) return;
@@ -74,16 +60,34 @@ namespace micdah.LrControl.Mapping.Functions
             var parameterValue = CalculateParamterValue(controllerValue);
             if (_intParameter != null)
             {
-                Api.LrDevelopController.SetValue(_intParameter, Convert.ToInt32(parameterValue));
+                var intValue = Convert.ToInt32(parameterValue);
+                Api.LrDevelopController.SetValue(_intParameter, intValue);
+
+                ShowHud($"{_intParameter.DisplayName}: {intValue}");
             }
             else if (_doubleParameter != null)
             {
                 Api.LrDevelopController.SetValue(_doubleParameter, parameterValue);
+
+                ShowHud($"{_doubleParameter.DisplayName}: {parameterValue:F1}");
             }
             else if (_boolParameter != null)
             {
-                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int) Controller.Range.Maximum);
+                var enabled = controllerValue == (int) Controller.Range.Maximum;
+                Api.LrDevelopController.SetValue(_boolParameter, enabled);
+
+                ShowHud($"{_boolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
             }
+        }
+
+        private double CalculateParamterValue(int controllerValue)
+        {
+            if (_doubleParameter == Parameters.AdjustPanelParameters.Temperature)
+            {
+                return CalculateExposureParameterValue(controllerValue);
+            }
+
+            return _parameterRange.FromRange(Controller.Range, controllerValue);
         }
 
         private void LrDevelopControllerOnParameterChanged(IParameter parameter)
@@ -99,16 +103,6 @@ namespace micdah.LrControl.Mapping.Functions
             if (!UpdateRange()) return;
 
             Controller.SetControllerValue(CalculateControllerValue());
-        }
-
-        private double CalculateParamterValue(int controllerValue)
-        {
-            if (_doubleParameter == Parameters.AdjustPanelParameters.Temperature)
-            {
-                return CalculateExposureParameterValue(controllerValue);
-            }
-
-            return _parameterRange.FromRange(Controller.Range, controllerValue);
         }
 
         private int CalculateControllerValue()
@@ -196,6 +190,20 @@ namespace micdah.LrControl.Mapping.Functions
                 return Api.LrDevelopController.GetRange(out _parameterRange, _boolParameter);
             }
             return false;
+        }
+
+        public void Dispose()
+        {
+            if (_controllerChangedTimer != null)
+            {
+                _controllerChangedTimer.Dispose();
+                _controllerChangedTimer = null;
+            }
+        }
+
+        ~ParameterFunction()
+        {
+            Dispose();
         }
     }
 }

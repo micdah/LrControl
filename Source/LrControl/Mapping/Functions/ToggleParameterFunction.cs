@@ -19,6 +19,8 @@ namespace micdah.LrControl.Mapping.Functions
                 if (Api.LrDevelopController.GetValue(out enabled, _parameter))
                 {
                     Api.LrDevelopController.SetValue(_parameter, !enabled);
+
+                    ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {_parameter.DisplayName}");
                 }
             }
         }

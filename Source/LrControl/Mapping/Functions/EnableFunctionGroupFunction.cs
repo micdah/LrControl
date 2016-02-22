@@ -21,6 +21,8 @@ namespace micdah.LrControl.Mapping.Functions
             if (!_functionGroup.Enabled)
             {
                 _functionGroup.Enable();
+
+                ShowHud($"Switched to panel: {_functionGroup.Panel.Name}");
             }
             else
             {
@@ -30,6 +32,8 @@ namespace micdah.LrControl.Mapping.Functions
                 if (Api.LrDevelopController.GetValue(out enabled, _enablePanelParamter))
                 {
                     Api.LrDevelopController.SetValue(_enablePanelParamter, !enabled);
+
+                    ShowHud($"{(!enabled ? "Enabled" : "Disabled")} panel: {_functionGroup.Panel.Name}");
                 }
             }
         }

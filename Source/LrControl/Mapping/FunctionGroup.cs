@@ -5,9 +5,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using log4net;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace micdah.LrControl.Mapping
 {
     public class FunctionGroup : INotifyPropertyChanged
     {
@@ -94,7 +95,6 @@ namespace micdah.LrControl.Mapping.Functions
                 if (Panel != null)
                 {
                     _api.LrDevelopController.RevealPanel(Panel);
-                    _api.LrDialogs.ShowBezel($"Active panel: {Panel.Name}");
                 }
             }
 

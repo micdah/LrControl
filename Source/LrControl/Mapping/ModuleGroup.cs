@@ -7,7 +7,7 @@ using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Modules.LrApplicationView;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace micdah.LrControl.Mapping
 {
     public class ModuleGroup : INotifyPropertyChanged
     {

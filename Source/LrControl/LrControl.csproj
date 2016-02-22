@@ -63,22 +63,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BCF2000Tester.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Tools\BCF2000Tester.xaml.cs">
+      <DependentUpon>BCF2000Tester.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Debounce.cs" />
-    <Compile Include="BCF2000Tester.xaml.cs">
-      <DependentUpon>BCF2000Tester.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\BCF2000Tester.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -88,13 +87,13 @@
     <Compile Include="Mapping\Controller.cs" />
     <Compile Include="Mapping\ControllerManager.cs" />
     <Compile Include="Mapping\ControllerType.cs" />
+    <Compile Include="Mapping\FunctionGroup.cs" />
     <Compile Include="Mapping\Functions\EnableFunctionGroupFunction.cs" />
     <Compile Include="Mapping\Functions\Function.cs" />
-    <Compile Include="Mapping\Functions\FunctionGroup.cs" />
     <Compile Include="Mapping\Functions\MethodFunction.cs" />
-    <Compile Include="Mapping\Functions\ModuleGroup.cs" />
     <Compile Include="Mapping\Functions\ParameterFunction.cs" />
     <Compile Include="Mapping\Functions\ToggleParameterFunction.cs" />
+    <Compile Include="Mapping\ModuleGroup.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
