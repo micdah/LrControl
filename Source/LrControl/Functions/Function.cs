@@ -90,7 +90,6 @@ namespace micdah.LrControl.Functions
             get { return _outputDevice; }
             set
             {
-                if (value == null) throw new ArgumentNullException(nameof(value));
                 if (Equals(value, _outputDevice)) return;
                 _outputDevice = value;
                 OnPropertyChanged();

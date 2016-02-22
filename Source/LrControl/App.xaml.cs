@@ -27,6 +27,9 @@ namespace micdah.LrControl
 
             var mainWindow = new MainWindow();
             mainWindow.Show();
+
+            //var bcf2000 = new BCF2000Tester();
+            //bcf2000.Show();
         }
 
         private void SetupLogging()

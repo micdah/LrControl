@@ -42,30 +42,19 @@ namespace micdah.LrControl
 
             // Develop group
             var developGroup = new ModuleGroup(_api, Module.Develop);
-
             var basicGroup = CreateBasicGroup();
-            basicGroup.SetOutputDevice(_outputDevice);
-            basicGroup.SetInputDevice(_inputDevice);
             developGroup.FunctionGroups.Add(basicGroup);
-
             var toneCurveGroup = CreateToneCurveGroup();
-            toneCurveGroup.SetOutputDevice(_outputDevice);
-            toneCurveGroup.SetInputDevice(_inputDevice);
             developGroup.FunctionGroups.Add(toneCurveGroup);
-
-
-            var globalDevelopGroup = CreateGlobalDevelopGroup(basicGroup, toneCurveGroup);
-            globalDevelopGroup.SetOutputDevice(_outputDevice);
-            globalDevelopGroup.SetInputDevice(_inputDevice);
-            developGroup.FunctionGroups.Add(globalDevelopGroup);
+            developGroup.FunctionGroups.Add(CreateGlobalDevelopGroup(basicGroup, toneCurveGroup));
+            developGroup.SetInputDevice(_inputDevice);
+            developGroup.SetOutputDevice(_outputDevice);
 
             // Library group
             var libraryGroup = new ModuleGroup(_api, Module.Library);
-
-            var globalLibraryGroup = CreateGlobalLibraryGroup();
-            globalLibraryGroup.SetOutputDevice(_outputDevice);
-            globalLibraryGroup.SetInputDevice(_inputDevice);
-            libraryGroup.FunctionGroups.Add(globalLibraryGroup);
+            libraryGroup.FunctionGroups.Add(CreateGlobalLibraryGroup());
+            libraryGroup.SetInputDevice(_inputDevice);
+            libraryGroup.SetOutputDevice(_outputDevice);
 
             // Enable module group matching currently active module
             Module currentModule;

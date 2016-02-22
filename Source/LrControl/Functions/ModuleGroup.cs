@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Modules.LrApplicationView;
+using Midi.Devices;
 
 namespace micdah.LrControl.Functions
 {
@@ -75,6 +76,22 @@ namespace micdah.LrControl.Functions
                 {
                     group.Disable();
                 }
+            }
+        }
+
+        public void SetOutputDevice(IOutputDevice outputDevice)
+        {
+            foreach (var functionGroup in FunctionGroups)
+            {
+                functionGroup.SetOutputDevice(outputDevice);
+            }
+        }
+
+        public void SetInputDevice(IInputDevice inputDevice)
+        {
+            foreach (var functionGroup in FunctionGroups)
+            {
+                functionGroup.SetInputDevice(inputDevice);
             }
         }
 

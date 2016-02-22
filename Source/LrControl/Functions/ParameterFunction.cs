@@ -8,6 +8,8 @@ namespace micdah.LrControl.Functions
 {
     public class ParameterFunction : Function
     {
+        private const double ExposureParameterRangeSplit = 12000.0/48000.0;
+        private const double ExposureControllerRangeSplit = 85.0/100.0;
         private readonly IParameter<bool> _boolParameter;
         private readonly IParameter<double> _doubleParameter;
         private readonly IParameter<int> _intParameter;
@@ -49,7 +51,7 @@ namespace micdah.LrControl.Functions
             }
             else if (_boolParameter != null)
             {
-                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int)ControllerRange.Maximum);
+                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int) ControllerRange.Maximum);
             }
         }
 
@@ -58,12 +60,13 @@ namespace micdah.LrControl.Functions
             if (!Enabled) return;
             if (parameter != _intParameter && parameter != _doubleParameter && parameter != _boolParameter) return;
             if (OutputDevice == null) return;
-            
+
             UpdateControllerValue();
         }
 
         private void UpdateControllerValue()
         {
+            if (OutputDevice == null) return;
             if (!UpdateRange()) return;
 
             switch (ControllerType)
@@ -125,9 +128,6 @@ namespace micdah.LrControl.Functions
             return 0;
         }
 
-        private const double ExposureParameterRangeSplit = 12000.0/48000.0;
-        private const double ExposureControllerRangeSplit = 85.0/100.0;
-
         private double CalculateExposureParameterValue(int controllerValue)
         {
             if (controllerValue < (ControllerRange.Maximum - ControllerRange.Minimum)*ExposureControllerRangeSplit)
@@ -147,12 +147,15 @@ namespace micdah.LrControl.Functions
             if (value < _parameterRange.Maximum*ExposureParameterRangeSplit)
             {
                 controllerValue = new Range(0, ControllerRange.Maximum*ExposureControllerRangeSplit)
-                    .FromRange(new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit),value);
+                    .FromRange(new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit),
+                        value);
             }
             else
             {
-                controllerValue = new Range(ControllerRange.Maximum*ExposureControllerRangeSplit,ControllerRange.Maximum)
-                    .FromRange(new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum),value);
+                controllerValue = new Range(ControllerRange.Maximum*ExposureControllerRangeSplit,
+                    ControllerRange.Maximum)
+                    .FromRange(new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum),
+                        value);
             }
             return Convert.ToInt32(controllerValue);
         }
