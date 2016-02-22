@@ -1,99 +1,46 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
-using micdah.LrControlApi.Common;
-using Midi.Devices;
-using Midi.Enums;
-using Midi.Messages;
 
 namespace micdah.LrControl.Mapping.Functions
 {
     public abstract class Function : INotifyPropertyChanged
     {
-        private Channel _channel;
-        private Range _controllerRange;
-        private ControllerType _controllerType;
-        private int _controlNumber;
+        private Controller _controller;
         private bool _enabled;
-        private IOutputDevice _outputDevice;
-        private bool _disposed;
 
-        protected Function(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel,
-            int controlNumber, Range controllerRange)
+        protected Function(LrControlApi.LrControlApi api)
         {
             Api = api;
-            ControllerType = controllerType;
-            Channel = channel;
-            ControlNumber = controlNumber;
-            ControllerRange = controllerRange;
         }
 
         protected LrControlApi.LrControlApi Api { get; }
 
+        public Controller Controller
+        {
+            get { return _controller; }
+            set
+            {
+                if (Equals(value, _controller)) return;
+
+                if (_controller != null)
+                {
+                    _controller.ControllerChanged -= OnControllerChanged;
+                }
+
+                _controller = value;
+                _controller.ControllerChanged += OnControllerChanged;
+                OnPropertyChanged();
+            }
+        }
+
         public bool Enabled
         {
             get { return _enabled; }
-            private set
+            set
             {
                 if (value == _enabled) return;
                 _enabled = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Channel Channel
-        {
-            get { return _channel; }
-            set
-            {
-                if (value == _channel) return;
-                _channel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int ControlNumber
-        {
-            get { return _controlNumber; }
-            set
-            {
-                if (value == _controlNumber) return;
-                _controlNumber = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ControllerType ControllerType
-        {
-            get { return _controllerType; }
-            set
-            {
-                if (value == _controllerType) return;
-                _controllerType = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public Range ControllerRange
-        {
-            get { return _controllerRange; }
-            set
-            {
-                if (value == null) throw new ArgumentNullException(nameof(value));
-                if (Equals(value, _controllerRange)) return;
-                _controllerRange = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public IOutputDevice OutputDevice
-        {
-            get { return _outputDevice; }
-            set
-            {
-                if (Equals(value, _outputDevice)) return;
-                _outputDevice = value;
                 OnPropertyChanged();
             }
         }
@@ -105,31 +52,16 @@ namespace micdah.LrControl.Mapping.Functions
             Enabled = true;
         }
 
-        public void Disable()
+        public virtual void Disable()
         {
             Enabled = false;
         }
 
-        public void Handle(NrpnMessage msg)
+        private void OnControllerChanged(int controllerValue)
         {
             if (!Enabled) return;
-            if (ControllerType != ControllerType.Nrpn) return;
 
-            if (Channel == msg.Channel && ControlNumber == msg.Parameter)
-            {
-                ControllerChanged(msg.Value);
-            }
-        }
-
-        public void Handle(ControlChangeMessage msg)
-        {
-            if (!Enabled) return;
-            if (ControllerType != ControllerType.ControlChange) return;
-
-            if (Channel == msg.Channel && ControlNumber == (int) msg.Control)
-            {
-                ControllerChanged(msg.Value);
-            }
+            ControllerChanged(controllerValue);
         }
 
         protected abstract void ControllerChanged(int controllerValue);

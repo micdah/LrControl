@@ -6,8 +6,6 @@ using System.Runtime.CompilerServices;
 using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Modules.LrDevelopController;
-using Midi.Devices;
-using Midi.Messages;
 
 namespace micdah.LrControl.Mapping.Functions
 {
@@ -19,25 +17,19 @@ namespace micdah.LrControl.Mapping.Functions
         private readonly LrControlApi.LrControlApi _api;
         private bool _enabled;
         private ObservableCollection<Function> _functions;
-        private IInputDevice _inputDevice;
         private bool _isGlobal;
         private Panel _panel;
 
-        public FunctionGroup(LrControlApi.LrControlApi api, Panel panel) : this(api, false)
-        {
-            Panel = panel;
-        }
-
-        public FunctionGroup(LrControlApi.LrControlApi api) : this(api, true)
-        {
-        }
-
-        private FunctionGroup(LrControlApi.LrControlApi api, bool isGlobal)
+        public FunctionGroup(LrControlApi.LrControlApi api, Panel panel = null, IEnumerable<Function> functions = null)
         {
             _api = api;
-            Functions = new ObservableCollection<Function>();
+            Functions = functions != null
+                ? new ObservableCollection<Function>(functions)
+                : new ObservableCollection<Function>();
+            IsGlobal = panel == null;
+            Panel = panel;
+
             FunctionGroups.Add(this);
-            IsGlobal = isGlobal;
         }
 
         public ObservableCollection<Function> Functions
@@ -127,53 +119,6 @@ namespace micdah.LrControl.Mapping.Functions
 
             Enabled = false;
             Log.Debug($"Disabled FunctionGroup for {Panel?.Name}");
-        }
-
-        public void SetOutputDevice(IOutputDevice outputDevice)
-        {
-            foreach (var function in Functions)
-            {
-                function.OutputDevice = outputDevice;
-            }
-        }
-
-        public void SetInputDevice(IInputDevice inputDevice)
-        {
-            if (_inputDevice != null)
-            {
-                _inputDevice.Nrpn -= HandleNrpn;
-                _inputDevice.ControlChange -= HandleControlChange;
-            }
-
-            inputDevice.Nrpn += HandleNrpn;
-            inputDevice.ControlChange += HandleControlChange;
-            _inputDevice = inputDevice;
-        }
-
-        private void HandleNrpn(NrpnMessage msg)
-        {
-            if (!Enabled) return;
-
-            foreach (var function in Functions)
-            {
-                if (function.ControllerType == ControllerType.Nrpn)
-                {
-                    function.Handle(msg);
-                }
-            }
-        }
-
-        private void HandleControlChange(ControlChangeMessage msg)
-        {
-            if (!Enabled) return;
-
-            foreach (var function in Functions)
-            {
-                if (function.ControllerType == ControllerType.ControlChange)
-                {
-                    function.Handle(msg);
-                }
-            }
         }
 
         [NotifyPropertyChangedInvocator]

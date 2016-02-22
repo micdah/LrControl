@@ -1,6 +1,4 @@
-using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
-using Midi.Enums;
 
 namespace micdah.LrControl.Mapping.Functions
 {
@@ -8,14 +6,14 @@ namespace micdah.LrControl.Mapping.Functions
     {
         private readonly IParameter<bool> _parameter;
 
-        public ToggleParameterFunction(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel, int controlNumber, Range controllerRange, IParameter<bool> parameter) : base(api, controllerType, channel, controlNumber, controllerRange)
+        public ToggleParameterFunction(LrControlApi.LrControlApi api, IParameter<bool> parameter) : base(api)
         {
             _parameter = parameter;
         }
 
         protected override void ControllerChanged(int controllerValue)
         {
-            if (controllerValue == (int)ControllerRange.Maximum)
+            if (controllerValue == (int) Controller.Range.Maximum)
             {
                 bool enabled;
                 if (Api.LrDevelopController.GetValue(out enabled, _parameter))

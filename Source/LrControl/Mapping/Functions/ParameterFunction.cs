@@ -3,7 +3,6 @@ using System.Threading;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
-using Midi.Enums;
 
 namespace micdah.LrControl.Mapping.Functions
 {
@@ -19,9 +18,8 @@ namespace micdah.LrControl.Mapping.Functions
         private int _lastControllerValue;
         private Range _parameterRange;
 
-        public ParameterFunction(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel,
-            int controlNumber, Range controllerRange, IParameter parameter)
-            : base(api, controllerType, channel, controlNumber, controllerRange)
+        public ParameterFunction(LrControlApi.LrControlApi api, IParameter parameter)
+            : base(api)
         {
             _intParameter = parameter as IParameter<int>;
             _doubleParameter = parameter as IParameter<double>;
@@ -35,6 +33,15 @@ namespace micdah.LrControl.Mapping.Functions
             api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
         }
 
+        public void Dispose()
+        {
+            if (_controllerChangedTimer != null)
+            {
+                _controllerChangedTimer.Dispose();
+                _controllerChangedTimer = null;
+            }
+        }
+
         ~ParameterFunction()
         {
             Dispose();
@@ -45,6 +52,7 @@ namespace micdah.LrControl.Mapping.Functions
             base.Enable();
             UpdateControllerValue();
         }
+
         private void ControllerChangedTimer(object state)
         {
             var value = _controllerValue;
@@ -74,7 +82,7 @@ namespace micdah.LrControl.Mapping.Functions
             }
             else if (_boolParameter != null)
             {
-                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int)ControllerRange.Maximum);
+                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int) Controller.Range.Maximum);
             }
         }
 
@@ -82,27 +90,15 @@ namespace micdah.LrControl.Mapping.Functions
         {
             if (!Enabled) return;
             if (parameter != _intParameter && parameter != _doubleParameter && parameter != _boolParameter) return;
-            if (OutputDevice == null) return;
 
             UpdateControllerValue();
         }
 
         private void UpdateControllerValue()
         {
-            if (OutputDevice == null) return;
             if (!UpdateRange()) return;
 
-            switch (ControllerType)
-            {
-                case ControllerType.ControlChange:
-                    OutputDevice.SendControlChange(Channel, (Control) ControlNumber, CalculateControllerValue());
-                    break;
-                case ControllerType.Nrpn:
-                    OutputDevice.SendNrpn(Channel, ControlNumber, CalculateControllerValue());
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            Controller.SetControllerValue(CalculateControllerValue());
         }
 
         private double CalculateParamterValue(int controllerValue)
@@ -112,7 +108,7 @@ namespace micdah.LrControl.Mapping.Functions
                 return CalculateExposureParameterValue(controllerValue);
             }
 
-            return _parameterRange.FromRange(ControllerRange, controllerValue);
+            return _parameterRange.FromRange(Controller.Range, controllerValue);
         }
 
         private int CalculateControllerValue()
@@ -122,7 +118,7 @@ namespace micdah.LrControl.Mapping.Functions
                 int value;
                 if (Api.LrDevelopController.GetValue(out value, _intParameter))
                 {
-                    return Convert.ToInt32(ControllerRange.FromRange(_parameterRange, value));
+                    return Convert.ToInt32(Controller.Range.FromRange(_parameterRange, value));
                 }
             }
             else if (_doubleParameter != null)
@@ -134,7 +130,7 @@ namespace micdah.LrControl.Mapping.Functions
                     {
                         return CalculateExposureControllerValue(value);
                     }
-                    return Convert.ToInt32(ControllerRange.FromRange(_parameterRange, value));
+                    return Convert.ToInt32(Controller.Range.FromRange(_parameterRange, value));
                 }
             }
             else if (_boolParameter != null)
@@ -143,8 +139,8 @@ namespace micdah.LrControl.Mapping.Functions
                 if (Api.LrDevelopController.GetValue(out value, _boolParameter))
                 {
                     var controllerValue = value
-                        ? ControllerRange.Maximum
-                        : ControllerRange.Minimum;
+                        ? Controller.Range.Maximum
+                        : Controller.Range.Minimum;
                     return Convert.ToInt32(controllerValue);
                 }
             }
@@ -153,14 +149,14 @@ namespace micdah.LrControl.Mapping.Functions
 
         private double CalculateExposureParameterValue(int controllerValue)
         {
-            if (controllerValue < (ControllerRange.Maximum - ControllerRange.Minimum)*ExposureControllerRangeSplit)
+            if (controllerValue < (Controller.Range.Maximum - Controller.Range.Minimum)*ExposureControllerRangeSplit)
             {
                 return new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
-                    .FromRange(new Range(0, ControllerRange.Maximum*ExposureControllerRangeSplit), controllerValue);
+                    .FromRange(new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit), controllerValue);
             }
             // Otherwise
             return new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
-                .FromRange(new Range(ControllerRange.Maximum*ExposureControllerRangeSplit, ControllerRange.Maximum),
+                .FromRange(new Range(Controller.Range.Maximum*ExposureControllerRangeSplit, Controller.Range.Maximum),
                     controllerValue);
         }
 
@@ -169,14 +165,14 @@ namespace micdah.LrControl.Mapping.Functions
             double controllerValue;
             if (value < _parameterRange.Maximum*ExposureParameterRangeSplit)
             {
-                controllerValue = new Range(0, ControllerRange.Maximum*ExposureControllerRangeSplit)
+                controllerValue = new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit)
                     .FromRange(new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit),
                         value);
             }
             else
             {
-                controllerValue = new Range(ControllerRange.Maximum*ExposureControllerRangeSplit,
-                    ControllerRange.Maximum)
+                controllerValue = new Range(Controller.Range.Maximum*ExposureControllerRangeSplit,
+                    Controller.Range.Maximum)
                     .FromRange(new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum),
                         value);
             }
@@ -200,15 +196,6 @@ namespace micdah.LrControl.Mapping.Functions
                 return Api.LrDevelopController.GetRange(out _parameterRange, _boolParameter);
             }
             return false;
-        }
-
-        public void Dispose()
-        {
-            if (_controllerChangedTimer != null)
-            {
-                _controllerChangedTimer.Dispose();
-                _controllerChangedTimer = null;
-            }
         }
     }
 }

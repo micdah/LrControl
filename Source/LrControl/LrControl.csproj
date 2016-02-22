@@ -71,13 +71,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Functions\EnableFunctionGroupFunction.cs" />
-    <Compile Include="Functions\Function.cs" />
-    <Compile Include="Functions\ControllerType.cs" />
-    <Compile Include="Functions\FunctionGroup.cs" />
-    <Compile Include="Functions\MethodFunction.cs" />
-    <Compile Include="Functions\ModuleGroup.cs" />
-    <Compile Include="Functions\ParameterFunction.cs" />
     <Compile Include="Debounce.cs" />
     <Compile Include="BCF2000Tester.xaml.cs">
       <DependentUpon>BCF2000Tester.xaml</DependentUpon>
@@ -89,10 +82,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions\ToggleParameterFunction.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mapping\Controller.cs" />
+    <Compile Include="Mapping\ControllerManager.cs" />
+    <Compile Include="Mapping\ControllerType.cs" />
+    <Compile Include="Mapping\Functions\EnableFunctionGroupFunction.cs" />
+    <Compile Include="Mapping\Functions\Function.cs" />
+    <Compile Include="Mapping\Functions\FunctionGroup.cs" />
+    <Compile Include="Mapping\Functions\MethodFunction.cs" />
+    <Compile Include="Mapping\Functions\ModuleGroup.cs" />
+    <Compile Include="Mapping\Functions\ParameterFunction.cs" />
+    <Compile Include="Mapping\Functions\ToggleParameterFunction.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

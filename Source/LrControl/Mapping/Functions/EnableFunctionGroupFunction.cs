@@ -1,15 +1,14 @@
-using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
-using Midi.Enums;
 
 namespace micdah.LrControl.Mapping.Functions
 {
     public class EnableFunctionGroupFunction : Function
     {
+        private readonly IParameter<bool> _enablePanelParamter;
         private readonly FunctionGroup _functionGroup;
-        private readonly IParameter<bool> _enablePanelParamter; 
 
-        public EnableFunctionGroupFunction(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel, int controlNumber, Range controllerRange, FunctionGroup functionGroup, IParameter<bool> enablePanelParameter) : base(api, controllerType, channel, controlNumber, controllerRange)
+        public EnableFunctionGroupFunction(LrControlApi.LrControlApi api, FunctionGroup functionGroup,
+            IParameter<bool> enablePanelParameter) : base(api)
         {
             _functionGroup = functionGroup;
             _enablePanelParamter = enablePanelParameter;
@@ -17,7 +16,7 @@ namespace micdah.LrControl.Mapping.Functions
 
         protected override void ControllerChanged(int controllerValue)
         {
-            if (controllerValue != (int)ControllerRange.Maximum) return;
+            if (controllerValue != (int) Controller.Range.Maximum) return;
 
             if (!_functionGroup.Enabled)
             {
