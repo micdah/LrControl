@@ -15,7 +15,7 @@ namespace micdah.LrControl.Functions
 
         protected override void ControllerChanged(int controllerValue)
         {
-            if (controllerValue == ControllerRange.Maximum)
+            if (controllerValue == (int)ControllerRange.Maximum)
             {
                 bool enabled;
                 if (Api.LrDevelopController.GetValue(out enabled, _parameter))

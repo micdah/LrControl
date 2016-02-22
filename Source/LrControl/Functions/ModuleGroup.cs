@@ -15,15 +15,13 @@ namespace micdah.LrControl.Functions
         private static readonly ILog Log = LogManager.GetLogger(typeof (ModuleGroup));
 
         private static readonly List<ModuleGroup> ModuleGroups = new List<ModuleGroup>();
-        private readonly LrControlApi.LrControlApi _api;
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;
         private ObservableCollection<FunctionGroup> _functionGroups;
         private Module _module;
 
-        public ModuleGroup(LrControlApi.LrControlApi api, Module module)
+        public ModuleGroup(Module module)
         {
-            _api = api;
             Module = module;
             FunctionGroups = new ObservableCollection<FunctionGroup>();
             ModuleGroups.Add(this);

@@ -41,7 +41,7 @@ namespace micdah.LrControl
             _outputDevice.Open();
 
             // Develop group
-            var developGroup = new ModuleGroup(_api, Module.Develop);
+            var developGroup = new ModuleGroup(Module.Develop);
             var basicGroup = CreateBasicGroup();
             developGroup.FunctionGroups.Add(basicGroup);
             var toneCurveGroup = CreateToneCurveGroup();
@@ -51,7 +51,7 @@ namespace micdah.LrControl
             developGroup.SetOutputDevice(_outputDevice);
 
             // Library group
-            var libraryGroup = new ModuleGroup(_api, Module.Library);
+            var libraryGroup = new ModuleGroup(Module.Library);
             libraryGroup.FunctionGroups.Add(CreateGlobalLibraryGroup());
             libraryGroup.SetInputDevice(_inputDevice);
             libraryGroup.SetOutputDevice(_outputDevice);

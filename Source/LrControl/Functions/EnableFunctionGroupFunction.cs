@@ -17,7 +17,7 @@ namespace micdah.LrControl.Functions
 
         protected override void ControllerChanged(int controllerValue)
         {
-            if (controllerValue != ControllerRange.Maximum) return;
+            if (controllerValue != (int)ControllerRange.Maximum) return;
 
             if (!_functionGroup.Enabled)
             {

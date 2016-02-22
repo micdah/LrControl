@@ -15,7 +15,7 @@ namespace micdah.LrControl.Functions
 
         protected override void ControllerChanged(int controllerValue)
         {
-            if (controllerValue == ControllerRange.Maximum)
+            if (controllerValue == (int)ControllerRange.Maximum)
             {
                 _method(Api);
             }

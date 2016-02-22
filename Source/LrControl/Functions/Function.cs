@@ -13,12 +13,14 @@ namespace micdah.LrControl.Functions
     {
         private Channel _channel;
         private Range _controllerRange;
+        private ControllerType _controllerType;
         private int _controlNumber;
         private bool _enabled;
         private IOutputDevice _outputDevice;
-        private ControllerType _controllerType;
+        private bool _disposed;
 
-        protected Function(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel, int controlNumber, Range controllerRange)
+        protected Function(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel,
+            int controlNumber, Range controllerRange)
         {
             Api = api;
             ControllerType = controllerType;

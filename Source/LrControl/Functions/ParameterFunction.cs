@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
@@ -6,14 +7,16 @@ using Midi.Enums;
 
 namespace micdah.LrControl.Functions
 {
-    public class ParameterFunction : Function
+    public class ParameterFunction : Function, IDisposable
     {
         private const double ExposureParameterRangeSplit = 12000.0/48000.0;
         private const double ExposureControllerRangeSplit = 85.0/100.0;
         private readonly IParameter<bool> _boolParameter;
         private readonly IParameter<double> _doubleParameter;
         private readonly IParameter<int> _intParameter;
-
+        private Timer _controllerChangedTimer;
+        private int _controllerValue;
+        private int _lastControllerValue;
         private Range _parameterRange;
 
         public ParameterFunction(LrControlApi.LrControlApi api, ControllerType controllerType, Channel channel,
@@ -27,7 +30,14 @@ namespace micdah.LrControl.Functions
             if (_intParameter == null && _doubleParameter == null && _boolParameter == null)
                 throw new ArgumentException(@"Unsupported parameter type", nameof(parameter));
 
+            _controllerChangedTimer = new Timer(ControllerChangedTimer, null, 33, 33);
+
             api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
+        }
+
+        ~ParameterFunction()
+        {
+            Dispose();
         }
 
         public override void Enable()
@@ -35,8 +45,21 @@ namespace micdah.LrControl.Functions
             base.Enable();
             UpdateControllerValue();
         }
+        private void ControllerChangedTimer(object state)
+        {
+            var value = _controllerValue;
+            if (_lastControllerValue == value) return;
+
+            ControllerChangedFiltered(value);
+            _lastControllerValue = value;
+        }
 
         protected override void ControllerChanged(int controllerValue)
+        {
+            _controllerValue = controllerValue;
+        }
+
+        private void ControllerChangedFiltered(int controllerValue)
         {
             if (!UpdateRange()) return;
 
@@ -51,7 +74,7 @@ namespace micdah.LrControl.Functions
             }
             else if (_boolParameter != null)
             {
-                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int) ControllerRange.Maximum);
+                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int)ControllerRange.Maximum);
             }
         }
 
@@ -177,6 +200,15 @@ namespace micdah.LrControl.Functions
                 return Api.LrDevelopController.GetRange(out _parameterRange, _boolParameter);
             }
             return false;
+        }
+
+        public void Dispose()
+        {
+            if (_controllerChangedTimer != null)
+            {
+                _controllerChangedTimer.Dispose();
+                _controllerChangedTimer = null;
+            }
         }
     }
 }
