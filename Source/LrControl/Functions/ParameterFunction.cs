@@ -49,7 +49,7 @@ namespace micdah.LrControl.Functions
             }
             else if (_boolParameter != null)
             {
-                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == ControllerRange.Maximum);
+                Api.LrDevelopController.SetValue(_boolParameter, controllerValue == (int)ControllerRange.Maximum);
             }
         }
 
@@ -81,24 +81,9 @@ namespace micdah.LrControl.Functions
 
         private double CalculateParamterValue(int controllerValue)
         {
-            if (_intParameter == Parameters.AdjustPanelParameters.Temperature)
+            if (_doubleParameter == Parameters.AdjustPanelParameters.Temperature)
             {
-                if (controllerValue < (ControllerRange.Maximum - ControllerRange.Minimum)/4*3)
-                {
-                    //var expoRange = new Range(0, Math.Pow((_parameterRange.Maximum - _parameterRange.Minimum)/4, 1.0/3));
-                    //var expoValue = expoRange.FromRange(ControllerRange, controllerValue);
-                    //return _parameterRange.Minimum + Math.Pow(expoValue, 3);
-                    return new Range(_parameterRange.Minimum, _parameterRange.Maximum/4).FromRange(new Range(0, ControllerRange.Maximum/4*3), controllerValue);
-                }
-                else
-                {
-                    return
-                        new Range(_parameterRange.Maximum/4, _parameterRange.Maximum).FromRange(
-                            new Range(ControllerRange.Maximum/4*3, ControllerRange.Maximum), controllerValue);
-                    //var expoRange = new Range(0, Math.Pow((_parameterRange.Maximum - _parameterRange.Minimum)/4*3, 1.0 / 3));
-                    //var expoValue = expoRange.FromRange(ControllerRange, controllerValue);
-                    //return _parameterRange.Minimum + (_parameterRange.Maximum - _parameterRange.Minimum)/4 + Math.Pow(expoValue, 3);
-                }
+                return CalculateExposureParameterValue(controllerValue);
             }
 
             return _parameterRange.FromRange(ControllerRange, controllerValue);
@@ -111,15 +96,6 @@ namespace micdah.LrControl.Functions
                 int value;
                 if (Api.LrDevelopController.GetValue(out value, _intParameter))
                 {
-                    //if (_intParameter == Parameters.AdjustPanelParameters.Temperature)
-                    //{
-                    //    if (value < _parameterRange.Maximum/4)
-                    //    {
-                    //        return Convert.ToInt32(new Range(0, ControllerRange.Maximum/4*3).FromRange(
-                    //            new Range(_parameterRange.Minimum, _parameterRange.Maximum/4), value));
-                    //    }
-                    //}
-
                     return Convert.ToInt32(ControllerRange.FromRange(_parameterRange, value));
                 }
             }
@@ -128,6 +104,10 @@ namespace micdah.LrControl.Functions
                 double value;
                 if (Api.LrDevelopController.GetValue(out value, _doubleParameter))
                 {
+                    if (_doubleParameter == Parameters.AdjustPanelParameters.Temperature)
+                    {
+                        return CalculateExposureControllerValue(value);
+                    }
                     return Convert.ToInt32(ControllerRange.FromRange(_parameterRange, value));
                 }
             }
@@ -143,6 +123,38 @@ namespace micdah.LrControl.Functions
                 }
             }
             return 0;
+        }
+
+        private const double ExposureParameterRangeSplit = 12000.0/48000.0;
+        private const double ExposureControllerRangeSplit = 85.0/100.0;
+
+        private double CalculateExposureParameterValue(int controllerValue)
+        {
+            if (controllerValue < (ControllerRange.Maximum - ControllerRange.Minimum)*ExposureControllerRangeSplit)
+            {
+                return new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
+                    .FromRange(new Range(0, ControllerRange.Maximum*ExposureControllerRangeSplit), controllerValue);
+            }
+            // Otherwise
+            return new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
+                .FromRange(new Range(ControllerRange.Maximum*ExposureControllerRangeSplit, ControllerRange.Maximum),
+                    controllerValue);
+        }
+
+        private int CalculateExposureControllerValue(double value)
+        {
+            double controllerValue;
+            if (value < _parameterRange.Maximum*ExposureParameterRangeSplit)
+            {
+                controllerValue = new Range(0, ControllerRange.Maximum*ExposureControllerRangeSplit)
+                    .FromRange(new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit),value);
+            }
+            else
+            {
+                controllerValue = new Range(ControllerRange.Maximum*ExposureControllerRangeSplit,ControllerRange.Maximum)
+                    .FromRange(new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum),value);
+            }
+            return Convert.ToInt32(controllerValue);
         }
 
         private bool UpdateRange()
