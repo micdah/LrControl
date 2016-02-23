@@ -17,7 +17,7 @@ namespace micdah.LrControl.Mapping.Functions
 
         protected override Function CreateFunction(LrApi api)
         {
-            return new ParameterFunction(api, _parameter);
+            return new ParameterFunction(api, DisplayName, _parameter);
         }
     }
 }

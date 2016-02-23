@@ -9,10 +9,12 @@ namespace micdah.LrControl.Mapping.Functions
     {
         private Controller _controller;
         private bool _enabled;
+        private string _displayName;
 
-        protected Function(LrApi api)
+        protected Function(LrApi api, string displayName)
         {
             Api = api;
+            DisplayName = displayName;
         }
 
         protected LrApi Api { get; }
@@ -38,10 +40,21 @@ namespace micdah.LrControl.Mapping.Functions
         public bool Enabled
         {
             get { return _enabled; }
-            set
+            private set
             {
                 if (value == _enabled) return;
                 _enabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string DisplayName
+        {
+            get { return _displayName; }
+            set
+            {
+                if (value == _displayName) return;
+                _displayName = value;
                 OnPropertyChanged();
             }
         }

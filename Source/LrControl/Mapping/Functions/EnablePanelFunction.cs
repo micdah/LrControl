@@ -8,8 +8,7 @@ namespace micdah.LrControl.Mapping.Functions
         private readonly IParameter<bool> _enablePanelParamter;
         private readonly Panel _panel;
 
-        public EnablePanelFunction(LrApi api, Panel panel,
-            IParameter<bool> enablePanelParameter) : base(api)
+        public EnablePanelFunction(LrApi api, string displayName, Panel panel, IParameter<bool> enablePanelParameter) : base(api, displayName)
         {
             _panel = panel;
             _enablePanelParamter = enablePanelParameter;

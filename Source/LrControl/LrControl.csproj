@@ -72,6 +72,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Gui\ControllerFunctionView.xaml.cs">
+      <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindowModel.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalog.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalog.LrApplicationView.cs" />
@@ -94,6 +97,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Gui\ControllerFunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -160,9 +167,7 @@
       <Name>LrControlApi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Gui\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>

@@ -19,8 +19,7 @@ namespace micdah.LrControl.Mapping.Functions
         private int _lastControllerValue;
         private Range _parameterRange;
 
-        public ParameterFunction(LrApi api, IParameter parameter)
-            : base(api)
+        public ParameterFunction(LrApi api, string displayName, IParameter parameter) : base(api, displayName)
         {
             _intParameter = parameter as IParameter<int>;
             _doubleParameter = parameter as IParameter<double>;

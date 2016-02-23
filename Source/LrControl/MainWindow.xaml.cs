@@ -88,16 +88,16 @@ namespace micdah.LrControl
             InitializeComponent();
 
             UpdateConnectionStatus(false, null);
-
+            
             _api = new LrApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
 
-            _inputDevice = DeviceManager.InputDevices.Single(x => x.Name == "BCF2000");
-            _inputDevice.Open();
-            _inputDevice.StartReceiving(null);
+            //_inputDevice = DeviceManager.InputDevices.Single(x => x.Name == "BCF2000");
+            //_inputDevice.Open();
+            //_inputDevice.StartReceiving(null);
 
-            _outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
-            _outputDevice.Open();
+            //_outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
+            //_outputDevice.Open();
 
             // View model
             ViewModel = new MainWindowModel
@@ -115,8 +115,8 @@ namespace micdah.LrControl
                 FunctionGroupCatalog = FunctionGroupCatalog.DefaultGroups(_api),
             };
 
-            ViewModel.ControllerManager.SetInputDevice(_inputDevice);
-            ViewModel.ControllerManager.SetOutputDevice(_outputDevice);
+            //ViewModel.ControllerManager.SetInputDevice(_inputDevice);
+            //ViewModel.ControllerManager.SetOutputDevice(_outputDevice);
             ViewModel.FunctionGroupCatalog.InitControllers(ViewModel.ControllerManager);
 
             // Enable module group matching currently active module

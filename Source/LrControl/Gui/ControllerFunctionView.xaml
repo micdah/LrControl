@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="micdah.LrControl.Gui.ControllerFunctionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             Width="250" Height="75"
+             Background="{DynamicResource AccentColorBrush4}"
+             Margin="5"
+             x:Name="UserControl">
+    <UserControl.Resources>
+        <Style x:Key="Label" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+            <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="SmallText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+            <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="FunctionText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Thin"/>
+            <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}"/>
+            <Setter Property="Margin" Value="0,0,6,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="6" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Function -->
+        <Grid Grid.Row="0" Margin="0,0,0,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource FunctionText}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" 
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Function.DisplayName, FallbackValue='No function'}">
+            </TextBlock>
+        </Grid>
+        
+        <!-- Controller -->
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Label}">Channel</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource SmallText}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ChannelShort}"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Label}">Type</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallText}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.TypeShort}"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Label}">Control</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallText}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControlNumber}"></TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource Label}">Type</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource SmallText}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range}"></TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>
