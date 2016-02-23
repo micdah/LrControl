@@ -5,7 +5,7 @@ using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
 
-namespace micdah.LrControl.Mapping
+namespace micdah.LrControl.Mapping.Catalog
 {
     public partial class FunctionCatalog
     {

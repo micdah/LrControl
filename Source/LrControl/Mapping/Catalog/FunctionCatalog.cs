@@ -5,11 +5,15 @@ using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping
+namespace micdah.LrControl.Mapping.Catalog
 {
     public partial class FunctionCatalog : INotifyPropertyChanged
     {
         private ObservableCollection<FunctionCatalogGroup> _groups;
+
+        private FunctionCatalog()
+        {
+        }
 
         public ObservableCollection<FunctionCatalogGroup> Groups
         {
@@ -38,7 +42,7 @@ namespace micdah.LrControl.Mapping
             {
                 CreateViewGroup(api),
                 CreateUndoGroup(api),
-                CreateSelectionGroup(api),
+                CreateSelectionGroup(api)
             };
             groups.AddRange(CreateDevelopGroups(api));
 

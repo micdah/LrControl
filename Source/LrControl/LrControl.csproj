@@ -43,8 +43,17 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -63,12 +72,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Mapping\FunctionCatalog.cs" />
-    <Compile Include="Mapping\FunctionCatalog.LrApplicationView.cs" />
-    <Compile Include="Mapping\FunctionCatalog.LrDevelopController.cs" />
-    <Compile Include="Mapping\FunctionCatalog.LrSelection.cs" />
-    <Compile Include="Mapping\FunctionCatalog.LrUndo.cs" />
-    <Compile Include="Mapping\FunctionCatalogGroup.cs" />
+    <Compile Include="MainWindowModel.cs" />
+    <Compile Include="Mapping\Catalog\FunctionCatalog.cs" />
+    <Compile Include="Mapping\Catalog\FunctionCatalog.LrApplicationView.cs" />
+    <Compile Include="Mapping\Catalog\FunctionCatalog.LrDevelopController.cs" />
+    <Compile Include="Mapping\Catalog\FunctionCatalog.LrSelection.cs" />
+    <Compile Include="Mapping\Catalog\FunctionCatalog.LrUndo.cs" />
+    <Compile Include="Mapping\Catalog\FunctionCatalogGroup.cs" />
+    <Compile Include="Mapping\ControllerFunction.cs" />
+    <Compile Include="Mapping\FunctionGroupCatalog.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\FunctionFactory.cs" />
     <Compile Include="Mapping\Functions\MethodFunctionFactory.cs" />
@@ -85,6 +97,10 @@
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Tools\BCF2000Tester.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +145,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -143,7 +160,18 @@
       <Name>LrControlApi</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Gui\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AppIcon.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

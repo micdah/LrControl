@@ -9,7 +9,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 using Panel = micdah.LrControlApi.Modules.LrDevelopController.Panel;
 
-namespace micdah.LrControl.Mapping
+namespace micdah.LrControl.Mapping.Catalog
 {
     public partial class FunctionCatalog
     {

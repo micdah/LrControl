@@ -39,8 +39,11 @@ namespace micdah.LrControl.Mapping
                 if (value == _type) return;
                 _type = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TypeShort));
             }
         }
+
+        public string TypeShort => Type == ControllerType.Nrpn ? "NRPN" : "CC";
 
         public Channel Channel
         {
@@ -50,8 +53,11 @@ namespace micdah.LrControl.Mapping
                 if (value == _channel) return;
                 _channel = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(ChannelShort));
             }
         }
+
+        public string ChannelShort => $"C{(int) Channel}";
 
         public int ControlNumber
         {

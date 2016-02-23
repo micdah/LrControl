@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using log4net;
 using micdah.LrControl.Annotations;
-using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
@@ -18,29 +17,42 @@ namespace micdah.LrControl.Mapping
         private static readonly List<FunctionGroup> FunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;
         private bool _enabled;
-        private ObservableCollection<Function> _functions;
+        private ObservableCollection<ControllerFunction> _controllerFunctions;
         private bool _isGlobal;
         private Panel _panel;
+        private string _key;
+        private string _displayName;
 
-        public FunctionGroup(LrApi api, Panel panel = null, IEnumerable<Function> functions = null)
+        public FunctionGroup(LrApi api, Panel panel = null)
         {
             _api = api;
-            Functions = functions != null
-                ? new ObservableCollection<Function>(functions)
-                : new ObservableCollection<Function>();
+            ControllerFunctions = new ObservableCollection<ControllerFunction>();
             IsGlobal = panel == null;
             Panel = panel;
 
             FunctionGroups.Add(this);
         }
 
-        public ObservableCollection<Function> Functions
+        public string DisplayName => IsGlobal ? "Global functions" : $"Functions when {Panel.Name} panel is active";
+
+        public string Key
         {
-            get { return _functions; }
+            get { return _key; }
+            set
+            {
+                if (value == _key) return;
+                _key = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ControllerFunction> ControllerFunctions
+        {
+            get { return _controllerFunctions; }
             private set
             {
-                if (Equals(value, _functions)) return;
-                _functions = value;
+                if (Equals(value, _controllerFunctions)) return;
+                _controllerFunctions = value;
                 OnPropertyChanged();
             }
         }
@@ -105,9 +117,9 @@ namespace micdah.LrControl.Mapping
             }
 
             // Enable group
-            foreach (var function in Functions)
+            foreach (var controllerFunction in ControllerFunctions)
             {
-                function.Enable();
+                controllerFunction.Enable();
             }
 
             Enabled = true;
@@ -118,13 +130,23 @@ namespace micdah.LrControl.Mapping
         {
             if (!Enabled) return;
 
-            foreach (var function in Functions)
+            foreach (var controllerFunction in ControllerFunctions)
             {
-                function.Disable();
+                controllerFunction.Disable();
             }
 
             Enabled = false;
             Log.Debug($"Disabled FunctionGroup for {Panel?.Name}");
+        }
+
+        public void ClearControllerFunctions()
+        {
+            foreach (var controllerFunction in ControllerFunctions)
+            {
+                controllerFunction.Dispose();
+            }
+
+            ControllerFunctions.Clear();
         }
 
         [NotifyPropertyChangedInvocator]

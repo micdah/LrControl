@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Mapping.Functions;
 
-namespace micdah.LrControl.Mapping
+namespace micdah.LrControl.Mapping.Catalog
 {
     public class FunctionCatalogGroup : INotifyPropertyChanged
     {

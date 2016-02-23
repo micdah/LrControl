@@ -2,7 +2,7 @@
 using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping
+namespace micdah.LrControl.Mapping.Catalog
 {
     public partial class FunctionCatalog
     {
