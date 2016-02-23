@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
+using micdah.LrControlApi;
 
 namespace micdah.LrControl.Mapping.Functions
 {
@@ -9,12 +10,12 @@ namespace micdah.LrControl.Mapping.Functions
         private Controller _controller;
         private bool _enabled;
 
-        protected Function(LrControlApi.LrControlApi api)
+        protected Function(LrApi api)
         {
             Api = api;
         }
 
-        protected LrControlApi.LrControlApi Api { get; }
+        protected LrApi Api { get; }
 
         public Controller Controller
         {

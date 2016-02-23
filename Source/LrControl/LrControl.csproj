@@ -63,6 +63,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Mapping\FunctionCatalog.cs" />
+    <Compile Include="Mapping\FunctionCatalog.LrApplicationView.cs" />
+    <Compile Include="Mapping\FunctionCatalog.LrDevelopController.cs" />
+    <Compile Include="Mapping\FunctionCatalog.LrSelection.cs" />
+    <Compile Include="Mapping\FunctionCatalog.LrUndo.cs" />
+    <Compile Include="Mapping\FunctionCatalogGroup.cs" />
+    <Compile Include="Mapping\Functions\EnablePanelFunctionFactory.cs" />
+    <Compile Include="Mapping\Functions\FunctionFactory.cs" />
+    <Compile Include="Mapping\Functions\MethodFunctionFactory.cs" />
+    <Compile Include="Mapping\Functions\ParameterFunctionFactory.cs" />
+    <Compile Include="Mapping\Functions\ToggleParameterFunctionFactory.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Tools\BCF2000Tester.xaml.cs">
       <DependentUpon>BCF2000Tester.xaml</DependentUpon>
@@ -88,7 +99,7 @@
     <Compile Include="Mapping\ControllerManager.cs" />
     <Compile Include="Mapping\ControllerType.cs" />
     <Compile Include="Mapping\FunctionGroup.cs" />
-    <Compile Include="Mapping\Functions\EnableFunctionGroupFunction.cs" />
+    <Compile Include="Mapping\Functions\EnablePanelFunction.cs" />
     <Compile Include="Mapping\Functions\Function.cs" />
     <Compile Include="Mapping\Functions\MethodFunction.cs" />
     <Compile Include="Mapping\Functions\ParameterFunction.cs" />

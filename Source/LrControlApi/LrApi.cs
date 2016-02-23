@@ -9,7 +9,7 @@ using micdah.LrControlApi.Modules.LrUndo;
 
 namespace micdah.LrControlApi
 {
-    public class LrControlApi : IDisposable
+    public class LrApi : IDisposable
     {
         private readonly LrApplicationView _lrApplicationView;
         private readonly LrControl _lrControl;
@@ -19,7 +19,7 @@ namespace micdah.LrControlApi
         private readonly LrUndo _lrUndo;
         private readonly PluginClient _pluginClient;
 
-        public LrControlApi(int sendPort = 52008, int receivePort = 52009)
+        public LrApi(int sendPort = 52008, int receivePort = 52009)
         {
             _pluginClient             = new PluginClient(sendPort, receivePort);
             _lrControl                = new LrControl(new MessageProtocol<LrControl>(_pluginClient));

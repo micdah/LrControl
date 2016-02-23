@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Functions;
+using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrDevelopController;
@@ -19,7 +20,7 @@ namespace micdah.LrControl
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly LrControlApi.LrControlApi _api;
+        private readonly LrApi _api;
         private readonly IInputDevice _inputDevice;
         private readonly IOutputDevice _outputDevice;
 
@@ -89,7 +90,7 @@ namespace micdah.LrControl
 
             UpdateConnectionStatus(false, null);
 
-            _api = new LrControlApi.LrControlApi();
+            _api = new LrApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
             _api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
             _api.LrApplicationView.ModuleChanged += LrApplicationViewOnModuleChanged;
@@ -114,19 +115,17 @@ namespace micdah.LrControl
             controllerManager.SetInputDevice(_inputDevice);
             controllerManager.SetOutputDevice(_outputDevice);
 
+            var functionCatalog = FunctionCatalog.DefaultCatalog(_api);
+
 
 
             // Develop group
-            var developGroup = new ModuleGroup(Module.Develop);
-            var basicGroup = CreateBasicGroup();
-            developGroup.FunctionGroups.Add(basicGroup);
-            var toneCurveGroup = CreateToneCurveGroup();
-            developGroup.FunctionGroups.Add(toneCurveGroup);
-            developGroup.FunctionGroups.Add(CreateGlobalDevelopGroup(basicGroup, toneCurveGroup));
+            var developGroup = new ModuleGroup(Module.Develop,
+                new[] {CreateBasicGroup(), CreateToneCurveGroup(), CreateGlobalDevelopGroup()});
 
             // Library group
-            var libraryGroup = new ModuleGroup(Module.Library);
-            libraryGroup.FunctionGroups.Add(CreateGlobalLibraryGroup());
+            var libraryGroup = new ModuleGroup(Module.Library,
+                new[] {CreateGlobalLibraryGroup()});
 
             // Enable module group matching currently active module
             Module currentModule;
@@ -139,7 +138,7 @@ namespace micdah.LrControl
             _api.LrApplicationView.ModuleChanged += ModuleGroup.EnableGroupFor;
         }
 
-        private FunctionGroup CreateGlobalDevelopGroup(FunctionGroup basicGroup, FunctionGroup toneCurveGroup)
+        private FunctionGroup CreateGlobalDevelopGroup()
         {
             return new FunctionGroup(_api, functions:new List<Function>
             {
@@ -165,8 +164,8 @@ namespace micdah.LrControl
                 }),
 
                 // Switch panels
-                CreateEnableGroup(_button0, basicGroup, null),
-                CreateEnableGroup(_button2, toneCurveGroup, Parameters.EnablePanelParameters.ToneCurve),
+                CreateEnableGroup(_button0, Panel.Basic, null),
+                CreateEnableGroup(_button2, Panel.ToneCurve, Parameters.EnablePanelParameters.ToneCurve),
             });
         }
 
@@ -256,14 +255,14 @@ namespace micdah.LrControl
             return new ToggleParameterFunction(_api, parameter) {Controller = controller};
         }
 
-        private MethodFunction CreateFunc(Controller controller, Action<LrControlApi.LrControlApi> method)
+        private MethodFunction CreateFunc(Controller controller, Action<LrApi> method)
         {
-            return new MethodFunction(_api, method) {Controller = controller};
+            return new MethodFunction(_api, method, "Missing display text") {Controller = controller};
         }
 
-        private EnableFunctionGroupFunction CreateEnableGroup(Controller controller, FunctionGroup group, IParameter<bool> enablePanelParameter)
+        private EnablePanelFunction CreateEnableGroup(Controller controller, Panel panel, IParameter<bool> enablePanelParameter)
         {
-            return new EnableFunctionGroupFunction(_api, group, enablePanelParameter) {Controller = controller};
+            return new EnablePanelFunction(_api, panel, enablePanelParameter) {Controller = controller};
         }
 
         private void LrApplicationViewOnModuleChanged(Module newModule)

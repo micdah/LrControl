@@ -1,14 +1,17 @@
 using System;
+using micdah.LrControlApi;
 
 namespace micdah.LrControl.Mapping.Functions
 {
     public class MethodFunction : Function
     {
-        private readonly Action<LrControlApi.LrControlApi> _method;
+        private readonly Action<LrApi> _method;
+        private readonly string _displayText;
 
-        public MethodFunction(LrControlApi.LrControlApi api, Action<LrControlApi.LrControlApi> method) : base(api)
+        public MethodFunction(LrApi api, Action<LrApi> method, string displayText) : base(api)
         {
             _method = method;
+            _displayText = displayText;
         }
 
         protected override void ControllerChanged(int controllerValue)
@@ -16,6 +19,7 @@ namespace micdah.LrControl.Mapping.Functions
             if (controllerValue == (int) Controller.Range.Maximum)
             {
                 _method(Api);
+                ShowHud(_displayText);
             }
         }
     }

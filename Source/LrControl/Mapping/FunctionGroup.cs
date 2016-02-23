@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Mapping.Functions;
+using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace micdah.LrControl.Mapping
@@ -15,13 +16,13 @@ namespace micdah.LrControl.Mapping
         private static readonly ILog Log = LogManager.GetLogger(typeof (FunctionGroup));
 
         private static readonly List<FunctionGroup> FunctionGroups = new List<FunctionGroup>();
-        private readonly LrControlApi.LrControlApi _api;
+        private readonly LrApi _api;
         private bool _enabled;
         private ObservableCollection<Function> _functions;
         private bool _isGlobal;
         private Panel _panel;
 
-        public FunctionGroup(LrControlApi.LrControlApi api, Panel panel = null, IEnumerable<Function> functions = null)
+        public FunctionGroup(LrApi api, Panel panel = null, IEnumerable<Function> functions = null)
         {
             _api = api;
             Functions = functions != null
@@ -78,6 +79,11 @@ namespace micdah.LrControl.Mapping
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public static FunctionGroup GetFunctionGroupFor(Panel panel)
+        {
+            return FunctionGroups.FirstOrDefault(@group => @group.Panel == panel);
+        }
 
         public void Enable()
         {

@@ -56,7 +56,7 @@
     <Compile Include="Communication\MessageProtocol.cs" />
     <Compile Include="Communication\PluginClient.cs" />
     <Compile Include="Communication\SocketWrapper.cs" />
-    <Compile Include="LrControlApi.cs" />
+    <Compile Include="LrApi.cs" />
     <Compile Include="Modules\LrApplicationView\ILrApplicationView.cs" />
     <Compile Include="Modules\LrApplicationView\LrApplicationView.cs" />
     <Compile Include="Modules\LrApplicationView\Module.cs" />

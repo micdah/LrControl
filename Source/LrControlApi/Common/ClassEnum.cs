@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace micdah.LrControlApi.Common
 {
     public abstract class ClassEnum<TValue, TEnum> : IClassEnum<TValue>
         where TEnum : ClassEnum<TValue, TEnum>
     {
-        private static readonly Lazy<IList<TEnum>> AllEnums = new Lazy<IList<TEnum>>(GetAllEnums);
+        private static readonly Lazy<List<TEnum>> AllEnumsCache = new Lazy<List<TEnum>>(GetAllEnums);
 
         protected ClassEnum(TValue value, string name)
         {
@@ -24,7 +25,12 @@ namespace micdah.LrControlApi.Common
             return Name;
         }
 
-        private static IList<TEnum> GetAllEnums()
+        public static void CallSetValue(LrApi api, IParameter<TEnum> parameter, TEnum value)
+        {
+            api.LrDevelopController.SetValue(parameter, value);
+        }
+
+        private static List<TEnum> GetAllEnums()
         {
             var all = new List<TEnum>();
 
@@ -43,7 +49,9 @@ namespace micdah.LrControlApi.Common
 
         public static TEnum GetEnumForValue(TValue value)
         {
-            return AllEnums.Value.FirstOrDefault(e => e.Value.Equals(value));
+            return AllEnumsCache.Value.FirstOrDefault(e => e.Value.Equals(value));
         }
+
+        public static IList<TEnum> AllEnums => AllEnumsCache.Value.AsReadOnly();
     }
 }

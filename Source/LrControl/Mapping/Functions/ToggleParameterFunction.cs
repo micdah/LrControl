@@ -1,3 +1,5 @@
+using System;
+using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace micdah.LrControl.Mapping.Functions
@@ -6,7 +8,7 @@ namespace micdah.LrControl.Mapping.Functions
     {
         private readonly IParameter<bool> _parameter;
 
-        public ToggleParameterFunction(LrControlApi.LrControlApi api, IParameter<bool> parameter) : base(api)
+        public ToggleParameterFunction(LrApi api, IParameter<bool> parameter) : base(api)
         {
             _parameter = parameter;
         }

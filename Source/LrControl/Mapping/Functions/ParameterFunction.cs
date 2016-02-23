@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
@@ -18,7 +19,7 @@ namespace micdah.LrControl.Mapping.Functions
         private int _lastControllerValue;
         private Range _parameterRange;
 
-        public ParameterFunction(LrControlApi.LrControlApi api, IParameter parameter)
+        public ParameterFunction(LrApi api, IParameter parameter)
             : base(api)
         {
             _intParameter = parameter as IParameter<int>;
