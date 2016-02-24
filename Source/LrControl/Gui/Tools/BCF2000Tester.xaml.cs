@@ -9,7 +9,7 @@ using Midi.Enums;
 using Midi.Messages;
 using Control = Midi.Enums.Control;
 
-namespace micdah.LrControl.Tools
+namespace micdah.LrControl.Gui.Tools
 {
     /// <summary>
     ///     Interaction logic for BCF2000Tester.xaml

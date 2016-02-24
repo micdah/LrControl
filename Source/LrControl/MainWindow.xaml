@@ -12,7 +12,8 @@
                       mc:Ignorable="d"
                       Title="LrControl" Height="1100" Width="1750"
                       Icon="Resources/AppIcon.ico"
-                      DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
+                      DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}"
+                      Closing="MainWindow_OnClosing">
     <controls:MetroWindow.Resources>
         <utils:BooleanFillValueConverter x:Key="EnabledFillConverter" FalseBrush="Transparent" TrueBrush="#1500ff00"/>
     </controls:MetroWindow.Resources>

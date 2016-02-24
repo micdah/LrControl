@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Core;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
@@ -155,6 +156,11 @@ namespace micdah.LrControl
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void MainWindow_OnClosing(object sender, CancelEventArgs e)
+        {
+            Serializer.Save("Settings.xml", Settings.Current);
         }
     }
 }

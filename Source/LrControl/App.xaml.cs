@@ -13,7 +13,7 @@ namespace micdah.LrControl
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
@@ -25,11 +25,11 @@ namespace micdah.LrControl
 
             SetupLogging();
 
-            var mainWindow = new MainWindow();
+            var mainWindow = new MainWindow
+            {
+                WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal
+            };
             mainWindow.Show();
-
-            //var bcf2000 = new BCF2000Tester();
-            //bcf2000.Show();
         }
 
         private void SetupLogging()

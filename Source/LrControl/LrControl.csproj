@@ -76,11 +76,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Serializer.cs" />
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">
       <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Tools\BCF2000Tester.xaml.cs">
+      <DependentUpon>BCF2000Tester.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\Utils\BooleanFillValueConverter.cs" />
     <Compile Include="Gui\Utils\ButtonFillValueConverter.cs" />
@@ -102,9 +106,6 @@
     <Compile Include="Mapping\Functions\ParameterFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\ToggleParameterFunctionFactory.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Tools\BCF2000Tester.xaml.cs">
-      <DependentUpon>BCF2000Tester.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -117,15 +118,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Gui\Tools\BCF2000Tester.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Icons.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Tools\BCF2000Tester.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
