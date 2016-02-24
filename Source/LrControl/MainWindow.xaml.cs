@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Configurations;
 using micdah.LrControl.Core;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;

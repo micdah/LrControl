@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Core;
 
-namespace micdah.LrControl
+namespace micdah.LrControl.Configurations
 {
     public class Settings : INotifyPropertyChanged
     {
