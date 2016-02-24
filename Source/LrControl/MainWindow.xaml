@@ -8,19 +8,13 @@
                       xmlns:catalog="clr-namespace:micdah.LrControl.Mapping.Catalog"
                       xmlns:mapping="clr-namespace:micdah.LrControl.Mapping"
                       xmlns:gui="clr-namespace:micdah.LrControl.Gui"
+                      xmlns:utils="clr-namespace:micdah.LrControl.Gui.Utils"
                       mc:Ignorable="d"
-                      Title="LrControl" Height="900" Width="1500"
+                      Title="LrControl" Height="1100" Width="1750"
                       Icon="Resources/AppIcon.ico"
                       DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
     <controls:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/Icons.xaml" />
-                <ResourceDictionary>
-                    
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <utils:BooleanFillValueConverter x:Key="EnabledFillConverter" FalseBrush="Transparent" TrueBrush="#1500ff00"/>
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -45,19 +39,11 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TabControl Grid.Column="0" ItemsSource="{Binding FunctionGroupCatalog.Modules}">
+            <!-- Module tabs -->
+            <TabControl Grid.Column="0" ItemsSource="{Binding FunctionGroupCatalog.Modules}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Enabled}" Value="True">
-                                            <Setter Property="Background" Value="#1500ff00"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
+                        <Grid Background="{Binding Enabled, Converter={StaticResource EnabledFillConverter}}">
                             <TextBlock Text="{Binding Module.Name}" Style="{StaticResource TabHeader}" Margin="3"/>
                         </Grid>
                     </DataTemplate>
@@ -65,54 +51,38 @@
                 <TabControl.ContentTemplate>
                     <DataTemplate DataType="mapping:ModuleGroup">
                         <ScrollViewer>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="9" FontSize="28" FontWeight="Thin" Text="{Binding Module.Name}"/>
-                            
-                                <ItemsControl ItemsSource="{Binding FunctionGroups}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="*"/>
-                                                </Grid.RowDefinitions>
-                                            
-                                                <!-- Function group name -->
-                                                <TextBlock Grid.Row="0" Margin="6" Text="{Binding DisplayName}">
-                                                    <TextBlock.Style>
-                                                        <Style TargetType="TextBlock" BasedOn="{StaticResource Header}">
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding Enabled}" Value="True">
-                                                                    <Setter Property="Background" Value="#1400ff00"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-                                                        </Style>
-                                                    </TextBlock.Style>
-                                                </TextBlock>
-                                            
-                                                <!-- Controller mappings -->
-                                                <ItemsControl Grid.Row="1" ItemsSource="{Binding ControllerFunctions}">
-                                                    <ItemsControl.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <WrapPanel Orientation="Horizontal"/>
-                                                        </ItemsPanelTemplate>
-                                                    </ItemsControl.ItemsPanel>
-                                                    <ItemsControl.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <gui:ControllerFunctionView ControllerFunction="{Binding}"/>
-                                                        </DataTemplate>
-                                                    </ItemsControl.ItemTemplate>
-                                                </ItemsControl>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </StackPanel>
+                            <!-- Function group tabs -->
+                            <TabControl ItemsSource="{Binding FunctionGroups}" SelectedIndex="0">
+                                <TabControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Background="{Binding Enabled, Converter={StaticResource EnabledFillConverter}}">
+                                            <TextBlock Text="{Binding DisplayName}" Style="{StaticResource SubTabHeader}" Margin="3"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </TabControl.ItemTemplate>
+                                <TabControl.ContentTemplate>
+                                    <DataTemplate DataType="mapping:FunctionGroup">
+                                        <ItemsControl ItemsSource="{Binding ControllerFunctions}">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal"/>
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <gui:ControllerFunctionView ControllerFunction="{Binding}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </TabControl.ContentTemplate>
+                            </TabControl>
                         </ScrollViewer>
                     </DataTemplate>
                 </TabControl.ContentTemplate>
             </TabControl>
 
+            <!-- Function catalog -->
             <Grid Grid.Column="1" MaxWidth="375">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -121,10 +91,8 @@
                 <TextBlock Grid.Row="0" Style="{StaticResource TabHeader}" Margin="3">Lightroom functions</TextBlock>
                 <TreeView Grid.Row="1" ItemsSource="{Binding FunctionCatalog.Groups}">
                     <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type catalog:FunctionCatalogGroup}"
-                                                  ItemsSource="{Binding Functions}">
-                            <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListHeaderFont}"
-                                       Padding="3,6,3,3" />
+                        <HierarchicalDataTemplate DataType="{x:Type catalog:FunctionCatalogGroup}" ItemsSource="{Binding Functions}">
+                            <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListHeaderFont}" Padding="3,6,3,3" />
                         </HierarchicalDataTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type functions:FunctionFactory}">
                             <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListItemFont}" Padding="3" />

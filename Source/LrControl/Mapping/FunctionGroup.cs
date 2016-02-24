@@ -21,7 +21,6 @@ namespace micdah.LrControl.Mapping
         private bool _isGlobal;
         private Panel _panel;
         private string _key;
-        private string _displayName;
 
         public FunctionGroup(LrApi api, Panel panel = null)
         {
@@ -33,7 +32,7 @@ namespace micdah.LrControl.Mapping
             FunctionGroups.Add(this);
         }
 
-        public string DisplayName => IsGlobal ? "Global functions" : $"Functions when {Panel.Name} panel is active";
+        public string DisplayName => IsGlobal ? "Global" : $"{Panel.Name}";
 
         public string Key
         {
@@ -71,7 +70,7 @@ namespace micdah.LrControl.Mapping
         public Panel Panel
         {
             get { return _panel; }
-            set
+            private set
             {
                 if (Equals(value, _panel)) return;
                 _panel = value;

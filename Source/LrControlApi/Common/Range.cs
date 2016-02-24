@@ -12,8 +12,12 @@ namespace micdah.LrControlApi.Common
             Maximum = maximum;
         }
 
-        public double Minimum { get; }
-        public double Maximum { get; }
+        public Range()
+        {
+        }
+
+        public double Minimum { get; set; }
+        public double Maximum { get; set; }
 
         public bool IsWithin(double value)
         {

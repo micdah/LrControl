@@ -75,6 +75,10 @@
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">
       <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\Utils\BooleanFillValueConverter.cs" />
+    <Compile Include="Gui\Utils\ButtonFillValueConverter.cs" />
+    <Compile Include="Gui\Utils\EncoderAngleValueConverter.cs" />
+    <Compile Include="Gui\Utils\RangeTickFrequencyValueConverter.cs" />
     <Compile Include="MainWindowModel.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalog.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalog.LrApplicationView.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="Mapping\Catalog\FunctionCatalog.LrUndo.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalogGroup.cs" />
     <Compile Include="Mapping\ControllerFunction.cs" />
+    <Compile Include="Mapping\ControllerType.cs" />
     <Compile Include="Mapping\FunctionGroupCatalog.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\FunctionFactory.cs" />
@@ -120,7 +125,7 @@
     </Compile>
     <Compile Include="Mapping\Controller.cs" />
     <Compile Include="Mapping\ControllerManager.cs" />
-    <Compile Include="Mapping\ControllerType.cs" />
+    <Compile Include="Mapping\ControllerMessageType.cs" />
     <Compile Include="Mapping\FunctionGroup.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunction.cs" />
     <Compile Include="Mapping\Functions\Function.cs" />

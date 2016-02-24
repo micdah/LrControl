@@ -12,9 +12,14 @@
                 <!-- Accent and AppTheme setting -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary>
                     <Style x:Key="TabHeader" TargetType="TextBlock">
                         <Setter Property="FontSize" Value="24" />
+                        <Setter Property="FontWeight" Value="Light" />
+                    </Style>
+                    <Style x:Key="SubTabHeader" TargetType="TextBlock">
+                        <Setter Property="FontSize" Value="21" />
                         <Setter Property="FontWeight" Value="Light" />
                     </Style>
                     <Style x:Key="ListItemFont" TargetType="TextBlock">

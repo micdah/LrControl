@@ -50,6 +50,17 @@ namespace micdah.LrControl.Mapping
             }
         }
 
+        public void ResetAllControls()
+        {
+            foreach (var controller in Controllers)
+            {
+                if (controller.Range != null)
+                {
+                    controller.SetControllerValue((int)controller.Range.Minimum);
+                }
+            }
+        }
+
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

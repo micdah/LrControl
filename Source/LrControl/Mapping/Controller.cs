@@ -17,33 +17,46 @@ namespace micdah.LrControl.Mapping
         private IInputDevice _inputDevice;
         private IOutputDevice _outputDevice;
         private Range _range;
-        private ControllerType _type;
+        private ControllerMessageType _messageType;
+        private ControllerType _controllerType;
+        private int _lastValue;
 
         public Controller()
         {
         }
 
-        public Controller(Channel channel, ControllerType type, int controlNumber, Range range)
+        public Controller(Channel channel, ControllerMessageType messageType, int controlNumber, Range range)
         {
             _channel = channel;
             _controlNumber = controlNumber;
             _range = range;
-            _type = type;
+            _messageType = messageType;
         }
 
-        public ControllerType Type
+        public ControllerMessageType MessageType
         {
-            get { return _type; }
+            get { return _messageType; }
             set
             {
-                if (value == _type) return;
-                _type = value;
+                if (value == _messageType) return;
+                _messageType = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(TypeShort));
+                OnPropertyChanged(nameof(MessageTypeShort));
             }
         }
 
-        public string TypeShort => Type == ControllerType.Nrpn ? "NRPN" : "CC";
+        public ControllerType ControllerType
+        {
+            get { return _controllerType; }
+            set
+            {
+                if (value == _controllerType) return;
+                _controllerType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string MessageTypeShort => MessageType == ControllerMessageType.Nrpn ? "NRPN" : "CC";
 
         public Channel Channel
         {
@@ -81,6 +94,17 @@ namespace micdah.LrControl.Mapping
             }
         }
 
+        public int LastValue
+        {
+            get { return _lastValue; }
+            private set
+            {
+                if (value == _lastValue) return;
+                _lastValue = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -90,24 +114,24 @@ namespace micdah.LrControl.Mapping
         {
             if (_inputDevice != null)
             {
-                switch (Type)
+                switch (MessageType)
                 {
-                    case ControllerType.ControlChange:
+                    case ControllerMessageType.ControlChange:
                         _inputDevice.ControlChange -= Handle;
                         break;
-                    case ControllerType.Nrpn:
+                    case ControllerMessageType.Nrpn:
                         _inputDevice.Nrpn -= Handle;
                         break;
                 }
             }
 
             _inputDevice = inputDevice;
-            switch (Type)
+            switch (MessageType)
             {
-                case ControllerType.ControlChange:
+                case ControllerMessageType.ControlChange:
                     _inputDevice.ControlChange += Handle;
                     break;
-                case ControllerType.Nrpn:
+                case ControllerMessageType.Nrpn:
                     _inputDevice.Nrpn += Handle;
                     break;
             }
@@ -122,12 +146,12 @@ namespace micdah.LrControl.Mapping
         {
             if (_outputDevice == null) return;
 
-            switch (Type)
+            switch (MessageType)
             {
-                case ControllerType.ControlChange:
+                case ControllerMessageType.ControlChange:
                     _outputDevice.SendControlChange(Channel, (Control) ControlNumber, controllerValue);
                     break;
-                case ControllerType.Nrpn:
+                case ControllerMessageType.Nrpn:
                     _outputDevice.SendNrpn(Channel, ControlNumber, controllerValue);
                     break;
             }
@@ -157,6 +181,7 @@ namespace micdah.LrControl.Mapping
 
         private void OnControllerChanged(int controllervalue)
         {
+            LastValue = controllervalue;
             ControllerChanged?.Invoke(controllervalue);
         }
     }

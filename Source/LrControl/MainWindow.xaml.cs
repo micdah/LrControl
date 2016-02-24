@@ -23,64 +23,64 @@ namespace micdah.LrControl
         private readonly IOutputDevice _outputDevice;
 
         // Faders
-        private Controller _fader0 = new Controller(Channel.Channel1, ControllerType.Nrpn, 0, new Range(0, 1023));
-        private Controller _fader1 = new Controller(Channel.Channel1, ControllerType.Nrpn, 1, new Range(0, 1023));
-        private Controller _fader2 = new Controller(Channel.Channel1, ControllerType.Nrpn, 2, new Range(0, 1023));
-        private Controller _fader3 = new Controller(Channel.Channel1, ControllerType.Nrpn, 3, new Range(0, 1023));
-        private Controller _fader4 = new Controller(Channel.Channel1, ControllerType.Nrpn, 4, new Range(0, 1023));
-        private Controller _fader5 = new Controller(Channel.Channel1, ControllerType.Nrpn, 5, new Range(0, 1023));
-        private Controller _fader6 = new Controller(Channel.Channel1, ControllerType.Nrpn, 6, new Range(0, 1023));
-        private Controller _fader7 = new Controller(Channel.Channel1, ControllerType.Nrpn, 7, new Range(0, 1023));
+        private Controller _fader0 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 0, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader1 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 1, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader2 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 2, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader3 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 3, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader4 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 4, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader5 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 5, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader6 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 6, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
+        private Controller _fader7 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 7, new Range(0, 1023)) { ControllerType = ControllerType.Fader };
 
         // Encoders
-        private Controller _encoder0 = new Controller(Channel.Channel1, ControllerType.Nrpn, 8, new Range(0, 511));
-        private Controller _encoder1 = new Controller(Channel.Channel1, ControllerType.Nrpn, 9, new Range(0, 511));
-        private Controller _encoder2 = new Controller(Channel.Channel1, ControllerType.Nrpn, 10, new Range(0, 511));
-        private Controller _encoder3 = new Controller(Channel.Channel1, ControllerType.Nrpn, 11, new Range(0, 511));
-        private Controller _encoder4 = new Controller(Channel.Channel1, ControllerType.Nrpn, 12, new Range(0, 511));
-        private Controller _encoder5 = new Controller(Channel.Channel1, ControllerType.Nrpn, 13, new Range(0, 511));
-        private Controller _encoder6 = new Controller(Channel.Channel1, ControllerType.Nrpn, 14, new Range(0, 511));
-        private Controller _encoder7 = new Controller(Channel.Channel1, ControllerType.Nrpn, 15, new Range(0, 511));
+        private Controller _encoder0 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn,  8, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder1 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn,  9, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder2 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 10, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder3 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 11, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder4 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 12, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder5 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 13, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder6 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 14, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
+        private Controller _encoder7 = new Controller(Channel.Channel1, ControllerMessageType.Nrpn, 15, new Range(0, 511)) { ControllerType = ControllerType.Encoder };
 
         // Buttons
-        private Controller _button0 = new Controller(Channel.Channel1, ControllerType.ControlChange, 0, new Range(0,127));
-        private Controller _button1 = new Controller(Channel.Channel1, ControllerType.ControlChange, 1, new Range(0, 127));
-        private Controller _button2 = new Controller(Channel.Channel1, ControllerType.ControlChange, 2, new Range(0, 127));
-        private Controller _button3 = new Controller(Channel.Channel1, ControllerType.ControlChange, 3, new Range(0, 127));
-        private Controller _button4 = new Controller(Channel.Channel1, ControllerType.ControlChange, 4, new Range(0, 127));
-        private Controller _button5 = new Controller(Channel.Channel1, ControllerType.ControlChange, 5, new Range(0, 127));
-        private Controller _button6 = new Controller(Channel.Channel1, ControllerType.ControlChange, 6, new Range(0, 127));
-        private Controller _button7 = new Controller(Channel.Channel1, ControllerType.ControlChange, 7, new Range(0, 127));
-        private Controller _button8 = new Controller(Channel.Channel1, ControllerType.ControlChange, 8, new Range(0, 127));
-        private Controller _button9 = new Controller(Channel.Channel1, ControllerType.ControlChange, 9, new Range(0, 127));
-        private Controller _button10 = new Controller(Channel.Channel1, ControllerType.ControlChange, 10, new Range(0, 127));
-        private Controller _button11 = new Controller(Channel.Channel1, ControllerType.ControlChange, 11, new Range(0, 127));
-        private Controller _button12 = new Controller(Channel.Channel1, ControllerType.ControlChange, 12, new Range(0, 127));
-        private Controller _button13 = new Controller(Channel.Channel1, ControllerType.ControlChange, 13, new Range(0, 127));
-        private Controller _button14 = new Controller(Channel.Channel1, ControllerType.ControlChange, 14, new Range(0, 127));
-        private Controller _button15 = new Controller(Channel.Channel1, ControllerType.ControlChange, 15, new Range(0, 127));
-        private Controller _button16 = new Controller(Channel.Channel1, ControllerType.ControlChange, 16, new Range(0, 127));
-        private Controller _button17 = new Controller(Channel.Channel1, ControllerType.ControlChange, 17, new Range(0, 127));
-        private Controller _button18 = new Controller(Channel.Channel1, ControllerType.ControlChange, 18, new Range(0, 127));
-        private Controller _button19 = new Controller(Channel.Channel1, ControllerType.ControlChange, 19, new Range(0, 127));
-        private Controller _button20 = new Controller(Channel.Channel1, ControllerType.ControlChange, 20, new Range(0, 127));
-        private Controller _button21 = new Controller(Channel.Channel1, ControllerType.ControlChange, 21, new Range(0, 127));
-        private Controller _button22 = new Controller(Channel.Channel1, ControllerType.ControlChange, 22, new Range(0, 127));
-        private Controller _button23 = new Controller(Channel.Channel1, ControllerType.ControlChange, 23, new Range(0, 127));
-        private Controller _button24 = new Controller(Channel.Channel1, ControllerType.ControlChange, 24, new Range(0, 127));
-        private Controller _button25 = new Controller(Channel.Channel1, ControllerType.ControlChange, 25, new Range(0, 127));
-        private Controller _button26 = new Controller(Channel.Channel1, ControllerType.ControlChange, 26, new Range(0, 127));
-        private Controller _button27 = new Controller(Channel.Channel1, ControllerType.ControlChange, 27, new Range(0, 127));
-        private Controller _button28 = new Controller(Channel.Channel1, ControllerType.ControlChange, 28, new Range(0, 127));
-        private Controller _button29 = new Controller(Channel.Channel1, ControllerType.ControlChange, 29, new Range(0, 127));
-        private Controller _button30 = new Controller(Channel.Channel1, ControllerType.ControlChange, 30, new Range(0, 127));
-        private Controller _button31 = new Controller(Channel.Channel1, ControllerType.ControlChange, 31, new Range(0, 127));
-        private Controller _button32 = new Controller(Channel.Channel1, ControllerType.ControlChange, 32, new Range(0, 127));
-        private Controller _button33 = new Controller(Channel.Channel1, ControllerType.ControlChange, 33, new Range(0, 127));
-        private Controller _button34 = new Controller(Channel.Channel1, ControllerType.ControlChange, 34, new Range(0, 127));
-        private Controller _button35 = new Controller(Channel.Channel1, ControllerType.ControlChange, 35, new Range(0, 127));
-        private Controller _button36 = new Controller(Channel.Channel1, ControllerType.ControlChange, 36, new Range(0, 127));
-        private Controller _button37 = new Controller(Channel.Channel1, ControllerType.ControlChange, 37, new Range(0, 127));
+        private Controller _button0  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  0, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button1  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  1, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button2  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  2, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button3  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  3, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button4  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  4, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button5  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  5, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button6  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  6, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button7  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  7, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button8  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  8, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button9  = new Controller(Channel.Channel1, ControllerMessageType.ControlChange,  9, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button10 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 10, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button11 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 11, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button12 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 12, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button13 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 13, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button14 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 14, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button15 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 15, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button16 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 16, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button17 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 17, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button18 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 18, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button19 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 19, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button20 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 20, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button21 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 21, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button22 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 22, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button23 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 23, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button24 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 24, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button25 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 25, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button26 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 26, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button27 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 27, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button28 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 28, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button29 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 29, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button30 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 30, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button31 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 31, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button32 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 32, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button33 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 33, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button34 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 34, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button35 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 35, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button36 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 36, new Range(0, 127)) { ControllerType = ControllerType.Button };
+        private Controller _button37 = new Controller(Channel.Channel1, ControllerMessageType.ControlChange, 37, new Range(0, 127)) { ControllerType = ControllerType.Button };
         private MainWindowModel _viewModel;
 
         public MainWindow()
@@ -92,12 +92,12 @@ namespace micdah.LrControl
             _api = new LrApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
 
-            //_inputDevice = DeviceManager.InputDevices.Single(x => x.Name == "BCF2000");
-            //_inputDevice.Open();
-            //_inputDevice.StartReceiving(null);
+            _inputDevice = DeviceManager.InputDevices.Single(x => x.Name == "BCF2000");
+            _inputDevice.Open();
+            _inputDevice.StartReceiving(null);
 
-            //_outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
-            //_outputDevice.Open();
+            _outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
+            _outputDevice.Open();
 
             // View model
             ViewModel = new MainWindowModel
@@ -115,8 +115,9 @@ namespace micdah.LrControl
                 FunctionGroupCatalog = FunctionGroupCatalog.DefaultGroups(_api),
             };
 
-            //ViewModel.ControllerManager.SetInputDevice(_inputDevice);
-            //ViewModel.ControllerManager.SetOutputDevice(_outputDevice);
+            ViewModel.ControllerManager.SetInputDevice(_inputDevice);
+            ViewModel.ControllerManager.SetOutputDevice(_outputDevice);
+            ViewModel.ControllerManager.ResetAllControls();
             ViewModel.FunctionGroupCatalog.InitControllers(ViewModel.ControllerManager);
 
             // Enable module group matching currently active module
