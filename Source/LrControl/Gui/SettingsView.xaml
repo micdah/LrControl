@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="micdah.LrControl.Gui.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lrControl="clr-namespace:micdah.LrControl"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500"
+             DataContext="{Binding Source={x:Static lrControl:Settings.Current}}">
+    <Grid>
+        <controls:ToggleSwitch Header="Show pop-up message while changing parameters"
+                               OnLabel="Yes" OffLabel="No"
+                               IsChecked="{Binding ShowHudMessages}"/>
+    </Grid>
+</UserControl>

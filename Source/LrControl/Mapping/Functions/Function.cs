@@ -80,7 +80,7 @@ namespace micdah.LrControl.Mapping.Functions
 
         protected void ShowHud(string message)
         {
-            if (Settings.ShowHudMessages)
+            if (Settings.Current.ShowHudMessages)
             {
                 Api.LrDialogs.ShowBezel(message, 0.25);
             }

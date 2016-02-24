@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using Midi.Devices;
+using Prism.Commands;
 
 namespace micdah.LrControl
 {
@@ -14,6 +16,14 @@ namespace micdah.LrControl
         private FunctionGroupCatalog _functionGroupCatalog;
         private IInputDevice _inputDevice;
         private IOutputDevice _outputDevice;
+        private bool _showSettingsDialog;
+
+        public MainWindowModel()
+        {
+            OpenSettingsCommand = new DelegateCommand(OpenSettings);
+        }
+
+        public ICommand OpenSettingsCommand { get; }
 
         public IInputDevice InputDevice
         {
@@ -70,7 +80,23 @@ namespace micdah.LrControl
             }
         }
 
+        public bool ShowSettingsDialog
+        {
+            get { return _showSettingsDialog; }
+            set
+            {
+                if (value == _showSettingsDialog) return;
+                _showSettingsDialog = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OpenSettings()
+        {
+            ShowSettingsDialog = !ShowSettingsDialog;
+        }
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

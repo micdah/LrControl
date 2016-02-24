@@ -47,6 +47,10 @@
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -74,6 +78,9 @@
     </ApplicationDefinition>
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">
       <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\Utils\BooleanFillValueConverter.cs" />
     <Compile Include="Gui\Utils\ButtonFillValueConverter.cs" />
@@ -103,6 +110,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Gui\ControllerFunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

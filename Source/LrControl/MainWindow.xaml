@@ -18,9 +18,17 @@
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button>settings</Button>
+            <Button Command="{Binding OpenSettingsCommand}">settings</Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout Header="Settings" Position="Right" Width="500" Theme="Accent"
+                             IsOpen="{Binding ShowSettingsDialog}">
+                <gui:SettingsView Margin="10"/>
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
