@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Net.Configuration;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
@@ -37,7 +38,7 @@ namespace micdah.LrControl
             FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, ControllerManager);
 
             // Hookup module listener
-            api.LrApplicationView.ModuleChanged += ModuleGroup.EnableGroupFor;
+            api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
         }
 
         public ICommand OpenSettingsCommand { get; }
@@ -158,10 +159,10 @@ namespace micdah.LrControl
             Module currentModule;
             if (_api.LrApplicationView.GetCurrentModuleName(out currentModule))
             {
-                ModuleGroup.EnableGroupFor(currentModule);
+                FunctionGroupManager.EnableModule(currentModule);
             }
         }
-
+        
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

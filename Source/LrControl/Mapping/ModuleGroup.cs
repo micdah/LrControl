@@ -14,25 +14,16 @@ namespace micdah.LrControl.Mapping
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (ModuleGroup));
 
-        private static readonly List<ModuleGroup> ModuleGroups = new List<ModuleGroup>();
         private readonly object _functionGroupsLock = new object();
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;
         private ObservableCollection<FunctionGroup> _functionGroups;
         private Module _module;
 
-        public ModuleGroup(Module module)
-        {
-            Module = module;
-            FunctionGroups = new ObservableCollection<FunctionGroup>();
-            ModuleGroups.Add(this);
-        }
-
         public ModuleGroup(Module module, IEnumerable<FunctionGroup> functionGroups)
         {
             Module = module;
             FunctionGroups = new ObservableCollection<FunctionGroup>(functionGroups);
-            ModuleGroups.Add(this);
         }
 
         public Module Module
@@ -71,22 +62,7 @@ namespace micdah.LrControl.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static void EnableGroupFor(Module module)
-        {
-            foreach (var group in ModuleGroups)
-            {
-                if (group.Module == module)
-                {
-                    group.Enable();
-                }
-                else
-                {
-                    group.Disable();
-                }
-            }
-        }
-
-        private void Enable()
+        public void Enable()
         {
             // Enable last enabled function group(s)
             foreach (var enabledGroup in _lastEnabledFunctionGroups)
@@ -106,7 +82,7 @@ namespace micdah.LrControl.Mapping
         }
 
 
-        private void Disable()
+        public void Disable()
         {
             if (!Enabled) return;
 
