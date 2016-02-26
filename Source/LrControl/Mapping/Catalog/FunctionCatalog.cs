@@ -4,14 +4,15 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi;
 
 namespace micdah.LrControl.Mapping.Catalog
 {
     public partial class FunctionCatalog : INotifyPropertyChanged
     {
-        private ObservableCollection<FunctionCatalogGroup> _groups;
         private readonly object _groupsLock = new object();
+        private ObservableCollection<FunctionCatalogGroup> _groups;
 
         private FunctionCatalog()
         {
@@ -37,6 +38,22 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 Groups = CreateGroups(api)
             };
+        }
+
+        public FunctionFactory GetFunctionFactory(string functionKey)
+        {
+            foreach (var group in Groups)
+            {
+                foreach (var functionFactory in @group.Functions)
+                {
+                    if (functionFactory.Key == functionKey)
+                    {
+                        return functionFactory;
+                    }
+                }
+            }
+
+            return null;
         }
 
         private static ObservableCollection<FunctionCatalogGroup> CreateGroups(LrApi api)

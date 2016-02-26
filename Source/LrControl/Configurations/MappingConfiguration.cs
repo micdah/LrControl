@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using micdah.LrControl.Core;
-using micdah.LrControl.Mapping;
-using Midi.Enums;
 
 namespace micdah.LrControl.Configurations
 {
@@ -14,6 +12,7 @@ namespace micdah.LrControl.Configurations
         }
 
         public List<ControllerConfiguration> Controllers { get; set; }
+        public List<ModuleConfiguration> Modules { get; set; }
 
         public static MappingConfiguration Load()
         {
@@ -31,13 +30,21 @@ namespace micdah.LrControl.Configurations
         }
     }
 
-    public class ControllerConfiguration
+    public class ModuleConfiguration
     {
-        public Channel Channel { get; set; }
-        public ControllerMessageType MessageType { get; set; }
-        public ControllerType ControllerType { get; set; }
-        public int ControlNumber { get; set; }
-        public int RangeMin { get; set; }
-        public int RangeMax { get; set; }
+        public string ModuleName { get; set; }
+        public List<FunctionGroupConfiguration> FunctionGroups { get; set; }
+    }
+
+    public class FunctionGroupConfiguration
+    {
+        public string Key { get; set; }
+        public List<ControllerFunctionConfiguration> ControllerFunctions { get; set; }
+    }
+
+    public class ControllerFunctionConfiguration
+    {
+        public ControllerConfigurationKey ControllerKey { get; set; }
+        public string FunctionKey { get; set; }
     }
 }

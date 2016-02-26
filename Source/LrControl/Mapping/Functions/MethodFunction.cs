@@ -8,7 +8,7 @@ namespace micdah.LrControl.Mapping.Functions
         private readonly Action<LrApi> _method;
         private readonly string _displayText;
 
-        public MethodFunction(LrApi api, string displayName, Action<LrApi> method, string displayText) : base(api, displayName)
+        public MethodFunction(LrApi api, string displayName, Action<LrApi> method, string displayText, string key) : base(api, displayName, key)
         {
             _method = method;
             _displayText = displayText;

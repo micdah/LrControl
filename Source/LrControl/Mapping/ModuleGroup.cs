@@ -15,10 +15,10 @@ namespace micdah.LrControl.Mapping
         private static readonly ILog Log = LogManager.GetLogger(typeof (ModuleGroup));
 
         private static readonly List<ModuleGroup> ModuleGroups = new List<ModuleGroup>();
+        private readonly object _functionGroupsLock = new object();
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;
         private ObservableCollection<FunctionGroup> _functionGroups;
-        private readonly object _functionGroupsLock = new object();
         private Module _module;
 
         public ModuleGroup(Module module)
@@ -53,7 +53,7 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _functionGroups)) return;
                 _functionGroups = value;
-                BindingOperations.EnableCollectionSynchronization(_functionGroups, value);
+                BindingOperations.EnableCollectionSynchronization(_functionGroups, _functionGroupsLock);
                 OnPropertyChanged();
             }
         }

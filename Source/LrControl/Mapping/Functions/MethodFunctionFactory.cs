@@ -20,7 +20,7 @@ namespace micdah.LrControl.Mapping.Functions
 
         protected override Function CreateFunction(LrApi api)
         {
-            return new MethodFunction(api, DisplayName, _method, DisplayName);
+            return new MethodFunction(api, DisplayName, _method, DisplayName, Key);
         }
     }
 }

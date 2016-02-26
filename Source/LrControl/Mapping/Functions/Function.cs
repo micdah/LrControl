@@ -11,14 +11,27 @@ namespace micdah.LrControl.Mapping.Functions
         private Controller _controller;
         private bool _enabled;
         private string _displayName;
+        private string _key;
 
-        protected Function(LrApi api, string displayName)
+        protected Function(LrApi api, string displayName, string key)
         {
             Api = api;
             DisplayName = displayName;
+            Key = key;
         }
 
         protected LrApi Api { get; }
+
+        public string Key
+        {
+            get { return _key; }
+            private set
+            {
+                if (value == _key) return;
+                _key = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Controller Controller
         {
@@ -33,7 +46,10 @@ namespace micdah.LrControl.Mapping.Functions
                 }
 
                 _controller = value;
-                _controller.ControllerChanged += OnControllerChanged;
+                if (_controller != null)
+                {
+                    _controller.ControllerChanged += OnControllerChanged;
+                }
                 OnPropertyChanged();
             }
         }

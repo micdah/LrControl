@@ -13,7 +13,7 @@ namespace micdah.LrControl.Mapping.Catalog
         private ObservableCollection<FunctionFactory> _functions;
         private readonly object _functionsLock = new object();
         private string _key;
-
+            
         public string DisplayName
         {
             get { return _displayName; }

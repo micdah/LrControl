@@ -80,6 +80,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Configurations\ControllerConfiguration.cs" />
+    <Compile Include="Configurations\ControllerConfigurationKey.cs" />
     <Compile Include="Configurations\MappingConfiguration.cs" />
     <Compile Include="Configurations\Settings.cs" />
     <Compile Include="Core\Serializer.cs" />

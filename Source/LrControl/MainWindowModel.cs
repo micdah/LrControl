@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Security.Policy;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
@@ -29,9 +27,17 @@ namespace micdah.LrControl
             _api = api;
 
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
-            SaveCommand         = new DelegateCommand(Save);
-            LoadCommand         = new DelegateCommand(Load);
+            SaveCommand         = new DelegateCommand(SaveConfiguration);
+            LoadCommand         = new DelegateCommand(LoadConfiguration);
             ResetCommand        = new DelegateCommand(Reset);
+
+            // Initialize catalogs and controllers
+            FunctionCatalog      = FunctionCatalog.DefaultCatalog(api);
+            ControllerManager    = new ControllerManager();
+            FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, ControllerManager);
+
+            // Hookup module listener
+            api.LrApplicationView.ModuleChanged += ModuleGroup.EnableGroupFor;
         }
 
         public ICommand OpenSettingsCommand { get; }
@@ -64,7 +70,7 @@ namespace micdah.LrControl
         public ControllerManager ControllerManager
         {
             get { return _controllerManager; }
-            set
+            private set
             {
                 if (Equals(value, _controllerManager)) return;
                 _controllerManager = value;
@@ -75,7 +81,7 @@ namespace micdah.LrControl
         public FunctionCatalog FunctionCatalog
         {
             get { return _functionCatalog; }
-            set
+            private set
             {
                 if (Equals(value, _functionCatalog)) return;
                 _functionCatalog = value;
@@ -86,7 +92,7 @@ namespace micdah.LrControl
         public FunctionGroupManager FunctionGroupManager
         {
             get { return _functionGroupManager; }
-            set
+            private set
             {
                 if (Equals(value, _functionGroupManager)) return;
                 _functionGroupManager = value;
@@ -112,17 +118,18 @@ namespace micdah.LrControl
             ShowSettingsDialog = !ShowSettingsDialog;
         }
 
-        public void Save()
+        public void SaveConfiguration()
         {
             var conf = new MappingConfiguration
             {
-                Controllers = ControllerManager.GetConfiguration()
+                Controllers = ControllerManager.GetConfiguration(),
+                Modules = FunctionGroupManager.GetConfiguration(),
             };
 
             MappingConfiguration.Save(conf);
         }
 
-        public void Load()
+        public void LoadConfiguration()
         {
             var conf = MappingConfiguration.Load();
             if (conf == null) return;
@@ -131,8 +138,10 @@ namespace micdah.LrControl
             ControllerManager.Load(conf.Controllers);
             ControllerManager.SetInputDevice(InputDevice);
             ControllerManager.SetOutputDevice(OutputDevice);
+            ControllerManager.ResetAllControls();
 
-            FunctionGroupManager.InitControllers(ControllerManager);
+            // Load function mapping
+            FunctionGroupManager.Load(conf.Modules);
 
 
             EnableModuleGroupuForCurrentModule();

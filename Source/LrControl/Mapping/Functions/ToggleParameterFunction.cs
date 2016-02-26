@@ -8,7 +8,7 @@ namespace micdah.LrControl.Mapping.Functions
     {
         private readonly IParameter<bool> _parameter;
 
-        public ToggleParameterFunction(LrApi api, string displayName, IParameter<bool> parameter) : base(api, displayName)
+        public ToggleParameterFunction(LrApi api, string displayName, IParameter<bool> parameter, string key) : base(api, displayName, key)
         {
             _parameter = parameter;
         }

@@ -20,7 +20,7 @@ namespace micdah.LrControl.Mapping.Functions
 
         protected override Function CreateFunction(LrApi api)
         {
-            return new EnablePanelFunction(api, DisplayName, _panel, _enablePanelParameter);
+            return new EnablePanelFunction(api, DisplayName, _panel, _enablePanelParameter, Key);
         }
     }
 }

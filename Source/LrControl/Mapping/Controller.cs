@@ -174,6 +174,16 @@ namespace micdah.LrControl.Mapping
             };
         }
 
+        public ControllerConfigurationKey GetConfigurationKey()
+        {
+            return new ControllerConfigurationKey
+            {
+                Channel = Channel,
+                ControlNumber = ControlNumber,
+                MessageType = MessageType
+            };
+        }
+
         private void Handle(NrpnMessage msg)
         {
             if (msg.Channel == Channel && msg.Parameter == ControlNumber)
@@ -211,6 +221,13 @@ namespace micdah.LrControl.Mapping
                 _inputDevice.Nrpn -= Handle;
                 _inputDevice.ControlChange -= Handle;
             }
+        }
+
+        public bool IsController(ControllerConfigurationKey controllerKey)
+        {
+            return Channel == controllerKey.Channel
+                   && ControlNumber == controllerKey.ControlNumber
+                   && MessageType == controllerKey.MessageType;
         }
     }
 }
