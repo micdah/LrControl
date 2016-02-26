@@ -60,10 +60,7 @@ namespace micdah.LrControl.Mapping
         {
             foreach (var controller in Controllers)
             {
-                if (controller.Range != null)
-                {
-                    controller.SetControllerValue((int) controller.Range.Minimum);
-                }
+                controller.Reset();
             }
         }
 

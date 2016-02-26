@@ -42,13 +42,13 @@ namespace micdah.LrControlApi.Modules.LrSelection
         ///     Sets the flag state of the selction to pick.
         /// </summary>
         [LuaMethod]
-        bool FlagAsPicked();
+        bool FlagAsPick();
 
         /// <summary>
         ///     Sets the flag state of the selection to reject.
         /// </summary>
         [LuaMethod]
-        bool FlagAsRejected();
+        bool FlagAsReject();
 
         /// <summary>
         ///     Returns the color label assigned to the active photo, one of: "red", "yellow", "green", "blue", "purple", "other",

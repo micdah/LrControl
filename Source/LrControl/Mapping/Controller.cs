@@ -184,6 +184,14 @@ namespace micdah.LrControl.Mapping
             };
         }
 
+        public void Reset()
+        {
+            if (Range != null)
+            {
+                SetControllerValue((int)Range.Minimum);
+            }
+        }
+
         private void Handle(NrpnMessage msg)
         {
             if (msg.Channel == Channel && msg.Parameter == ControlNumber)

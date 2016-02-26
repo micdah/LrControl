@@ -25,6 +25,8 @@ namespace micdah.LrControl.Mapping.Catalog
             groups.Add(CreateDevelopPanelGroup(api, Panel.LensCorrections, Parameters.EnablePanelParameters.LensCorrections, Parameters.LensCorrectionsPanelParameters.AllParameters));
             groups.Add(CreateDevelopPanelGroup(api, Panel.Effects, Parameters.EnablePanelParameters.Effects, Parameters.EffectsPanelParameters.AllParameters));
             groups.Add(CreateDevelopPanelGroup(api, Panel.CameraCalibration, Parameters.EnablePanelParameters.Calibration, Parameters.CalibratePanelParameters.AllParameters));
+            groups.Add(CreateDevelopCropGroup(api));
+            groups.Add(CreateDevelopLocalizedGroup(api));
 
             return groups;
         }
@@ -77,6 +79,17 @@ namespace micdah.LrControl.Mapping.Catalog
             // Change enum parameter
             functions.AddRange(CreateFunctionsForEnumParameter(api, parameters));
 
+            // Reset parameter
+            foreach (var param in parameters)
+            {
+                functions.Add(new MethodFunctionFactory(api, $"Reset {param.DisplayName} to default", $"ResetToDefault{param.Name}",
+                    a =>
+                    {
+                        a.LrDevelopController.StopTracking();
+                        a.LrDevelopController.ResetToDefault(param);
+                    }));
+            }
+
 
             // Toggle parameter
             functions.AddRange(parameters
@@ -126,11 +139,69 @@ namespace micdah.LrControl.Mapping.Catalog
 
                     enumFunctions.Add(
                         new MethodFunctionFactory(api, $"Set {param.DisplayName} to {name}",$"Set{param.Name}To{value}",
-                            a => callSetValueMethod.Invoke(null, new[] {a, param, value})));
+                            a => callSetValueMethod.Invoke(null, new[] {a, param, enumValue })));
                 }
             }
 
             return enumFunctions;
-        } 
+        }
+
+        private static FunctionCatalogGroup CreateDevelopCropGroup(LrApi api)
+        {
+            var functions = new List<FunctionFactory>();
+            
+            // Change parameters
+            foreach (var param in Parameters.CropParameters.AllParameters)
+            {
+                functions.Add(new ParameterFunctionFactory(api, param));
+            }
+
+            // Reset parameter
+            foreach (var param in Parameters.CropParameters.AllParameters)
+            {
+                functions.Add(new MethodFunctionFactory(api, $"Reset {param.DisplayName} to default", $"ResetToDefault{param.Name}",
+                    a =>
+                    {
+                        a.LrDevelopController.StopTracking();
+                        a.LrDevelopController.ResetToDefault(param);
+                    }));
+            }
+
+            return new FunctionCatalogGroup
+            {
+                DisplayName = "Develop Crop",
+                Key = "LrDevelopCrop",
+                Functions = new ObservableCollection<FunctionFactory>(functions)
+            };
+        }
+
+        private static FunctionCatalogGroup CreateDevelopLocalizedGroup(LrApi api)
+        {
+            var functions = new List<FunctionFactory>();
+
+            // Change parameters
+            foreach (var param in Parameters.LocalizedAdjustmentsParameters.AllParameters)
+            {
+                functions.Add(new ParameterFunctionFactory(api, param));
+            }
+
+            // Reset parameter
+            foreach (var param in Parameters.LocalizedAdjustmentsParameters.AllParameters)
+            {
+                functions.Add(new MethodFunctionFactory(api, $"Reset {param.DisplayName} to default", $"ResetToDefault{param.Name}",
+                    a =>
+                    {
+                        a.LrDevelopController.StopTracking();
+                        a.LrDevelopController.ResetToDefault(param);
+                    }));
+            }
+
+            return new FunctionCatalogGroup
+            {
+                DisplayName = "Develop Localized",
+                Key = "LrDevelopLocalized",
+                Functions = new ObservableCollection<FunctionFactory>(functions)
+            };
+        }
     }
 }

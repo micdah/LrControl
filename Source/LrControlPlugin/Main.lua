@@ -142,7 +142,8 @@ local function main(context)
         -- Check if we need to add adjustment change observer
         if not observerAdded and currentModule == "develop" then
             LrDevelopController.addAdjustmentChangeObserver(context, adjustmentChanged, function(observer)
-                pcall(observer)
+                local success,result = pcall(observer)
+                LrDialogs.showBezel("Response: " .. result)
             end)
             
             observerAdded = true

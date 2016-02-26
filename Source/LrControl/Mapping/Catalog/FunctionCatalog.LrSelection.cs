@@ -21,8 +21,28 @@ namespace micdah.LrControl.Mapping.Catalog
             functions.AddRange(CreateExtendSelection(api));
             functions.AddRange(new []
             {
-                new MethodFunctionFactory(api, "Flag as picked", "FlagAsPicked", a => a.LrSelection.FlagAsPicked()),
-                new MethodFunctionFactory(api, "Flag as rejected", "FlagAsRejected", a => a.LrSelection.FlagAsRejected()),
+                new MethodFunctionFactory(api, "Flag as picked", "FlagAsPicked", a => a.LrSelection.FlagAsPick()),
+                new MethodFunctionFactory(api, "Flag as rejected", "FlagAsReject", a => a.LrSelection.FlagAsReject()),
+                new MethodFunctionFactory(api, "Toggle Flag as picked", "ToggleFlagAsPicked", a =>
+                {
+                    Flag flag;
+                    if (!a.LrSelection.GetFlag(out flag)) return;
+
+                    if (flag != Flag.Pick)
+                        a.LrSelection.FlagAsPick();
+                    else
+                        a.LrSelection.RemoveFlag();
+                }), 
+                new MethodFunctionFactory(api, "Toggle Flag as rejected", "ToggleFlagAsRejected", a =>
+                {
+                    Flag flag;
+                    if (!a.LrSelection.GetFlag(out flag)) return;
+
+                    if (flag != Flag.Reject)
+                        a.LrSelection.FlagAsReject();
+                    else
+                        a.LrSelection.RemoveFlag();
+                }), 
                 new MethodFunctionFactory(api, "Increase rating", "IncreaseRating", a => a.LrSelection.IncreaseRating()),
                 new MethodFunctionFactory(api, "Next photo", "NextPhoto", a => a.LrSelection.NextPhoto()),
                 new MethodFunctionFactory(api, "Previous photo", "PreviousPhoto", a => a.LrSelection.PreviousPhoto()),

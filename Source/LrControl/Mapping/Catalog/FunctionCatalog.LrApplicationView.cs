@@ -15,7 +15,7 @@ namespace micdah.LrControl.Mapping.Catalog
             functions.AddRange(CreateSwitchToModule(api));
             functions.AddRange(CreateShowView(api));
             functions.AddRange(CreateShowSecondaryView(api));
-            functions.AddRange(new[]
+            functions.AddRange(new FunctionFactory[]
             {
                 new MethodFunctionFactory(api, "Toggle secondary display", "ToggleSecondaryDisplay",
                     a => a.LrApplicationView.ToggleSecondaryDisplay()),
@@ -25,7 +25,8 @@ namespace micdah.LrControl.Mapping.Catalog
                 new MethodFunctionFactory(api, "Zoom in", "ZoomIn", a => a.LrApplicationView.ZoomIn()),
                 new MethodFunctionFactory(api, "Zoom in some", "ZoomInSome", a => a.LrApplicationView.ZoomInSome()),
                 new MethodFunctionFactory(api, "Zoom out", "ZoomOut", a => a.LrApplicationView.ZoomOut()),
-                new MethodFunctionFactory(api, "Zoom out some", "ZoomOutSome", a => a.LrApplicationView.ZoomOutSome())
+                new MethodFunctionFactory(api, "Zoom out some", "ZoomOutSome", a => a.LrApplicationView.ZoomOutSome()),
+                new ToggleDevelopBeforeAfterFunctionFactory(api),
             });
 
             return new FunctionCatalogGroup

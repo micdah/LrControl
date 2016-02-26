@@ -78,9 +78,21 @@ namespace micdah.LrControl.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void Enable()
+        public void Enable(bool resetIfUnmapped)
         {
-            Function?.Enable();
+            if (Function != null)
+            {
+                Function.Enable();
+            }
+            else if(resetIfUnmapped)
+            {
+                if (Controller.ControllerType == ControllerType.Encoder ||
+                    Controller.ControllerType == ControllerType.Fader)
+                {
+                    Controller.Reset();
+                }
+            }
+
             Enabled = true;
         }
 

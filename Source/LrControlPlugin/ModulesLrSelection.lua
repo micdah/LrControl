@@ -58,18 +58,18 @@ return {
             LrSelection.extendSelection(direction,amount)
         end)),
     
-    flagAsPicked      = 
-        ModuleTools.BeforeFunction("LrSelection.flagAsPicked", 
-        ModuleTools.AfterFunction("LrSelection.flagAsPicked", 
+    flagAsPick        = 
+        ModuleTools.BeforeFunction("LrSelection.flagAsPick", 
+        ModuleTools.AfterFunction("LrSelection.flagAsPick", 
         function()
-            LrSelection.flagAsPicked()
+            LrSelection.flagAsPick()
         end)),
     
-    flagAsRejected    = 
-        ModuleTools.BeforeFunction("LrSelection.flagAsRejected", 
-        ModuleTools.AfterFunction("LrSelection.flagAsRejected", 
+    flagAsReject      = 
+        ModuleTools.BeforeFunction("LrSelection.flagAsReject", 
+        ModuleTools.AfterFunction("LrSelection.flagAsReject", 
         function()
-            LrSelection.flagAsRejected()
+            LrSelection.flagAsReject()
         end)),
     
     getColorLabel     = 

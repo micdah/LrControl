@@ -123,6 +123,8 @@
     <Compile Include="Mapping\Functions\FunctionFactory.cs" />
     <Compile Include="Mapping\Functions\MethodFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\ParameterFunctionFactory.cs" />
+    <Compile Include="Mapping\Functions\ToggleDevelopBeforeAfterFunction.cs" />
+    <Compile Include="Mapping\Functions\ToggleDevelopBeforeAfterFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\ToggleParameterFunctionFactory.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

@@ -34,14 +34,14 @@ namespace micdah.LrControlApi.Modules.LrSelection
             return Invoke(nameof(ExtendSelection), direction, amount);
         }
 
-        public bool FlagAsPicked()
+        public bool FlagAsPick()
         {
-            return Invoke(nameof(FlagAsPicked));
+            return Invoke(nameof(FlagAsPick));
         }
 
-        public bool FlagAsRejected()
+        public bool FlagAsReject()
         {
-            return Invoke(nameof(FlagAsRejected));
+            return Invoke(nameof(FlagAsReject));
         }
 
         public bool GetColorLabel(out ColorLabel colorLabel)

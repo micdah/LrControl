@@ -86,7 +86,7 @@ namespace micdah.LrControl.Mapping.Functions
             {
                 Api.LrDevelopController.SetValue(_doubleParameter, parameterValue);
 
-                ShowHud($"{_doubleParameter.DisplayName}: {parameterValue:F1}");
+                ShowHud($"{_doubleParameter.DisplayName}: {parameterValue:F2}");
             }
             else if (_boolParameter != null)
             {
@@ -158,15 +158,15 @@ namespace micdah.LrControl.Mapping.Functions
             return 0;
         }
 
-        private double CalculateExposureParameterValue(int controllerValue)
+        private int CalculateExposureParameterValue(int controllerValue)
         {
             if (controllerValue < (Controller.Range.Maximum - Controller.Range.Minimum)*ExposureControllerRangeSplit)
             {
-                return new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
+                return (int)new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
                     .FromRange(new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit), controllerValue);
             }
             // Otherwise
-            return new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
+            return (int)new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
                 .FromRange(new Range(Controller.Range.Maximum*ExposureControllerRangeSplit, Controller.Range.Maximum),
                     controllerValue);
         }

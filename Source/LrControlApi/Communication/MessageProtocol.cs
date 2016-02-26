@@ -168,7 +168,7 @@ namespace micdah.LrControlApi.Communication
             else if (arg is double)
             {
                 builder.Append("N");
-                builder.Append($"{(double) arg:F1}");
+                builder.Append($"{(double) arg:F2}");
             } else if (arg is bool)
             {
                 builder.Append("B");

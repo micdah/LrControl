@@ -119,7 +119,7 @@ namespace micdah.LrControl.Mapping
             // Enable group
             foreach (var controllerFunction in ControllerFunctions)
             {
-                controllerFunction.Enable();
+                controllerFunction.Enable(!IsGlobal);
             }
 
             Enabled = true;
