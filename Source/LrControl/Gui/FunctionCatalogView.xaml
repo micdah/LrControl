@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="micdah.LrControl.Gui.FunctionCatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:catalog="clr-namespace:micdah.LrControl.Mapping.Catalog"
+             xmlns:functions="clr-namespace:micdah.LrControl.Mapping.Functions"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             x:Name="UserControl">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Style="{StaticResource TabHeader}" Margin="3">Lightroom functions</TextBlock>
+        <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=UserControl, Path=FunctionCatalog.Groups}">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type catalog:FunctionCatalogGroup}"
+                                          ItemsSource="{Binding Functions}">
+                    <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListHeaderFont}" Padding="3,6,3,3" />
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type functions:FunctionFactory}">
+                    <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListItemFont}" Padding="3" />
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>
+</UserControl>

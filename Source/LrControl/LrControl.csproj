@@ -85,6 +85,12 @@
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">
       <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\FunctionCatalogView.xaml.cs">
+      <DependentUpon>FunctionCatalogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\ModuleGroupView.xaml.cs">
+      <DependentUpon>ModuleGroupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -115,6 +121,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Gui\ControllerFunctionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\FunctionCatalogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\ModuleGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
