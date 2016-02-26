@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi;
@@ -18,6 +19,7 @@ namespace micdah.LrControl.Mapping
         private readonly LrApi _api;
         private bool _enabled;
         private ObservableCollection<ControllerFunction> _controllerFunctions;
+        private readonly object _controllerFunctionsLock = new object();
         private bool _isGlobal;
         private Panel _panel;
         private string _key;
@@ -52,6 +54,7 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _controllerFunctions)) return;
                 _controllerFunctions = value;
+                BindingOperations.EnableCollectionSynchronization(_controllerFunctions, _controllerFunctionsLock);
                 OnPropertyChanged();
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using micdah.LrControl.Annotations;
 using Midi.Devices;
 
@@ -10,6 +11,7 @@ namespace micdah.LrControl.Mapping
     public class ControllerManager : INotifyPropertyChanged
     {
         private ObservableCollection<Controller> _controllers;
+        private readonly object _controllersLock = new object();
 
         public ControllerManager()
         {
@@ -28,6 +30,7 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _controllers)) return;
                 _controllers = value;
+                BindingOperations.EnableCollectionSynchronization(_controllers, _controllersLock);
                 OnPropertyChanged();
             }
         }

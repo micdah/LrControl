@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Security.RightsManagement;
+using System.Windows.Data;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
@@ -12,6 +12,7 @@ namespace micdah.LrControl.Mapping
     public class FunctionGroupCatalog : INotifyPropertyChanged
     {
         private ObservableCollection<ModuleGroup> _modules;
+        private readonly object _modulesLock = new object();
 
         private FunctionGroupCatalog()
         {
@@ -24,6 +25,7 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _modules)) return;
                 _modules = value;
+                BindingOperations.EnableCollectionSynchronization(_modules, _modulesLock);
                 OnPropertyChanged();
             }
         }

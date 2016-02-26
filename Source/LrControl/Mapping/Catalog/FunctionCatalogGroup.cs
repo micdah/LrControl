@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Mapping.Functions;
 
@@ -10,6 +11,7 @@ namespace micdah.LrControl.Mapping.Catalog
     {
         private string _displayName;
         private ObservableCollection<FunctionFactory> _functions;
+        private readonly object _functionsLock = new object();
         private string _key;
 
         public string DisplayName
@@ -41,6 +43,7 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 if (Equals(value, _functions)) return;
                 _functions = value;
+                BindingOperations.EnableCollectionSynchronization(_functions, _functionsLock);
                 OnPropertyChanged();
             }
         }

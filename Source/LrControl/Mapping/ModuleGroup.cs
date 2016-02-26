@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
 using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Modules.LrApplicationView;
@@ -17,6 +18,7 @@ namespace micdah.LrControl.Mapping
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;
         private ObservableCollection<FunctionGroup> _functionGroups;
+        private readonly object _functionGroupsLock = new object();
         private Module _module;
 
         public ModuleGroup(Module module)
@@ -51,6 +53,7 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _functionGroups)) return;
                 _functionGroups = value;
+                BindingOperations.EnableCollectionSynchronization(_functionGroups, value);
                 OnPropertyChanged();
             }
         }
