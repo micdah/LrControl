@@ -32,6 +32,15 @@ namespace micdah.LrControlApi.Common
             return Minimum + (Maximum - Minimum)*((value - range.Minimum)/(range.Maximum - range.Minimum));
         }
 
+        public double ClampToRange(double value)
+        {
+            if (value < Minimum)
+                return Minimum;
+            if (value > Maximum)
+                return Maximum;
+            return value;
+        }
+
         public override string ToString()
         {
             return $"[{Minimum},{Maximum}]";

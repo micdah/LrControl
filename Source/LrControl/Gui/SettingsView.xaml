@@ -24,5 +24,35 @@
             OnLabel="Yes" OffLabel="No"
             IsChecked="{Binding StartMinimized}"/>
 
+        <controls:ToggleSwitch
+            Header="Automatically save settings"
+            OnLabel="Yes" OffLabel="No"
+            IsChecked="{Binding AutoSaveOnClose}"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Foreground="{DynamicResource GrayBrush5}"
+                       FontSize="15" 
+                       FontWeight="Bold"
+                       Margin="0,0,0,10">
+                Parameter update frequency (updates / second)
+            </TextBlock>
+            
+            <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="100" Value="{Binding ParameterUpdateFrequency}"
+                    TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ParameterUpdateFrequency}"
+                       Foreground="{DynamicResource GrayBrush1}"
+                       FontSize="15" FontWeight="Normal"
+                       HorizontalAlignment="Center"/>
+        </Grid>
     </StackPanel>
 </UserControl>

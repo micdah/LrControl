@@ -38,7 +38,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <Style x:Key="FunctionText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="FontWeight" Value="Thin" />
             <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}" />
             <Setter Property="Margin" Value="0,0,6,0" />
@@ -143,16 +143,11 @@
         
         <!-- Function text template -->
         <ControlTemplate x:Key="FunctionTemplate" TargetType="ContentControl">
-            <StackPanel x:Name="StackPanel" Margin="0,0,0,5" Orientation="Horizontal" HorizontalAlignment="Center" Background="Transparent">
-                <TextBlock Style="{StaticResource FunctionText}"
-                           TextWrapping="NoWrap"
-                           TextTrimming="CharacterEllipsis"
-                           Text="{Binding ElementName=UserControl, Path=ControllerFunction.Function.DisplayName, FallbackValue='No function'}" />
-
-                <Button Width="8" x:Name="DeleteFunctionButton" Visibility="Hidden" Click="DeleteFunctionButton_OnClick">
+            <DockPanel x:Name="Panel" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                <Button DockPanel.Dock="Right" Width="8" x:Name="DeleteFunctionButton" Visibility="Hidden" Click="DeleteFunctionButton_OnClick">
                     <Button.Template>
                         <ControlTemplate>
-                            <Rectangle x:Name="ButtonIcon" Fill="{DynamicResource GrayBrush2}" Width="8" Margin="0,0,0,1">
+                            <Rectangle x:Name="ButtonIcon" Fill="{DynamicResource GrayBrush2}" Width="8" Margin="0,0,0,3">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Visual="{StaticResource appbar_close}" Stretch="Uniform" />
                                 </Rectangle.OpacityMask>
@@ -165,10 +160,15 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
-            </StackPanel>
+
+                <TextBlock Style="{StaticResource FunctionText}"
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis"
+                           Text="{Binding ElementName=UserControl, Path=ControllerFunction.Function.DisplayName, FallbackValue='No function'}" />
+            </DockPanel>
 
             <ControlTemplate.Triggers>
-                <Trigger SourceName="StackPanel" Property="IsMouseOver" Value="True">
+                <Trigger SourceName="Panel" Property="IsMouseOver" Value="True">
                     <Setter TargetName="DeleteFunctionButton" Property="Visibility" Value="Visible"/>
                 </Trigger>
             </ControlTemplate.Triggers>
@@ -180,12 +180,11 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Width="60" Height="60"
-                        ContentTemplate="{StaticResource IconTemplate}" />
+        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Width="60" Height="60" ContentTemplate="{StaticResource IconTemplate}" />
 
         <!-- Function -->
         <ContentControl Grid.Row="0" Grid.Column="1" Template="{StaticResource FunctionTemplate}"/>
@@ -204,19 +203,19 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Label}">Channel</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"
                        Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ChannelShort}" />
 
             <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Label}">Type</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"
                        Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.MessageTypeShort}" />
 
             <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Label}">Control</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"
                        Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControlNumber}" />
 
-            <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource Label}">Type</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+            <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource Label}">Range</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"
                        Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range}" />
         </Grid>
     </Grid>

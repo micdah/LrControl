@@ -13,6 +13,8 @@ namespace micdah.LrControl.Configurations
 
         private bool _showHudMessages;
         private bool _startMinimized;
+        private bool _autoSaveOnClose;
+        private int _parameterUpdateFrequency;
 
         static Settings()
         {
@@ -22,9 +24,16 @@ namespace micdah.LrControl.Configurations
                 Current = new Settings
                 {
                     ShowHudMessages = true,
-                    StartMinimized = false
+                    StartMinimized = false,
+                    AutoSaveOnClose = false,
+                    ParameterUpdateFrequency = 60,
                 };
             }
+        }
+
+        public void Save()
+        {
+            Serializer.Save(SettingsFile, this);
         }
 
         public bool ShowHudMessages
@@ -45,6 +54,28 @@ namespace micdah.LrControl.Configurations
             {
                 if (value == _startMinimized) return;
                 _startMinimized = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AutoSaveOnClose
+        {
+            get { return _autoSaveOnClose; }
+            set
+            {
+                if (value == _autoSaveOnClose) return;
+                _autoSaveOnClose = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int ParameterUpdateFrequency
+        {
+            get { return _parameterUpdateFrequency; }
+            set
+            {
+                if (value == _parameterUpdateFrequency) return;
+                _parameterUpdateFrequency = value;
                 OnPropertyChanged();
             }
         }

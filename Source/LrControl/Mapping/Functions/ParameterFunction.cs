@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using micdah.LrControl.Configurations;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
@@ -28,9 +29,25 @@ namespace micdah.LrControl.Mapping.Functions
             if (_intParameter == null && _doubleParameter == null && _boolParameter == null)
                 throw new ArgumentException(@"Unsupported parameter type", nameof(parameter));
 
-            _controllerChangedTimer = new Timer(ControllerChangedTimer, null, 33, 33);
+            _controllerChangedTimer = new Timer(ControllerChangedTimer, null, Timeout.Infinite, Timeout.Infinite);
+            UpdateControllerChangeTimer();
+
+            // Update change timer when settings change
+            Settings.Current.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(Settings.ParameterUpdateFrequency))
+                {
+                    UpdateControllerChangeTimer();
+                }
+            };
 
             api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
+        }
+
+        private void UpdateControllerChangeTimer()
+        {
+            var updateInterval = 1000 / Settings.Current.ParameterUpdateFrequency;
+            _controllerChangedTimer.Change(updateInterval, updateInterval);
         }
 
         public override void Enable()

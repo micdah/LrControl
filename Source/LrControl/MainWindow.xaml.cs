@@ -161,7 +161,7 @@ namespace micdah.LrControl
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            Serializer.Save("Settings.xml", Settings.Current);
+            Settings.Current.Save();
         }
     }
 }

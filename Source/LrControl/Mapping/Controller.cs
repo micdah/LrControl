@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Common;
@@ -181,8 +182,10 @@ namespace micdah.LrControl.Mapping
 
         private void OnControllerChanged(int controllervalue)
         {
-            LastValue = controllervalue;
-            ControllerChanged?.Invoke(controllervalue);
+            var clampedValue = Convert.ToInt32(Range.ClampToRange(controllervalue));
+
+            LastValue = clampedValue;
+            ControllerChanged?.Invoke(clampedValue);
         }
     }
 }
