@@ -17,9 +17,9 @@
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button>load</Button>
-            <Button>save</Button>
-            <Button>reset</Button>
+            <Button Command="{Binding LoadCommand}">load</Button>
+            <Button Command="{Binding SaveCommand}">save</Button>
+            <Button Command="{Binding ResetCommand}">reset</Button>
             <Button Command="{Binding OpenSettingsCommand}">settings</Button>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
@@ -64,7 +64,7 @@
                     </DataTemplate>
                 </TabControl.ContentTemplate>
             </TabControl>
-
+            
             <!-- Function catalog -->
             <gui:FunctionCatalogView Grid.Column="1" MaxWidth="375" FunctionCatalog="{Binding FunctionCatalog}"/>
         </Grid>

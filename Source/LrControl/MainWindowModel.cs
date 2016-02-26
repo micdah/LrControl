@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
@@ -21,9 +22,15 @@ namespace micdah.LrControl
         public MainWindowModel()
         {
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
+            SaveCommand         = new DelegateCommand(Save);
+            LoadCommand         = new DelegateCommand(Load);
+            ResetCommand        = new DelegateCommand(Reset);
         }
 
         public ICommand OpenSettingsCommand { get; }
+        public ICommand SaveCommand { get; }
+        public ICommand LoadCommand { get; }
+        public ICommand ResetCommand { get; }
 
         public IInputDevice InputDevice
         {
@@ -96,6 +103,21 @@ namespace micdah.LrControl
         private void OpenSettings()
         {
             ShowSettingsDialog = !ShowSettingsDialog;
+        }
+
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
         }
 
         [NotifyPropertyChangedInvocator]

@@ -14,7 +14,8 @@
     </UserControl.Resources>
     <ScrollViewer>
         <!-- Function group tabs -->
-        <TabControl ItemsSource="{Binding ElementName=UserControl, Path=ModuleGroup.FunctionGroups}" SelectedIndex="0">
+        <TabControl ItemsSource="{Binding ElementName=UserControl, Path=ModuleGroup.FunctionGroups}"
+                    SelectedItem="{Binding ElementName=UserControl, Path=Selected}">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <Grid Background="{Binding Enabled, Converter={StaticResource EnabledFillConverter}}">

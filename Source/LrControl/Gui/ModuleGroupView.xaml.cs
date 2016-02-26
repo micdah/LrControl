@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System;
+using System.Linq;
+using System.Windows;
 using micdah.LrControl.Mapping;
 
 namespace micdah.LrControl.Gui
@@ -9,13 +10,17 @@ namespace micdah.LrControl.Gui
     /// </summary>
     public partial class ModuleGroupView
     {
+        public static readonly DependencyProperty ModuleGroupProperty = DependencyProperty.Register(
+            "ModuleGroup", typeof (ModuleGroup), typeof (ModuleGroupView),
+            new PropertyMetadata(default(ModuleGroup), ModuleGroupChanged));
+
+        public static readonly DependencyProperty SelectedProperty = DependencyProperty.Register(
+            "Selected", typeof (FunctionGroup), typeof (ModuleGroupView), new PropertyMetadata(default(FunctionGroup)));
+
         public ModuleGroupView()
         {
             InitializeComponent();
         }
-
-        public static readonly DependencyProperty ModuleGroupProperty = DependencyProperty.Register(
-            "ModuleGroup", typeof (ModuleGroup), typeof (ModuleGroupView), new PropertyMetadata(default(ModuleGroup)));
 
         public ModuleGroup ModuleGroup
         {
@@ -23,5 +28,23 @@ namespace micdah.LrControl.Gui
             set { SetValue(ModuleGroupProperty, value); }
         }
 
+        public FunctionGroup Selected
+        {
+            get { return (FunctionGroup) GetValue(SelectedProperty); }
+            set { SetValue(SelectedProperty, value); }
+        }
+
+        private static void ModuleGroupChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        {
+            ((ModuleGroupView)dependencyObject).SelectFirst();
+        }
+
+        private void SelectFirst()
+        {
+            if (ModuleGroup != null)
+            {
+                Selected = ModuleGroup.FunctionGroups.FirstOrDefault();
+            }
+        }
     }
 }

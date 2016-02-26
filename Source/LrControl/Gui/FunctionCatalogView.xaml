@@ -25,7 +25,7 @@
             </TextBlock.ToolTip>
         </TextBlock>
         
-        <TreeView Grid.Row="2" ItemsSource="{Binding ElementName=UserControl, Path=FunctionCatalog.Groups}">
+        <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=UserControl, Path=FunctionCatalog.Groups}">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type catalog:FunctionCatalogGroup}"
                                           ItemsSource="{Binding Functions}">
