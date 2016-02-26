@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Configurations;
+using micdah.LrControlApi.Common;
 using Midi.Devices;
 
 namespace micdah.LrControl.Mapping
 {
     public class ControllerManager : INotifyPropertyChanged
     {
-        private ObservableCollection<Controller> _controllers;
         private readonly object _controllersLock = new object();
+        private ObservableCollection<Controller> _controllers;
 
         public ControllerManager()
         {
@@ -59,9 +62,40 @@ namespace micdah.LrControl.Mapping
             {
                 if (controller.Range != null)
                 {
-                    controller.SetControllerValue((int)controller.Range.Minimum);
+                    controller.SetControllerValue((int) controller.Range.Minimum);
                 }
             }
+        }
+
+        public List<ControllerConfiguration> GetConfiguration()
+        {
+            return Controllers.Select(controller => controller.GetConfiguration()).ToList();
+        }
+
+        public void Load(List<ControllerConfiguration> controllerConfiguration)
+        {
+            Reset();
+
+            foreach (var controller in controllerConfiguration)
+            {
+                Controllers.Add(new Controller
+                {
+                    Channel = controller.Channel,
+                    MessageType = controller.MessageType,
+                    ControlNumber = controller.ControlNumber,
+                    ControllerType = controller.ControllerType,
+                    Range = new Range(controller.RangeMin, controller.RangeMax),
+                });
+            }
+        }
+
+        public void Reset()
+        {
+            foreach (var controller in Controllers)
+            {
+                controller.Dispose();
+            }
+            Controllers.Clear();
         }
 
         [NotifyPropertyChangedInvocator]

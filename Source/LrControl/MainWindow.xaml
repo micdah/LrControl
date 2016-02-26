@@ -50,7 +50,7 @@
             </Grid.RowDefinitions>
 
             <!-- Module tabs -->
-            <TabControl Grid.Column="0" ItemsSource="{Binding FunctionGroupCatalog.Modules}" SelectedIndex="0">
+            <TabControl Grid.Column="0" ItemsSource="{Binding FunctionGroupManager.Modules}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="{Binding Enabled, Converter={StaticResource EnabledFillConverter}}">

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using micdah.LrControl.Annotations;
@@ -9,12 +10,12 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace micdah.LrControl.Mapping
 {
-    public class FunctionGroupCatalog : INotifyPropertyChanged
+    public class FunctionGroupManager : INotifyPropertyChanged
     {
-        private ObservableCollection<ModuleGroup> _modules;
         private readonly object _modulesLock = new object();
+        private ObservableCollection<ModuleGroup> _modules;
 
-        private FunctionGroupCatalog()
+        private FunctionGroupManager()
         {
         }
 
@@ -51,9 +52,20 @@ namespace micdah.LrControl.Mapping
             }
         }
 
-        public static FunctionGroupCatalog DefaultGroups(LrApi api)
+        public void Reset()
         {
-            return new FunctionGroupCatalog
+            foreach (var module in Modules)
+            {
+                foreach (var functionGroup in module.FunctionGroups)
+                {
+                    functionGroup.ClearControllerFunctions();
+                }
+            }
+        }
+
+        public static FunctionGroupManager DefaultGroups(LrApi api)
+        {
+            return new FunctionGroupManager
             {
                 Modules = new ObservableCollection<ModuleGroup>
                 {

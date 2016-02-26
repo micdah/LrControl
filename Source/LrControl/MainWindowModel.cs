@@ -1,10 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Configurations;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
+using micdah.LrControlApi;
+using micdah.LrControlApi.Modules.LrApplicationView;
 using Midi.Devices;
 using Prism.Commands;
 
@@ -12,15 +16,18 @@ namespace micdah.LrControl
 {
     public class MainWindowModel : INotifyPropertyChanged
     {
+        private readonly LrApi _api;
         private ControllerManager _controllerManager;
         private FunctionCatalog _functionCatalog;
-        private FunctionGroupCatalog _functionGroupCatalog;
+        private FunctionGroupManager _functionGroupManager;
         private IInputDevice _inputDevice;
         private IOutputDevice _outputDevice;
         private bool _showSettingsDialog;
 
-        public MainWindowModel()
+        public MainWindowModel(LrApi api)
         {
+            _api = api;
+
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
             SaveCommand         = new DelegateCommand(Save);
             LoadCommand         = new DelegateCommand(Load);
@@ -76,13 +83,13 @@ namespace micdah.LrControl
             }
         }
 
-        public FunctionGroupCatalog FunctionGroupCatalog
+        public FunctionGroupManager FunctionGroupManager
         {
-            get { return _functionGroupCatalog; }
+            get { return _functionGroupManager; }
             set
             {
-                if (Equals(value, _functionGroupCatalog)) return;
-                _functionGroupCatalog = value;
+                if (Equals(value, _functionGroupManager)) return;
+                _functionGroupManager = value;
                 OnPropertyChanged();
             }
         }
@@ -107,17 +114,43 @@ namespace micdah.LrControl
 
         public void Save()
         {
-            throw new NotImplementedException();
+            var conf = new MappingConfiguration
+            {
+                Controllers = ControllerManager.GetConfiguration()
+            };
+
+            MappingConfiguration.Save(conf);
         }
 
         public void Load()
         {
-            throw new NotImplementedException();
+            var conf = MappingConfiguration.Load();
+            if (conf == null) return;
+
+            // Load controllers
+            ControllerManager.Load(conf.Controllers);
+            ControllerManager.SetInputDevice(InputDevice);
+            ControllerManager.SetOutputDevice(OutputDevice);
+
+            FunctionGroupManager.InitControllers(ControllerManager);
+
+
+            EnableModuleGroupuForCurrentModule();
         }
 
         public void Reset()
         {
-            throw new NotImplementedException();
+            ControllerManager?.Reset();
+            FunctionGroupManager?.Reset();
+        }
+
+        public void EnableModuleGroupuForCurrentModule()
+        {
+            Module currentModule;
+            if (_api.LrApplicationView.GetCurrentModuleName(out currentModule))
+            {
+                ModuleGroup.EnableGroupFor(currentModule);
+            }
         }
 
         [NotifyPropertyChangedInvocator]

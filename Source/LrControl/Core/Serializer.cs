@@ -13,6 +13,7 @@ namespace micdah.LrControl.Core
         public static bool Save<T>(string relativeFilename, T instance) where T : class
         {
             var path = ResolveRelativeFilename(relativeFilename);
+            EnsurePathExists(path);
 
             try
             {
@@ -29,6 +30,15 @@ namespace micdah.LrControl.Core
             {
                 Log.Error($"Was unable to save instance of {typeof (T).Name} to '{path}'", e);
                 return false;
+            }
+        }
+
+        private static void EnsurePathExists(string path)
+        {
+            var dir = Path.GetDirectoryName(path);
+            if (dir != null)
+            {
+                Directory.CreateDirectory(dir);
             }
         }
 
@@ -64,7 +74,7 @@ namespace micdah.LrControl.Core
             var exePath = Assembly.GetExecutingAssembly().Location;
             var exeDir = Path.GetDirectoryName(exePath);
             return exeDir != null
-                ? Path.Combine(exeDir, relativeFilename)
+                ? Path.GetFullPath(Path.Combine(exeDir, relativeFilename))
                 : Path.GetFullPath(relativeFilename);
         }
     }

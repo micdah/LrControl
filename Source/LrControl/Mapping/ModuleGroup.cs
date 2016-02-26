@@ -88,8 +88,6 @@ namespace micdah.LrControl.Mapping
 
         private void Enable()
         {
-            if (Enabled) return;
-
             // Enable last enabled function group(s)
             foreach (var enabledGroup in _lastEnabledFunctionGroups)
             {

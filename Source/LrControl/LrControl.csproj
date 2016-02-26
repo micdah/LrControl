@@ -111,7 +111,7 @@
     <Compile Include="Mapping\Catalog\FunctionCatalogGroup.cs" />
     <Compile Include="Mapping\ControllerFunction.cs" />
     <Compile Include="Mapping\ControllerType.cs" />
-    <Compile Include="Mapping\FunctionGroupCatalog.cs" />
+    <Compile Include="Mapping\FunctionGroupManager.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\FunctionFactory.cs" />
     <Compile Include="Mapping\Functions\MethodFunctionFactory.cs" />

@@ -7,7 +7,7 @@ namespace micdah.LrControl.Configurations
 {
     public class Settings : INotifyPropertyChanged
     {
-        private const string SettingsFile = "Settings.xml";
+        private const string SettingsFile = @"..\Settings\Settings.xml";
 
         public static readonly Settings Current;
 

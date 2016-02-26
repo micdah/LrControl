@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
+using micdah.LrControl.Configurations;
 using micdah.LrControlApi.Common;
 using Midi.Devices;
 using Midi.Enums;
@@ -11,7 +12,7 @@ namespace micdah.LrControl.Mapping
 {
     public delegate void ControllerChangedHandler(int controllerValue);
 
-    public class Controller : INotifyPropertyChanged
+    public class Controller : INotifyPropertyChanged, IDisposable
     {
         private Channel _channel;
         private int _controlNumber;
@@ -127,6 +128,8 @@ namespace micdah.LrControl.Mapping
             }
 
             _inputDevice = inputDevice;
+
+            if (_inputDevice == null) return;
             switch (MessageType)
             {
                 case ControllerMessageType.ControlChange:
@@ -158,6 +161,19 @@ namespace micdah.LrControl.Mapping
             }
         }
 
+        public ControllerConfiguration GetConfiguration()
+        {
+            return new ControllerConfiguration
+            {
+                Channel = Channel,
+                ControllerType = ControllerType,
+                ControlNumber = ControlNumber,
+                MessageType = MessageType,
+                RangeMin = Convert.ToInt32(Range.Minimum),
+                RangeMax = Convert.ToInt32(Range.Maximum)
+            };
+        }
+
         private void Handle(NrpnMessage msg)
         {
             if (msg.Channel == Channel && msg.Parameter == ControlNumber)
@@ -186,6 +202,15 @@ namespace micdah.LrControl.Mapping
 
             LastValue = clampedValue;
             ControllerChanged?.Invoke(clampedValue);
+        }
+
+        public void Dispose()
+        {
+            if (_inputDevice != null)
+            {
+                _inputDevice.Nrpn -= Handle;
+                _inputDevice.ControlChange -= Handle;
+            }
         }
     }
 }

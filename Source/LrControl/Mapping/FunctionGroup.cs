@@ -101,8 +101,6 @@ namespace micdah.LrControl.Mapping
 
         public void Enable()
         {
-            if (Enabled) return;
-
             if (!IsGlobal)
             {
                 // Disable other non-global groups

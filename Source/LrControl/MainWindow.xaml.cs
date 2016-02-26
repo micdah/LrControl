@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
-using micdah.LrControl.Core;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Modules.LrApplicationView;
 using Midi.Devices;
 using Midi.Enums;
 
@@ -103,33 +99,30 @@ namespace micdah.LrControl
             _outputDevice.Open();
 
             // View model
-            ViewModel = new MainWindowModel
+            ViewModel = new MainWindowModel(_api)
             {
-                ControllerManager = new ControllerManager(new List<Controller>
-                {
-                    _fader0,_fader1,_fader2,_fader3,_fader4,_fader5,_fader6,_fader7,
-                    _encoder0,_encoder1,_encoder2,_encoder3,_encoder4,_encoder5,_encoder6,_encoder7,
-                    _button0,_button1,_button2,_button3,_button4,_button5,_button6,_button7,_button8,_button9,
-                    _button10,_button11,_button12,_button13,_button14,_button15,_button16,_button17,_button18,_button19,
-                    _button20,_button21,_button22,_button23,_button24,_button25,_button26,_button27,_button28,_button29,
-                    _button30,_button31,_button32,_button33,_button34,_button35,_button36,_button37
-                }),
+                //ControllerManager = new ControllerManager(new List<Controller>
+                //{
+                //    _fader0,_fader1,_fader2,_fader3,_fader4,_fader5,_fader6,_fader7,
+                //    _encoder0,_encoder1,_encoder2,_encoder3,_encoder4,_encoder5,_encoder6,_encoder7,
+                //    _button0,_button1,_button2,_button3,_button4,_button5,_button6,_button7,_button8,_button9,
+                //    _button10,_button11,_button12,_button13,_button14,_button15,_button16,_button17,_button18,_button19,
+                //    _button20,_button21,_button22,_button23,_button24,_button25,_button26,_button27,_button28,_button29,
+                //    _button30,_button31,_button32,_button33,_button34,_button35,_button36,_button37
+                //}),
+                ControllerManager = new ControllerManager(),
                 FunctionCatalog = FunctionCatalog.DefaultCatalog(_api),
-                FunctionGroupCatalog = FunctionGroupCatalog.DefaultGroups(_api),
+                FunctionGroupManager = FunctionGroupManager.DefaultGroups(_api),
+                InputDevice = _inputDevice,
+                OutputDevice = _outputDevice,
             };
 
-            ViewModel.ControllerManager.SetInputDevice(_inputDevice);
-            ViewModel.ControllerManager.SetOutputDevice(_outputDevice);
+            //ViewModel.ControllerManager.SetInputDevice(_inputDevice);
+            //ViewModel.ControllerManager.SetOutputDevice(_outputDevice);
             ViewModel.ControllerManager.ResetAllControls();
-            ViewModel.FunctionGroupCatalog.InitControllers(ViewModel.ControllerManager);
-
-            // Enable module group matching currently active module
-            Module currentModule;
-            if (_api.LrApplicationView.GetCurrentModuleName(out currentModule))
-            {
-                ModuleGroup.EnableGroupFor(currentModule);
-            }
-
+            ViewModel.EnableModuleGroupuForCurrentModule();
+            //ViewModel.FunctionGroupManager.InitControllers(ViewModel.ControllerManager);
+            
             // Automatically switch module group
             _api.LrApplicationView.ModuleChanged += ModuleGroup.EnableGroupFor;
         }
