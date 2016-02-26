@@ -1,6 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
+using micdah.LrControl.Annotations;
 using micdah.LrControl.Mapping;
 
 namespace micdah.LrControl.Gui
@@ -8,7 +11,7 @@ namespace micdah.LrControl.Gui
     /// <summary>
     ///     Interaction logic for ModuleGroupView.xaml
     /// </summary>
-    public partial class ModuleGroupView
+    public partial class ModuleGroupView : INotifyPropertyChanged
     {
         public static readonly DependencyProperty ModuleGroupProperty = DependencyProperty.Register(
             "ModuleGroup", typeof (ModuleGroup), typeof (ModuleGroupView),
@@ -37,6 +40,7 @@ namespace micdah.LrControl.Gui
         private static void ModuleGroupChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             ((ModuleGroupView)dependencyObject).SelectFirst();
+            ((ModuleGroupView)dependencyObject).OnPropertyChanged(nameof(ModuleGroup));
         }
 
         private void SelectFirst()
@@ -45,6 +49,14 @@ namespace micdah.LrControl.Gui
             {
                 Selected = ModuleGroup.FunctionGroups.FirstOrDefault();
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

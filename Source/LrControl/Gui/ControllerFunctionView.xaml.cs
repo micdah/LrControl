@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using micdah.LrControl.Gui.Utils;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Functions;
 
@@ -35,7 +36,10 @@ namespace micdah.LrControl.Gui
 
         private void ControllerFunctionView_OnDragEnter(object sender, DragEventArgs e)
         {
-            Highlight = e.Data.GetDataPresent(typeof (FunctionFactory));
+            if (ControllerFunction.Assignable)
+            {
+                Highlight = e.Data.GetDataPresent(typeof(FunctionFactory));
+            }
         }
 
         private void ControllerFunctionView_OnDragLeave(object sender, DragEventArgs e)
@@ -47,26 +51,42 @@ namespace micdah.LrControl.Gui
         {
             if (!e.Data.GetDataPresent(typeof (FunctionFactory))) return;
 
-            e.Effects = DragDropEffects.Move;
-            Highlight = true;
+            if (ControllerFunction.Assignable)
+            {
+                e.Effects = DragDropEffects.Move;
+                Highlight = true;
+            }
         }
 
         private void ControllerFunctionView_OnDrop(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(typeof (FunctionFactory))) return;
-
             Highlight = false;
 
+            // Verify drop object contains needed object
+            if (!e.Data.GetDataPresent(typeof (FunctionFactory))) return;
             var functionFactory = (FunctionFactory) e.Data.GetData(typeof (FunctionFactory));
-            if (ControllerFunction != null)
+
+            // Verify we have all needed parameters
+            var moduleGroup = this.FindParent<ModuleGroupView>()?.ModuleGroup;
+            var functionGroup = this.FindParent<FunctionGroupView>()?.FunctionGroup;
+            var controllerFunction = ControllerFunction;
+            if (moduleGroup == null || functionGroup == null || controllerFunction == null) return;
+
+            if (moduleGroup.CanAssignFunction(controllerFunction.Controller, functionGroup.IsGlobal))
             {
                 ControllerFunction.Function = functionFactory.CreateFunction();
+                moduleGroup.RecalculateControllerFunctionState();
             }
         }
 
         private void DeleteFunctionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            ControllerFunction.Function = null;
+            var moduleGroup = this.FindParent<ModuleGroupView>()?.ModuleGroup;
+            if (moduleGroup != null)
+            {
+                ControllerFunction.Function = null;
+                moduleGroup.RecalculateControllerFunctionState();
+            }
         }
     }
 }

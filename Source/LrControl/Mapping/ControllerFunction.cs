@@ -9,8 +9,8 @@ namespace micdah.LrControl.Mapping
     public class ControllerFunction : INotifyPropertyChanged, IDisposable
     {
         private Controller _controller;
-        private bool _enabled;
         private Function _function;
+        private bool _assignable;
 
         public Controller Controller
         {
@@ -49,16 +49,18 @@ namespace micdah.LrControl.Mapping
             }
         }
 
-        public bool Enabled
+        public bool Assignable
         {
-            get { return _enabled; }
-            private set
+            get { return _assignable; }
+            set
             {
-                if (value == _enabled) return;
-                _enabled = value;
+                if (value == _assignable) return;
+                _assignable = value;
                 OnPropertyChanged();
             }
         }
+
+        private bool Enabled { get; set; }
 
         public bool HasFunction => Function != null;
 

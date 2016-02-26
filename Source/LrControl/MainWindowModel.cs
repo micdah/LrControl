@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Net.Configuration;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
@@ -48,7 +47,7 @@ namespace micdah.LrControl
 
         public IInputDevice InputDevice
         {
-            get { return _inputDevice; }
+            private get { return _inputDevice; }
             set
             {
                 if (Equals(value, _inputDevice)) return;
@@ -59,7 +58,7 @@ namespace micdah.LrControl
 
         public IOutputDevice OutputDevice
         {
-            get { return _outputDevice; }
+            private get { return _outputDevice; }
             set
             {
                 if (Equals(value, _outputDevice)) return;
@@ -68,10 +67,10 @@ namespace micdah.LrControl
             }
         }
 
-        public ControllerManager ControllerManager
+        private ControllerManager ControllerManager
         {
             get { return _controllerManager; }
-            private set
+            set
             {
                 if (Equals(value, _controllerManager)) return;
                 _controllerManager = value;
@@ -148,13 +147,13 @@ namespace micdah.LrControl
             EnableModuleGroupuForCurrentModule();
         }
 
-        public void Reset()
+        private void Reset()
         {
             ControllerManager?.Reset();
             FunctionGroupManager?.Reset();
         }
 
-        public void EnableModuleGroupuForCurrentModule()
+        private void EnableModuleGroupuForCurrentModule()
         {
             Module currentModule;
             if (_api.LrApplicationView.GetCurrentModuleName(out currentModule))

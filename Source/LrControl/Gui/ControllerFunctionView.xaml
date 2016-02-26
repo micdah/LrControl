@@ -15,9 +15,13 @@
     <UserControl.Style>
         <Style TargetType="UserControl">
             <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
+            <Setter Property="Opacity" Value="1"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=UserControl, Path=Highlight}" Value="True">
                     <Setter Property="Background" Value="{DynamicResource AccentColorBrush3}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Assignable}" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>

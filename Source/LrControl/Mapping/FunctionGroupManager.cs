@@ -120,6 +120,8 @@ namespace micdah.LrControl.Mapping
                         controllerFunction.Function = functionFactory.CreateFunction();
                     }
                 }
+
+                module.RecalculateControllerFunctionState();
             }
         }
 

@@ -91,6 +91,9 @@
     <Compile Include="Gui\FunctionCatalogView.xaml.cs">
       <DependentUpon>FunctionCatalogView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\FunctionGroupView.xaml.cs">
+      <DependentUpon>FunctionGroupView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gui\ModuleGroupView.xaml.cs">
       <DependentUpon>ModuleGroupView.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,8 @@
     </Compile>
     <Compile Include="Gui\Utils\BooleanFillValueConverter.cs" />
     <Compile Include="Gui\Utils\ButtonFillValueConverter.cs" />
+    <Compile Include="Gui\Utils\DebugConverter.cs" />
+    <Compile Include="Gui\Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Gui\Utils\EncoderAngleValueConverter.cs" />
     <Compile Include="Gui\Utils\RangeTickFrequencyValueConverter.cs" />
     <Compile Include="MainWindowModel.cs" />
@@ -128,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Gui\FunctionCatalogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Gui\FunctionGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

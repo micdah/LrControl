@@ -102,6 +102,44 @@ namespace micdah.LrControl.Mapping
             Log.Debug($"Disabled ModuleGroup for {Module.Name}");
         }
 
+        public bool CanAssignFunction(Controller controller, bool inGlobalGroup)
+        {
+            if (inGlobalGroup)
+            {
+                return FunctionGroups
+                    .Where(g => !g.IsGlobal)
+                    .All(functionGroup => !functionGroup.ControllerFunctions
+                        .Any(x => x.Controller == controller && x.Function != null));
+            }
+
+            // Otherwise
+            return FunctionGroups
+                .Where(g => g.IsGlobal)
+                .All(functionGroup => !functionGroup.ControllerFunctions
+                    .Any(x => x.Controller == controller && x.Function != null));
+        }
+
+        public void RecalculateControllerFunctionState()
+        {
+            var globalFunctions = FunctionGroups.Where(g => g.IsGlobal)
+                .SelectMany(g => g.ControllerFunctions)
+                .Where(cf => cf.Function != null).ToList();
+
+            var nonGlobalFunctions = FunctionGroups.Where(g => !g.IsGlobal)
+                .SelectMany(g => g.ControllerFunctions)
+                .Where(cf => cf.Function != null).ToList();
+
+            foreach (var functionGroup in FunctionGroups)
+            {
+                foreach (var controllerFunction in functionGroup.ControllerFunctions)
+                {
+                    controllerFunction.Assignable = functionGroup.IsGlobal
+                        ? nonGlobalFunctions.All(cf => cf.Controller != controllerFunction.Controller)
+                        : globalFunctions.All(cf => cf.Controller != controllerFunction.Controller);
+                }
+            }
+        }
+
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

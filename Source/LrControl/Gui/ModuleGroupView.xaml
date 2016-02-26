@@ -25,18 +25,7 @@
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate DataType="mapping:FunctionGroup">
-                    <ItemsControl ItemsSource="{Binding ControllerFunctions}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:ControllerFunctionView ControllerFunction="{Binding}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <local:FunctionGroupView FunctionGroup="{Binding}"/>
                 </DataTemplate>
             </TabControl.ContentTemplate>
         </TabControl>
