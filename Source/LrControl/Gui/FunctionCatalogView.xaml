@@ -21,7 +21,9 @@
                     <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListHeaderFont}" Padding="3,6,3,3" />
                 </HierarchicalDataTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type functions:FunctionFactory}">
-                    <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListItemFont}" Padding="3" />
+                    <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListItemFont}" Padding="3" 
+                               Tag="{Binding}" 
+                               MouseMove="FunctionFactoryTextBlock_OnMouseMove"/>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
         </TreeView>

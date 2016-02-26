@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using micdah.LrControl.Mapping.Catalog;
+using micdah.LrControl.Mapping.Functions;
 
 namespace micdah.LrControl.Gui
 {
@@ -21,6 +23,17 @@ namespace micdah.LrControl.Gui
         {
             get { return (FunctionCatalog) GetValue(FunctionCatalogProperty); }
             set { SetValue(FunctionCatalogProperty, value); }
+        }
+
+        private void FunctionFactoryTextBlock_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            var textBlock = sender as TextBlock;
+            var functionFactory = textBlock?.Tag as FunctionFactory;
+            if (functionFactory != null && e.LeftButton == MouseButtonState.Pressed)
+            {
+                var dataObject = new DataObject(typeof (FunctionFactory), functionFactory);
+                DragDrop.DoDragDrop(textBlock, dataObject, DragDropEffects.Move);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ namespace micdah.LrControl.Mapping
     public class ControllerFunction : INotifyPropertyChanged, IDisposable
     {
         private Controller _controller;
+        private bool _enabled;
         private Function _function;
 
         public Controller Controller
@@ -37,28 +38,26 @@ namespace micdah.LrControl.Mapping
 
                 _function = value;
                 _function.Controller = _controller;
+                if (Enabled)
+                    _function.Enable();
 
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(HasFunction));
+            }
+        }
+
+        public bool Enabled
+        {
+            get { return _enabled; }
+            private set
+            {
+                if (value == _enabled) return;
+                _enabled = value;
                 OnPropertyChanged();
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void Enable()
-        {
-            Function?.Enable();
-        }
-
-        public void Disable()
-        {
-            Function?.Disable();
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public bool HasFunction => Function != null;
 
         public void Dispose()
         {
@@ -70,6 +69,26 @@ namespace micdah.LrControl.Mapping
                 _function.Controller = null;
                 _function = null;
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Enable()
+        {
+            Function?.Enable();
+            Enabled = true;
+        }
+
+        public void Disable()
+        {
+            Function?.Disable();
+            Enabled = false;
+        }
+
+        [NotifyPropertyChangedInvocator]
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
