@@ -37,9 +37,12 @@ namespace micdah.LrControl.Mapping
                 _function?.Disable();
 
                 _function = value;
-                _function.Controller = _controller;
-                if (Enabled)
-                    _function.Enable();
+
+                if (_function != null)
+                {
+                    _function.Controller = _controller;
+                    if (Enabled) _function.Enable();
+                }
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(HasFunction));

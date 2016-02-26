@@ -63,5 +63,10 @@ namespace micdah.LrControl.Gui
                 ControllerFunction.Function = functionFactory.CreateFunction();
             }
         }
+
+        private void DeleteFunctionButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            ControllerFunction.Function = null;
+        }
     }
 }

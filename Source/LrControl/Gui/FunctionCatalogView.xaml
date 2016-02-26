@@ -13,8 +13,19 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Style="{StaticResource TabHeader}" Margin="3">Lightroom functions</TextBlock>
-        <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=UserControl, Path=FunctionCatalog.Groups}">
+        <TextBlock Grid.Row="0" Style="{StaticResource TabHeader}" Margin="3">
+            Lightroom functions
+            <Rectangle Fill="{DynamicResource GrayBrush2}" Width="12" Height="12">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Visual="{StaticResource appbar_question}" Stretch="Uniform"/>
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <TextBlock.ToolTip>
+                Drag a function onto a controller, to map that controller to the selected function
+            </TextBlock.ToolTip>
+        </TextBlock>
+        
+        <TreeView Grid.Row="2" ItemsSource="{Binding ElementName=UserControl, Path=FunctionCatalog.Groups}">
             <TreeView.Resources>
                 <HierarchicalDataTemplate DataType="{x:Type catalog:FunctionCatalogGroup}"
                                           ItemsSource="{Binding Functions}">

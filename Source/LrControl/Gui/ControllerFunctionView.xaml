@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="micdah.LrControl.Gui.ControllerFunctionView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:utils="clr-namespace:micdah.LrControl.Gui.Utils"
              xmlns:common="clr-namespace:micdah.LrControlApi.Common;assembly=LrControlApi"
@@ -14,69 +14,70 @@
              x:Name="UserControl">
     <UserControl.Style>
         <Style TargetType="UserControl">
-            <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}"/>
+            <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding ElementName=UserControl, Path=Highlight}" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource AccentColorBrush3}"/>
+                    <Setter Property="Background" Value="{DynamicResource AccentColorBrush3}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Style>
     <UserControl.Resources>
         <Style x:Key="Label" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="9"/>
-            <Setter Property="FontWeight" Value="Thin"/>
-            <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}"/>
-            <Setter Property="Margin" Value="0,0,6,0"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="9" />
+            <Setter Property="FontWeight" Value="Thin" />
+            <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <Style x:Key="SmallText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontWeight" Value="Thin"/>
-            <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}"/>
-            <Setter Property="Margin" Value="0,0,6,0"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="Thin" />
+            <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
         </Style>
         <Style x:Key="FunctionText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Thin"/>
-            <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}"/>
-            <Setter Property="Margin" Value="0,0,6,0"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Thin" />
+            <Setter Property="Foreground" Value="{DynamicResource BlackColorBrush}" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=UserControl, Path=ControllerFunction.HasFunction}" Value="False">
-                    <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}"/>
+                <DataTrigger Binding="{Binding ElementName=UserControl, Path=ControllerFunction.HasFunction}"
+                             Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource GrayBrush2}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <LinearGradientBrush x:Key="IconBrush">
-            <GradientStop Offset="0.0" Color="#cccccc"/>
-            <GradientStop Offset="1.0" Color="#888888"/>
+            <GradientStop Offset="0.0" Color="#cccccc" />
+            <GradientStop Offset="1.0" Color="#888888" />
         </LinearGradientBrush>
-        
-        <utils:RangeTickFrequencyValueConverter x:Key="TickFrequencyConverter" NumberOfTicks="7"/>
-        <utils:ButtonFillValueConverter x:Key="ButtonFillConverter" OffBrush="DimGray" OnBrush="Red"/>
+
+        <utils:RangeTickFrequencyValueConverter x:Key="TickFrequencyConverter" NumberOfTicks="7" />
+        <utils:ButtonFillValueConverter x:Key="ButtonFillConverter" OffBrush="DimGray" OnBrush="Red" />
         <utils:EncoderAngleValueConverter x:Key="EncoderAngleConverter">
             <utils:EncoderAngleValueConverter.AngleRange>
-                <common:Range Minimum="-135" Maximum="135"/>
+                <common:Range Minimum="-135" Maximum="135" />
             </utils:EncoderAngleValueConverter.AngleRange>
         </utils:EncoderAngleValueConverter>
-        
+
         <!-- Encoder icon -->
         <DataTemplate x:Key="EncoderIconTemplate">
             <Grid Margin="3">
-                <Ellipse StrokeThickness="2" Stroke="{StaticResource IconBrush}" Margin="3"/>
+                <Ellipse StrokeThickness="2" Stroke="{StaticResource IconBrush}" Margin="3" />
                 <Rectangle Fill="{StaticResource IconBrush}" Margin="9,6,9,9" RenderTransformOrigin="0.50,0.54">
                     <Rectangle.OpacityMask>
-                        <VisualBrush Visual="{StaticResource appbar_power}"/>
+                        <VisualBrush Visual="{StaticResource appbar_power}" />
                     </Rectangle.OpacityMask>
                     <Rectangle.RenderTransform>
                         <RotateTransform>
                             <RotateTransform.Angle>
                                 <MultiBinding Converter="{StaticResource EncoderAngleConverter}">
-                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.Range"/>
-                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.LastValue"/>
+                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.Range" />
+                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.LastValue" />
                                 </MultiBinding>
                             </RotateTransform.Angle>
                         </RotateTransform>
@@ -84,7 +85,7 @@
                 </Rectangle>
             </Grid>
         </DataTemplate>
-        
+
         <!-- Button icon -->
         <DataTemplate x:Key="ButtonIconTemplate">
             <Grid Margin="5" x:Name="Test">
@@ -94,8 +95,8 @@
                         <Rectangle x:Name="ButtonLight" RadiusX="5" RadiusY="5">
                             <Rectangle.Fill>
                                 <MultiBinding Converter="{StaticResource ButtonFillConverter}">
-                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.Range"/>
-                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.LastValue"/>
+                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.Range" />
+                                    <Binding ElementName="UserControl" Path="ControllerFunction.Controller.LastValue" />
                                 </MultiBinding>
                             </Rectangle.Fill>
                         </Rectangle>
@@ -103,87 +104,120 @@
                 </Border>
             </Grid>
         </DataTemplate>
-        
+
         <!-- Fader icon -->
         <DataTemplate x:Key="FaderIconTemplate">
             <Viewbox Stretch="Uniform">
-                <Slider Height="40" Orientation="Vertical" IsEnabled="False" HorizontalAlignment="Center" 
-                    Minimum="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range.Minimum, Mode=OneWay}"
-                    Maximum="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range.Maximum, Mode=OneWay}"
-                    TickPlacement="Both"
-                    TickFrequency="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range, Mode=OneWay, Converter={StaticResource TickFrequencyConverter}}"
-                    Value="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.LastValue, Mode=OneWay}"/>
+                <Slider Height="40" Orientation="Vertical" IsEnabled="False" HorizontalAlignment="Center"
+                        Minimum="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range.Minimum, Mode=OneWay}"
+                        Maximum="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range.Maximum, Mode=OneWay}"
+                        TickPlacement="Both"
+                        TickFrequency="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range, Mode=OneWay, Converter={StaticResource TickFrequencyConverter}}"
+                        Value="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.LastValue, Mode=OneWay}" />
             </Viewbox>
         </DataTemplate>
-        
+
         <!-- Controller icon template -->
         <DataTemplate x:Key="IconTemplate">
-            <ContentControl x:Name="Template" ContentTemplate="{StaticResource EncoderIconTemplate}"/>
+            <ContentControl x:Name="Template" ContentTemplate="{StaticResource EncoderIconTemplate}" />
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControllerType}" Value="Encoder">
-                    <Setter TargetName="Template" Property="ContentTemplate" Value="{StaticResource EncoderIconTemplate}"/>
+                <DataTrigger
+                    Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControllerType}"
+                    Value="Encoder">
+                    <Setter TargetName="Template" Property="ContentTemplate"
+                            Value="{StaticResource EncoderIconTemplate}" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControllerType}" Value="Button">
-                    <Setter TargetName="Template" Property="ContentTemplate" Value="{StaticResource ButtonIconTemplate}"/>
+                <DataTrigger
+                    Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControllerType}"
+                    Value="Button">
+                    <Setter TargetName="Template" Property="ContentTemplate"
+                            Value="{StaticResource ButtonIconTemplate}" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControllerType}" Value="Fader">
-                    <Setter TargetName="Template" Property="ContentTemplate" Value="{StaticResource FaderIconTemplate}"/>
+                <DataTrigger
+                    Binding="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControllerType}"
+                    Value="Fader">
+                    <Setter TargetName="Template" Property="ContentTemplate" Value="{StaticResource FaderIconTemplate}" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
         
+        <!-- Function text template -->
+        <ControlTemplate x:Key="FunctionTemplate" TargetType="ContentControl">
+            <StackPanel x:Name="StackPanel" Margin="0,0,0,5" Orientation="Horizontal" HorizontalAlignment="Center" Background="Transparent">
+                <TextBlock Style="{StaticResource FunctionText}"
+                           TextWrapping="NoWrap"
+                           TextTrimming="CharacterEllipsis"
+                           Text="{Binding ElementName=UserControl, Path=ControllerFunction.Function.DisplayName, FallbackValue='No function'}" />
+
+                <Button Width="8" x:Name="DeleteFunctionButton" Visibility="Hidden" Click="DeleteFunctionButton_OnClick">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Rectangle x:Name="ButtonIcon" Fill="{DynamicResource GrayBrush2}" Width="8" Margin="0,0,0,1">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Visual="{StaticResource appbar_close}" Stretch="Uniform" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ButtonIcon" Property="Fill" Value="{DynamicResource GrayBrush3}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+
+            <ControlTemplate.Triggers>
+                <Trigger SourceName="StackPanel" Property="IsMouseOver" Value="True">
+                    <Setter TargetName="DeleteFunctionButton" Property="Visibility" Value="Visible"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </UserControl.Resources>
     <Grid Margin="6" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Width="60" Height="60" ContentTemplate="{StaticResource IconTemplate}"/>
+        <ContentControl Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Width="60" Height="60"
+                        ContentTemplate="{StaticResource IconTemplate}" />
 
         <!-- Function -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="0,0,0,5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" Grid.Column="1" Template="{StaticResource FunctionTemplate}"/>
 
-            <TextBlock Grid.Row="0" Style="{StaticResource FunctionText}" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" 
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Function.DisplayName, FallbackValue='No function'}">
-            </TextBlock>
-        </Grid>
-        
         <!-- Controller -->
         <Grid Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Label}">Channel</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource SmallText}"
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ChannelShort}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ChannelShort}" />
 
             <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Label}">Type</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallText}"
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.MessageTypeShort}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.MessageTypeShort}" />
 
             <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Label}">Control</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallText}"
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControlNumber}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ControlNumber}" />
 
             <TextBlock Grid.Row="1" Grid.Column="3" Style="{StaticResource Label}">Type</TextBlock>
-            <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource SmallText}"
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="3" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush1}"
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Range}" />
         </Grid>
     </Grid>
 </UserControl>
