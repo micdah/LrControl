@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using log4net;
 using micdah.LrControlApi.Common;
 
@@ -38,6 +37,15 @@ namespace micdah.LrControlApi.Communication
 
         public bool IsOpen { get; private set; }
         public bool IsConnected { get; private set; }
+
+        public void Dispose()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+        }
+
         public event ConnectionHandler Connection;
         public event MessageHandler MessageReceived;
 
@@ -286,14 +294,6 @@ namespace micdah.LrControlApi.Communication
         private void OnConnection(bool connected)
         {
             Connection?.Invoke(connected);
-        }
-
-        public void Dispose()
-        {
-            if (IsOpen)
-            {
-                Close();
-            }
         }
     }
 }

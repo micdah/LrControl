@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using micdah.LrControlApi.Modules.LrApplicationView;
+using micdah.LrControlApi.Common;
 
 namespace micdah.LrControlApi.Communication
 {
@@ -14,22 +14,44 @@ namespace micdah.LrControlApi.Communication
         private const string HostName = "localhost";
         private const string Changed = "Changed:";
         private const string Module = "Module:";
+        private readonly StartStopThread _changeProcessingThread;
 
+        private readonly BlockingCollection<string> _changeQueue = new BlockingCollection<string>();
+        private readonly object _connectionStatusLock = new object();
+        private readonly StartStopThread _moduleProcessingThread;
+        private readonly BlockingCollection<string> _moduleQueue = new BlockingCollection<string>();
         private readonly BlockingCollection<string> _receivedMessages = new BlockingCollection<string>();
         private readonly SocketWrapper _receiveSocket;
-        private readonly SocketWrapper _sendSocket;
         private readonly object _sendLock = new object();
-        private readonly object _connectionStatusLock = new object();
+        private readonly SocketWrapper _sendSocket;
 
         private bool _lastConnectionStatus;
 
         public PluginClient(int sendPort, int receivePort)
         {
-            _sendSocket                     = new SocketWrapper(HostName, sendPort, false);
-            _receiveSocket                  = new SocketWrapper(HostName, receivePort, true);
-            _sendSocket.Connection         += connected => SocketConnectionHandler(_sendSocket, connected);
-            _receiveSocket.Connection      += connected => SocketConnectionHandler(_receiveSocket, connected);
+            _sendSocket = new SocketWrapper(HostName, sendPort, false);
+            _receiveSocket = new SocketWrapper(HostName, receivePort, true);
+            _sendSocket.Connection += connected => SocketConnectionHandler(_sendSocket, connected);
+            _receiveSocket.Connection += connected => SocketConnectionHandler(_receiveSocket, connected);
             _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
+
+            _changeProcessingThread = new StartStopThread("PluginClient Change processing thread", stop =>
+            {
+                string param;
+                if (_changeQueue.TryTake(out param, 100))
+                {
+                    ChangeMessage?.Invoke(param);
+                }
+            });
+
+            _moduleProcessingThread = new StartStopThread("PluginClient Moduyle change processing thread", stop =>
+            {
+                string module;
+                if (_moduleQueue.TryTake(out module, 100))
+                {
+                    ModuleMessage?.Invoke(module);
+                }
+            });
         }
 
         public bool IsConnected => _sendSocket.IsConnected && _receiveSocket.IsConnected;
@@ -52,6 +74,9 @@ namespace micdah.LrControlApi.Communication
                 return false;
             }
 
+            _changeProcessingThread.Start();
+            _moduleProcessingThread.Start();
+
             return true;
         }
 
@@ -62,6 +87,9 @@ namespace micdah.LrControlApi.Communication
 
             if (_receiveSocket.IsOpen)
                 _receiveSocket.Close();
+
+            _changeProcessingThread.Stop();
+            _moduleProcessingThread.Stop();
         }
 
         public bool SendMessage(string message, out string response)
@@ -131,7 +159,7 @@ namespace micdah.LrControlApi.Communication
                 _receivedMessages.Add(message);
             }
         }
-        
+
         private void UpdateConnectionStatus()
         {
             lock (_connectionStatusLock)
@@ -139,19 +167,19 @@ namespace micdah.LrControlApi.Communication
                 var isConnected = IsConnected;
                 if (_lastConnectionStatus == isConnected) return;
 
-                ThreadPool.QueueUserWorkItem(state => Connection?.Invoke((bool)state), isConnected);
+                ThreadPool.QueueUserWorkItem(state => Connection?.Invoke((bool) state), isConnected);
                 _lastConnectionStatus = isConnected;
             }
         }
 
         private void OnChangeMessage(string parameterName)
         {
-            ThreadPool.QueueUserWorkItem(state => ChangeMessage?.Invoke((string) state), parameterName);
+            _changeQueue.Add(parameterName);
         }
 
         protected virtual void OnModuleMessage(string moduleName)
         {
-            ThreadPool.QueueUserWorkItem(state => ModuleMessage?.Invoke((string)state), moduleName);
+            _moduleQueue.Add(moduleName);
         }
     }
 }
