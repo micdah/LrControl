@@ -8,7 +8,8 @@ using Midi.Messages;
 
 namespace micdah.LrControl.Core.Midi
 {
-    public class InputDeviceDecorator : IInputDevice, IDisposable
+    public class 
+        InputDeviceDecorator : IInputDevice, IDisposable
     {
         private readonly ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder> _controlChangeMessages;
         private readonly IInputDevice _inputDevice;
@@ -224,12 +225,12 @@ namespace micdah.LrControl.Core.Midi
 
         private void OnControlChange(ControlChangeMessage msg)
         {
-            ThreadPool.QueueUserWorkItem(state => ControlChange?.Invoke((ControlChangeMessage) state), msg);
+            ControlChange?.Invoke(msg);
         }
 
         private void OnNrpn(NrpnMessage msg)
         {
-            ThreadPool.QueueUserWorkItem(state => Nrpn?.Invoke((NrpnMessage) state), msg);
+            Nrpn?.Invoke(msg);
         }
     }
 }
