@@ -26,7 +26,7 @@ namespace micdah.LrControl.Configurations
                     ShowHudMessages = true,
                     StartMinimized = false,
                     AutoSaveOnClose = false,
-                    ParameterUpdateFrequency = 60,
+                    ParameterUpdateFrequency = 30,
                 };
             }
         }

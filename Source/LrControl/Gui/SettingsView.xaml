@@ -47,7 +47,7 @@
                 Parameter update frequency (updates / second)
             </TextBlock>
             
-            <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="100" Value="{Binding ParameterUpdateFrequency}"
+            <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="60" Value="{Binding ParameterUpdateFrequency}"
                     TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
             <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ParameterUpdateFrequency}"
                        Foreground="{DynamicResource GrayBrush1}"

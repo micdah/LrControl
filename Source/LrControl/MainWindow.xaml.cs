@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
+using micdah.LrControl.Core.Midi;
 using micdah.LrControlApi;
 using Midi.Devices;
 
@@ -27,7 +28,7 @@ namespace micdah.LrControl
             _api = new LrApi();
             _api.ConnectionStatus += UpdateConnectionStatus;
 
-            _inputDevice = DeviceManager.InputDevices.Single(x => x.Name == "BCF2000");
+            _inputDevice = new InputDeviceDecorator(DeviceManager.InputDevices.Single(x => x.Name == "BCF2000"));
             _inputDevice.Open();
             _inputDevice.StartReceiving(null);
 

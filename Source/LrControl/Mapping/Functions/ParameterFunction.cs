@@ -1,6 +1,4 @@
 using System;
-using System.Threading;
-using micdah.LrControl.Configurations;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
@@ -8,19 +6,17 @@ using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace micdah.LrControl.Mapping.Functions
 {
-    public class ParameterFunction : Function, IDisposable
+    public class ParameterFunction : Function
     {
         private const double ExposureParameterRangeSplit = 12000.0/48000.0;
         private const double ExposureControllerRangeSplit = 85.0/100.0;
         private readonly IParameter<bool> _boolParameter;
         private readonly IParameter<double> _doubleParameter;
         private readonly IParameter<int> _intParameter;
-        private Timer _controllerChangedTimer;
-        private int _controllerValue;
-        private int _lastControllerValue;
         private Range _parameterRange;
 
-        public ParameterFunction(LrApi api, string displayName, IParameter parameter, string key) : base(api, displayName, key)
+        public ParameterFunction(LrApi api, string displayName, IParameter parameter, string key)
+            : base(api, displayName, key)
         {
             _intParameter = parameter as IParameter<int>;
             _doubleParameter = parameter as IParameter<double>;
@@ -29,25 +25,7 @@ namespace micdah.LrControl.Mapping.Functions
             if (_intParameter == null && _doubleParameter == null && _boolParameter == null)
                 throw new ArgumentException(@"Unsupported parameter type", nameof(parameter));
 
-            _controllerChangedTimer = new Timer(ControllerChangedTimer, null, Timeout.Infinite, Timeout.Infinite);
-            UpdateControllerChangeTimer();
-
-            // Update change timer when settings change
-            Settings.Current.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(Settings.ParameterUpdateFrequency))
-                {
-                    UpdateControllerChangeTimer();
-                }
-            };
-
             api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
-        }
-
-        private void UpdateControllerChangeTimer()
-        {
-            var updateInterval = 1000 / Settings.Current.ParameterUpdateFrequency;
-            _controllerChangedTimer.Change(updateInterval, updateInterval);
         }
 
         public override void Enable()
@@ -57,20 +35,6 @@ namespace micdah.LrControl.Mapping.Functions
         }
 
         protected override void ControllerChanged(int controllerValue)
-        {
-            _controllerValue = controllerValue;
-        }
-
-        private void ControllerChangedTimer(object state)
-        {
-            var value = _controllerValue;
-            if (_lastControllerValue == value) return;
-
-            ControllerChangedFiltered(value);
-            _lastControllerValue = value;
-        }
-
-        private void ControllerChangedFiltered(int controllerValue)
         {
             if (!UpdateRange()) return;
 
@@ -162,11 +126,11 @@ namespace micdah.LrControl.Mapping.Functions
         {
             if (controllerValue < (Controller.Range.Maximum - Controller.Range.Minimum)*ExposureControllerRangeSplit)
             {
-                return (int)new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
+                return (int) new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
                     .FromRange(new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit), controllerValue);
             }
             // Otherwise
-            return (int)new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
+            return (int) new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
                 .FromRange(new Range(Controller.Range.Maximum*ExposureControllerRangeSplit, Controller.Range.Maximum),
                     controllerValue);
         }
@@ -207,20 +171,6 @@ namespace micdah.LrControl.Mapping.Functions
                 return Api.LrDevelopController.GetRange(out _parameterRange, _boolParameter);
             }
             return false;
-        }
-
-        public void Dispose()
-        {
-            if (_controllerChangedTimer != null)
-            {
-                _controllerChangedTimer.Dispose();
-                _controllerChangedTimer = null;
-            }
-        }
-
-        ~ParameterFunction()
-        {
-            Dispose();
         }
     }
 }
