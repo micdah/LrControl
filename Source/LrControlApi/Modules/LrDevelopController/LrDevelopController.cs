@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Communication;
 
@@ -221,15 +222,18 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(StopTracking));
         }
 
-        public void OnParameterChanged(string parameterName)
+        public void OnParameterChanged(string parameterNames)
         {
-            IParameter parameter;
-            if (!_parameterLookup.TryGetValue(parameterName, out parameter)) return;
-
-            ParameterChangedHandler handler;
-            if (_parameterChangedHandlers.TryGetValue(parameter, out handler))
+            foreach (var parameterName in parameterNames.Split(','))
             {
-                handler();
+                IParameter parameter;
+                if (!_parameterLookup.TryGetValue(parameterName, out parameter)) return;
+
+                ParameterChangedHandler handler;
+                if (_parameterChangedHandlers.TryGetValue(parameter, out handler))
+                {
+                    handler();
+                }
             }
         }
     }

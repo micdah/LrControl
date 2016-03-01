@@ -102,10 +102,18 @@ local function main(context)
     
     local function adjustmentChanged() 
         -- Determine which parameters have changed
+        local changed = ""
         for _,param in pairs(ChangeObserverParameters.Parameters) do
             if ChangeObserverParameters.HasChanged(param) then
-                Sockets.SendSocket:send("Changed:"..param.."\n")
+                if string.len(changed) > 0 then 
+                    changed = changed..","
+                end
+                changed = changed..param
             end
+        end
+        
+        if string.len(changed) > 0 then
+            Sockets.SendSocket:send("Changed:"..changed.."\n")
         end
     end
     
