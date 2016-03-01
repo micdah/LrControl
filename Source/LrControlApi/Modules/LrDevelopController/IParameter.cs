@@ -10,18 +10,5 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
     {
         string Name { get; }
         string DisplayName { get; }
-        string ToString();
-    }
-
-    internal class Parameter<T> : IParameter<T>
-    {
-        public Parameter(string name, string displayName)
-        {
-            Name = name;
-            DisplayName = displayName;
-        }
-
-        public string Name { get; }
-        public string DisplayName { get; }
     }
 }

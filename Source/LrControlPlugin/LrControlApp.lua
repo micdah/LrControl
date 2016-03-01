@@ -25,11 +25,11 @@ local LrPathUtils       = import 'LrPathUtils'
 local appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.exe'))
 
 local function startApplication() 
-    LrShell.openFilesInApp ({""}, appPath)
+    --LrShell.openFilesInApp ({""}, appPath)
 end
 
 local function stopApplication() 
-    LrShell.openFilesInApp({"/shutdown"}, appPath)
+    --LrShell.openFilesInApp({"/shutdown"}, appPath)
 end
 
 

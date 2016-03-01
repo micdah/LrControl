@@ -3,12 +3,13 @@ using micdah.LrControlApi.Common.Attributes;
 
 namespace micdah.LrControlApi.Modules.LrDevelopController
 {
-    public delegate void ParameterChangedHandler(IParameter parameter);
+    public delegate void ParameterChangedHandler();
 
     [LuaNativeModule("LrDevelopController")]
     public interface ILrDevelopController
     {
-        event ParameterChangedHandler ParameterChanged;
+        void AddParameterChangedListener(IParameter parameter, ParameterChangedHandler handler);
+        void RemoveParameterChangedListener(IParameter parameter, ParameterChangedHandler handler);
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.

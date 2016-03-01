@@ -25,13 +25,32 @@ namespace micdah.LrControl.Mapping.Functions
             if (_intParameter == null && _doubleParameter == null && _boolParameter == null)
                 throw new ArgumentException(@"Unsupported parameter type", nameof(parameter));
 
-            api.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
+            api.LrDevelopController.AddParameterChangedListener(parameter, ParameterChanged);
+        }
+
+        private IParameter Parameter
+        {
+            get
+            {
+                if (_intParameter != null)
+                    return _intParameter;
+                if (_boolParameter != null)
+                    return _boolParameter;
+                if (_doubleParameter != null)
+                    return _doubleParameter;
+                throw new InvalidOperationException();
+            }
         }
 
         public override void Enable()
         {
             base.Enable();
             UpdateControllerValue();
+        }
+
+        protected override void Disposing()
+        {
+            Api.LrDevelopController.RemoveParameterChangedListener(Parameter, ParameterChanged);
         }
 
         protected override void ControllerChanged(int controllerValue)
@@ -71,11 +90,10 @@ namespace micdah.LrControl.Mapping.Functions
             return _parameterRange.FromRange(Controller.Range, controllerValue);
         }
 
-        private void LrDevelopControllerOnParameterChanged(IParameter parameter)
+        private void ParameterChanged()
         {
             if (!Enabled) return;
-            if (parameter != _intParameter && parameter != _doubleParameter && parameter != _boolParameter) return;
-
+            
             UpdateControllerValue();
         }
 
@@ -126,13 +144,10 @@ namespace micdah.LrControl.Mapping.Functions
         {
             if (controllerValue < (Controller.Range.Maximum - Controller.Range.Minimum)*ExposureControllerRangeSplit)
             {
-                return (int) new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit)
-                    .FromRange(new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit), controllerValue);
+                return (int) _exposureParameterRangeLow.FromRange(_exposureControllerRangeLow, controllerValue);
             }
             // Otherwise
-            return (int) new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum)
-                .FromRange(new Range(Controller.Range.Maximum*ExposureControllerRangeSplit, Controller.Range.Maximum),
-                    controllerValue);
+            return (int) _exposureParameterRangeHigh.FromRange(_exposureControllerRangeHigh, controllerValue);
         }
 
         private int CalculateExposureControllerValue(double value)
@@ -140,37 +155,32 @@ namespace micdah.LrControl.Mapping.Functions
             double controllerValue;
             if (value < _parameterRange.Maximum*ExposureParameterRangeSplit)
             {
-                controllerValue = new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit)
-                    .FromRange(new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit),
-                        value);
+                controllerValue = _exposureControllerRangeLow.FromRange(_exposureParameterRangeLow, value);
             }
             else
             {
-                controllerValue = new Range(Controller.Range.Maximum*ExposureControllerRangeSplit,
-                    Controller.Range.Maximum)
-                    .FromRange(new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum),
-                        value);
+                controllerValue = _exposureControllerRangeHigh.FromRange(_exposureParameterRangeHigh, value);
             }
             return Convert.ToInt32(controllerValue);
         }
 
+        private Range _exposureParameterRangeLow;
+        private Range _exposureControllerRangeLow;
+        private Range _exposureParameterRangeHigh;
+        private Range _exposureControllerRangeHigh;
+
         private bool UpdateRange()
         {
             if (_parameterRange != null) return true;
+            if (!Api.LrDevelopController.GetRange(out _parameterRange, Parameter)) return false;
 
-            if (_intParameter != null)
-            {
-                return Api.LrDevelopController.GetRange(out _parameterRange, _intParameter);
-            }
-            if (_doubleParameter != null)
-            {
-                return Api.LrDevelopController.GetRange(out _parameterRange, _doubleParameter);
-            }
-            if (_boolParameter != null)
-            {
-                return Api.LrDevelopController.GetRange(out _parameterRange, _boolParameter);
-            }
-            return false;
+            _exposureParameterRangeLow = new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit);
+            _exposureParameterRangeHigh = new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum);
+
+            _exposureControllerRangeLow = new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit);
+            _exposureControllerRangeHigh = new Range(Controller.Range.Maximum*ExposureControllerRangeSplit, Controller.Range.Maximum);
+
+            return true;
         }
     }
 }

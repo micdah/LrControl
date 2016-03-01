@@ -68,6 +68,7 @@
     <Compile Include="Modules\LrDevelopController\ILrDevelopController.cs" />
     <Compile Include="Modules\LrDevelopController\LrDevelopController.cs" />
     <Compile Include="Modules\LrDevelopController\Panels.cs" />
+    <Compile Include="Modules\LrDevelopController\Parameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\AdjustPanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\CalibratePanelParameter.cs" />
     <Compile Include="Modules\LrDevelopController\Parameters\CropParameter.cs" />

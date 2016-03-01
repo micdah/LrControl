@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
@@ -6,12 +7,13 @@ using micdah.LrControlApi;
 
 namespace micdah.LrControl.Mapping.Functions
 {
-    public abstract class Function : INotifyPropertyChanged
+    public abstract class Function : INotifyPropertyChanged, IDisposable
     {
         private Controller _controller;
         private bool _enabled;
         private string _displayName;
         private string _key;
+        private bool _dispoed;
 
         protected Function(LrApi api, string displayName, string key)
         {
@@ -109,6 +111,20 @@ namespace micdah.LrControl.Mapping.Functions
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Dispose()
+        {
+            if (_dispoed) return;
+
+            Disable();
+            Controller = null;
+            Disposing();
+            _dispoed = true;
+        }
+
+        protected virtual void Disposing()
+        {
         }
     }
 }

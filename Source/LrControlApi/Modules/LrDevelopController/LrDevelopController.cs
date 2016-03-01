@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Communication;
+
+// ReSharper disable DelegateSubtraction
 
 namespace micdah.LrControlApi.Modules.LrDevelopController
 {
     internal class LrDevelopController : ModuleBase<LrDevelopController>, ILrDevelopController
     {
+        private readonly ConcurrentDictionary<IParameter, ParameterChangedHandler> _parameterChangedHandlers;
         private readonly Dictionary<string, IParameter> _parameterLookup;
 
         public LrDevelopController(MessageProtocol<LrDevelopController> messageProtocol) : base(messageProtocol)
@@ -16,17 +19,22 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             {
                 _parameterLookup[parameter.Name] = parameter;
             }
+
+            _parameterChangedHandlers = new ConcurrentDictionary<IParameter, ParameterChangedHandler>();
         }
 
-        public event ParameterChangedHandler ParameterChanged;
-
-        public void OnParameterChanged(string parameterName)
+        public void AddParameterChangedListener(IParameter parameter, ParameterChangedHandler handler)
         {
-            IParameter parameter;
-            if (_parameterLookup.TryGetValue(parameterName, out parameter))
-            {
-                ParameterChanged?.Invoke(parameter);
-            }
+            _parameterChangedHandlers.AddOrUpdate(parameter,
+                p => handler,
+                (p, parameterChanged) => parameterChanged + handler);
+        }
+
+        public void RemoveParameterChangedListener(IParameter parameter, ParameterChangedHandler handler)
+        {
+            _parameterChangedHandlers.AddOrUpdate(parameter,
+                p => null,
+                (p, parameterChanged) => parameterChanged - handler);
         }
 
         public bool Decrement(IParameter param)
@@ -84,8 +92,8 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(out value, nameof(GetValue), param);
         }
 
-        public bool GetValue<TEnum,TValue>(out TEnum value, IParameter<ClassEnum<TValue, TEnum>> param)
-            where TEnum : ClassEnum<TValue,TEnum>
+        public bool GetValue<TEnum, TValue>(out TEnum value, IParameter<ClassEnum<TValue, TEnum>> param)
+            where TEnum : ClassEnum<TValue, TEnum>
         {
             TValue result;
             if (Invoke(out result, nameof(GetValue), param))
@@ -197,8 +205,8 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
             return Invoke(nameof(SetValue), param, value);
         }
 
-        public bool SetValue<TEnum,TValue>(IParameter<TEnum> param, ClassEnum<TValue,TEnum> enumClass)
-            where TEnum : ClassEnum<TValue,TEnum>
+        public bool SetValue<TEnum, TValue>(IParameter<TEnum> param, ClassEnum<TValue, TEnum> enumClass)
+            where TEnum : ClassEnum<TValue, TEnum>
         {
             return Invoke(nameof(SetValue), param, enumClass);
         }
@@ -211,6 +219,18 @@ namespace micdah.LrControlApi.Modules.LrDevelopController
         public bool StopTracking()
         {
             return Invoke(nameof(StopTracking));
+        }
+
+        public void OnParameterChanged(string parameterName)
+        {
+            IParameter parameter;
+            if (!_parameterLookup.TryGetValue(parameterName, out parameter)) return;
+
+            ParameterChangedHandler handler;
+            if (_parameterChangedHandlers.TryGetValue(parameter, out handler))
+            {
+                handler();
+            }
         }
     }
 }

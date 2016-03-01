@@ -12,8 +12,8 @@ namespace micdah.LrControlApi.Communication
     internal class PluginClient
     {
         private const string HostName = "localhost";
-        private const string Changed = "Changed:";
-        private const string Module = "Module:";
+        private const string ChangedToken = "Changed:";
+        private const string ModuleToken = "Module:";
         private readonly StartStopThread _changeProcessingThread;
 
         private readonly BlockingCollection<string> _changeQueue = new BlockingCollection<string>();
@@ -146,13 +146,13 @@ namespace micdah.LrControlApi.Communication
         {
             if (string.IsNullOrEmpty(message)) return;
 
-            if (message.StartsWith(Changed))
+            if (message.StartsWith(ChangedToken))
             {
-                OnChangeMessage(message.Substring(Changed.Length));
+                _changeQueue.Add(message.Substring(ChangedToken.Length));
             }
-            else if (message.StartsWith(Module))
+            else if (message.StartsWith(ModuleToken))
             {
-                OnModuleMessage(message.Substring(Module.Length));
+                _moduleQueue.Add(message.Substring(ModuleToken.Length));
             }
             else
             {
@@ -170,16 +170,6 @@ namespace micdah.LrControlApi.Communication
                 ThreadPool.QueueUserWorkItem(state => Connection?.Invoke((bool) state), isConnected);
                 _lastConnectionStatus = isConnected;
             }
-        }
-
-        private void OnChangeMessage(string parameterName)
-        {
-            _changeQueue.Add(parameterName);
-        }
-
-        protected virtual void OnModuleMessage(string moduleName)
-        {
-            _moduleQueue.Add(moduleName);
         }
     }
 }
