@@ -34,7 +34,7 @@ local ModuleTools              = require 'ModuleTools'
 
 -- Track loaded version, to detect reloads
 math.randomseed(os.time())
-currentLoadVersion = rawget (_G, "currentLoadVersion") or math.random ()
+currentLoadVersion = currentLoadVersion or math.random ()
 currentLoadVersion = currentLoadVersion + 1
 
 Sockets = {
@@ -45,8 +45,6 @@ Sockets = {
 
 -- Main task
 local function main(context)
-    LrDialogs.showBezel ("LrControl running, loaded version " .. currentLoadVersion)
-
     local autoReconnect = true
 
     -- Open send socket
@@ -163,6 +161,9 @@ local function main(context)
     if Sockets.SendSocket ~= nil then
         Sockets.SendSocket:close()
     end
+    
+    -- Signal shutdown
+    currentLoadVersion = currentLoadVersion + 1
 
     LrDialogs.showBezel("LrControl stopped")
 end

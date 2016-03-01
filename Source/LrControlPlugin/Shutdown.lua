@@ -18,21 +18,37 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
+local LrTasks      = import 'LrTasks'
 local LrControlApp = require 'LrControlApp'
 
 
 return {
     LrShutdownFunction = function (doneFunction, progressFunction)
-        progressFunction (i, "Stopping LrControl, closing connections")
+        local totalWait = 10
+        local increments = 100
+        local loadVersion = nil
+        
+        for i=1,increments do
+            progressFunction (increments/i, "Stopping LrControl: Closing connections")
+            
+            if i==1 then
+                -- Stop application
+                LrControlApp.Stop()
 
-        -- Stop application
-        LrControlApp.Stop()
-
-        -- Increment version to break main loop
-        math.randomseed(os.time())
-        currentLoadVersion = rawget(_G, "currentLoadVersion") or math.random()
-        currentLoadVersion = currentLoadVersion + 1
-
+                -- Increment version to break main loop
+                loadVersion = currentLoadVersion + 1
+                currentLoadVersion = loadVersion
+                
+            else 
+                if currentLoadVersion ~= loadVersion then
+                    progressFunction(1, "Stopped LrControl")
+                    break
+                end
+            end
+            
+            LrTasks.sleep(totalWait/increments)
+        end
+            
         doneFunction()
     end
 }

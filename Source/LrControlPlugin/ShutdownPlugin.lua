@@ -24,6 +24,4 @@ local LrControlApp = require 'LrControlApp'
 LrControlApp.Stop()
 
 -- Increment version to break main loop
-math.randomseed(os.time())
-currentLoadVersion = rawget(_G, "currentLoadVersion") or math.random()
 currentLoadVersion = currentLoadVersion + 1
