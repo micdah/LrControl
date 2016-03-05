@@ -1,5 +1,6 @@
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
+using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace micdah.LrControl.Mapping.Functions
 {
@@ -17,6 +18,11 @@ namespace micdah.LrControl.Mapping.Functions
 
         protected override Function CreateFunction(LrApi api)
         {
+            if (ReferenceEquals(_parameter, Parameters.AdjustPanelParameters.Temperature))
+            {
+                return new TemperatureParameterFunction(api, DisplayName, _parameter, Key);
+            }
+            
             return new ParameterFunction(api, DisplayName, _parameter, Key);
         }
     }

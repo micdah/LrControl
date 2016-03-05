@@ -2,27 +2,24 @@ using System;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
-using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace micdah.LrControl.Mapping.Functions
 {
     public class ParameterFunction : Function
     {
-        private const double ExposureParameterRangeSplit = 12000.0/48000.0;
-        private const double ExposureControllerRangeSplit = 85.0/100.0;
-        private readonly IParameter<bool> _boolParameter;
-        private readonly IParameter<double> _doubleParameter;
-        private readonly IParameter<int> _intParameter;
-        private Range _parameterRange;
+        protected readonly IParameter<bool> BoolParameter;
+        protected readonly IParameter<double> DoubleParameter;
+        protected readonly IParameter<int> IntParameter;
+        protected Range ParameterRange;
 
         public ParameterFunction(LrApi api, string displayName, IParameter parameter, string key)
             : base(api, displayName, key)
         {
-            _intParameter = parameter as IParameter<int>;
-            _doubleParameter = parameter as IParameter<double>;
-            _boolParameter = parameter as IParameter<bool>;
+            IntParameter = parameter as IParameter<int>;
+            DoubleParameter = parameter as IParameter<double>;
+            BoolParameter = parameter as IParameter<bool>;
 
-            if (_intParameter == null && _doubleParameter == null && _boolParameter == null)
+            if (IntParameter == null && DoubleParameter == null && BoolParameter == null)
                 throw new ArgumentException(@"Unsupported parameter type", nameof(parameter));
 
             api.LrDevelopController.AddParameterChangedListener(parameter, ParameterChanged);
@@ -32,12 +29,12 @@ namespace micdah.LrControl.Mapping.Functions
         {
             get
             {
-                if (_intParameter != null)
-                    return _intParameter;
-                if (_boolParameter != null)
-                    return _boolParameter;
-                if (_doubleParameter != null)
-                    return _doubleParameter;
+                if (IntParameter != null)
+                    return IntParameter;
+                if (BoolParameter != null)
+                    return BoolParameter;
+                if (DoubleParameter != null)
+                    return DoubleParameter;
                 throw new InvalidOperationException();
             }
         }
@@ -58,42 +55,37 @@ namespace micdah.LrControl.Mapping.Functions
             if (!UpdateRange()) return;
 
             var parameterValue = CalculateParamterValue(controllerValue);
-            if (_intParameter != null)
+            if (IntParameter != null)
             {
                 var intValue = Convert.ToInt32(parameterValue);
-                Api.LrDevelopController.SetValue(_intParameter, intValue);
+                Api.LrDevelopController.SetValue(IntParameter, intValue);
 
-                ShowHud($"{_intParameter.DisplayName}: {intValue}");
+                ShowHud($"{IntParameter.DisplayName}: {intValue}");
             }
-            else if (_doubleParameter != null)
+            else if (DoubleParameter != null)
             {
-                Api.LrDevelopController.SetValue(_doubleParameter, parameterValue);
+                Api.LrDevelopController.SetValue(DoubleParameter, parameterValue);
 
-                ShowHud($"{_doubleParameter.DisplayName}: {parameterValue:F2}");
+                ShowHud($"{DoubleParameter.DisplayName}: {parameterValue:F2}");
             }
-            else if (_boolParameter != null)
+            else if (BoolParameter != null)
             {
                 var enabled = controllerValue == (int) Controller.Range.Maximum;
-                Api.LrDevelopController.SetValue(_boolParameter, enabled);
+                Api.LrDevelopController.SetValue(BoolParameter, enabled);
 
-                ShowHud($"{_boolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
+                ShowHud($"{BoolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
             }
         }
 
-        private double CalculateParamterValue(int controllerValue)
+        protected virtual double CalculateParamterValue(int controllerValue)
         {
-            if (_doubleParameter == Parameters.AdjustPanelParameters.Temperature)
-            {
-                return CalculateExposureParameterValue(controllerValue);
-            }
-
-            return _parameterRange.FromRange(Controller.Range, controllerValue);
+            return ParameterRange.FromRange(Controller.Range, controllerValue);
         }
 
         private void ParameterChanged()
         {
             if (!Enabled) return;
-            
+
             UpdateControllerValue();
         }
 
@@ -104,32 +96,28 @@ namespace micdah.LrControl.Mapping.Functions
             Controller.SetControllerValue(CalculateControllerValue());
         }
 
-        private int CalculateControllerValue()
+        protected virtual int CalculateControllerValue()
         {
-            if (_intParameter != null)
+            if (IntParameter != null)
             {
                 int value;
-                if (Api.LrDevelopController.GetValue(out value, _intParameter))
+                if (Api.LrDevelopController.GetValue(out value, IntParameter))
                 {
-                    return Convert.ToInt32(Controller.Range.FromRange(_parameterRange, value));
+                    return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, value));
                 }
             }
-            else if (_doubleParameter != null)
+            else if (DoubleParameter != null)
             {
                 double value;
-                if (Api.LrDevelopController.GetValue(out value, _doubleParameter))
+                if (Api.LrDevelopController.GetValue(out value, DoubleParameter))
                 {
-                    if (_doubleParameter == Parameters.AdjustPanelParameters.Temperature)
-                    {
-                        return CalculateExposureControllerValue(value);
-                    }
-                    return Convert.ToInt32(Controller.Range.FromRange(_parameterRange, value));
+                    return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, value));
                 }
             }
-            else if (_boolParameter != null)
+            else if (BoolParameter != null)
             {
                 bool value;
-                if (Api.LrDevelopController.GetValue(out value, _boolParameter))
+                if (Api.LrDevelopController.GetValue(out value, BoolParameter))
                 {
                     var controllerValue = value
                         ? Controller.Range.Maximum
@@ -140,47 +128,9 @@ namespace micdah.LrControl.Mapping.Functions
             return 0;
         }
 
-        private int CalculateExposureParameterValue(int controllerValue)
+        protected virtual bool UpdateRange()
         {
-            if (controllerValue < (Controller.Range.Maximum - Controller.Range.Minimum)*ExposureControllerRangeSplit)
-            {
-                return (int) _exposureParameterRangeLow.FromRange(_exposureControllerRangeLow, controllerValue);
-            }
-            // Otherwise
-            return (int) _exposureParameterRangeHigh.FromRange(_exposureControllerRangeHigh, controllerValue);
-        }
-
-        private int CalculateExposureControllerValue(double value)
-        {
-            double controllerValue;
-            if (value < _parameterRange.Maximum*ExposureParameterRangeSplit)
-            {
-                controllerValue = _exposureControllerRangeLow.FromRange(_exposureParameterRangeLow, value);
-            }
-            else
-            {
-                controllerValue = _exposureControllerRangeHigh.FromRange(_exposureParameterRangeHigh, value);
-            }
-            return Convert.ToInt32(controllerValue);
-        }
-
-        private Range _exposureParameterRangeLow;
-        private Range _exposureControllerRangeLow;
-        private Range _exposureParameterRangeHigh;
-        private Range _exposureControllerRangeHigh;
-
-        private bool UpdateRange()
-        {
-            if (_parameterRange != null) return true;
-            if (!Api.LrDevelopController.GetRange(out _parameterRange, Parameter)) return false;
-
-            _exposureParameterRangeLow = new Range(_parameterRange.Minimum, _parameterRange.Maximum*ExposureParameterRangeSplit);
-            _exposureParameterRangeHigh = new Range(_parameterRange.Maximum*ExposureParameterRangeSplit, _parameterRange.Maximum);
-
-            _exposureControllerRangeLow = new Range(0, Controller.Range.Maximum*ExposureControllerRangeSplit);
-            _exposureControllerRangeHigh = new Range(Controller.Range.Maximum*ExposureControllerRangeSplit, Controller.Range.Maximum);
-
-            return true;
+            return ParameterRange != null || Api.LrDevelopController.GetRange(out ParameterRange, Parameter);
         }
     }
 }
