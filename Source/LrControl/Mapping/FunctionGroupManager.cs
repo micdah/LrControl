@@ -165,16 +165,19 @@ namespace micdah.LrControl.Mapping
 
         public void EnableModule(Module module)
         {
-            foreach (var moduleGroup in Modules)
+            // First disable all other module groups
+            foreach (var moduleGroup in Modules.Where(g => g.Module != module))
             {
-                if (moduleGroup.Module == module)
-                {
-                    moduleGroup.Enable();
-                }
-                else
+                if (moduleGroup.Module != module)
                 {
                     moduleGroup.Disable();
                 }
+            }
+
+            // Now enable module group
+            foreach (var moduleGroup in Modules.Where(g => g.Module == module))
+            {
+                moduleGroup.Enable();
             }
         }
 

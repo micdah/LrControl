@@ -25,7 +25,7 @@
             IsChecked="{Binding StartMinimized}"/>
 
         <controls:ToggleSwitch
-            Header="Automatically save settings"
+            Header="Save configuration when closing"
             OnLabel="Yes" OffLabel="No"
             IsChecked="{Binding AutoSaveOnClose}"/>
 
@@ -44,7 +44,7 @@
                        FontSize="15" 
                        FontWeight="Bold"
                        Margin="0,0,0,10">
-                Parameter update frequency (updates / second)
+                Parameter send frequency (updates / second)
             </TextBlock>
             
             <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="60" Value="{Binding ParameterUpdateFrequency}"

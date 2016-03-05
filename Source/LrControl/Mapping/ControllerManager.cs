@@ -15,15 +15,12 @@ namespace micdah.LrControl.Mapping
     {
         private readonly object _controllersLock = new object();
         private ObservableCollection<Controller> _controllers;
+        private IInputDevice _inputDevice;
+        private IOutputDevice _outputDevice;
 
         public ControllerManager()
         {
             Controllers = new ObservableCollection<Controller>();
-        }
-
-        public ControllerManager(IEnumerable<Controller> controllers)
-        {
-            Controllers = new ObservableCollection<Controller>(controllers);
         }
 
         public ObservableCollection<Controller> Controllers
@@ -38,23 +35,35 @@ namespace micdah.LrControl.Mapping
             }
         }
 
+        public IInputDevice InputDevice
+        {
+            private get { return _inputDevice; }
+            set
+            {
+                _inputDevice = value;
+
+                foreach (var controller in Controllers)
+                {
+                    controller.InputDevice = value;
+                }
+            }
+        }
+
+        public IOutputDevice OutputDevice
+        {
+            private get { return _outputDevice; }
+            set
+            {
+                _outputDevice = value;
+
+                foreach (var controller in Controllers)
+                {
+                    controller.OutputDevice = value;
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public void SetInputDevice(IInputDevice inputDevice)
-        {
-            foreach (var controller in Controllers)
-            {
-                controller.SetInputDevice(inputDevice);
-            }
-        }
-
-        public void SetOutputDevice(IOutputDevice outputDevice)
-        {
-            foreach (var controller in Controllers)
-            {
-                controller.SetOutputDevice(outputDevice);
-            }
-        }
 
         public void ResetAllControls()
         {
@@ -69,9 +78,18 @@ namespace micdah.LrControl.Mapping
             return Controllers.Select(controller => controller.GetConfiguration()).ToList();
         }
 
-        public void Load(List<ControllerConfiguration> controllerConfiguration)
+        public void Clear()
         {
-            Reset();
+            foreach (var controller in Controllers)
+            {
+                controller.Dispose();
+            }
+            Controllers.Clear();
+        }
+
+        public void Load(IEnumerable<ControllerConfiguration> controllerConfiguration)
+        {
+            Clear();
 
             foreach (var controller in controllerConfiguration)
             {
@@ -82,17 +100,10 @@ namespace micdah.LrControl.Mapping
                     ControlNumber = controller.ControlNumber,
                     ControllerType = controller.ControllerType,
                     Range = new Range(controller.RangeMin, controller.RangeMax),
+                    InputDevice = InputDevice,
+                    OutputDevice = OutputDevice
                 });
             }
-        }
-
-        public void Reset()
-        {
-            foreach (var controller in Controllers)
-            {
-                controller.Dispose();
-            }
-            Controllers.Clear();
         }
 
         [NotifyPropertyChangedInvocator]

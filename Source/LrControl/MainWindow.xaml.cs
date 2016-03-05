@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
@@ -26,20 +27,35 @@ namespace micdah.LrControl
             var api = new LrApi();
             api.ConnectionStatus += UpdateConnectionStatus;
 
-            IInputDevice inputDevice =
-                new InputDeviceDecorator(DeviceManager.InputDevices.Single(x => x.Name == "BCF2000"));
-            inputDevice.Open();
-            inputDevice.StartReceiving(null);
-
-            var outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
-            outputDevice.Open();
-
             // View model
-            ViewModel = new MainWindowModel(api, new MetroWindowDialogProvider(this))
+            ViewModel = new MainWindowModel(api, new MetroWindowDialogProvider(this));
+            
+            // Find last used input device
+            if (!String.IsNullOrEmpty(Settings.Current.LastUsedInputDevice))
             {
-                InputDevice = inputDevice,
-                OutputDevice = outputDevice
-            };
+                var inputDevice =
+                    DeviceManager.InputDevices.FirstOrDefault(x => x.Name == Settings.Current.LastUsedInputDevice);
+                if (inputDevice != null)
+                {
+                    inputDevice.Open();
+                    inputDevice.StartReceiving(null);
+                    ViewModel.InputDevice = new InputDeviceDecorator(inputDevice);
+                }
+            }
+
+            // Find last used output device
+            if (!String.IsNullOrEmpty(Settings.Current.LastUsedOutputDevice))
+            {
+                var outputDevice = DeviceManager.OutputDevices
+                    .FirstOrDefault(x => x.Name == Settings.Current.LastUsedOutputDevice);
+                if (outputDevice != null)
+                {
+                    outputDevice.Open();
+                    ViewModel.OutputDevice = outputDevice;
+                }
+            }
+
+            // Load configuration
             ViewModel.LoadConfiguration();
         }
 
@@ -75,6 +91,8 @@ namespace micdah.LrControl
                 ViewModel.SaveConfiguration();
             }
 
+            Settings.Current.LastUsedInputDevice  = ViewModel.InputDevice?.Name;
+            Settings.Current.LastUsedOutputDevice = ViewModel.OutputDevice?.Name;
             Settings.Current.Save();
         }
     }

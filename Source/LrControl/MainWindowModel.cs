@@ -34,7 +34,7 @@ namespace micdah.LrControl
             SaveCommand         = new DelegateCommand(() => SaveConfiguration());
             LoadCommand         = new DelegateCommand(() => LoadConfiguration());
             ExportCommand       = new DelegateCommand(ExportConfiguration);
-            ImportCommand     = new DelegateCommand(ImportConfiguration);
+            ImportCommand       = new DelegateCommand(ImportConfiguration);
             ResetCommand        = new DelegateCommand(Reset);
 
             // Initialize catalogs and controllers
@@ -55,22 +55,24 @@ namespace micdah.LrControl
 
         public IInputDevice InputDevice
         {
-            private get { return _inputDevice; }
+            get { return _inputDevice; }
             set
             {
                 if (Equals(value, _inputDevice)) return;
                 _inputDevice = value;
+                ControllerManager.InputDevice = value;
                 OnPropertyChanged();
             }
         }
 
         public IOutputDevice OutputDevice
         {
-            private get { return _outputDevice; }
+            get { return _outputDevice; }
             set
             {
                 if (Equals(value, _outputDevice)) return;
                 _outputDevice = value;
+                ControllerManager.OutputDevice = value;
                 OnPropertyChanged();
             }
         }
@@ -131,7 +133,7 @@ namespace micdah.LrControl
             var conf = new MappingConfiguration
             {
                 Controllers = ControllerManager.GetConfiguration(),
-                Modules = FunctionGroupManager.GetConfiguration(),
+                Modules = FunctionGroupManager.GetConfiguration()
             };
 
             MappingConfiguration.Save(conf, file);
@@ -142,17 +144,17 @@ namespace micdah.LrControl
             var conf = MappingConfiguration.Load(file);
             if (conf == null) return;
 
-            // Load controllers
             ControllerManager.Load(conf.Controllers);
-            ControllerManager.SetInputDevice(InputDevice);
-            ControllerManager.SetOutputDevice(OutputDevice);
             ControllerManager.ResetAllControls();
 
-            // Load function mapping
             FunctionGroupManager.Load(conf.Modules);
 
-
-            EnableModuleGroupuForCurrentModule();
+            // Enable current module group
+            Module currentModule;
+            if (_api.LrApplicationView.GetCurrentModuleName(out currentModule))
+            {
+                FunctionGroupManager.EnableModule(currentModule);
+            }
         }
 
         public void ExportConfiguration()
@@ -179,17 +181,8 @@ namespace micdah.LrControl
                 "Confirm clear configuration", DialogButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                ControllerManager?.Reset();
+                ControllerManager?.Clear();
                 FunctionGroupManager?.Reset();
-            }            
-        }
-
-        private void EnableModuleGroupuForCurrentModule()
-        {
-            Module currentModule;
-            if (_api.LrApplicationView.GetCurrentModuleName(out currentModule))
-            {
-                FunctionGroupManager.EnableModule(currentModule);
             }
         }
 

@@ -15,6 +15,8 @@ namespace micdah.LrControl.Configurations
         private bool _startMinimized;
         private bool _autoSaveOnClose;
         private int _parameterUpdateFrequency;
+        private string _lastUsedInputDevice;
+        private string _lastUsedOutputDevice;
 
         static Settings()
         {
@@ -76,6 +78,28 @@ namespace micdah.LrControl.Configurations
             {
                 if (value == _parameterUpdateFrequency) return;
                 _parameterUpdateFrequency = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LastUsedInputDevice
+        {
+            get { return _lastUsedInputDevice; }
+            set
+            {
+                if (value == _lastUsedInputDevice) return;
+                _lastUsedInputDevice = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string LastUsedOutputDevice
+        {
+            get { return _lastUsedOutputDevice; }
+            set
+            {
+                if (value == _lastUsedOutputDevice) return;
+                _lastUsedOutputDevice = value;
                 OnPropertyChanged();
             }
         }

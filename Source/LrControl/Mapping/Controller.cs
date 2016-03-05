@@ -15,29 +15,16 @@ namespace micdah.LrControl.Mapping
     public class Controller : INotifyPropertyChanged, IDisposable
     {
         private Channel _channel;
+        private ControllerType _controllerType;
         private int _controlNumber;
         private IInputDevice _inputDevice;
-        private IOutputDevice _outputDevice;
-        private Range _range;
-        private ControllerMessageType _messageType;
-        private ControllerType _controllerType;
         private int _lastValue;
-
-        public Controller()
-        {
-        }
-
-        public Controller(Channel channel, ControllerMessageType messageType, int controlNumber, Range range)
-        {
-            _channel = channel;
-            _controlNumber = controlNumber;
-            _range = range;
-            _messageType = messageType;
-        }
+        private ControllerMessageType _messageType;
+        private Range _range;
 
         public ControllerMessageType MessageType
         {
-            get { return _messageType; }
+            private get { return _messageType; }
             set
             {
                 if (value == _messageType) return;
@@ -62,7 +49,7 @@ namespace micdah.LrControl.Mapping
 
         public Channel Channel
         {
-            get { return _channel; }
+            private get { return _channel; }
             set
             {
                 if (value == _channel) return;
@@ -107,56 +94,65 @@ namespace micdah.LrControl.Mapping
             }
         }
 
+        public IInputDevice InputDevice
+        {
+            set
+            {
+                if (_inputDevice != null)
+                {
+                    switch (MessageType)
+                    {
+                        case ControllerMessageType.ControlChange:
+                            _inputDevice.ControlChange -= Handle;
+                            break;
+                        case ControllerMessageType.Nrpn:
+                            _inputDevice.Nrpn -= Handle;
+                            break;
+                    }
+                }
+
+                _inputDevice = value;
+
+                if (_inputDevice == null) return;
+                switch (MessageType)
+                {
+                    case ControllerMessageType.ControlChange:
+                        _inputDevice.ControlChange += Handle;
+                        break;
+                    case ControllerMessageType.Nrpn:
+                        _inputDevice.Nrpn += Handle;
+                        break;
+                }
+            }
+        }
+
+        public IOutputDevice OutputDevice { private get; set; }
+
+        public void Dispose()
+        {
+            if (_inputDevice != null)
+            {
+                _inputDevice.Nrpn -= Handle;
+                _inputDevice.ControlChange -= Handle;
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event ControllerChangedHandler ControllerChanged;
 
-        public void SetInputDevice(IInputDevice inputDevice)
-        {
-            if (_inputDevice != null)
-            {
-                switch (MessageType)
-                {
-                    case ControllerMessageType.ControlChange:
-                        _inputDevice.ControlChange -= Handle;
-                        break;
-                    case ControllerMessageType.Nrpn:
-                        _inputDevice.Nrpn -= Handle;
-                        break;
-                }
-            }
-
-            _inputDevice = inputDevice;
-
-            if (_inputDevice == null) return;
-            switch (MessageType)
-            {
-                case ControllerMessageType.ControlChange:
-                    _inputDevice.ControlChange += Handle;
-                    break;
-                case ControllerMessageType.Nrpn:
-                    _inputDevice.Nrpn += Handle;
-                    break;
-            }
-        }
-
-        public void SetOutputDevice(IOutputDevice outputDevice)
-        {
-            _outputDevice = outputDevice;
-        }
-
         public void SetControllerValue(int controllerValue)
         {
-            if (_outputDevice == null) return;
+            if (OutputDevice == null) return;
 
             switch (MessageType)
             {
                 case ControllerMessageType.ControlChange:
-                    _outputDevice.SendControlChange(Channel, (Control) ControlNumber, controllerValue);
+                    OutputDevice.SendControlChange(Channel, (Control) ControlNumber, controllerValue);
                     break;
                 case ControllerMessageType.Nrpn:
-                    _outputDevice.SendNrpn(Channel, ControlNumber, controllerValue);
+                    OutputDevice.SendNrpn(Channel, ControlNumber, controllerValue);
                     break;
             }
         }
@@ -188,7 +184,7 @@ namespace micdah.LrControl.Mapping
         {
             if (Range != null)
             {
-                SetControllerValue((int)Range.Minimum);
+                SetControllerValue((int) Range.Minimum);
             }
         }
 
@@ -220,15 +216,6 @@ namespace micdah.LrControl.Mapping
 
             LastValue = clampedValue;
             ControllerChanged?.Invoke(clampedValue);
-        }
-
-        public void Dispose()
-        {
-            if (_inputDevice != null)
-            {
-                _inputDevice.Nrpn -= Handle;
-                _inputDevice.ControlChange -= Handle;
-            }
         }
 
         public bool IsController(ControllerConfigurationKey controllerKey)
