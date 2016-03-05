@@ -1,5 +1,7 @@
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Markup;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Core;
 
@@ -105,6 +107,19 @@ namespace micdah.LrControl.Configurations
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void SetLastUsedFrom(MainWindowModel viewModel)
+        {
+            if (viewModel.InputDevice != null)
+            {
+                LastUsedInputDevice = viewModel.InputDevice.Name;
+            }
+
+            if (viewModel.OutputDevice != null)
+            {
+                LastUsedOutputDevice = viewModel.OutputDevice.Name;
+            }
+        }
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

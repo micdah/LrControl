@@ -91,8 +91,7 @@ namespace micdah.LrControl
                 ViewModel.SaveConfiguration();
             }
 
-            Settings.Current.LastUsedInputDevice  = ViewModel.InputDevice?.Name;
-            Settings.Current.LastUsedOutputDevice = ViewModel.OutputDevice?.Name;
+            Settings.Current.SetLastUsedFrom(ViewModel);
             Settings.Current.Save();
         }
     }
