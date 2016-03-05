@@ -69,7 +69,7 @@ namespace micdah.LrControl.Core
             return false;
         }
 
-        private static string ResolveRelativeFilename(string relativeFilename)
+        public static string ResolveRelativeFilename(string relativeFilename)
         {
             var exePath = Assembly.GetExecutingAssembly().Location;
             var exeDir = Path.GetDirectoryName(exePath);

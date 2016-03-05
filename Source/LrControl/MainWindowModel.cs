@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
@@ -9,7 +9,6 @@ using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
-using MahApps.Metro.Controls;
 using Midi.Devices;
 using Prism.Commands;
 
@@ -32,8 +31,10 @@ namespace micdah.LrControl
             _dialogProvider = dialogProvider;
 
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
-            SaveCommand         = new DelegateCommand(SaveConfiguration);
-            LoadCommand         = new DelegateCommand(LoadConfiguration);
+            SaveCommand         = new DelegateCommand(() => SaveConfiguration());
+            LoadCommand         = new DelegateCommand(() => LoadConfiguration());
+            ExportCommand       = new DelegateCommand(ExportConfiguration);
+            ImportCommand     = new DelegateCommand(ImportConfiguration);
             ResetCommand        = new DelegateCommand(Reset);
 
             // Initialize catalogs and controllers
@@ -47,7 +48,9 @@ namespace micdah.LrControl
 
         public ICommand OpenSettingsCommand { get; }
         public ICommand SaveCommand { get; }
+        public ICommand ExportCommand { get; }
         public ICommand LoadCommand { get; }
+        public ICommand ImportCommand { get; }
         public ICommand ResetCommand { get; }
 
         public IInputDevice InputDevice
@@ -123,7 +126,7 @@ namespace micdah.LrControl
             ShowSettingsDialog = !ShowSettingsDialog;
         }
 
-        public void SaveConfiguration()
+        public void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile)
         {
             var conf = new MappingConfiguration
             {
@@ -131,12 +134,12 @@ namespace micdah.LrControl
                 Modules = FunctionGroupManager.GetConfiguration(),
             };
 
-            MappingConfiguration.Save(conf);
+            MappingConfiguration.Save(conf, file);
         }
 
-        public void LoadConfiguration()
+        public void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile)
         {
-            var conf = MappingConfiguration.Load();
+            var conf = MappingConfiguration.Load(file);
             if (conf == null) return;
 
             // Load controllers
@@ -150,6 +153,24 @@ namespace micdah.LrControl
 
 
             EnableModuleGroupuForCurrentModule();
+        }
+
+        public void ExportConfiguration()
+        {
+            var file = _dialogProvider.ShowSaveDialog(GetSettingsFolder());
+            if (!string.IsNullOrEmpty(file))
+            {
+                SaveConfiguration(file);
+            }
+        }
+
+        private void ImportConfiguration()
+        {
+            var file = _dialogProvider.ShowOpenDialog(GetSettingsFolder());
+            if (!string.IsNullOrEmpty(file))
+            {
+                LoadConfiguration(file);
+            }
         }
 
         private async void Reset()
@@ -171,7 +192,14 @@ namespace micdah.LrControl
                 FunctionGroupManager.EnableModule(currentModule);
             }
         }
-        
+
+        private static string GetSettingsFolder()
+        {
+            var settingsFolder =
+                Path.GetDirectoryName(Serializer.ResolveRelativeFilename(MappingConfiguration.ConfigurationsFile));
+            return settingsFolder;
+        }
+
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

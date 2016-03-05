@@ -19,6 +19,8 @@
         <controls:WindowCommands>
             <Button Command="{Binding SaveCommand}">save</Button>
             <Button Command="{Binding LoadCommand}">load</Button>
+            <Button Command="{Binding ExportCommand}">export</Button>
+            <Button Command="{Binding ImportCommand}">import</Button>
             <Button Command="{Binding ResetCommand}">clear</Button>
             <Button Command="{Binding OpenSettingsCommand}">settings</Button>
         </controls:WindowCommands>

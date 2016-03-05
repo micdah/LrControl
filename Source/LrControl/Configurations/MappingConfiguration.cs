@@ -5,7 +5,7 @@ namespace micdah.LrControl.Configurations
 {
     public class MappingConfiguration
     {
-        private const string ConfigurationsFile = @"..\Settings\Configuration.xml";
+        public const string ConfigurationsFile = @"..\Settings\Configuration.xml";
 
         public MappingConfiguration()
         {
@@ -14,19 +14,19 @@ namespace micdah.LrControl.Configurations
         public List<ControllerConfiguration> Controllers { get; set; }
         public List<ModuleConfiguration> Modules { get; set; }
 
-        public static MappingConfiguration Load()
+        public static MappingConfiguration Load(string file)
         {
             MappingConfiguration conf;
-            if (Serializer.Load(ConfigurationsFile, out conf))
+            if (Serializer.Load(file, out conf))
             {
                 return conf;
             }
             return null;
         }
 
-        public static void Save(MappingConfiguration conf)
+        public static void Save(MappingConfiguration conf, string file)
         {
-            Serializer.Save(ConfigurationsFile, conf);
+            Serializer.Save(file, conf);
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Win32;
 
 namespace micdah.LrControl.Core
 {
@@ -14,14 +15,15 @@ namespace micdah.LrControl.Core
             _window = window;
         }
 
-        public async Task<DialogResult> ShowMessage(string message, string title, DialogButtons buttons = DialogButtons.OkCancel)
+        public async Task<DialogResult> ShowMessage(string message, string title,
+            DialogButtons buttons = DialogButtons.OkCancel)
         {
             MessageDialogStyle dialogStyle;
             var dialogSettings = new MetroDialogSettings
             {
                 AnimateShow = true,
                 AnimateHide = true,
-                ColorScheme = MetroDialogColorScheme.Accented,
+                ColorScheme = MetroDialogColorScheme.Accented
             };
 
             switch (buttons)
@@ -49,17 +51,43 @@ namespace micdah.LrControl.Core
             {
                 case DialogButtons.YesNo:
                     return dialogResult == MessageDialogResult.Affirmative
-                        ? Core.DialogResult.Yes
-                        : Core.DialogResult.No;
+                        ? DialogResult.Yes
+                        : DialogResult.No;
                 case DialogButtons.OkCancel:
                     return dialogResult == MessageDialogResult.Affirmative
-                        ? Core.DialogResult.Ok
-                        : Core.DialogResult.Cancel;
+                        ? DialogResult.Ok
+                        : DialogResult.Cancel;
                 case DialogButtons.Ok:
-                    return Core.DialogResult.Ok;
+                    return DialogResult.Ok;
                 default:
                     throw new InvalidOperationException();
             }
+        }
+
+        public string ShowSaveDialog(string path)
+        {
+            var dialog = new SaveFileDialog
+            {
+                FileName = "Configuration",
+                DefaultExt = ".xml",
+                Filter = "Configuration files (.xml)|*.xml",
+                InitialDirectory = path
+            };
+
+            return dialog.ShowDialog() == true ? dialog.FileName : null;
+        }
+
+        public string ShowOpenDialog(string path)
+        {
+            var dialog = new OpenFileDialog
+            {
+                FileName = "Configuration",
+                DefaultExt = ".xml",
+                Filter = "Configuration filex (.xml)|*.xml",
+                InitialDirectory = path
+            };
+
+            return dialog.ShowDialog() == true ? dialog.FileName : null;
         }
     }
 }
