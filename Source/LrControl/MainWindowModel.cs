@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
+using micdah.LrControl.Core;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
+using MahApps.Metro.Controls;
 using Midi.Devices;
 using Prism.Commands;
 
@@ -15,6 +18,7 @@ namespace micdah.LrControl
     public class MainWindowModel : INotifyPropertyChanged
     {
         private readonly LrApi _api;
+        private readonly IDialogProvider _dialogProvider;
         private ControllerManager _controllerManager;
         private FunctionCatalog _functionCatalog;
         private FunctionGroupManager _functionGroupManager;
@@ -22,9 +26,10 @@ namespace micdah.LrControl
         private IOutputDevice _outputDevice;
         private bool _showSettingsDialog;
 
-        public MainWindowModel(LrApi api)
+        public MainWindowModel(LrApi api, IDialogProvider dialogProvider)
         {
             _api = api;
+            _dialogProvider = dialogProvider;
 
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
             SaveCommand         = new DelegateCommand(SaveConfiguration);
@@ -147,10 +152,15 @@ namespace micdah.LrControl
             EnableModuleGroupuForCurrentModule();
         }
 
-        private void Reset()
+        private async void Reset()
         {
-            ControllerManager?.Reset();
-            FunctionGroupManager?.Reset();
+            var result = await _dialogProvider.ShowMessage("Are you sure, you want to clear the current configuration?",
+                "Confirm clear configuration", DialogButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                ControllerManager?.Reset();
+                FunctionGroupManager?.Reset();
+            }            
         }
 
         private void EnableModuleGroupuForCurrentModule()

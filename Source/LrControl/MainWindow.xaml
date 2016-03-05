@@ -17,8 +17,8 @@
     </controls:MetroWindow.Resources>
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Command="{Binding LoadCommand}">load</Button>
             <Button Command="{Binding SaveCommand}">save</Button>
+            <Button Command="{Binding LoadCommand}">load</Button>
             <Button Command="{Binding ResetCommand}">clear</Button>
             <Button Command="{Binding OpenSettingsCommand}">settings</Button>
         </controls:WindowCommands>

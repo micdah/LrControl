@@ -84,6 +84,8 @@
     <Compile Include="Configurations\ControllerConfigurationKey.cs" />
     <Compile Include="Configurations\MappingConfiguration.cs" />
     <Compile Include="Configurations\Settings.cs" />
+    <Compile Include="Core\IDialogProvider.cs" />
+    <Compile Include="Core\MetroWindowDialogProvider.cs" />
     <Compile Include="Core\Midi\ControlChangeKey.cs" />
     <Compile Include="Core\Midi\ControlChangeMessageHolder.cs" />
     <Compile Include="Core\Midi\InputDeviceDecorator.cs" />

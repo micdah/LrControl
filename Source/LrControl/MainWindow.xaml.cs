@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
+using micdah.LrControl.Core;
 using micdah.LrControl.Core.Midi;
 using micdah.LrControlApi;
 using Midi.Devices;
@@ -14,9 +15,6 @@ namespace micdah.LrControl
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
-        private readonly LrApi _api;
-        private readonly IInputDevice _inputDevice;
-        private readonly IOutputDevice _outputDevice;
         private MainWindowModel _viewModel;
 
         public MainWindow()
@@ -25,21 +23,22 @@ namespace micdah.LrControl
 
             UpdateConnectionStatus(false, null);
 
-            _api = new LrApi();
-            _api.ConnectionStatus += UpdateConnectionStatus;
+            var api = new LrApi();
+            api.ConnectionStatus += UpdateConnectionStatus;
 
-            _inputDevice = new InputDeviceDecorator(DeviceManager.InputDevices.Single(x => x.Name == "BCF2000"));
-            _inputDevice.Open();
-            _inputDevice.StartReceiving(null);
+            IInputDevice inputDevice =
+                new InputDeviceDecorator(DeviceManager.InputDevices.Single(x => x.Name == "BCF2000"));
+            inputDevice.Open();
+            inputDevice.StartReceiving(null);
 
-            _outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
-            _outputDevice.Open();
+            var outputDevice = DeviceManager.OutputDevices.Single(x => x.Name == "BCF2000");
+            outputDevice.Open();
 
             // View model
-            ViewModel = new MainWindowModel(_api)
+            ViewModel = new MainWindowModel(api, new MetroWindowDialogProvider(this))
             {
-                InputDevice = _inputDevice,
-                OutputDevice = _outputDevice
+                InputDevice = inputDevice,
+                OutputDevice = outputDevice
             };
             ViewModel.LoadConfiguration();
         }
