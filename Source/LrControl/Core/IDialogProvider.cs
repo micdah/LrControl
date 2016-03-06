@@ -5,10 +5,6 @@ namespace micdah.LrControl.Core
     public interface IDialogProvider
     {
         Task<DialogResult> ShowMessage(string message, string title, DialogButtons buttons = DialogButtons.OkCancel);
-
-        string ShowSaveDialog(string path);
-
-        string ShowOpenDialog(string path);
     }
 
     public enum DialogResult

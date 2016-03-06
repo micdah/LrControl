@@ -8,6 +8,7 @@ using log4net.Core;
 using log4net.Layout;
 using log4net.Repository.Hierarchy;
 using micdah.LrControl.Configurations;
+using micdah.LrControlApi;
 
 namespace micdah.LrControl
 {
@@ -16,6 +17,8 @@ namespace micdah.LrControl
     /// </summary>
     public partial class App
     {
+        private MainWindowModel _viewModel;
+
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             if (IsShutdownRequest(e))
@@ -26,11 +29,18 @@ namespace micdah.LrControl
 
             SetupLogging();
 
-            var mainWindow = new MainWindow
+            ShowMainWindow();
+        }
+
+        private void App_OnExit(object sender, ExitEventArgs e)
+        {
+            if (Settings.Current.AutoSaveOnClose)
             {
-                WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal
-            };
-            mainWindow.Show();
+                _viewModel.SaveConfiguration();
+            }
+
+            Settings.Current.SetLastUsedFrom(_viewModel);
+            Settings.Current.Save();
         }
 
         private void SetupLogging()
@@ -55,6 +65,23 @@ namespace micdah.LrControl
 
             hierarchy.Root.Level = Level.Debug;
             hierarchy.Configured = true;
+        }
+
+        private void ShowMainWindow()
+        {
+            _viewModel = new MainWindowModel(new LrApi());
+            var mainWindow = new MainWindow(_viewModel)
+            {
+                WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal
+            };
+            _viewModel.DialogProvider = new MainWindowDialogProvider(mainWindow);
+
+            _viewModel.LoadConfiguration();
+            _viewModel.RefreshAvailableDevices();
+            _viewModel.InputDeviceName = Settings.Current.LastUsedInputDevice;
+            _viewModel.OutputDeviceName = Settings.Current.LastUsedOutputDevice;
+
+            mainWindow.Show();
         }
 
         private static bool IsShutdownRequest(StartupEventArgs e)

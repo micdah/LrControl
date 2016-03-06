@@ -63,31 +63,5 @@ namespace micdah.LrControl.Core
                     throw new InvalidOperationException();
             }
         }
-
-        public string ShowSaveDialog(string path)
-        {
-            var dialog = new SaveFileDialog
-            {
-                FileName = "Configuration",
-                DefaultExt = ".xml",
-                Filter = "Configuration files (.xml)|*.xml",
-                InitialDirectory = path
-            };
-
-            return dialog.ShowDialog() == true ? dialog.FileName : null;
-        }
-
-        public string ShowOpenDialog(string path)
-        {
-            var dialog = new OpenFileDialog
-            {
-                FileName = "Configuration",
-                DefaultExt = ".xml",
-                Filter = "Configuration filex (.xml)|*.xml",
-                InitialDirectory = path
-            };
-
-            return dialog.ShowDialog() == true ? dialog.FileName : null;
-        }
     }
 }

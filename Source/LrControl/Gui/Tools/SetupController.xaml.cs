@@ -2,26 +2,23 @@
 using System.Runtime.CompilerServices;
 using micdah.LrControl.Annotations;
 
-namespace micdah.LrControl
+namespace micdah.LrControl.Gui.Tools
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     Interaction logic for SetupController.xaml
     /// </summary>
-    public partial class MainWindow : INotifyPropertyChanged
+    public partial class SetupController : INotifyPropertyChanged
     {
-        private MainWindowModel _viewModel;
+        private SetupControllerModel _viewModel;
 
-        public MainWindow(MainWindowModel viewModel)
+        public SetupController(SetupControllerModel viewModel)
         {
             InitializeComponent();
 
-            UpdateConnectionStatus(false, null);
-
             ViewModel = viewModel;
-            ViewModel.Api.ConnectionStatus += UpdateConnectionStatus;
         }
 
-        public MainWindowModel ViewModel
+        public SetupControllerModel ViewModel
         {
             get { return _viewModel; }
             private set
@@ -33,12 +30,6 @@ namespace micdah.LrControl
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void UpdateConnectionStatus(bool connected, string apiVersion)
-        {
-            Dispatcher.InvokeAsync(
-                () => { Connected.Text = $"{(connected ? $"Connected ({apiVersion})" : "Not connected")}"; });
-        }
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)

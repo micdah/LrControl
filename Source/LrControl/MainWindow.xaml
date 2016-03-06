@@ -9,9 +9,8 @@
                       xmlns:utils="clr-namespace:micdah.LrControl.Gui.Utils"
                       mc:Ignorable="d"
                       Title="LrControl" Height="1100" Width="1750"
-                      Icon="Resources/AppIcon.ico"
-                      DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}"
-                      Closing="MainWindow_OnClosing">
+                      Icon="/Resources/AppIcon.ico"
+                      DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
     <controls:MetroWindow.Resources>
         <utils:BooleanFillValueConverter x:Key="EnabledFillConverter" FalseBrush="Transparent" TrueBrush="#1500ff00"/>
     </controls:MetroWindow.Resources>
@@ -49,10 +48,11 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- Module tabs -->
-            <TabControl Grid.Column="0" ItemsSource="{Binding FunctionGroupManager.Modules}" SelectedIndex="0">
+            <TabControl Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding FunctionGroupManager.Modules}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="{Binding Enabled, Converter={StaticResource EnabledFillConverter}}">
@@ -68,7 +68,42 @@
             </TabControl>
             
             <!-- Function catalog -->
-            <gui:FunctionCatalogView Grid.Column="1" MaxWidth="375" FunctionCatalog="{Binding FunctionCatalog}"/>
+            <gui:FunctionCatalogView Grid.Column="1" Grid.Row="0" FunctionCatalog="{Binding FunctionCatalog}"/>
+            
+            <!-- Device selection -->
+            <Grid Grid.Column="1" Grid.Row="1" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource TabHeader}" Margin="3">
+                    Select device
+                </TextBlock>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource ListHeaderFont}" Margin="3">
+                    Input
+                </TextBlock>
+                <ComboBox Grid.Row="1" Grid.Column="1" Margin="3"
+                          ItemsSource="{Binding InputDevices}"
+                          SelectedValue="{Binding InputDeviceName}"
+                          SelectedValuePath="Name"
+                          DisplayMemberPath="Name"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource ListHeaderFont}" Margin="3">
+                    Output
+                </TextBlock>
+                <ComboBox Grid.Row="2" Grid.Column="1" Margin="3"
+                          ItemsSource="{Binding OutputDevices}"
+                          SelectedValue="{Binding OutputDeviceName}"
+                          SelectedValuePath="Name"
+                          DisplayMemberPath="Name"/>
+            </Grid>
         </Grid>
     </DockPanel>
 </controls:MetroWindow>

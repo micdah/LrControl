@@ -101,12 +101,17 @@
     <Compile Include="Gui\Tools\BCF2000Tester.xaml.cs">
       <DependentUpon>BCF2000Tester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\Tools\SetupController.xaml.cs">
+      <DependentUpon>SetupController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\Tools\SetupControllerModel.cs" />
     <Compile Include="Gui\Utils\BooleanFillValueConverter.cs" />
     <Compile Include="Gui\Utils\ButtonFillValueConverter.cs" />
     <Compile Include="Gui\Utils\DebugConverter.cs" />
     <Compile Include="Gui\Utils\DependencyObjectExtensions.cs" />
     <Compile Include="Gui\Utils\EncoderAngleValueConverter.cs" />
     <Compile Include="Gui\Utils\RangeTickFrequencyValueConverter.cs" />
+    <Compile Include="MainWindowDialogProvider.cs" />
     <Compile Include="MainWindowModel.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalog.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalog.LrApplicationView.cs" />
@@ -152,6 +157,10 @@
     <Page Include="Gui\Tools\BCF2000Tester.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Gui\Tools\SetupController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
