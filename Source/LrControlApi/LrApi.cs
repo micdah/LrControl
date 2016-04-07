@@ -21,15 +21,15 @@ namespace micdah.LrControlApi
 
         public LrApi(int sendPort = 52008, int receivePort = 52009)
         {
-            _pluginClient             = new PluginClient(sendPort, receivePort);
-            _lrControl                = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
-            _lrDevelopController      = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
-            _lrApplicationView        = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
-            _lrDialogs                = new LrDialogs(new MessageProtocol<LrDialogs>(_pluginClient));
-            _lrSelection              = new LrSelection(new MessageProtocol<LrSelection>(_pluginClient));
-            _lrUndo                   = new LrUndo(new MessageProtocol<LrUndo>(_pluginClient));
+            _pluginClient = new PluginClient(sendPort, receivePort);
+            _lrControl = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
+            _lrDevelopController = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
+            _lrApplicationView = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
+            _lrDialogs = new LrDialogs(new MessageProtocol<LrDialogs>(_pluginClient));
+            _lrSelection = new LrSelection(new MessageProtocol<LrSelection>(_pluginClient));
+            _lrUndo = new LrUndo(new MessageProtocol<LrUndo>(_pluginClient));
 
-            _pluginClient.Connection    += PluginClientOnConnection;
+            _pluginClient.Connection += PluginClientOnConnection;
             _pluginClient.ChangeMessage += name => _lrDevelopController.OnParameterChanged(name);
             _pluginClient.ModuleMessage += name => _lrApplicationView.OnModuleChanged(name);
 
@@ -49,6 +49,10 @@ namespace micdah.LrControlApi
 
         public ILrUndo LrUndo => _lrUndo;
 
+        public bool Connected { get; private set; }
+
+        public string ApiVersion { get; private set; }
+
         public void Dispose()
         {
             _pluginClient.Close();
@@ -63,17 +67,25 @@ namespace micdah.LrControlApi
                 string apiVersion;
                 if (LrControl.GetApiVersion(out apiVersion))
                 {
-                    ConnectionStatus?.Invoke(true, apiVersion);
+                    OnConnectionStatus(true, apiVersion);
                 }
                 else
                 {
-                    ConnectionStatus?.Invoke(false, null);
+                    OnConnectionStatus(false, null);
                 }
             }
             else
             {
-                ConnectionStatus?.Invoke(false, null);
+                OnConnectionStatus(false, null);
             }
+        }
+
+        private void OnConnectionStatus(bool connected, string apiVersion)
+        {
+            Connected = connected;
+            ApiVersion = apiVersion;
+
+            ConnectionStatus?.Invoke(connected, apiVersion);
         }
     }
 }

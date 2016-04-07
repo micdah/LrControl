@@ -75,7 +75,7 @@ namespace micdah.LrControl
                 WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal
             };
             _viewModel.DialogProvider = new MainWindowDialogProvider(mainWindow);
-
+            
             _viewModel.LoadConfiguration();
             _viewModel.RefreshAvailableDevices();
             _viewModel.InputDeviceName = Settings.Current.LastUsedInputDevice;

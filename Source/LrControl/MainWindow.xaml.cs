@@ -19,6 +19,8 @@ namespace micdah.LrControl
 
             ViewModel = viewModel;
             ViewModel.Api.ConnectionStatus += UpdateConnectionStatus;
+
+            UpdateConnectionStatus(ViewModel.Api.Connected, viewModel.Api.ApiVersion);
         }
 
         public MainWindowModel ViewModel
