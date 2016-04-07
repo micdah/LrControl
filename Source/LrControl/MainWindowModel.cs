@@ -7,6 +7,7 @@ using System.Windows.Input;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
 using micdah.LrControl.Core;
+using micdah.LrControl.Core.Midi;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
@@ -22,7 +23,7 @@ namespace micdah.LrControl
         private IMainWindowDialogProvider _dialogProvider;
         private FunctionCatalog _functionCatalog;
         private FunctionGroupManager _functionGroupManager;
-        private IInputDevice _inputDevice;
+        private InputDeviceDecorator _inputDevice;
         private IOutputDevice _outputDevice;
         private bool _showSettingsDialog;
         private ObservableCollection<IInputDevice> _inputDevices;
@@ -86,10 +87,11 @@ namespace micdah.LrControl
                 {
                     if (_inputDevice.IsReceiving) _inputDevice.StopReceiving();
                     if (_inputDevice.IsOpen) _inputDevice.Close();
+                    _inputDevice.Dispose();
                 }
 
-                _inputDevice = value;
-                ControllerManager.InputDevice = value;
+                _inputDevice = new InputDeviceDecorator(value);
+                ControllerManager.InputDevice = _inputDevice;
 
                 if (_inputDevice != null)
                 {

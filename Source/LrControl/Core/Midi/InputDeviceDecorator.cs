@@ -8,8 +8,7 @@ using Midi.Messages;
 
 namespace micdah.LrControl.Core.Midi
 {
-    public class 
-        InputDeviceDecorator : IInputDevice, IDisposable
+    public class InputDeviceDecorator : IInputDevice, IDisposable
     {
         private readonly ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder> _controlChangeMessages;
         private readonly IInputDevice _inputDevice;
