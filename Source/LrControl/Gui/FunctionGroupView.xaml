@@ -15,9 +15,7 @@
         </ItemsControl.ItemsPanel>
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <StackPanel>
-                    <local:ControllerFunctionView ControllerFunction="{Binding}"/>
-                </StackPanel>
+                <local:ControllerFunctionView ControllerFunction="{Binding}"/>
             </DataTemplate>
         </ItemsControl.ItemTemplate>
     </ItemsControl>

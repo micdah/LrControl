@@ -8,10 +8,12 @@ using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
 using micdah.LrControl.Core;
 using micdah.LrControl.Core.Midi;
+using micdah.LrControl.Gui.Tools;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
+using MahApps.Metro.Controls.Dialogs;
 using Midi.Devices;
 using Prism.Commands;
 
@@ -45,6 +47,7 @@ namespace micdah.LrControl
             ImportCommand                  = new DelegateCommand(ImportConfiguration);
             ResetCommand                   = new DelegateCommand(Reset);
             RefreshAvailableDevicesCommand = new DelegateCommand(RefreshAvailableDevices);
+            SetupControllerCommand         = new DelegateCommand(SetupController);
 
             // Initialize catalogs and controllers
             FunctionCatalog      = FunctionCatalog.DefaultCatalog(api);
@@ -75,6 +78,8 @@ namespace micdah.LrControl
         public ICommand ImportCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand RefreshAvailableDevicesCommand { get; }
+
+        public ICommand SetupControllerCommand { get; }
 
         public IInputDevice InputDevice
         {
@@ -301,6 +306,17 @@ namespace micdah.LrControl
             {
                 OutputDevices.Add(outputDevice);
             }
+        }
+
+        public void SetupController()
+        {
+            var viewModel = new SetupControllerModel
+            {
+                InputDevice = InputDevice
+            };
+
+            var dialog = new SetupController(viewModel);
+            dialog.ShowDialog();
         }
 
         private static string GetSettingsFolder()

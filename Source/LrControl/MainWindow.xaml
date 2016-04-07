@@ -81,11 +81,15 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource TabHeader}" Margin="3">
-                    Select device
-                </TextBlock>
 
+                <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3">
+                    <Button DockPanel.Dock="Right" VerticalAlignment="Center"
+                            Command="{Binding SetupControllerCommand}">
+                        setup
+                    </Button>
+                    <TextBlock Style="{StaticResource TabHeader}">Select device</TextBlock>
+                </DockPanel>
+                
                 <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource ListHeaderFont}" Margin="3">
                     Input
                 </TextBlock>

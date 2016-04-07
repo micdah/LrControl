@@ -24,7 +24,7 @@ namespace micdah.LrControl.Mapping
 
         public ControllerMessageType MessageType
         {
-            private get { return _messageType; }
+            get { return _messageType; }
             set
             {
                 if (value == _messageType) return;
@@ -49,7 +49,7 @@ namespace micdah.LrControl.Mapping
 
         public Channel Channel
         {
-            private get { return _channel; }
+            get { return _channel; }
             set
             {
                 if (value == _channel) return;

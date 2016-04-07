@@ -101,6 +101,7 @@
     <Compile Include="Gui\Tools\BCF2000Tester.xaml.cs">
       <DependentUpon>BCF2000Tester.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\Tools\ControllerSetup.cs" />
     <Compile Include="Gui\Tools\SetupController.xaml.cs">
       <DependentUpon>SetupController.xaml</DependentUpon>
     </Compile>

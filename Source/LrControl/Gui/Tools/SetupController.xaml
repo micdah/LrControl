@@ -5,8 +5,24 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
-                      Title="Setup device" Height="300" Width="300"
+                      Title="Setup device" Height="600" Width="800"
                       Icon="/Resources/AppIcon.ico"
                       DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
-    <Grid />
+    <ItemsControl ItemsSource="{Binding Controllers}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <TextBlock Text="{Binding Channel}"/>
+                    <TextBlock Text="{Binding Type}"/>
+                    <TextBlock Text="{Binding ControlNumber}"/>
+                    <TextBlock Text="{Binding Range}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
 </controls:MetroWindow>
