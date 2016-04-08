@@ -13,7 +13,6 @@ using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
-using MahApps.Metro.Controls.Dialogs;
 using Midi.Devices;
 using Prism.Commands;
 
@@ -48,7 +47,7 @@ namespace micdah.LrControl
             ResetCommand                   = new DelegateCommand(Reset);
             RefreshAvailableDevicesCommand = new DelegateCommand(RefreshAvailableDevices);
             SetupControllerCommand         = new DelegateCommand(SetupController);
-
+            
             // Initialize catalogs and controllers
             FunctionCatalog      = FunctionCatalog.DefaultCatalog(api);
             ControllerManager    = new ControllerManager();
@@ -78,7 +77,6 @@ namespace micdah.LrControl
         public ICommand ImportCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand RefreshAvailableDevicesCommand { get; }
-
         public ICommand SetupControllerCommand { get; }
 
         public IInputDevice InputDevice
@@ -95,7 +93,7 @@ namespace micdah.LrControl
                     _inputDevice.Dispose();
                 }
 
-                _inputDevice = new InputDeviceDecorator(value);
+                _inputDevice = value != null ? new InputDeviceDecorator(value) : null;
                 ControllerManager.InputDevice = _inputDevice;
 
                 if (_inputDevice != null)
@@ -295,17 +293,23 @@ namespace micdah.LrControl
 
         public void RefreshAvailableDevices()
         {
+            var inputDeviceName = InputDeviceName;
             InputDevices.Clear();
+            DeviceManager.UpdateInputDevices();
             foreach (var inputDevice in DeviceManager.InputDevices)
             {
                 InputDevices.Add(inputDevice);
             }
+            InputDeviceName = inputDeviceName;
 
+            var outputDeviceName = OutputDeviceName;
             OutputDevices.Clear();
+            DeviceManager.UpdateOutputDevices();
             foreach (var outputDevice in DeviceManager.OutputDevices)
             {
                 OutputDevices.Add(outputDevice);
             }
+            OutputDeviceName = outputDeviceName;
         }
 
         public void SetupController()
@@ -317,8 +321,10 @@ namespace micdah.LrControl
 
             var dialog = new SetupController(viewModel);
             dialog.ShowDialog();
-        }
 
+            // TODO Update configuration based on setup
+        }
+        
         private static string GetSettingsFolder()
         {
             var settingsFolder =

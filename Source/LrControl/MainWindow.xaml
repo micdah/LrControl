@@ -83,10 +83,11 @@
                 </Grid.ColumnDefinitions>
 
                 <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3">
-                    <Button DockPanel.Dock="Right" VerticalAlignment="Center"
-                            Command="{Binding SetupControllerCommand}">
-                        setup
-                    </Button>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Command="{Binding SetupControllerCommand}">setup</Button>
+                        <Button Command="{Binding RefreshAvailableDevicesCommand}">refresh</Button>
+                    </StackPanel>
+                    
                     <TextBlock Style="{StaticResource TabHeader}">Select device</TextBlock>
                 </DockPanel>
                 
