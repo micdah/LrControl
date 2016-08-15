@@ -18,29 +18,32 @@ namespace micdah.LrControl
     public partial class App
     {
         private MainWindowModel _viewModel;
+        private LrApi _lrApi;
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             if (IsShutdownRequest(e))
             {
                 TerminateAllInstances();
-                return;
             }
-
-            SetupLogging();
-
-            ShowMainWindow();
+            else
+            {
+                SetupLogging();
+                ShowMainWindow();
+            }
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            if (Settings.Current.AutoSaveOnClose)
+            if (Settings.Current.SaveConfigurationOnExit)
             {
                 _viewModel.SaveConfiguration();
             }
 
             Settings.Current.SetLastUsedFrom(_viewModel);
             Settings.Current.Save();
+            
+            _lrApi.Dispose();
         }
 
         private void SetupLogging()
@@ -69,7 +72,11 @@ namespace micdah.LrControl
 
         private void ShowMainWindow()
         {
-            _viewModel = new MainWindowModel(new LrApi());
+            // Create LrApi
+            _lrApi = new LrApi();
+            
+            // Create and show main window
+            _viewModel = new MainWindowModel(_lrApi);
             var mainWindow = new MainWindow(_viewModel)
             {
                 WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal
@@ -100,7 +107,7 @@ namespace micdah.LrControl
             {
                 try
                 {
-                    other.Kill();
+                    other.CloseMainWindow();
                 }
                 catch (Exception e)
                 {

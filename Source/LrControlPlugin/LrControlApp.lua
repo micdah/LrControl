@@ -21,19 +21,35 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 local LrShell	        = import 'LrShell'
 local LrPathUtils       = import 'LrPathUtils'
 
-
 local appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.exe'))
-
-local function startApplication() 
-    LrShell.openFilesInApp ({""}, appPath)
-end
-
-local function stopApplication() 
-    LrShell.openFilesInApp({"/shutdown"}, appPath)
-end
 
 
 return {
-    Start = startApplication,
-    Stop = stopApplication    
+    Start = function() 
+        LrShell.openFilesInApp ({""}, appPath)
+    end,
+    Stop = function(progressFunction) 
+        if progressFunction == nil then
+            progressFunction = function(progress,message)end
+        end
+
+        -- Stop main thread
+        progressFunction(0.25, "Stopping plugin")
+        LrControl.Running = false
+        Sockets.AutoReconnect = 0
+
+        if Sockets.ReceiveSocket ~= nil then
+            Sockets.ReceiveSocket:close()
+        end
+
+        if Sockets.SendSocket ~= nil then
+            Sockets.SendSocket:close()
+        end
+
+        -- Close LrControl application
+        progressFunction(0.75, "Closing LrControl application")
+        LrShell.openFilesInApp({"/shutdown"}, appPath)
+    
+        
+    end
 }

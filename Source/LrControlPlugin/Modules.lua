@@ -29,7 +29,7 @@ local ModulesLrUndo              = require 'ModulesLrUndo'
 return {
     LrControl = {
         getApiVersion = function() 
-            return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor
+            return "LrControl " .. Options.Version.major .. "." .. Options.Version.minor .. "." .. Options.Version.revision .. "." .. Options.Version.build
         end
     },
     LrDevelopController = ModulesLrDevelopController,

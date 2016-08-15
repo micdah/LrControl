@@ -6,24 +6,28 @@ using micdah.LrControlApi.Common;
 namespace micdah.LrControlApi.Communication
 {
     internal delegate void ChangeMessageHandler(string parameterName);
-
     internal delegate void ModuleMessageHandler(string moduleName);
+    internal delegate void ShutdownMessageHandler();
 
     internal class PluginClient
     {
         private const string HostName = "localhost";
         private const string ChangedToken = "Changed:";
         private const string ModuleToken = "Module:";
-        private readonly StartStopThread _changeProcessingThread;
-
+        
         private readonly BlockingCollection<string> _changeQueue = new BlockingCollection<string>();
-        private readonly object _connectionStatusLock = new object();
-        private readonly StartStopThread _moduleProcessingThread;
         private readonly BlockingCollection<string> _moduleQueue = new BlockingCollection<string>();
         private readonly BlockingCollection<string> _receivedMessages = new BlockingCollection<string>();
-        private readonly SocketWrapper _receiveSocket;
-        private readonly object _sendLock = new object();
+        
+        private readonly StartStopThread _changeProcessingThread;
+        private readonly StartStopThread _moduleProcessingThread;
+        
         private readonly SocketWrapper _sendSocket;
+        private readonly SocketWrapper _receiveSocket;
+
+        private readonly object _connectionStatusLock = new object();
+        private readonly object _sendLock = new object();
+        
 
         private bool _lastConnectionStatus;
 
@@ -58,7 +62,7 @@ namespace micdah.LrControlApi.Communication
         public event ConnectionHandler Connection;
         public event ChangeMessageHandler ChangeMessage;
         public event ModuleMessageHandler ModuleMessage;
-
+        
         public bool Open()
         {
             if (IsConnected)
@@ -76,7 +80,6 @@ namespace micdah.LrControlApi.Communication
 
             _changeProcessingThread.Start();
             _moduleProcessingThread.Start();
-
             return true;
         }
 
@@ -90,7 +93,7 @@ namespace micdah.LrControlApi.Communication
 
             _changeProcessingThread.Stop();
             _moduleProcessingThread.Stop();
-        }
+            }
 
         public bool SendMessage(string message, out string response)
         {

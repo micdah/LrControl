@@ -1,6 +1,5 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Communication;
 

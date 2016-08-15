@@ -31,22 +31,18 @@ local CommandInterpreter       = require 'CommandInterpreter'
 local ChangeObserverParameters = require 'ChangeObserverParameters'
 local ModuleTools              = require 'ModuleTools'
 
-
--- Track loaded version, to detect reloads
-math.randomseed(os.time())
-currentLoadVersion = currentLoadVersion or math.random ()
-currentLoadVersion = currentLoadVersion + 1
-
 Sockets = {
     SendSocket = nil,
     ReceiveSocket = nil,
+    AutoReconnect = true,
 }
 
+LrControl = {
+    Running = true,
+}
 
 -- Main task
 local function main(context)
-    local autoReconnect = true
-
     -- Open send socket
     local function openSendSocket()
         if Sockets.SendSocket ~= nil then
@@ -59,17 +55,20 @@ local function main(context)
             port = Options.MessageSendPort,
             mode = 'send',
             onError = function(socket, err)
-                if err == "timeout" then
-                    if autoReconnect then
-                        socket:reconnect()
-                    end
+                if Sockets.AutoReconnect then
+                    socket:reconnect()
                 end
             end,
+            onClosed = function(socket)
+                if Sockets.AutoReconnect then
+                    socket:reconnect()
+                end
+            end
         }
     end
 
     openSendSocket()
-    
+
     -- Open recieve socket  
     Sockets.ReceiveSocket = LrSocket.bind {
         functionContext = context,
@@ -87,15 +86,15 @@ local function main(context)
         end,
         onError         = function(socket, err)
             if err == "timeout" then
-                if autoReconnect then 
-                    socket:reconnect() 
+                if Sockets.AutoReconnect then
+                    socket:reconnect()
                 end
             end
         end,
         onClosed        = function(socket) 
-            if autoReconnect then
-                socket:reconnect() 
-                openSendSocket()
+            if Sockets.AutoReconnect then
+                socket:reconnect()
+                --openSendSocket()
             end
         end,
     }
@@ -113,14 +112,14 @@ local function main(context)
         end
         
         if string.len(changed) > 0 then
-            Sockets.SendSocket:send("Changed:"..changed.."\n")
+            Sockets.SendSocket:send("Changed:" .. changed .. "\n")
         end
     end
     
     local function moduleChanged(module) 
-        Sockets.SendSocket:send("Module:"..module.."\n")
+        Sockets.SendSocket:send("Module:" .. module .. "\n")
     end
-
+    
     
     -- Start LrControl application
     LrControlApp.Start()
@@ -133,11 +132,10 @@ local function main(context)
 
     
     -- Enter main waiting loop
-    local loadVersion = currentLoadVersion
     local lastModule = nil
     local observerAdded = false
     
-    while (loadVersion == currentLoadVersion) do
+    while (LrControl.Running) do
         -- Chcek if module has changed
         local currentModule = LrApplicationView.getCurrentModuleName()
         if lastModule ~= currentModule then
@@ -154,25 +152,8 @@ local function main(context)
             observerAdded = true
         end
         
-        LrTasks.sleep(1/2)
+        LrTasks.sleep(1/4)
     end
-    
-    -- Shutdown plugin
-    LrDialogs.showBezel("Stopping LrControl")
-
-    -- Close sockets
-    autoReconnect = false
-    if Sockets.ReceiveSocket ~= nil then
-        Sockets.ReceiveSocket:close()
-    end
-    if Sockets.SendSocket ~= nil then
-        Sockets.SendSocket:close()
-    end
-    
-    -- Signal shutdown
-    currentLoadVersion = currentLoadVersion + 1
-
-    LrDialogs.showBezel("LrControl stopped")
 end
 
 

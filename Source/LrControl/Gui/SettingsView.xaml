@@ -27,7 +27,7 @@
         <controls:ToggleSwitch
             Header="Save configuration when closing"
             OnLabel="Yes" OffLabel="No"
-            IsChecked="{Binding AutoSaveOnClose}"/>
+            IsChecked="{Binding SaveConfigurationOnExit}"/>
 
         <Grid>
             <Grid.RowDefinitions>

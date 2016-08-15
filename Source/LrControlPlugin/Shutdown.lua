@@ -24,31 +24,16 @@ local LrControlApp = require 'LrControlApp'
 
 return {
     LrShutdownFunction = function (doneFunction, progressFunction)
-        local totalWait = 10
-        local increments = 100
-        local loadVersion = nil
-        
-        for i=1,increments do
-            progressFunction (increments/i, "Stopping LrControl: Closing connections")
-            
-            if i==1 then
-                -- Stop application
-                LrControlApp.Stop()
+        progressFunction (0, "Shutting down LrControl")
 
-                -- Increment version to break main loop
-                loadVersion = currentLoadVersion + 1
-                currentLoadVersion = loadVersion
-                
-            else 
-                if currentLoadVersion ~= loadVersion then
-                    progressFunction(1, "Stopped LrControl")
-                    break
-                end
-            end
-            
-            LrTasks.sleep(totalWait/increments)
+        local pf = function(progress,message)
+            progressFunction(progress,message)
+            progressFunction(progress, message)
         end
-            
+
+        LrControlApp.Stop(pf)
+
+        progressFunction (1, "Done")   
         doneFunction()
     end
 }

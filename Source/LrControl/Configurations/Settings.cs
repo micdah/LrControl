@@ -15,7 +15,7 @@ namespace micdah.LrControl.Configurations
 
         private bool _showHudMessages;
         private bool _startMinimized;
-        private bool _autoSaveOnClose;
+        private bool _saveConfigurationOnExit;
         private int _parameterUpdateFrequency;
         private string _lastUsedInputDevice;
         private string _lastUsedOutputDevice;
@@ -29,7 +29,7 @@ namespace micdah.LrControl.Configurations
                 {
                     ShowHudMessages = true,
                     StartMinimized = false,
-                    AutoSaveOnClose = false,
+                    SaveConfigurationOnExit = false,
                     ParameterUpdateFrequency = 30,
                 };
             }
@@ -62,13 +62,13 @@ namespace micdah.LrControl.Configurations
             }
         }
 
-        public bool AutoSaveOnClose
+        public bool SaveConfigurationOnExit
         {
-            get { return _autoSaveOnClose; }
+            get { return _saveConfigurationOnExit; }
             set
             {
-                if (value == _autoSaveOnClose) return;
-                _autoSaveOnClose = value;
+                if (value == _saveConfigurationOnExit) return;
+                _saveConfigurationOnExit = value;
                 OnPropertyChanged();
             }
         }

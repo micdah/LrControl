@@ -22,6 +22,3 @@ local LrControlApp = require 'LrControlApp'
 
 -- Stop application
 LrControlApp.Stop()
-
--- Increment version to break main loop
-currentLoadVersion = currentLoadVersion + 1
