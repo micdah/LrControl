@@ -8,7 +8,7 @@ using micdah.LrControlApi;
 
 namespace LrControlCore.Functions.Catalog
 {
-    public partial class FunctionCatalog : IFunctionCatalog, INotifyPropertyChanged
+    public partial class FunctionCatalog : IFunctionCatalog
     {
         private ObservableCollection<IFunctionCatalogGroup> _groups;
 

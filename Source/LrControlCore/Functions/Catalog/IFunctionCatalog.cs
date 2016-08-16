@@ -4,10 +4,9 @@ using LrControlCore.Functions.Factories;
 
 namespace LrControlCore.Functions.Catalog
 {
-    public interface IFunctionCatalog
+    public interface IFunctionCatalog : INotifyPropertyChanged
     {
         ObservableCollection<IFunctionCatalogGroup> Groups { get; set; }
-        event PropertyChangedEventHandler PropertyChanged;
         IFunctionFactory GetFunctionFactory(string functionKey);
     }
 }
