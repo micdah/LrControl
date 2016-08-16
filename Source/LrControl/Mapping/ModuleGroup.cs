@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using JetBrains.Annotations;
+using LrControlCore.Device;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using NLog;
 

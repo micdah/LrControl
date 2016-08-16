@@ -181,8 +181,6 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mapping\Controller.cs" />
-    <Compile Include="Mapping\ControllerManager.cs" />
     <Compile Include="Mapping\FunctionGroup.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunction.cs" />
     <Compile Include="Mapping\Functions\Function.cs" />

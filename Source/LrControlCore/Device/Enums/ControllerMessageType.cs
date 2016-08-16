@@ -1,4 +1,4 @@
-namespace LrControlCore.Device
+namespace LrControlCore.Device.Enums
 {
     public enum ControllerMessageType
     {

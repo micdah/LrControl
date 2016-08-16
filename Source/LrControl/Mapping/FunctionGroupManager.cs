@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using JetBrains.Annotations;
 using LrControlCore.Configurations;
+using LrControlCore.Device;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
@@ -16,14 +17,14 @@ namespace micdah.LrControl.Mapping
     public class FunctionGroupManager : INotifyPropertyChanged
     {
         private readonly FunctionCatalog _functionCatalog;
-        private readonly ControllerManager _controllerManager;
+        private readonly MidiDevice _midiDevice;
         private readonly object _modulesLock = new object();
         private ObservableCollection<ModuleGroup> _modules;
 
-        private FunctionGroupManager(FunctionCatalog functionCatalog, ControllerManager controllerManager)
+        private FunctionGroupManager(FunctionCatalog functionCatalog, MidiDevice midiDevice)
         {
             _functionCatalog = functionCatalog;
-            _controllerManager = controllerManager;
+            _midiDevice = midiDevice;
         }
 
         public ObservableCollection<ModuleGroup> Modules
@@ -40,9 +41,9 @@ namespace micdah.LrControl.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static FunctionGroupManager DefaultGroups(LrApi api, FunctionCatalog functionCatalog, ControllerManager controllerManager)
+        public static FunctionGroupManager DefaultGroups(LrApi api, FunctionCatalog functionCatalog, MidiDevice midiDevice)
         {
-            return new FunctionGroupManager(functionCatalog, controllerManager)
+            return new FunctionGroupManager(functionCatalog, midiDevice)
             {
                 Modules = new ObservableCollection<ModuleGroup>
                 {
@@ -133,7 +134,7 @@ namespace micdah.LrControl.Mapping
                 {
                     @group.ClearControllerFunctions();
 
-                    foreach (var controller in _controllerManager.Controllers)
+                    foreach (var controller in _midiDevice.Controllers)
                     {
                         @group.ControllerFunctions.Add(new ControllerFunction
                         {

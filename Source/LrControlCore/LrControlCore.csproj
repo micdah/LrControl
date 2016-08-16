@@ -54,8 +54,10 @@
     <Compile Include="Configurations\ControllerConfigurationKey.cs" />
     <Compile Include="Configurations\MappingConfiguration.cs" />
     <Compile Include="Configurations\Settings.cs" />
-    <Compile Include="Device\ControllerMessageType.cs" />
-    <Compile Include="Device\ControllerType.cs" />
+    <Compile Include="Device\Controller.cs" />
+    <Compile Include="Device\Enums\ControllerMessageType.cs" />
+    <Compile Include="Device\Enums\ControllerType.cs" />
+    <Compile Include="Device\MidiDevice.cs" />
     <Compile Include="Midi\ControlChangeKey.cs" />
     <Compile Include="Midi\ControlChangeMessageHolder.cs" />
     <Compile Include="Midi\InputDeviceDecorator.cs" />

@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JetBrains.Annotations;
 using LrControlCore.Configurations;
+using LrControlCore.Device;
 using LrControlCore.Midi;
 using LrControlCore.Util;
 using micdah.LrControl.Core;
@@ -21,7 +22,7 @@ namespace micdah.LrControl
 {
     public class MainWindowModel : INotifyPropertyChanged
     {
-        private ControllerManager _controllerManager;
+        private MidiDevice _midiDevice;
         private IMainWindowDialogProvider _dialogProvider;
         private FunctionCatalog _functionCatalog;
         private FunctionGroupManager _functionGroupManager;
@@ -51,8 +52,8 @@ namespace micdah.LrControl
 
             // Initialize catalogs and controllers
             FunctionCatalog = FunctionCatalog.DefaultCatalog(api);
-            ControllerManager = new ControllerManager();
-            FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, ControllerManager);
+            MidiDevice = new MidiDevice();
+            FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, MidiDevice);
 
             // Hookup module listener
             api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
@@ -95,7 +96,7 @@ namespace micdah.LrControl
                     ? new InputDeviceDecorator(value, 1000/Settings.Current.ParameterUpdateFrequency)
                     : null;
 
-                ControllerManager.InputDevice = _inputDevice;
+                MidiDevice.InputDevice = _inputDevice;
 
                 if (_inputDevice != null)
                 {
@@ -146,7 +147,7 @@ namespace micdah.LrControl
                 }
 
                 _outputDevice = value;
-                ControllerManager.OutputDevice = value;
+                MidiDevice.OutputDevice = value;
 
                 if (_outputDevice != null)
                 {
@@ -183,13 +184,13 @@ namespace micdah.LrControl
             }
         }
 
-        private ControllerManager ControllerManager
+        private MidiDevice MidiDevice
         {
-            get { return _controllerManager; }
+            get { return _midiDevice; }
             set
             {
-                if (Equals(value, _controllerManager)) return;
-                _controllerManager = value;
+                if (Equals(value, _midiDevice)) return;
+                _midiDevice = value;
                 OnPropertyChanged();
             }
         }
@@ -249,7 +250,7 @@ namespace micdah.LrControl
         {
             var conf = new MappingConfiguration
             {
-                Controllers = ControllerManager.GetConfiguration(),
+                Controllers = MidiDevice.GetConfiguration(),
                 Modules = FunctionGroupManager.GetConfiguration()
             };
 
@@ -261,8 +262,8 @@ namespace micdah.LrControl
             var conf = MappingConfiguration.Load(file);
             if (conf == null) return;
 
-            ControllerManager.Load(conf.Controllers);
-            ControllerManager.ResetAllControls();
+            MidiDevice.Load(conf.Controllers);
+            MidiDevice.ResetAllControls();
 
             FunctionGroupManager.Load(conf.Modules);
 
@@ -298,7 +299,7 @@ namespace micdah.LrControl
                 "Confirm clear configuration", DialogButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                ControllerManager?.Clear();
+                MidiDevice?.Clear();
                 FunctionGroupManager?.Reset();
             }
         }
@@ -307,8 +308,8 @@ namespace micdah.LrControl
         {
             var inputDeviceName = InputDeviceName;
             InputDevices.Clear();
-            DeviceManager.UpdateInputDevices();
-            foreach (var inputDevice in DeviceManager.InputDevices)
+            Midi.Devices.DeviceManager.UpdateInputDevices();
+            foreach (var inputDevice in Midi.Devices.DeviceManager.InputDevices)
             {
                 InputDevices.Add(inputDevice);
             }
@@ -316,8 +317,8 @@ namespace micdah.LrControl
 
             var outputDeviceName = OutputDeviceName;
             OutputDevices.Clear();
-            DeviceManager.UpdateOutputDevices();
-            foreach (var outputDevice in DeviceManager.OutputDevices)
+            Midi.Devices.DeviceManager.UpdateOutputDevices();
+            foreach (var outputDevice in Midi.Devices.DeviceManager.OutputDevices)
             {
                 OutputDevices.Add(outputDevice);
             }

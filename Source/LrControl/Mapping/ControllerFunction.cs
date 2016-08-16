@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControlCore.Device;
+using LrControlCore.Device.Enums;
 using micdah.LrControl.Mapping.Functions;
 
 namespace micdah.LrControl.Mapping

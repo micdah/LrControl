@@ -3,13 +3,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControlCore.Configurations;
-using LrControlCore.Device;
+using LrControlCore.Device.Enums;
 using micdah.LrControlApi.Common;
 using Midi.Devices;
 using Midi.Enums;
 using Midi.Messages;
 
-namespace micdah.LrControl.Mapping
+namespace LrControlCore.Device
 {
     public delegate void ControllerChangedHandler(int controllerValue);
 

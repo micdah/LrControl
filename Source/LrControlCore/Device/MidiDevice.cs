@@ -3,22 +3,20 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
 using JetBrains.Annotations;
 using LrControlCore.Configurations;
 using micdah.LrControlApi.Common;
 using Midi.Devices;
 
-namespace micdah.LrControl.Mapping
+namespace LrControlCore.Device
 {
-    public class ControllerManager : INotifyPropertyChanged
+    public class MidiDevice : INotifyPropertyChanged
     {
-        private readonly object _controllersLock = new object();
         private ObservableCollection<Controller> _controllers;
         private IInputDevice _inputDevice;
         private IOutputDevice _outputDevice;
 
-        public ControllerManager()
+        public MidiDevice()
         {
             Controllers = new ObservableCollection<Controller>();
         }
@@ -30,7 +28,6 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _controllers)) return;
                 _controllers = value;
-                BindingOperations.EnableCollectionSynchronization(_controllers, _controllersLock);
                 OnPropertyChanged();
             }
         }

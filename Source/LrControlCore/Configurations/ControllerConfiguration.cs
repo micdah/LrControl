@@ -1,4 +1,5 @@
 ﻿using LrControlCore.Device;
+using LrControlCore.Device.Enums;
 
 namespace LrControlCore.Configurations
 {
