@@ -7,6 +7,8 @@
                       mc:Ignorable="d"
                       Title="Setup device" Height="600" Width="800"
                       Icon="/Resources/AppIcon.ico"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
                       DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
     <ItemsControl ItemsSource="{Binding Controllers}">
         <ItemsControl.ItemsPanel>
