@@ -1,11 +1,11 @@
 using System.Diagnostics;
 using Midi.Messages;
 
-namespace micdah.LrControl.Core.Midi
+namespace LrControlCore.Midi
 {
-    internal class NrpnMessageHolder : MessageHolder<NrpnMessage>
+    public class NrpnMessageHolder : MessageHolder<NrpnMessage>
     {
-        public NrpnMessageHolder(NrpnMessage msg, Stopwatch timestampStopwatch) : base(msg, timestampStopwatch)
+        public NrpnMessageHolder(NrpnMessage msg) : base(msg)
         {
         }
 

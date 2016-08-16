@@ -1,12 +1,12 @@
 using System.Diagnostics;
 
-namespace micdah.LrControl.Core.Midi
+namespace LrControlCore.Midi
 {
-    internal abstract class MessageHolder<T> where T : class
+    public abstract class MessageHolder<T> where T : class
     {
-        public MessageHolder(T msg, Stopwatch timestampStopwatch)
+        protected MessageHolder(T msg)
         {
-            SetMessage(msg, timestampStopwatch);
+            SetMessage(msg);
         }
 
         public T Message { get; private set; }
@@ -26,15 +26,15 @@ namespace micdah.LrControl.Core.Midi
 
         protected abstract bool CalculateHasChanged();
 
-        public void SetMessage(T msg, Stopwatch timestampStopwatch)
+        public void SetMessage(T msg)
         {
-            MessageTimestamp = timestampStopwatch.ElapsedTicks;
+            MessageTimestamp = Stopwatch.GetTimestamp();
             Message = msg;
         }
 
-        public void SetLastSent(T lastSent, Stopwatch timestampStopwatch)
+        public void SetLastSent(T lastSent)
         {
-            LastSentTimestamp = timestampStopwatch.ElapsedTicks;
+            LastSentTimestamp = Stopwatch.GetTimestamp();
             LastSent = lastSent;
         }
     }

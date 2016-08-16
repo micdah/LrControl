@@ -1,12 +1,10 @@
-using System.Diagnostics;
 using Midi.Messages;
 
-namespace micdah.LrControl.Core.Midi
+namespace LrControlCore.Midi
 {
     internal class ControlChangeMessageHolder : MessageHolder<ControlChangeMessage>
     {
-        public ControlChangeMessageHolder(ControlChangeMessage msg, Stopwatch timestampStopwatch)
-            : base(msg, timestampStopwatch)
+        public ControlChangeMessageHolder(ControlChangeMessage msg) : base(msg)
         {
         }
 

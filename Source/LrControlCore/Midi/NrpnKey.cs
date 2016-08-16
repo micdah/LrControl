@@ -1,9 +1,9 @@
 ﻿using Midi.Enums;
 using Midi.Messages;
 
-namespace micdah.LrControl.Core.Midi
+namespace LrControlCore.Midi
 {
-    internal class NrpnKey
+    public class NrpnKey
     {
         private NrpnKey(Channel channel, int parameter)
         {

@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using LrControlCore.Midi;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Configurations;
 using micdah.LrControl.Core;
-using micdah.LrControl.Core.Midi;
 using micdah.LrControl.Gui.Tools;
 using micdah.LrControl.Mapping;
 using micdah.LrControl.Mapping.Catalog;
@@ -25,36 +25,38 @@ namespace micdah.LrControl
         private FunctionCatalog _functionCatalog;
         private FunctionGroupManager _functionGroupManager;
         private InputDeviceDecorator _inputDevice;
-        private IOutputDevice _outputDevice;
-        private bool _showSettingsDialog;
-        private ObservableCollection<IInputDevice> _inputDevices;
-        private ObservableCollection<IOutputDevice> _outputDevices;
         private string _inputDeviceName;
+        private ObservableCollection<IInputDevice> _inputDevices;
+        private IOutputDevice _outputDevice;
         private string _outputDeviceName;
+        private ObservableCollection<IOutputDevice> _outputDevices;
+        private bool _showSettingsDialog;
 
         public MainWindowModel(LrApi api)
         {
-            Api           = api;
-            InputDevices  = new ObservableCollection<IInputDevice>();
+            Api = api;
+            InputDevices = new ObservableCollection<IInputDevice>();
             OutputDevices = new ObservableCollection<IOutputDevice>();
 
             // Commands
-            OpenSettingsCommand            = new DelegateCommand(OpenSettings);
-            SaveCommand                    = new DelegateCommand(() => SaveConfiguration());
-            LoadCommand                    = new DelegateCommand(() => LoadConfiguration());
-            ExportCommand                  = new DelegateCommand(ExportConfiguration);
-            ImportCommand                  = new DelegateCommand(ImportConfiguration);
-            ResetCommand                   = new DelegateCommand(Reset);
+            OpenSettingsCommand = new DelegateCommand(OpenSettings);
+            SaveCommand = new DelegateCommand(() => SaveConfiguration());
+            LoadCommand = new DelegateCommand(() => LoadConfiguration());
+            ExportCommand = new DelegateCommand(ExportConfiguration);
+            ImportCommand = new DelegateCommand(ImportConfiguration);
+            ResetCommand = new DelegateCommand(Reset);
             RefreshAvailableDevicesCommand = new DelegateCommand(RefreshAvailableDevices);
-            SetupControllerCommand         = new DelegateCommand(SetupController);
-            
+            SetupControllerCommand = new DelegateCommand(SetupController);
+
             // Initialize catalogs and controllers
-            FunctionCatalog      = FunctionCatalog.DefaultCatalog(api);
-            ControllerManager    = new ControllerManager();
+            FunctionCatalog = FunctionCatalog.DefaultCatalog(api);
+            ControllerManager = new ControllerManager();
             FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, ControllerManager);
 
             // Hookup module listener
             api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
+
+            Settings.Current.PropertyChanged += CurrentOnPropertyChanged;
         }
 
         public LrApi Api { get; }
@@ -86,14 +88,12 @@ namespace micdah.LrControl
             {
                 if (Equals(value, _inputDevice)) return;
 
-                if (_inputDevice != null)
-                {
-                    if (_inputDevice.IsReceiving) _inputDevice.StopReceiving();
-                    if (_inputDevice.IsOpen) _inputDevice.Close();
-                    _inputDevice.Dispose();
-                }
+                _inputDevice?.Dispose();
 
-                _inputDevice = value != null ? new InputDeviceDecorator(value) : null;
+                _inputDevice = value != null
+                    ? new InputDeviceDecorator(value, 1000/Settings.Current.ParameterUpdateFrequency)
+                    : null;
+
                 ControllerManager.InputDevice = _inputDevice;
 
                 if (_inputDevice != null)
@@ -101,7 +101,7 @@ namespace micdah.LrControl
                     if (!_inputDevice.IsOpen) _inputDevice.Open();
                     if (!_inputDevice.IsReceiving) _inputDevice.StartReceiving(null);
                 }
-                
+
                 OnPropertyChanged();
 
                 InputDeviceName = _inputDevice?.Name;
@@ -151,7 +151,7 @@ namespace micdah.LrControl
                 {
                     if (!_outputDevice.IsOpen) _outputDevice.Open();
                 }
-                
+
                 OnPropertyChanged();
 
                 OutputDeviceName = _outputDevice?.Name;
@@ -227,6 +227,17 @@ namespace micdah.LrControl
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private void CurrentOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Settings.ParameterUpdateFrequency))
+            {
+                if (_inputDevice != null)
+                {
+                    _inputDevice.UpdateInterval = 1000 / Settings.Current.ParameterUpdateFrequency;
+                }
+            }
+        }
 
         public void OpenSettings()
         {
@@ -324,7 +335,7 @@ namespace micdah.LrControl
 
             // TODO Update configuration based on setup
         }
-        
+
         private static string GetSettingsFolder()
         {
             var settingsFolder =

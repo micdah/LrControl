@@ -77,12 +77,6 @@
     <Compile Include="Core\ExceptionStringBuilder.cs" />
     <Compile Include="Core\IDialogProvider.cs" />
     <Compile Include="Core\MetroWindowDialogProvider.cs" />
-    <Compile Include="Core\Midi\ControlChangeKey.cs" />
-    <Compile Include="Core\Midi\ControlChangeMessageHolder.cs" />
-    <Compile Include="Core\Midi\InputDeviceDecorator.cs" />
-    <Compile Include="Core\Midi\MessageHolder.cs" />
-    <Compile Include="Core\Midi\NrpnKey.cs" />
-    <Compile Include="Core\Midi\NrpnMessageHolder.cs" />
     <Compile Include="Core\Serializer.cs" />
     <Compile Include="ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
@@ -231,6 +225,10 @@
     <ProjectReference Include="..\LrControlApi\LrControlApi.csproj">
       <Project>{4BD68C41-8C8A-4ABF-9624-0379C2CED801}</Project>
       <Name>LrControlApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LrControlCore\LrControlCore.csproj">
+      <Project>{f9cec7b8-1428-40a0-b6a3-6e6927ffc7f9}</Project>
+      <Name>LrControlCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

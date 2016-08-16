@@ -1,9 +1,9 @@
 ﻿using Midi.Enums;
 using Midi.Messages;
 
-namespace micdah.LrControl.Core.Midi
+namespace LrControlCore.Midi
 {
-    internal class ControlChangeKey
+    public class ControlChangeKey
     {
         public ControlChangeKey(Channel channel, Control control)
         {
