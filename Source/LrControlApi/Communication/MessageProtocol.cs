@@ -1,14 +1,14 @@
 using System;
 using System.Text;
-using log4net;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
+using NLog;
 
 namespace micdah.LrControlApi.Communication
 {
     internal class MessageProtocol<TModule>
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (MessageProtocol<TModule>));
+        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
         private const char RecordSeparator = '\u001E';
 

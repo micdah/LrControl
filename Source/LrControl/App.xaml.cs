@@ -3,13 +3,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using log4net;
-using log4net.Appender;
-using log4net.Core;
-using log4net.Layout;
-using log4net.Repository.Hierarchy;
 using micdah.LrControl.Configurations;
 using micdah.LrControlApi;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace micdah.LrControl
 {
@@ -30,7 +28,7 @@ namespace micdah.LrControl
             }
             else
             {
-                HookupUnhandledExceptionDialog();
+                SetupExceptionHandling();
                 SetupLogging();
                 ShowMainWindow();
             }
@@ -49,51 +47,40 @@ namespace micdah.LrControl
             _lrApi.Dispose();
         }
 
-        private void HookupUnhandledExceptionDialog()
+        private void SetupExceptionHandling()
         {
             AppDomain.CurrentDomain.UnhandledException +=
-                (sender, args) => ShowExceptionDialog(args.ExceptionObject as Exception);
+                (sender, args) =>
+                {
+                    new ErrorDialog(args.ExceptionObject as Exception).Show();
+                };
 
             Dispatcher.UnhandledException += (o, eventArgs) =>
             {
-                ShowExceptionDialog(eventArgs.Exception);
+                new ErrorDialog(eventArgs.Exception).Show();
                 eventArgs.Handled = true;
             };
 
             TaskScheduler.UnobservedTaskException += (sender, args) =>
             {
-                ShowExceptionDialog(args.Exception);
+                new ErrorDialog(args.Exception).Show();
                 args.SetObserved();
             };
         }
 
-        private void ShowExceptionDialog(Exception exception)
-        {
-            new ErrorDialog(exception).Show();
-        }
-
         private void SetupLogging()
         {
-            var hierarchy = (Hierarchy) LogManager.GetRepository();
+            var config = new LoggingConfiguration();
 
-            var patternLayout = new PatternLayout
+            var consoleTarget = new ColoredConsoleTarget("Console")
             {
-                ConversionPattern = "%date [%thread] %-5level %logger - %message\n"
+                Layout = @"${date:format=HH\:mm\:ss} ${logger} ${message}"
             };
-            patternLayout.ActivateOptions();
+            config.AddTarget(consoleTarget);
 
+            config.LoggingRules.Add(new LoggingRule("'", LogLevel.Trace, consoleTarget));
 
-            var consoleAppender = new ColoredConsoleAppender
-            {
-                Threshold = Level.Debug,
-                Layout = patternLayout
-            };
-            consoleAppender.ActivateOptions();
-            hierarchy.Root.AddAppender(consoleAppender);
-
-
-            hierarchy.Root.Level = Level.Debug;
-            hierarchy.Configured = true;
+            LogManager.Configuration = config;
         }
 
         private void ShowMainWindow()

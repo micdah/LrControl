@@ -2,15 +2,15 @@
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
-using log4net;
+using NLog;
 
 namespace micdah.LrControl.Core
 {
-    public class Serializer
+    public static class Serializer
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (Serializer));
+        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
-        public static bool Save<T>(string relativeFilename, T instance) where T : class
+        public static void Save<T>(string relativeFilename, T instance) where T : class
         {
             var path = ResolveRelativeFilename(relativeFilename);
             EnsurePathExists(path);
@@ -24,12 +24,10 @@ namespace micdah.LrControl.Core
                 }
 
                 Log.Debug($"Successfully saved instance of {typeof (T).Name} to '{path}'");
-                return true;
             }
             catch (Exception e)
             {
-                Log.Error($"Was unable to save instance of {typeof (T).Name} to '{path}'", e);
-                return false;
+                Log.Error(e, $"Was unable to save instance of {typeof (T).Name} to '{path}'");
             }
         }
 
@@ -58,7 +56,7 @@ namespace micdah.LrControl.Core
                 }
                 catch (Exception e)
                 {
-                    Log.Error($"Was unable to load instance of {typeof (T).Name} from '{path}'", e);
+                    Log.Error(e, $"Was unable to load instance of {typeof (T).Name} from '{path}'");
                     instance = null;
                     return false;
                 }

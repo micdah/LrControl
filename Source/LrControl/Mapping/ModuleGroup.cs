@@ -4,15 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
-using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi.Modules.LrApplicationView;
+using NLog;
 
 namespace micdah.LrControl.Mapping
 {
     public class ModuleGroup : INotifyPropertyChanged
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ModuleGroup));
+        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
         private readonly object _functionGroupsLock = new object();
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();

@@ -4,16 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
-using log4net;
 using micdah.LrControl.Annotations;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
+using NLog;
 
 namespace micdah.LrControl.Mapping
 {
     public class FunctionGroup : INotifyPropertyChanged
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (FunctionGroup));
+        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
         private static readonly List<FunctionGroup> FunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;

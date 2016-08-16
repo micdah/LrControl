@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
-using log4net;
 using micdah.LrControlApi.Common;
+using NLog;
 
 namespace micdah.LrControlApi.Communication
 {
@@ -14,7 +14,7 @@ namespace micdah.LrControlApi.Communication
     internal class SocketWrapper : IDisposable
     {
         public const int SocketTimeout = 1000;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (SocketWrapper));
+        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
 
         private readonly string _hostName;
@@ -176,7 +176,7 @@ namespace micdah.LrControlApi.Communication
             {
                 if (e.SocketErrorCode != SocketError.TimedOut)
                 {
-                    Log.Error("Error while receiving message, reconnecting", e);
+                    Log.Error(e, "Error while receiving message, reconnecting");
                     Reconnect();
                 }
 
@@ -260,7 +260,7 @@ namespace micdah.LrControlApi.Communication
             }
             catch (SocketException e)
             {
-                Log.Error("An error occurred while trying to allocate a socket", e);
+                Log.Error(e, "An error occurred while trying to allocate a socket");
                 return false;
             }
         }
@@ -277,7 +277,7 @@ namespace micdah.LrControlApi.Communication
             }
             catch (Exception e)
             {
-                Log.Error("An error occurred while trying to close socket", e);
+                Log.Error(e, "An error occurred while trying to close socket");
             }
             finally
             {
