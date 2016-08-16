@@ -2,8 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
-using micdah.LrControl.Annotations;
+using JetBrains.Annotations;
 using micdah.LrControl.Mapping.Functions;
 using micdah.LrControlApi;
 
@@ -11,7 +10,6 @@ namespace micdah.LrControl.Mapping.Catalog
 {
     public partial class FunctionCatalog : INotifyPropertyChanged
     {
-        private readonly object _groupsLock = new object();
         private ObservableCollection<FunctionCatalogGroup> _groups;
 
         private FunctionCatalog()
@@ -25,7 +23,6 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 if (Equals(value, _groups)) return;
                 _groups = value;
-                BindingOperations.EnableCollectionSynchronization(_groups, _groupsLock);
                 OnPropertyChanged();
             }
         }

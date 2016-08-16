@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
-using micdah.LrControl.Annotations;
+using JetBrains.Annotations;
 using micdah.LrControl.Mapping.Functions;
 
 namespace micdah.LrControl.Mapping.Catalog

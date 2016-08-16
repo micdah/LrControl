@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using micdah.LrControl.Annotations;
+using JetBrains.Annotations;
 using micdah.LrControl.Mapping;
 
 namespace micdah.LrControl.Gui

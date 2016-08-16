@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.1.5.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -59,8 +63,13 @@
       <Project>{f60d8b7b-2d2e-4b94-a736-3783ffe1a25c}</Project>
       <Name>Midi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LrControlApi\LrControlApi.csproj">
+      <Project>{4bd68c41-8c8a-4abf-9624-0379c2ced801}</Project>
+      <Name>LrControlApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Control\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>

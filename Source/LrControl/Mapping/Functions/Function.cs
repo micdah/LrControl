@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using micdah.LrControl.Annotations;
+using JetBrains.Annotations;
 using micdah.LrControl.Configurations;
 using micdah.LrControlApi;
 
