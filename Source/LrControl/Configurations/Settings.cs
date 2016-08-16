@@ -1,7 +1,5 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Markup;
 using micdah.LrControl.Annotations;
 using micdah.LrControl.Core;
 
@@ -12,13 +10,13 @@ namespace micdah.LrControl.Configurations
         private const string SettingsFile = @"..\Settings\Settings.xml";
 
         public static readonly Settings Current;
+        private string _lastUsedInputDevice;
+        private string _lastUsedOutputDevice;
+        private int _parameterUpdateFrequency;
+        private bool _saveConfigurationOnExit;
 
         private bool _showHudMessages;
         private bool _startMinimized;
-        private bool _saveConfigurationOnExit;
-        private int _parameterUpdateFrequency;
-        private string _lastUsedInputDevice;
-        private string _lastUsedOutputDevice;
 
         static Settings()
         {
@@ -30,14 +28,9 @@ namespace micdah.LrControl.Configurations
                     ShowHudMessages = true,
                     StartMinimized = false,
                     SaveConfigurationOnExit = false,
-                    ParameterUpdateFrequency = 30,
+                    ParameterUpdateFrequency = 30
                 };
             }
-        }
-
-        public void Save()
-        {
-            Serializer.Save(SettingsFile, this);
         }
 
         public bool ShowHudMessages
@@ -107,6 +100,11 @@ namespace micdah.LrControl.Configurations
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void Save()
+        {
+            Serializer.Save(SettingsFile, this);
+        }
 
         public void SetLastUsedFrom(MainWindowModel viewModel)
         {

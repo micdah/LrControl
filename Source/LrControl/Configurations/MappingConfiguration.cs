@@ -7,10 +7,6 @@ namespace micdah.LrControl.Configurations
     {
         public const string ConfigurationsFile = @"..\Settings\Configuration.xml";
 
-        public MappingConfiguration()
-        {
-        }
-
         public List<ControllerConfiguration> Controllers { get; set; }
         public List<ModuleConfiguration> Modules { get; set; }
 

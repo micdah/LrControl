@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl\LrControl.csproj", "{9C1D8D80-26C5-491E-96D1-643A6DD54520}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlPlugin", "LrControlPlugin\LrControlPlugin.csproj", "{892ED5AF-E453-4A14-960D-CAE363455EE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlApi", "LrControlApi\LrControlApi.csproj", "{4BD68C41-8C8A-4ABF-9624-0379C2CED801}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlCore", "LrControlCore\LrControlCore.csproj", "{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
