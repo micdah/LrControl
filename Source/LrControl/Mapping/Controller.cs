@@ -2,7 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using micdah.LrControl.Configurations;
+using LrControlCore.Configurations;
+using LrControlCore.Device;
 using micdah.LrControlApi.Common;
 using Midi.Devices;
 using Midi.Enums;

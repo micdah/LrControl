@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:configurations="clr-namespace:micdah.LrControl.Configurations"
+             xmlns:configurations="clr-namespace:LrControlCore.Configurations;assembly=LrControlCore"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="500"
              DataContext="{Binding Source={x:Static configurations:Settings.Current}}">

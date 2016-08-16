@@ -1,9 +1,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using micdah.LrControl.Core;
+using LrControlCore.Util;
+using Midi.Devices;
 
-namespace micdah.LrControl.Configurations
+namespace LrControlCore.Configurations
 {
     public class Settings : INotifyPropertyChanged
     {
@@ -106,16 +107,16 @@ namespace micdah.LrControl.Configurations
             Serializer.Save(SettingsFile, this);
         }
 
-        public void SetLastUsedFrom(MainWindowModel viewModel)
+        public void SetLastUsed(IInputDevice inputDevice, IOutputDevice outputDevice)
         {
-            if (viewModel.InputDevice != null)
+            if (inputDevice != null)
             {
-                LastUsedInputDevice = viewModel.InputDevice.Name;
+                LastUsedInputDevice = inputDevice.Name;
             }
 
-            if (viewModel.OutputDevice != null)
+            if (outputDevice != null)
             {
-                LastUsedOutputDevice = viewModel.OutputDevice.Name;
+                LastUsedOutputDevice = outputDevice.Name;
             }
         }
 

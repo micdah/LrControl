@@ -1,6 +1,6 @@
-﻿using micdah.LrControl.Mapping;
+﻿using LrControlCore.Device;
 
-namespace micdah.LrControl.Configurations
+namespace LrControlCore.Configurations
 {
     public class ControllerConfiguration : ControllerConfigurationKey
     {

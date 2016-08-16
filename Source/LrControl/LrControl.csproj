@@ -75,14 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configurations\ControllerConfiguration.cs" />
-    <Compile Include="Configurations\ControllerConfigurationKey.cs" />
-    <Compile Include="Configurations\MappingConfiguration.cs" />
-    <Compile Include="Configurations\Settings.cs" />
     <Compile Include="Core\ExceptionStringBuilder.cs" />
     <Compile Include="Core\IDialogProvider.cs" />
     <Compile Include="Core\MetroWindowDialogProvider.cs" />
-    <Compile Include="Core\Serializer.cs" />
     <Compile Include="ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -124,7 +119,6 @@
     <Compile Include="Mapping\Catalog\FunctionCatalog.LrUndo.cs" />
     <Compile Include="Mapping\Catalog\FunctionCatalogGroup.cs" />
     <Compile Include="Mapping\ControllerFunction.cs" />
-    <Compile Include="Mapping\ControllerType.cs" />
     <Compile Include="Mapping\FunctionGroupManager.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunctionFactory.cs" />
     <Compile Include="Mapping\Functions\FunctionFactory.cs" />
@@ -189,7 +183,6 @@
     </Compile>
     <Compile Include="Mapping\Controller.cs" />
     <Compile Include="Mapping\ControllerManager.cs" />
-    <Compile Include="Mapping\ControllerMessageType.cs" />
     <Compile Include="Mapping\FunctionGroup.cs" />
     <Compile Include="Mapping\Functions\EnablePanelFunction.cs" />
     <Compile Include="Mapping\Functions\Function.cs" />

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using micdah.LrControl.Configurations;
+using LrControlCore.Configurations;
 using micdah.LrControlApi;
 using NLog;
 using NLog.Config;
@@ -41,7 +41,7 @@ namespace micdah.LrControl
                 _viewModel.SaveConfiguration();
             }
 
-            Settings.Current.SetLastUsedFrom(_viewModel);
+            Settings.Current.SetLastUsed(_viewModel.InputDevice, _viewModel.OutputDevice);
             Settings.Current.Save();
 
             _lrApi.Dispose();

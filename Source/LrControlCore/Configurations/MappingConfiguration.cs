@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using micdah.LrControl.Core;
+using LrControlCore.Util;
 
-namespace micdah.LrControl.Configurations
+namespace LrControlCore.Configurations
 {
     public class MappingConfiguration
     {

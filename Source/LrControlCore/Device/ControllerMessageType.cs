@@ -1,4 +1,4 @@
-namespace micdah.LrControl.Mapping
+namespace LrControlCore.Device
 {
     public enum ControllerMessageType
     {

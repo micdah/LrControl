@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using NLog;
 
-namespace micdah.LrControl.Core
+namespace LrControlCore.Util
 {
     public static class Serializer
     {

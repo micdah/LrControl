@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using JetBrains.Annotations;
-using micdah.LrControl.Configurations;
+using LrControlCore.Configurations;
 using micdah.LrControl.Mapping.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;

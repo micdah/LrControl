@@ -1,7 +1,7 @@
-﻿using micdah.LrControl.Mapping;
+﻿using LrControlCore.Device;
 using Midi.Enums;
 
-namespace micdah.LrControl.Configurations
+namespace LrControlCore.Configurations
 {
     public class ControllerConfigurationKey
     {
