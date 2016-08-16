@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControlCore.Device;
 using LrControlCore.Device.Enums;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions;
 
-namespace micdah.LrControl.Mapping
+namespace LrControlCore.Mapping
 {
     public class ControllerFunction : INotifyPropertyChanged, IDisposable
     {

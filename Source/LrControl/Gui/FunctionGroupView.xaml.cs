@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using micdah.LrControl.Mapping;
+using LrControlCore.Mapping;
 
 namespace micdah.LrControl.Gui
 {

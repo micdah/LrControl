@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Factories;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrSelection;
 
-namespace micdah.LrControl.Mapping.Catalog
+namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
         private static FunctionCatalogGroup CreateSelectionGroup(LrApi api)
         {
-            var functions = new List<FunctionFactory>();
+            var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
             {
                 new MethodFunctionFactory(api, "Clear labels", "ClearLabels", a => a.LrSelection.ClearLabels()),
@@ -67,7 +67,7 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = "Selection",
                 Key = "LrSelection",
-                Functions = new ObservableCollection<FunctionFactory>(functions)
+                Functions = new ObservableCollection<IFunctionFactory>(functions)
             };
         }
 

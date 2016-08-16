@@ -1,6 +1,6 @@
 ﻿using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions.Factories
 {
     public class ToggleDevelopBeforeAfterFunctionFactory : FunctionFactory
     {

@@ -1,8 +1,8 @@
 ﻿using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions.Factories
 {
-    public abstract class FunctionFactory
+    public abstract class FunctionFactory : IFunctionFactory
     {
         private readonly LrApi _api;
 

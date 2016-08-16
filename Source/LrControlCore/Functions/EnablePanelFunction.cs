@@ -1,7 +1,8 @@
+using LrControlCore.Mapping;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions
 {
     public class EnablePanelFunction : Function
     {

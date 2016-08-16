@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using JetBrains.Annotations;
-using micdah.LrControl.Mapping;
+using LrControlCore.Mapping;
 
 namespace micdah.LrControl.Gui
 {

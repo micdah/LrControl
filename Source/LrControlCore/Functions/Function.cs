@@ -6,7 +6,7 @@ using LrControlCore.Configurations;
 using LrControlCore.Device;
 using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions
 {
     public abstract class Function : INotifyPropertyChanged, IDisposable
     {

@@ -1,7 +1,7 @@
 ﻿using System.Windows;
+using LrControlCore.Functions.Factories;
+using LrControlCore.Mapping;
 using micdah.LrControl.Gui.Utils;
-using micdah.LrControl.Mapping;
-using micdah.LrControl.Mapping.Functions;
 
 namespace micdah.LrControl.Gui
 {
@@ -38,7 +38,7 @@ namespace micdah.LrControl.Gui
         {
             if (ControllerFunction.Assignable)
             {
-                Highlight = e.Data.GetDataPresent(typeof(FunctionFactory));
+                Highlight = e.Data.GetDataPresent(typeof(IFunctionFactory));
             }
         }
 
@@ -49,7 +49,7 @@ namespace micdah.LrControl.Gui
 
         private void ControllerFunctionView_OnDragOver(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(typeof (FunctionFactory))) return;
+            if (!e.Data.GetDataPresent(typeof (IFunctionFactory))) return;
 
             if (ControllerFunction.Assignable)
             {
@@ -63,8 +63,8 @@ namespace micdah.LrControl.Gui
             Highlight = false;
 
             // Verify drop object contains needed object
-            if (!e.Data.GetDataPresent(typeof (FunctionFactory))) return;
-            var functionFactory = (FunctionFactory) e.Data.GetData(typeof (FunctionFactory));
+            if (!e.Data.GetDataPresent(typeof (IFunctionFactory))) return;
+            var functionFactory = (IFunctionFactory) e.Data.GetData(typeof (IFunctionFactory));
 
             // Verify we have all needed parameters
             var moduleGroup = this.FindParent<ModuleGroupView>()?.ModuleGroup;

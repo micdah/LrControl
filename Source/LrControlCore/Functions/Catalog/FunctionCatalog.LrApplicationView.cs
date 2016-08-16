@@ -1,26 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Factories;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
 
-namespace micdah.LrControl.Mapping.Catalog
+namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
         private static FunctionCatalogGroup CreateViewGroup(LrApi api)
         {
-            var functions = new List<FunctionFactory>();
+            var functions = new List<IFunctionFactory>();
             functions.AddRange(CreateSwitchToModule(api));
             functions.AddRange(CreateShowView(api));
             functions.AddRange(CreateShowSecondaryView(api));
-            functions.AddRange(new FunctionFactory[]
+            functions.AddRange(new IFunctionFactory[]
             {
-                new MethodFunctionFactory(api, "Toggle secondary display", "ToggleSecondaryDisplay",
-                    a => a.LrApplicationView.ToggleSecondaryDisplay()),
-                new MethodFunctionFactory(api, "Toggle secondary display fullscreen", "ToggleSecondaryDisplayFullscreen",
-                    a => a.LrApplicationView.ToggleSecondaryDisplayFullscreen()),
+                new MethodFunctionFactory(api, "Toggle secondary display", "ToggleSecondaryDisplay", a => a.LrApplicationView.ToggleSecondaryDisplay()),
+                new MethodFunctionFactory(api, "Toggle secondary display fullscreen", "ToggleSecondaryDisplayFullscreen", a => a.LrApplicationView.ToggleSecondaryDisplayFullscreen()),
                 new MethodFunctionFactory(api, "Toggle zoom", "ToggleZoom", a => a.LrApplicationView.ToggleZoom()),
                 new MethodFunctionFactory(api, "Zoom in", "ZoomIn", a => a.LrApplicationView.ZoomIn()),
                 new MethodFunctionFactory(api, "Zoom in some", "ZoomInSome", a => a.LrApplicationView.ZoomInSome()),
@@ -33,7 +31,7 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = "View",
                 Key = "LrApplicationView",
-                Functions = new ObservableCollection<FunctionFactory>(functions),
+                Functions = new ObservableCollection<IFunctionFactory>(functions),
             };
         }
 

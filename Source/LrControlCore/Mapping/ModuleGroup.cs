@@ -3,19 +3,17 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
 using JetBrains.Annotations;
 using LrControlCore.Device;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using NLog;
 
-namespace micdah.LrControl.Mapping
+namespace LrControlCore.Mapping
 {
     public class ModuleGroup : INotifyPropertyChanged
     {
         private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
-        private readonly object _functionGroupsLock = new object();
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;
         private ObservableCollection<FunctionGroup> _functionGroups;
@@ -45,7 +43,6 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _functionGroups)) return;
                 _functionGroups = value;
-                BindingOperations.EnableCollectionSynchronization(_functionGroups, _functionGroupsLock);
                 OnPropertyChanged();
             }
         }

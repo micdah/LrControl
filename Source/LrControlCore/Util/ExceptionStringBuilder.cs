@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Text;
 
-namespace micdah.LrControl.Core
+namespace LrControlCore.Util
 {
     /// <summary>
     ///     Build a string with message and stacktrace of the provided exception,
     ///     included any nested inner exceptions.
     /// </summary>
-    internal class ExceptionStringBuilder
+    public class ExceptionStringBuilder
     {
         private readonly Exception _exception;
         private readonly Lazy<string> _stringHolder;

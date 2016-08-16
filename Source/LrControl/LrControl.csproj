@@ -75,7 +75,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\ExceptionStringBuilder.cs" />
     <Compile Include="Core\IDialogProvider.cs" />
     <Compile Include="Core\MetroWindowDialogProvider.cs" />
     <Compile Include="ErrorDialog.xaml.cs">
@@ -112,22 +111,6 @@
     <Compile Include="Gui\Utils\RangeTickFrequencyValueConverter.cs" />
     <Compile Include="MainWindowDialogProvider.cs" />
     <Compile Include="MainWindowModel.cs" />
-    <Compile Include="Mapping\Catalog\FunctionCatalog.cs" />
-    <Compile Include="Mapping\Catalog\FunctionCatalog.LrApplicationView.cs" />
-    <Compile Include="Mapping\Catalog\FunctionCatalog.LrDevelopController.cs" />
-    <Compile Include="Mapping\Catalog\FunctionCatalog.LrSelection.cs" />
-    <Compile Include="Mapping\Catalog\FunctionCatalog.LrUndo.cs" />
-    <Compile Include="Mapping\Catalog\FunctionCatalogGroup.cs" />
-    <Compile Include="Mapping\ControllerFunction.cs" />
-    <Compile Include="Mapping\FunctionGroupManager.cs" />
-    <Compile Include="Mapping\Functions\EnablePanelFunctionFactory.cs" />
-    <Compile Include="Mapping\Functions\FunctionFactory.cs" />
-    <Compile Include="Mapping\Functions\MethodFunctionFactory.cs" />
-    <Compile Include="Mapping\Functions\ParameterFunctionFactory.cs" />
-    <Compile Include="Mapping\Functions\TemperatureParameterFunction.cs" />
-    <Compile Include="Mapping\Functions\ToggleDevelopBeforeAfterFunction.cs" />
-    <Compile Include="Mapping\Functions\ToggleDevelopBeforeAfterFunctionFactory.cs" />
-    <Compile Include="Mapping\Functions\ToggleParameterFunctionFactory.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -181,13 +164,6 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mapping\FunctionGroup.cs" />
-    <Compile Include="Mapping\Functions\EnablePanelFunction.cs" />
-    <Compile Include="Mapping\Functions\Function.cs" />
-    <Compile Include="Mapping\Functions\MethodFunction.cs" />
-    <Compile Include="Mapping\Functions\ParameterFunction.cs" />
-    <Compile Include="Mapping\Functions\ToggleParameterFunction.cs" />
-    <Compile Include="Mapping\ModuleGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -239,6 +215,7 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

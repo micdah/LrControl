@@ -1,7 +1,7 @@
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions.Factories
 {
     public class EnablePanelFunctionFactory : FunctionFactory
     {

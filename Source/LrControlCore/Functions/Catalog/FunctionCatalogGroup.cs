@@ -1,17 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
 using JetBrains.Annotations;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Factories;
 
-namespace micdah.LrControl.Mapping.Catalog
+namespace LrControlCore.Functions.Catalog
 {
     public class FunctionCatalogGroup : INotifyPropertyChanged
     {
         private string _displayName;
-        private ObservableCollection<FunctionFactory> _functions;
-        private readonly object _functionsLock = new object();
+        private ObservableCollection<IFunctionFactory> _functions;
         private string _key;
             
         public string DisplayName
@@ -36,14 +34,13 @@ namespace micdah.LrControl.Mapping.Catalog
             }
         }
 
-        public ObservableCollection<FunctionFactory> Functions
+        public ObservableCollection<IFunctionFactory> Functions
         {
             get { return _functions; }
             set
             {
                 if (Equals(value, _functions)) return;
                 _functions = value;
-                BindingOperations.EnableCollectionSynchronization(_functions, _functionsLock);
                 OnPropertyChanged();
             }
         }

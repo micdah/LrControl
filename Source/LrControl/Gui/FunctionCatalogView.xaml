@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:catalog="clr-namespace:micdah.LrControl.Mapping.Catalog"
-             xmlns:functions="clr-namespace:micdah.LrControl.Mapping.Functions"
+             xmlns:catalog="clr-namespace:LrControlCore.Functions.Catalog;assembly=LrControlCore"
+             xmlns:factories="clr-namespace:LrControlCore.Functions.Factories;assembly=LrControlCore"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="UserControl">
@@ -31,7 +31,7 @@
                                           ItemsSource="{Binding Functions}">
                     <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListHeaderFont}" Padding="3,6,3,3" />
                 </HierarchicalDataTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type functions:FunctionFactory}">
+                <HierarchicalDataTemplate DataType="{x:Type factories:FunctionFactory}">
                     <TextBlock Text="{Binding DisplayName}" Style="{StaticResource ListItemFont}" Padding="3" 
                                Tag="{Binding}" 
                                MouseMove="FunctionFactoryTextBlock_OnMouseMove"/>

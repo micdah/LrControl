@@ -3,7 +3,7 @@ using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions
 {
     public class ParameterFunction : Function
     {

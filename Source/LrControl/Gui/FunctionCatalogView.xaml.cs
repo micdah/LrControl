@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using micdah.LrControl.Mapping.Catalog;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Catalog;
+using LrControlCore.Functions.Factories;
 
 namespace micdah.LrControl.Gui
 {
@@ -28,10 +28,10 @@ namespace micdah.LrControl.Gui
         private void FunctionFactoryTextBlock_OnMouseMove(object sender, MouseEventArgs e)
         {
             var textBlock = sender as TextBlock;
-            var functionFactory = textBlock?.Tag as FunctionFactory;
+            var functionFactory = textBlock?.Tag as IFunctionFactory;
             if (functionFactory != null && e.LeftButton == MouseButtonState.Pressed)
             {
-                var dataObject = new DataObject(typeof (FunctionFactory), functionFactory);
+                var dataObject = new DataObject(typeof (IFunctionFactory), functionFactory);
                 DragDrop.DoDragDrop(textBlock, dataObject, DragDropEffects.Move);
             }
         }

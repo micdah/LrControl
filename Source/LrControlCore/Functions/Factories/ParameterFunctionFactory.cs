@@ -2,7 +2,7 @@ using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
-namespace micdah.LrControl.Mapping.Functions
+namespace LrControlCore.Functions.Factories
 {
     public class ParameterFunctionFactory : FunctionFactory
     {

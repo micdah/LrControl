@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Factories;
 using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping.Catalog
+namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
@@ -12,7 +12,7 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = "Undo",
                 Key = "LrUndo",
-                Functions = new ObservableCollection<FunctionFactory>(new[]
+                Functions = new ObservableCollection<IFunctionFactory>(new[]
                 {
                     new MethodFunctionFactory(api, "Undo", "Undo", a =>
                     {

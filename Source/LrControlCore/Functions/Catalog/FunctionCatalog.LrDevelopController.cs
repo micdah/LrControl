@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Factories;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
 using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 using Panel = micdah.LrControlApi.Modules.LrDevelopController.Panel;
 
-namespace micdah.LrControl.Mapping.Catalog
+namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
@@ -33,7 +33,7 @@ namespace micdah.LrControl.Mapping.Catalog
 
         private static FunctionCatalogGroup CreateDevelopGroup(LrApi api)
         {
-            var functions = new List<FunctionFactory>();
+            var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
             {
                 new MethodFunctionFactory(api, "Reset all develop adjustments", "ResetAllDevelopAdjustments", a => a.LrDevelopController.ResetAllDevelopAdjustments()),
@@ -55,13 +55,13 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = "Develop",
                 Key = "LrDevelop",
-                Functions = new ObservableCollection<FunctionFactory>(functions)
+                Functions = new ObservableCollection<IFunctionFactory>(functions)
             };
         }
 
         private static FunctionCatalogGroup CreateDevelopPanelGroup(LrApi api, Panel panel, IParameter<bool> enablePanelParameter, IList<IParameter> parameters)
         {
-            var functions = new List<FunctionFactory>();
+            var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
             {
                 new EnablePanelFunctionFactory(api, panel, enablePanelParameter),
@@ -112,13 +112,13 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = $"Develop {panel.Name}",
                 Key = $"LrDevelop{panel.Value}",
-                Functions = new ObservableCollection<FunctionFactory>(functions)
+                Functions = new ObservableCollection<IFunctionFactory>(functions)
             };
         }
 
-        private static IEnumerable<FunctionFactory> CreateFunctionsForEnumParameter(LrApi api, IList<IParameter> parameters)
+        private static IEnumerable<IFunctionFactory> CreateFunctionsForEnumParameter(LrApi api, IList<IParameter> parameters)
         {
-            var enumFunctions = new List<FunctionFactory>();
+            var enumFunctions = new List<IFunctionFactory>();
 
             foreach (var param in parameters)
             {
@@ -148,7 +148,7 @@ namespace micdah.LrControl.Mapping.Catalog
 
         private static FunctionCatalogGroup CreateDevelopCropGroup(LrApi api)
         {
-            var functions = new List<FunctionFactory>();
+            var functions = new List<IFunctionFactory>();
             
             // Change parameters
             foreach (var param in Parameters.CropParameters.AllParameters)
@@ -171,13 +171,13 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = "Develop Crop",
                 Key = "LrDevelopCrop",
-                Functions = new ObservableCollection<FunctionFactory>(functions)
+                Functions = new ObservableCollection<IFunctionFactory>(functions)
             };
         }
 
         private static FunctionCatalogGroup CreateDevelopLocalizedGroup(LrApi api)
         {
-            var functions = new List<FunctionFactory>();
+            var functions = new List<IFunctionFactory>();
 
             // Change parameters
             foreach (var param in Parameters.LocalizedAdjustmentsParameters.AllParameters)
@@ -200,7 +200,7 @@ namespace micdah.LrControl.Mapping.Catalog
             {
                 DisplayName = "Develop Localized",
                 Key = "LrDevelopLocalized",
-                Functions = new ObservableCollection<FunctionFactory>(functions)
+                Functions = new ObservableCollection<IFunctionFactory>(functions)
             };
         }
     }

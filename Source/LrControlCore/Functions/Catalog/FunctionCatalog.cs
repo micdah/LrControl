@@ -3,10 +3,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using micdah.LrControl.Mapping.Functions;
+using LrControlCore.Functions.Factories;
 using micdah.LrControlApi;
 
-namespace micdah.LrControl.Mapping.Catalog
+namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog : INotifyPropertyChanged
     {
@@ -37,7 +37,7 @@ namespace micdah.LrControl.Mapping.Catalog
             };
         }
 
-        public FunctionFactory GetFunctionFactory(string functionKey)
+        public IFunctionFactory GetFunctionFactory(string functionKey)
         {
             foreach (var group in Groups)
             {

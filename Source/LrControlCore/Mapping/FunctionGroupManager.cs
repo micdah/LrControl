@@ -3,22 +3,20 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
 using JetBrains.Annotations;
 using LrControlCore.Configurations;
 using LrControlCore.Device;
-using micdah.LrControl.Mapping.Catalog;
+using LrControlCore.Functions.Catalog;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrApplicationView;
 using micdah.LrControlApi.Modules.LrDevelopController;
 
-namespace micdah.LrControl.Mapping
+namespace LrControlCore.Mapping
 {
     public class FunctionGroupManager : INotifyPropertyChanged
     {
         private readonly FunctionCatalog _functionCatalog;
         private readonly MidiDevice _midiDevice;
-        private readonly object _modulesLock = new object();
         private ObservableCollection<ModuleGroup> _modules;
 
         private FunctionGroupManager(FunctionCatalog functionCatalog, MidiDevice midiDevice)
@@ -34,7 +32,6 @@ namespace micdah.LrControl.Mapping
             {
                 if (Equals(value, _modules)) return;
                 _modules = value;
-                BindingOperations.EnableCollectionSynchronization(_modules, _modulesLock);
                 OnPropertyChanged();
             }
         }
@@ -81,13 +78,13 @@ namespace micdah.LrControl.Mapping
 
             foreach (var panel in Panel.AllEnums)
             {
-                @group.FunctionGroups.Add(new FunctionGroup(api, panel)
+                group.FunctionGroups.Add(new FunctionGroup(api, panel)
                 {
                     Key = $"{Module.Develop.Value}:{panel.Value}"
                 });
             }
 
-            return @group;
+            return group;
         }
 
         public void Load(List<ModuleConfiguration> modules)
@@ -130,13 +127,13 @@ namespace micdah.LrControl.Mapping
         {
             foreach (var module in Modules)
             {
-                foreach (var @group in module.FunctionGroups)
+                foreach (var group in module.FunctionGroups)
                 {
-                    @group.ClearControllerFunctions();
+                    group.ClearControllerFunctions();
 
                     foreach (var controller in _midiDevice.Controllers)
                     {
-                        @group.ControllerFunctions.Add(new ControllerFunction
+                        group.ControllerFunctions.Add(new ControllerFunction
                         {
                             Controller = controller
                         });
