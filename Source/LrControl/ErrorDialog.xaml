@@ -1,0 +1,42 @@
+﻿<controls:MetroWindow x:Class="micdah.LrControl.ErrorDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:local="clr-namespace:micdah.LrControl"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      mc:Ignorable="d"
+                      Title="An error occurred" 
+                      Height="600" Width="800"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
+                      WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Margin="3">
+            <TextBlock FontSize="17" FontWeight="Light">
+                Unfortunately an unhandled error has occurred in LrControl, and the program has to close
+            </TextBlock>
+            <TextBlock Margin="0,10,0,0" FontSize="13" FontWeight="Light">
+                Please report this issue on the project page 
+                <Hyperlink NavigateUri="https://github.com/micdah/LrControl/issues" RequestNavigate="Hyperlink_OnRequestNavigate">github.com/micdah/LrControl/issues</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+        
+        <TextBox Grid.Row="1" Margin="3" x:Name="ExceptionDetails" TextWrapping="Wrap" FontSize="13" FontWeight="Light"
+                 Background="{DynamicResource GrayBrush8}"
+                 IsReadOnly="True">
+            No exception details available
+        </TextBox>
+
+        <StackPanel Grid.Row="2" Margin="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button FontSize="12" Click="ButtonCopy_OnClick" MinWidth="75" Margin="0,0,5,0">Copy to clipboard</Button>
+            <Button FontSize="12" Click="ButtonClose_OnClick" MinWidth="75">Close</Button>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

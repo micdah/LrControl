@@ -10,6 +10,8 @@
                       mc:Ignorable="d"
                       Title="LrControl" Height="1100" Width="1750"
                       Icon="/Resources/AppIcon.ico"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1"
                       DataContext="{Binding RelativeSource={RelativeSource Self}, Path=ViewModel}">
     <controls:MetroWindow.Resources>
         <utils:BooleanFillValueConverter x:Key="EnabledFillConverter" FalseBrush="Transparent" TrueBrush="#1500ff00"/>
