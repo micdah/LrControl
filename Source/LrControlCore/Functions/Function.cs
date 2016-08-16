@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
@@ -8,7 +7,7 @@ using micdah.LrControlApi;
 
 namespace LrControlCore.Functions
 {
-    public abstract class Function : INotifyPropertyChanged, IDisposable
+    internal abstract class Function : IFunction
     {
         private Controller _controller;
         private bool _enabled;

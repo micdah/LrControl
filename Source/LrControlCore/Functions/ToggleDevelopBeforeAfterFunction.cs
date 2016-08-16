@@ -3,7 +3,7 @@ using micdah.LrControlApi.Modules.LrApplicationView;
 
 namespace LrControlCore.Functions
 {
-    public class ToggleDevelopBeforeAfterFunction : Function
+    internal class ToggleDevelopBeforeAfterFunction : Function
     {
         private bool _toggled;
 

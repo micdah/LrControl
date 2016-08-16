@@ -3,7 +3,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlCore.Functions
 {
-    public class ToggleParameterFunction : Function
+    internal class ToggleParameterFunction : Function
     {
         private readonly IParameter<bool> _parameter;
 

@@ -17,7 +17,7 @@ namespace micdah.LrControl.Gui
         }
 
         public static readonly DependencyProperty FunctionCatalogProperty = DependencyProperty.Register(
-            "FunctionCatalog", typeof (FunctionCatalog), typeof (FunctionCatalogView), new PropertyMetadata(default(FunctionCatalog)));
+            "FunctionCatalog", typeof (IFunctionCatalog), typeof (FunctionCatalogView), new PropertyMetadata(default(FunctionCatalog)));
 
         public FunctionCatalog FunctionCatalog
         {

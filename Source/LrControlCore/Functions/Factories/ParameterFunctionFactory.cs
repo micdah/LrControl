@@ -4,7 +4,7 @@ using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
 
 namespace LrControlCore.Functions.Factories
 {
-    public class ParameterFunctionFactory : FunctionFactory
+    internal class ParameterFunctionFactory : FunctionFactory
     {
         private readonly IParameter _parameter;
 
@@ -16,7 +16,7 @@ namespace LrControlCore.Functions.Factories
         public override string DisplayName => $"Change {_parameter.DisplayName}";
         public override string Key => $"ParameterFunction:{_parameter.Name}";
 
-        protected override Function CreateFunction(LrApi api)
+        protected override IFunction CreateFunction(LrApi api)
         {
             if (ReferenceEquals(_parameter, Parameters.AdjustPanelParameters.Temperature))
             {

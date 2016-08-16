@@ -6,7 +6,7 @@ using LrControlCore.Functions.Factories;
 
 namespace LrControlCore.Functions.Catalog
 {
-    public class FunctionCatalogGroup : INotifyPropertyChanged
+    public class FunctionCatalogGroup : INotifyPropertyChanged, IFunctionCatalogGroup
     {
         private string _displayName;
         private ObservableCollection<IFunctionFactory> _functions;

@@ -3,7 +3,7 @@ using micdah.LrControlApi;
 
 namespace LrControlCore.Functions
 {
-    public class MethodFunction : Function
+    internal class MethodFunction : Function
     {
         private readonly Action<LrApi> _method;
         private readonly string _displayText;

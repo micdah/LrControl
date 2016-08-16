@@ -9,7 +9,7 @@ namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
-        private static FunctionCatalogGroup CreateViewGroup(LrApi api)
+        private static IFunctionCatalogGroup CreateViewGroup(LrApi api)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(CreateSwitchToModule(api));

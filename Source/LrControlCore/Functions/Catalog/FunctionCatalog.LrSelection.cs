@@ -8,7 +8,7 @@ namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
-        private static FunctionCatalogGroup CreateSelectionGroup(LrApi api)
+        private static IFunctionCatalogGroup CreateSelectionGroup(LrApi api)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(new []

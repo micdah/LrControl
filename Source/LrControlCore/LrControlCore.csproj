@@ -72,6 +72,8 @@
       <DependentUpon>FunctionCatalog.cs</DependentUpon>
     </Compile>
     <Compile Include="Functions\Catalog\FunctionCatalogGroup.cs" />
+    <Compile Include="Functions\Catalog\IFunctionCatalog.cs" />
+    <Compile Include="Functions\Catalog\IFunctionCatalogGroup.cs" />
     <Compile Include="Functions\EnablePanelFunction.cs" />
     <Compile Include="Functions\Factories\EnablePanelFunctionFactory.cs" />
     <Compile Include="Functions\Factories\FunctionFactory.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="Functions\Factories\ToggleDevelopBeforeAfterFunctionFactory.cs" />
     <Compile Include="Functions\Factories\ToggleParameterFunctionFactory.cs" />
     <Compile Include="Functions\Function.cs" />
+    <Compile Include="Functions\IFunction.cs" />
     <Compile Include="Functions\MethodFunction.cs" />
     <Compile Include="Functions\ParameterFunction.cs" />
     <Compile Include="Functions\TemperatureParameterFunction.cs" />

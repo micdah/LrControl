@@ -2,7 +2,7 @@
 {
     public interface IFunctionFactory
     {
-        Function CreateFunction();
+        IFunction CreateFunction();
         string DisplayName { get; }
         string Key { get; }
     }

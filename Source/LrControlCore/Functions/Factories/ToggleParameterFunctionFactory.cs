@@ -3,7 +3,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlCore.Functions.Factories
 {
-    public class ToggleParameterFunctionFactory : FunctionFactory
+    internal class ToggleParameterFunctionFactory : FunctionFactory
     {
         private readonly IParameter<bool> _parameter;
 
@@ -15,7 +15,7 @@ namespace LrControlCore.Functions.Factories
         public override string DisplayName => $"Toggle {_parameter.DisplayName}";
         public override string Key => $"ToggleParameterFunction:{_parameter.Name}";
 
-        protected override Function CreateFunction(LrApi api)
+        protected override IFunction CreateFunction(LrApi api)
         {
             return new ToggleParameterFunction(api, DisplayName, _parameter, Key);
         }

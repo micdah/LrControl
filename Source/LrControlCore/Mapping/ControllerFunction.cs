@@ -11,7 +11,7 @@ namespace LrControlCore.Mapping
     public class ControllerFunction : INotifyPropertyChanged, IDisposable
     {
         private Controller _controller;
-        private Function _function;
+        private IFunction _function;
         private bool _assignable;
 
         public Controller Controller
@@ -29,7 +29,7 @@ namespace LrControlCore.Mapping
             }
         }
 
-        public Function Function
+        public IFunction Function
         {
             get { return _function; }
             set

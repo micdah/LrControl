@@ -11,7 +11,7 @@ namespace LrControlCore.Functions.Factories
             _api = api;
         }
 
-        public Function CreateFunction()
+        public IFunction CreateFunction()
         {
             return CreateFunction(_api);
         }
@@ -20,6 +20,6 @@ namespace LrControlCore.Functions.Factories
 
         public abstract string Key { get; }
 
-        protected abstract Function CreateFunction(LrApi api);
+        protected abstract IFunction CreateFunction(LrApi api);
     }
 }

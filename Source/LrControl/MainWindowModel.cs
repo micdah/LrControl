@@ -24,7 +24,7 @@ namespace micdah.LrControl
     {
         private MidiDevice _midiDevice;
         private IMainWindowDialogProvider _dialogProvider;
-        private FunctionCatalog _functionCatalog;
+        private IFunctionCatalog _functionCatalog;
         private FunctionGroupManager _functionGroupManager;
         private InputDeviceDecorator _inputDevice;
         private string _inputDeviceName;
@@ -51,7 +51,7 @@ namespace micdah.LrControl
             SetupControllerCommand = new DelegateCommand(SetupController);
 
             // Initialize catalogs and controllers
-            FunctionCatalog = FunctionCatalog.DefaultCatalog(api);
+            FunctionCatalog = LrControlCore.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
             MidiDevice = new MidiDevice();
             FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, MidiDevice);
 
@@ -195,7 +195,7 @@ namespace micdah.LrControl
             }
         }
 
-        public FunctionCatalog FunctionCatalog
+        public IFunctionCatalog FunctionCatalog
         {
             get { return _functionCatalog; }
             private set

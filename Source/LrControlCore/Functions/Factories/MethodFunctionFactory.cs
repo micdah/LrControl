@@ -3,7 +3,7 @@ using micdah.LrControlApi;
 
 namespace LrControlCore.Functions.Factories
 {
-    public class MethodFunctionFactory : FunctionFactory
+    internal class MethodFunctionFactory : FunctionFactory
     {
         private readonly Action<LrApi> _method;
 
@@ -18,7 +18,7 @@ namespace LrControlCore.Functions.Factories
         public override string DisplayName { get; }
         public override string Key { get; }
 
-        protected override Function CreateFunction(LrApi api)
+        protected override IFunction CreateFunction(LrApi api)
         {
             return new MethodFunction(api, DisplayName, _method, DisplayName, Key);
         }

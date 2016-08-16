@@ -5,7 +5,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlCore.Functions
 {
-    public class TemperatureParameterFunction : ParameterFunction
+    internal class TemperatureParameterFunction : ParameterFunction
     {
         private const double ParameterRangeSplit = 12000.0/48000.0;
         private const double ControllerRangeSplit = 85.0/100.0;

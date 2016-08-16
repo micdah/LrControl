@@ -8,15 +8,15 @@ using micdah.LrControlApi;
 
 namespace LrControlCore.Functions.Catalog
 {
-    public partial class FunctionCatalog : INotifyPropertyChanged
+    public partial class FunctionCatalog : IFunctionCatalog, INotifyPropertyChanged
     {
-        private ObservableCollection<FunctionCatalogGroup> _groups;
+        private ObservableCollection<IFunctionCatalogGroup> _groups;
 
         private FunctionCatalog()
         {
         }
 
-        public ObservableCollection<FunctionCatalogGroup> Groups
+        public ObservableCollection<IFunctionCatalogGroup> Groups
         {
             get { return _groups; }
             set
@@ -27,21 +27,11 @@ namespace LrControlCore.Functions.Catalog
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public static FunctionCatalog DefaultCatalog(LrApi api)
-        {
-            return new FunctionCatalog
-            {
-                Groups = CreateGroups(api)
-            };
-        }
-
         public IFunctionFactory GetFunctionFactory(string functionKey)
         {
             foreach (var group in Groups)
             {
-                foreach (var functionFactory in @group.Functions)
+                foreach (var functionFactory in group.Functions)
                 {
                     if (functionFactory.Key == functionKey)
                     {
@@ -53,9 +43,19 @@ namespace LrControlCore.Functions.Catalog
             return null;
         }
 
-        private static ObservableCollection<FunctionCatalogGroup> CreateGroups(LrApi api)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public static IFunctionCatalog DefaultCatalog(LrApi api)
         {
-            var groups = new List<FunctionCatalogGroup>
+            return new FunctionCatalog
+            {
+                Groups = CreateGroups(api)
+            };
+        }
+
+        private static ObservableCollection<IFunctionCatalogGroup> CreateGroups(LrApi api)
+        {
+            var groups = new List<IFunctionCatalogGroup>
             {
                 CreateViewGroup(api),
                 CreateUndoGroup(api),
@@ -63,7 +63,7 @@ namespace LrControlCore.Functions.Catalog
             };
             groups.AddRange(CreateDevelopGroups(api));
 
-            return new ObservableCollection<FunctionCatalogGroup>(groups);
+            return new ObservableCollection<IFunctionCatalogGroup>(groups);
         }
 
         [NotifyPropertyChangedInvocator]

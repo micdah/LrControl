@@ -4,7 +4,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlCore.Functions
 {
-    public class EnablePanelFunction : Function
+    internal class EnablePanelFunction : Function
     {
         private readonly IParameter<bool> _enablePanelParamter;
         private readonly Panel _panel;

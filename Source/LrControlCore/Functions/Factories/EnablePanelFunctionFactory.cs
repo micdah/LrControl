@@ -3,7 +3,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlCore.Functions.Factories
 {
-    public class EnablePanelFunctionFactory : FunctionFactory
+    internal class EnablePanelFunctionFactory : FunctionFactory
     {
         private readonly IParameter<bool> _enablePanelParameter;
         private readonly Panel _panel;
@@ -18,7 +18,7 @@ namespace LrControlCore.Functions.Factories
         public override string DisplayName => $"Switch to panel {_panel.Name} (or toggle on/off)";
         public override string Key => $"EnablePanelFunction:{_panel.Name}";
 
-        protected override Function CreateFunction(LrApi api)
+        protected override IFunction CreateFunction(LrApi api)
         {
             return new EnablePanelFunction(api, DisplayName, _panel, _enablePanelParameter, Key);
         }

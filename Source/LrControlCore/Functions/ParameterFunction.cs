@@ -5,7 +5,7 @@ using micdah.LrControlApi.Modules.LrDevelopController;
 
 namespace LrControlCore.Functions
 {
-    public class ParameterFunction : Function
+    internal class ParameterFunction : Function
     {
         protected readonly IParameter<bool> BoolParameter;
         protected readonly IParameter<double> DoubleParameter;

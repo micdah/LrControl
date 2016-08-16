@@ -13,9 +13,9 @@ namespace LrControlCore.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
-        private static IEnumerable<FunctionCatalogGroup> CreateDevelopGroups(LrApi api)
+        private static IEnumerable<IFunctionCatalogGroup> CreateDevelopGroups(LrApi api)
         {
-            var groups = new List<FunctionCatalogGroup>();
+            var groups = new List<IFunctionCatalogGroup>();
             groups.Add(CreateDevelopGroup(api));
             groups.Add(CreateDevelopPanelGroup(api, Panel.Basic, null, Parameters.AdjustPanelParameters.AllParameters));
             groups.Add(CreateDevelopPanelGroup(api, Panel.ToneCurve, Parameters.EnablePanelParameters.ToneCurve, Parameters.TonePanelParameters.AllParameters));
@@ -31,7 +31,7 @@ namespace LrControlCore.Functions.Catalog
             return groups;
         }
 
-        private static FunctionCatalogGroup CreateDevelopGroup(LrApi api)
+        private static IFunctionCatalogGroup CreateDevelopGroup(LrApi api)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
@@ -59,7 +59,7 @@ namespace LrControlCore.Functions.Catalog
             };
         }
 
-        private static FunctionCatalogGroup CreateDevelopPanelGroup(LrApi api, Panel panel, IParameter<bool> enablePanelParameter, IList<IParameter> parameters)
+        private static IFunctionCatalogGroup CreateDevelopPanelGroup(LrApi api, Panel panel, IParameter<bool> enablePanelParameter, IList<IParameter> parameters)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
@@ -146,7 +146,7 @@ namespace LrControlCore.Functions.Catalog
             return enumFunctions;
         }
 
-        private static FunctionCatalogGroup CreateDevelopCropGroup(LrApi api)
+        private static IFunctionCatalogGroup CreateDevelopCropGroup(LrApi api)
         {
             var functions = new List<IFunctionFactory>();
             
@@ -175,7 +175,7 @@ namespace LrControlCore.Functions.Catalog
             };
         }
 
-        private static FunctionCatalogGroup CreateDevelopLocalizedGroup(LrApi api)
+        private static IFunctionCatalogGroup CreateDevelopLocalizedGroup(LrApi api)
         {
             var functions = new List<IFunctionFactory>();
 
