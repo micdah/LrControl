@@ -8,6 +8,7 @@ namespace micdah.LrControlApi.Communication
 {
     internal class MessageProtocol<TModule>
     {
+        // ReSharper disable once StaticMemberInGenericType
         private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
 
         private const char RecordSeparator = '\u001E';
@@ -33,7 +34,7 @@ namespace micdah.LrControlApi.Communication
             return false;
         }
 
-        public bool Invoke<TResult>(out TResult result, string method, params object[] args)
+        public bool Invoke<TResult>(out TResult result, string method, params object[] args) 
         {
             string response;
             if (!SendMessage(out response, method, args))
@@ -45,7 +46,7 @@ namespace micdah.LrControlApi.Communication
             return DecodeTypedString(response, out result);
         }
 
-        public bool Invoke<TResult1, TResult2>(out TResult1 result1, out TResult2 result2, string method, params object[] args)
+        public bool Invoke<TResult1, TResult2>(out TResult1 result1, out TResult2 result2, string method, params object[] args) 
         {
             string response;
             if (!SendMessage(out response, method, args))
