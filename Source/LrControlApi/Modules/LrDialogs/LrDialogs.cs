@@ -12,7 +12,14 @@ namespace micdah.LrControlApi.Modules.LrDialogs
         public bool Confirm(out ConfirmResult confirmResult, string message, string info, string actionVerb, string cancelVerb,
             string otherVerb = null)
         {
-            return Invoke(out confirmResult, nameof(Confirm), message, info, actionVerb, cancelVerb, otherVerb);
+            string result;
+            if (Invoke(out result, nameof(Confirm), message, info, actionVerb, cancelVerb, otherVerb))
+            {
+                confirmResult = ConfirmResult.GetEnumForValue(result);
+                return true;
+            }
+            confirmResult = null;
+            return false;
         }
 
         public bool Message(string message, string info = null, DialogStyle style = null)

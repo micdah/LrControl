@@ -9,6 +9,7 @@ namespace micdah.LrControlApi.Modules.LrDialogs
         ///     Invokes a modal dialog for confirmation. Displays a message, with an action button, a cancel button, and optionally
         ///     one other button.
         /// </summary>
+        /// <param name="confirmResult">Result</param>
         /// <param name="message">The main alert message string, the title of the dialog.</param>
         /// <param name="info">
         ///     A secondary message string, shown in a smaller font below the main message. Usually more
