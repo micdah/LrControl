@@ -7,7 +7,7 @@
       <ControlNumber>0</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -15,7 +15,7 @@
       <ControlNumber>1</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -23,7 +23,7 @@
       <ControlNumber>2</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -31,7 +31,7 @@
       <ControlNumber>3</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -39,7 +39,7 @@
       <ControlNumber>4</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -47,7 +47,7 @@
       <ControlNumber>5</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -55,7 +55,7 @@
       <ControlNumber>6</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -63,7 +63,7 @@
       <ControlNumber>7</ControlNumber>
       <ControllerType>Fader</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>1023</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -71,7 +71,7 @@
       <ControlNumber>8</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -79,7 +79,7 @@
       <ControlNumber>9</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -87,7 +87,7 @@
       <ControlNumber>10</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -95,7 +95,7 @@
       <ControlNumber>11</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -103,7 +103,7 @@
       <ControlNumber>12</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -111,7 +111,7 @@
       <ControlNumber>13</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -119,7 +119,7 @@
       <ControlNumber>14</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -127,7 +127,7 @@
       <ControlNumber>15</ControlNumber>
       <ControllerType>Encoder</ControllerType>
       <RangeMin>0</RangeMin>
-      <RangeMax>511</RangeMax>
+      <RangeMax>16383</RangeMax>
     </ControllerConfiguration>
     <ControllerConfiguration>
       <Channel>Channel1</Channel>
@@ -1168,6 +1168,7 @@
                 <MessageType>ControlChange</MessageType>
                 <ControlNumber>28</ControlNumber>
               </ControllerKey>
+              <FunctionKey>MethodFunction:ToggleZoom</FunctionKey>
             </ControllerFunctionConfiguration>
             <ControllerFunctionConfiguration>
               <ControllerKey>

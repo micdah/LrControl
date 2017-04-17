@@ -1,0 +1,561 @@
+﻿$rev F1 ; Firmware 1.10; BC Manager 3.1.0
+$global
+  .midimode U-3
+  .startup last
+  .footsw auto
+  .rxch off
+  .txinterval 2
+  .deadtime 400
+$preset
+  .name 'Lightroom               '
+  .snapshot off
+  .request off
+  .egroups 1
+  .fkeys off
+  .lock on
+  .init
+$encoder 1
+  .easypar NRPN 1 8 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 2
+  .easypar NRPN 1 9 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 3
+  .easypar NRPN 1 10 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 4
+  .easypar NRPN 1 11 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 5
+  .easypar NRPN 1 12 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 6
+  .easypar NRPN 1 13 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 7
+  .easypar NRPN 1 14 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$encoder 8
+  .easypar NRPN 1 15 0 16383 absolute/14
+  .showvalue on
+  .mode 12dot
+  .resolution 3077 6155 9233 12311
+  .default 0
+$button 1
+  .easypar CC 1 16 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 2
+  .easypar CC 1 17 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 3
+  .easypar CC 1 18 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 4
+  .easypar CC 1 19 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 5
+  .easypar CC 1 20 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 6
+  .easypar CC 1 21 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 7
+  .easypar CC 1 22 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 8
+  .easypar CC 1 23 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 33
+  .easypar CC 1 0 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 34
+  .easypar CC 1 1 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 35
+  .easypar CC 1 2 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 36
+  .easypar CC 1 3 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 37
+  .easypar CC 1 4 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 38
+  .easypar CC 1 5 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 39
+  .easypar CC 1 6 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 40
+  .easypar CC 1 7 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 41
+  .easypar CC 1 8 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 42
+  .easypar CC 1 9 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 43
+  .easypar CC 1 10 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 44
+  .easypar CC 1 11 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 45
+  .easypar CC 1 12 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 46
+  .easypar CC 1 13 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 47
+  .easypar CC 1 14 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 48
+  .easypar CC 1 15 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 49
+  .easypar CC 1 34 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 50
+  .easypar CC 1 36 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 51
+  .easypar CC 1 35 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 52
+  .easypar CC 1 37 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 53
+  .easypar CC 1 28 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 54
+  .easypar CC 1 30 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 55
+  .easypar CC 1 29 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 56
+  .easypar CC 1 31 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 57
+  .easypar CC 1 24 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 58
+  .easypar CC 1 26 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 59
+  .easypar CC 1 25 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 60
+  .easypar CC 1 27 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 63
+  .easypar CC 1 32 127 0 toggleoff
+  .showvalue off
+  .default 0
+$button 64
+  .easypar CC 1 33 127 0 toggleoff
+  .showvalue off
+  .default 0
+$fader 1
+  .easypar NRPN 1 0 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 2
+  .easypar NRPN 1 1 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 3
+  .easypar NRPN 1 2 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 4
+  .easypar NRPN 1 3 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 5
+  .easypar NRPN 1 4 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 6
+  .easypar NRPN 1 5 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 7
+  .easypar NRPN 1 6 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$fader 8
+  .easypar NRPN 1 7 0 16383 absolute/14
+  .showvalue off
+  .motor on
+  .override move
+  .keyoverride off
+  .default 0
+$store 1
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 2
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 3
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 4
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 5
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 6
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 7
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 8
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 9
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 10
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 11
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 12
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 13
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 14
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 15
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 16
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 17
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 18
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 19
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 20
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 21
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 22
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 23
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 24
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 25
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 26
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 27
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 28
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 29
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 30
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 31
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$store 32
+$preset
+  .name '                        '
+  .snapshot off
+  .request off
+  .egroups 4
+  .fkeys on
+  .lock off
+  .init
+$end

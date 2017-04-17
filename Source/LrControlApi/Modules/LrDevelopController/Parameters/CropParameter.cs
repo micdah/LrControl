@@ -3,7 +3,7 @@
     public class CropParameter : ParameterGroup
     {
         public readonly IParameter<double> StraightenAngle    = new Parameter<double>("straightenAngle", "Angle");
-        public readonly IParameter<double> CropAngle          = new Parameter<double>("CropAngle", "Crop´Angle");
+        public readonly IParameter<double> CropAngle          = new Parameter<double>("CropAngle", "Crop Angle");
         public readonly IParameter<double> CropLeft           = new Parameter<double>("CropLeft", "Crop Left");
         public readonly IParameter<double> CropRight          = new Parameter<double>("CropRight", "Crop Right");
         public readonly IParameter<double> CropTop            = new Parameter<double>("CropTop", "Crop Top");
