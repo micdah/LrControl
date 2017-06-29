@@ -157,32 +157,32 @@ namespace LrControl.Core.Midi
 
         public event ProgramChangeHandler ProgramChange
         {
-            add { _inputDevice.ProgramChange += value; }
-            remove { _inputDevice.ProgramChange -= value; }
+            add => _inputDevice.ProgramChange += value;
+            remove => _inputDevice.ProgramChange -= value;
         }
 
         public event NoteOnHandler NoteOn
         {
-            add { _inputDevice.NoteOn += value; }
-            remove { _inputDevice.NoteOn -= value; }
+            add => _inputDevice.NoteOn += value;
+            remove => _inputDevice.NoteOn -= value;
         }
 
         public event NoteOffHandler NoteOff
         {
-            add { _inputDevice.NoteOff += value; }
-            remove { _inputDevice.NoteOff -= value; }
+            add => _inputDevice.NoteOff += value;
+            remove => _inputDevice.NoteOff -= value;
         }
 
         public event PitchBendHandler PitchBend
         {
-            add { _inputDevice.PitchBend += value; }
-            remove { _inputDevice.PitchBend -= value; }
+            add => _inputDevice.PitchBend += value;
+            remove => _inputDevice.PitchBend -= value;
         }
 
         public event SysExHandler SysEx
         {
-            add { _inputDevice.SysEx += value; }
-            remove { _inputDevice.SysEx -= value; }
+            add => _inputDevice.SysEx += value;
+            remove => _inputDevice.SysEx -= value;
         }
 
         public event NrpnHandler Nrpn;
