@@ -9,7 +9,7 @@ namespace micdah.LrControlApi.Communication
     internal class MessageProtocol<TModule>
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly ILogger Log = Serilog.Log.Logger;
+        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<MessageProtocol<TModule>>();
 
         private const char RecordSeparator = '\u001E';
 

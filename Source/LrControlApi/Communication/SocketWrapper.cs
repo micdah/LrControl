@@ -14,7 +14,7 @@ namespace micdah.LrControlApi.Communication
     internal class SocketWrapper : IDisposable
     {
         public const int SocketTimeout = 1000;
-        private static readonly ILogger Log = Serilog.Log.Logger;
+        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<SocketWrapper>();
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
 
         private readonly string _hostName;

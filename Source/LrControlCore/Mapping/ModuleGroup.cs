@@ -12,7 +12,7 @@ namespace LrControlCore.Mapping
 {
     public class ModuleGroup : INotifyPropertyChanged
     {
-        private static readonly ILogger Log = Serilog.Log.Logger;
+        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<ModuleGroup>();
 
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;

@@ -8,8 +8,7 @@ namespace LrControlCore.Util
 {
     public static class Serializer
     {
-        private static readonly ILogger Log = Serilog.Log.Logger;
-
+        private static readonly ILogger Log = Serilog.Log.Logger.ForContext(typeof(Serializer));
         public static void Save<T>(string relativeFilename, T instance) where T : class
         {
             var path = ResolveRelativeFilename(relativeFilename);

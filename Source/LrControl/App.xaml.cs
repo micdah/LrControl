@@ -14,6 +14,7 @@ namespace micdah.LrControl
     /// </summary>
     public partial class App
     {
+        private ILogger _log;
         private LrApi _lrApi;
         private MainWindow _mainWindow;
         private MainWindowModel _viewModel;
@@ -22,6 +23,7 @@ namespace micdah.LrControl
         {
             if (IsShutdownRequest(e))
             {
+                _log?.Information("Shutdown request received, terminating all running instances of LrControl.exe");
                 TerminateAllInstances();
             }
             else
@@ -36,22 +38,24 @@ namespace micdah.LrControl
         {
             if (Settings.Current.SaveConfigurationOnExit)
             {
+                _log?.Information("Saving configuration");
                 _viewModel.SaveConfiguration();
             }
 
             Settings.Current.SetLastUsed(_viewModel.InputDevice, _viewModel.OutputDevice);
             Settings.Current.Save();
+            _log?.Information("Saving settings");
 
             _lrApi.Dispose();
+            _log?.Information("Closing api");
+
+            Log.CloseAndFlush();
         }
 
         private void SetupExceptionHandling()
         {
             AppDomain.CurrentDomain.UnhandledException +=
-                (sender, args) =>
-                {
-                    new ErrorDialog(args.ExceptionObject as Exception).Show();
-                };
+                (sender, args) => { new ErrorDialog(args.ExceptionObject as Exception).Show(); };
 
             Dispatcher.UnhandledException += (o, eventArgs) =>
             {
@@ -68,16 +72,20 @@ namespace micdah.LrControl
 
         private void SetupLogging()
         {
-            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{Level}] {Message}{NewLine}{Exception}";
+            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.ColoredConsole(outputTemplate: template)
-                .WriteTo.RollingFile("LrControl.exe.{Date}.log", 
-                    outputTemplate: template, 
-                    fileSizeLimitBytes:10*1024*1024,
-                    flushToDiskInterval:TimeSpan.FromSeconds(1),
-                    retainedFileCountLimit:5)
+                .WriteTo.RollingFile("LrControl.exe.{Date}.log",
+                    outputTemplate: template,
+                    fileSizeLimitBytes: 10 * 1024 * 1024,
+                    flushToDiskInterval: TimeSpan.FromSeconds(1),
+                    retainedFileCountLimit: 5)
                 .CreateLogger();
+
+            _log = Log.Logger.ForContext<App>();
+            
+            _log.Information("LrControl application started, running {Version}", Environment.Version);
         }
 
         private void ShowMainWindow()
@@ -114,7 +122,6 @@ namespace micdah.LrControl
                 .Where(p => p.Id != current.Id)
                 .ToList();
             foreach (var other in others)
-            {
                 try
                 {
                     other.CloseMainWindow();
@@ -123,7 +130,6 @@ namespace micdah.LrControl
                 {
                     Console.WriteLine($"Unable to kill process ({other.Id}): {e.Message}");
                 }
-            }
 
             current.Kill();
         }

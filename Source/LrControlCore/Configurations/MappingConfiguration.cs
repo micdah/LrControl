@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using LrControlCore.Util;
+using Serilog;
 
 namespace LrControlCore.Configurations
 {
     public class MappingConfiguration
     {
+        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<MappingConfiguration>();
         public const string ConfigurationsFile = @"..\Settings\Configuration.xml";
 
         public List<ControllerConfiguration> Controllers { get; set; }
@@ -12,6 +14,7 @@ namespace LrControlCore.Configurations
 
         public static MappingConfiguration Load(string file)
         {
+
             MappingConfiguration conf;
             if (Serializer.Load(file, out conf))
             {
