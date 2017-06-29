@@ -68,11 +68,14 @@ namespace micdah.LrControl
 
         private void SetupLogging()
         {
-            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{level}] {Message}{NewLine}{Exception}";
+            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{Level}] {Message}{NewLine}{Exception}";
 
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.ColoredConsole(outputTemplate: template)
-                .WriteTo.RollingFile("LrControl.exe.{Date}.log", outputTemplate: template)
+                .WriteTo.RollingFile("LrControl.exe.{Date}.log", 
+                    outputTemplate: template, 
+                    fileSizeLimitBytes:10*1024*1024,
+                    flushToDiskInterval:TimeSpan.FromSeconds(1))
                 .CreateLogger();
         }
 
