@@ -6,13 +6,13 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using micdah.LrControlApi;
 using micdah.LrControlApi.Modules.LrDevelopController;
-using NLog;
+using Serilog;
 
 namespace LrControlCore.Mapping
 {
     public class FunctionGroup : INotifyPropertyChanged
     {
-        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Log = Serilog.Log.Logger;
 
         private static readonly List<FunctionGroup> FunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;
@@ -120,7 +120,7 @@ namespace LrControlCore.Mapping
             }
 
             Enabled = true;
-            Log.Debug($"Enabled FunctionGroup for {Panel?.Name}");
+            Log.Debug("Enabled FunctionGroup for {Name}", Panel?.Name);
         }
 
         public void Disable()
@@ -133,7 +133,7 @@ namespace LrControlCore.Mapping
             }
 
             Enabled = false;
-            Log.Debug($"Disabled FunctionGroup for {Panel?.Name}");
+            Log.Debug("Disabled FunctionGroup for {Name}", Panel?.Name);
         }
 
         public void ClearControllerFunctions()

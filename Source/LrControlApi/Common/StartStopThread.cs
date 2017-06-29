@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using NLog;
+using Serilog;
 
 namespace micdah.LrControlApi.Common
 {
@@ -10,7 +10,7 @@ namespace micdah.LrControlApi.Common
 
     internal class StartStopThread : IDisposable
     {
-        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Log = Serilog.Log.Logger;
 
         private readonly IterationHandler _iterationFunction;
         private readonly ManualResetEvent _runEvent = new ManualResetEvent(false);
