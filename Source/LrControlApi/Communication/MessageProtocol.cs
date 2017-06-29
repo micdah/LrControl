@@ -2,14 +2,14 @@ using System;
 using System.Text;
 using micdah.LrControlApi.Common;
 using micdah.LrControlApi.Modules.LrDevelopController;
-using NLog;
+using Serilog;
 
 namespace micdah.LrControlApi.Communication
 {
     internal class MessageProtocol<TModule>
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Log = Serilog.Log.Logger;
 
         private const char RecordSeparator = '\u001E';
 
@@ -30,7 +30,7 @@ namespace micdah.LrControlApi.Communication
 
             if (response == "ack") return true;
 
-            Log.Warn($"Got unexpected response '{response}', was expecting 'ack'");
+            Log.Warning("Got unexpected response '{Response}', was expecting 'ack'", response);
             return false;
         }
 
@@ -93,20 +93,20 @@ namespace micdah.LrControlApi.Communication
 
             if (!_pluginClient.IsConnected)
             {
-                Log.Warn("Not connected to plugin, cannot send message '{message}'");
+                Log.Warning("Not connected to plugin, cannot send message '{Message}'", message);
                 return False(out response);
             }
 
             if (!_pluginClient.SendMessage(message, out response))
             {
-                Log.Warn($"Was unable to send message '{message}'");
+                Log.Warning("Was unable to send message '{Message}'", message);
                 return false;
             }
 
             // Check for error codes
             if (response[0] != 'E') return true;
 
-            Log.Warn($"Error received '{response.Substring(1)}' after sending message '{message}'");
+            Log.Warning("Error received '{ErrorMessage}' after sending message '{Message}'", response.Substring(1), message);
             return false;
         }
 
@@ -187,7 +187,7 @@ namespace micdah.LrControlApi.Communication
 
             if (split.Length != expectedValues)
             {
-                Log.Warn($"Got {split.Length} values, when expecting {expectedValues} from response '{response}'");
+                Log.Warning("Got {Length} values, when expecting {ExpectedValues} from response '{Response}'", split.Length, expectedValues, response);
                 values = null;
                 return false;
             }
@@ -231,7 +231,7 @@ namespace micdah.LrControlApi.Communication
                     break;
             }
 
-            Log.Warn($"Unable to decude value '{valueString}' denoted by {typeArg} to {typeof(TExpectedType).Name}");
+            Log.Warning("Unable to decude value '{ValueString}' denoted by {TypeArg} to {Name}", valueString, typeArg, typeof(TExpectedType).Name);
 
             value = default(TExpectedType);
             return false;

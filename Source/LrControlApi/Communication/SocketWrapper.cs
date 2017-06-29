@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 using micdah.LrControlApi.Common;
-using NLog;
+using Serilog;
 
 namespace micdah.LrControlApi.Communication
 {
@@ -14,7 +14,7 @@ namespace micdah.LrControlApi.Communication
     internal class SocketWrapper : IDisposable
     {
         public const int SocketTimeout = 1000;
-        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Log = Serilog.Log.Logger;
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
 
         private readonly string _hostName;
@@ -91,7 +91,7 @@ namespace micdah.LrControlApi.Communication
             IsOpen = false;
             IsConnected = false;
 
-            Log.Debug($"Socket connected to {_hostName}:{_port} has been closed");
+            Log.Debug("Socket connected to {HostName}:{Port} has been closed", _hostName, _port);
         }
 
         public void Reconnect(bool fireEvent = true)
@@ -121,7 +121,7 @@ namespace micdah.LrControlApi.Communication
             }
             catch (SocketException e)
             {
-                Log.Error($"Error while sending message '{message}', reconnecting", e);
+                Log.Error(e, "Error while sending message '{Message}', reconnecting", message);
                 Reconnect();
 
                 return false;
@@ -194,11 +194,11 @@ namespace micdah.LrControlApi.Communication
             // Stop trying to receive messages, while reconnecting
             _receiveThread?.Stop(true);
 
-            Log.Debug($"Trying to reconnect to {_hostName}:{_port}");
+            Log.Debug("Trying to reconnect to {HostName}:{Port}", _hostName, _port);
 
             if (TryReconnect())
             {
-                Log.Debug($"Successfully reconnected to {_hostName}:{_port}");
+                Log.Debug("Successfully reconnected to {HostName}:{Port}", _hostName, _port);
 
                 IsConnected = true;
                 OnConnection(true);
@@ -239,7 +239,7 @@ namespace micdah.LrControlApi.Communication
             }
             catch (SocketException e)
             {
-                Log.Error($"Unable to connect to {_hostName}:{_port}", e);
+                Log.Error(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
                 return false;
             }
         }

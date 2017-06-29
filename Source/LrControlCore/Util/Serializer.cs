@@ -2,13 +2,13 @@
 using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
-using NLog;
+using Serilog;
 
 namespace LrControlCore.Util
 {
     public static class Serializer
     {
-        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Log = Serilog.Log.Logger;
 
         public static void Save<T>(string relativeFilename, T instance) where T : class
         {
@@ -23,11 +23,11 @@ namespace LrControlCore.Util
                     serializer.Serialize(writer, instance);
                 }
 
-                Log.Debug($"Successfully saved instance of {typeof (T).Name} to '{path}'");
+                Log.Debug("Successfully saved instance of {Name} to '{Path}'", typeof(T).Name, path);
             }
             catch (Exception e)
             {
-                Log.Error(e, $"Was unable to save instance of {typeof (T).Name} to '{path}'");
+                Log.Error(e, "Was unable to save instance of {Name} to '{Path}'", typeof(T).Name, path);
             }
         }
 
@@ -56,13 +56,13 @@ namespace LrControlCore.Util
                 }
                 catch (Exception e)
                 {
-                    Log.Error(e, $"Was unable to load instance of {typeof (T).Name} from '{path}'");
+                    Log.Error(e, "Was unable to load instance of {Name} from '{path}'", typeof(T).Name, path);
                     instance = null;
                     return false;
                 }
             }
 
-            Log.Debug($"Cannot load instance of {typeof (T).Name} from '{path}', file does not exist");
+            Log.Debug("Cannot load instance of {Name} from '{Path}', file does not exist", typeof(T).Name, path);
             instance = null;
             return false;
         }

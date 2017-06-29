@@ -6,13 +6,13 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControlCore.Device;
 using micdah.LrControlApi.Modules.LrApplicationView;
-using NLog;
+using Serilog;
 
 namespace LrControlCore.Mapping
 {
     public class ModuleGroup : INotifyPropertyChanged
     {
-        private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger Log = Serilog.Log.Logger;
 
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;
@@ -76,7 +76,7 @@ namespace LrControlCore.Mapping
 
             Enabled = true;
 
-            Log.Debug($"Enabled ModuleGroup for {Module.Name}");
+            Log.Debug("Enabled ModuleGroup for {Name}", Module.Name);
         }
 
 
@@ -97,7 +97,7 @@ namespace LrControlCore.Mapping
 
             Enabled = false;
 
-            Log.Debug($"Disabled ModuleGroup for {Module.Name}");
+            Log.Debug("Disabled ModuleGroup for {Name}", Module.Name);
         }
 
         public bool CanAssignFunction(Controller controller, bool inGlobalGroup)

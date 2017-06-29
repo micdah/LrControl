@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using LrControlCore.Configurations;
 using micdah.LrControlApi;
-using NLog;
-using NLog.Config;
-using NLog.Targets;
+using Serilog;
 
 namespace micdah.LrControl
 {
@@ -70,17 +68,12 @@ namespace micdah.LrControl
 
         private void SetupLogging()
         {
-            var config = new LoggingConfiguration();
+            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{level}] {Message}{NewLine}{Exception}";
 
-            var consoleTarget = new ColoredConsoleTarget("Console")
-            {
-                Layout = @"${date:format=HH\:mm\:ss} ${logger} ${message}"
-            };
-            config.AddTarget(consoleTarget);
-
-            config.LoggingRules.Add(new LoggingRule("'", LogLevel.Trace, consoleTarget));
-
-            LogManager.Configuration = config;
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.ColoredConsole(outputTemplate: template)
+                .WriteTo.RollingFile("LrControl.exe.{Date}.log", outputTemplate: template)
+                .CreateLogger();
         }
 
         private void ShowMainWindow()
