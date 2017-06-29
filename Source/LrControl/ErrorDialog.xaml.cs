@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 using LrControlCore.Util;
-using micdah.LrControl.Core;
 
 namespace micdah.LrControl
 {

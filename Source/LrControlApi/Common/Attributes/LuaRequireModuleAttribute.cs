@@ -5,7 +5,7 @@ namespace micdah.LrControlApi.Common.Attributes
     [AttributeUsage(AttributeTargets.Method)]
     internal class LuaRequireModuleAttribute : Attribute
     {
-        public string Module;
+        public readonly string Module;
 
         public LuaRequireModuleAttribute(string module)
         {

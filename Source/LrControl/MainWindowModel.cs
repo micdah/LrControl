@@ -65,7 +65,7 @@ namespace micdah.LrControl
 
         public IMainWindowDialogProvider DialogProvider
         {
-            get { return _dialogProvider; }
+            get => _dialogProvider;
             set
             {
                 if (Equals(value, _dialogProvider)) return;
@@ -85,7 +85,7 @@ namespace micdah.LrControl
 
         public IInputDevice InputDevice
         {
-            get { return _inputDevice; }
+            get => _inputDevice;
             set
             {
                 if (Equals(value, _inputDevice)) return;
@@ -112,7 +112,7 @@ namespace micdah.LrControl
 
         public string InputDeviceName
         {
-            get { return _inputDeviceName; }
+            get => _inputDeviceName;
             set
             {
                 if (value == _inputDeviceName) return;
@@ -125,7 +125,7 @@ namespace micdah.LrControl
 
         public ObservableCollection<IInputDevice> InputDevices
         {
-            get { return _inputDevices; }
+            get => _inputDevices;
             private set
             {
                 if (Equals(value, _inputDevices)) return;
@@ -136,7 +136,7 @@ namespace micdah.LrControl
 
         public IOutputDevice OutputDevice
         {
-            get { return _outputDevice; }
+            get => _outputDevice;
             set
             {
                 if (Equals(value, _outputDevice)) return;
@@ -162,7 +162,7 @@ namespace micdah.LrControl
 
         public string OutputDeviceName
         {
-            get { return _outputDeviceName; }
+            get => _outputDeviceName;
             set
             {
                 if (value == _outputDeviceName) return;
@@ -175,7 +175,7 @@ namespace micdah.LrControl
 
         public ObservableCollection<IOutputDevice> OutputDevices
         {
-            get { return _outputDevices; }
+            get => _outputDevices;
             private set
             {
                 if (Equals(value, _outputDevices)) return;
@@ -186,7 +186,7 @@ namespace micdah.LrControl
 
         private MidiDevice MidiDevice
         {
-            get { return _midiDevice; }
+            get => _midiDevice;
             set
             {
                 if (Equals(value, _midiDevice)) return;
@@ -197,7 +197,7 @@ namespace micdah.LrControl
 
         public IFunctionCatalog FunctionCatalog
         {
-            get { return _functionCatalog; }
+            get => _functionCatalog;
             private set
             {
                 if (Equals(value, _functionCatalog)) return;
@@ -208,7 +208,7 @@ namespace micdah.LrControl
 
         public FunctionGroupManager FunctionGroupManager
         {
-            get { return _functionGroupManager; }
+            get => _functionGroupManager;
             private set
             {
                 if (Equals(value, _functionGroupManager)) return;
@@ -219,7 +219,7 @@ namespace micdah.LrControl
 
         public bool ShowSettingsDialog
         {
-            get { return _showSettingsDialog; }
+            get => _showSettingsDialog;
             set
             {
                 if (value == _showSettingsDialog) return;
@@ -308,8 +308,8 @@ namespace micdah.LrControl
         {
             var inputDeviceName = InputDeviceName;
             InputDevices.Clear();
-            Midi.Devices.DeviceManager.UpdateInputDevices();
-            foreach (var inputDevice in Midi.Devices.DeviceManager.InputDevices)
+            DeviceManager.UpdateInputDevices();
+            foreach (var inputDevice in DeviceManager.InputDevices)
             {
                 InputDevices.Add(inputDevice);
             }
@@ -317,8 +317,8 @@ namespace micdah.LrControl
 
             var outputDeviceName = OutputDeviceName;
             OutputDevices.Clear();
-            Midi.Devices.DeviceManager.UpdateOutputDevices();
-            foreach (var outputDevice in Midi.Devices.DeviceManager.OutputDevices)
+            DeviceManager.UpdateOutputDevices();
+            foreach (var outputDevice in DeviceManager.OutputDevices)
             {
                 OutputDevices.Add(outputDevice);
             }

@@ -27,14 +27,14 @@ namespace micdah.LrControl.Gui
 
         public ModuleGroup ModuleGroup
         {
-            get { return (ModuleGroup) GetValue(ModuleGroupProperty); }
-            set { SetValue(ModuleGroupProperty, value); }
+            get => (ModuleGroup) GetValue(ModuleGroupProperty);
+            set => SetValue(ModuleGroupProperty, value);
         }
 
         public FunctionGroup Selected
         {
-            get { return (FunctionGroup) GetValue(SelectedProperty); }
-            set { SetValue(SelectedProperty, value); }
+            get => (FunctionGroup) GetValue(SelectedProperty);
+            set => SetValue(SelectedProperty, value);
         }
 
         private static void ModuleGroupChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -54,7 +54,7 @@ namespace micdah.LrControl.Gui
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

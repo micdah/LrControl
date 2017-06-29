@@ -24,7 +24,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public IInputDevice InputDevice
         {
-            get { return _inputDevice; }
+            get => _inputDevice;
             set
             {
                 if (Equals(value, _inputDevice)) return;
@@ -50,7 +50,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public ObservableCollection<ControllerSetup> Controllers
         {
-            get { return _controllers; }
+            get => _controllers;
             set
             {
                 if (Equals(value, _controllers)) return;

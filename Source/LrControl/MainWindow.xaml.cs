@@ -25,7 +25,7 @@ namespace micdah.LrControl
 
         public MainWindowModel ViewModel
         {
-            get { return _viewModel; }
+            get => _viewModel;
             private set
             {
                 if (Equals(value, _viewModel)) return;

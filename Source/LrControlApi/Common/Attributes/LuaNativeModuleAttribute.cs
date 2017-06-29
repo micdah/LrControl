@@ -5,7 +5,7 @@ namespace micdah.LrControlApi.Common.Attributes
     [AttributeUsage(AttributeTargets.Interface)]
     internal class LuaNativeModuleAttribute : Attribute
     {
-        public string Module;
+        public readonly string Module;
 
         public LuaNativeModuleAttribute(string module)
         {

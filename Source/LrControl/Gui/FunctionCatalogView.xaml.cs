@@ -21,8 +21,8 @@ namespace micdah.LrControl.Gui
 
         public FunctionCatalog FunctionCatalog
         {
-            get { return (FunctionCatalog) GetValue(FunctionCatalogProperty); }
-            set { SetValue(FunctionCatalogProperty, value); }
+            get => (FunctionCatalog) GetValue(FunctionCatalogProperty);
+            set => SetValue(FunctionCatalogProperty, value);
         }
 
         private void FunctionFactoryTextBlock_OnMouseMove(object sender, MouseEventArgs e)

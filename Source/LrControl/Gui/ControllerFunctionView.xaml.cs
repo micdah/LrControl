@@ -24,14 +24,14 @@ namespace micdah.LrControl.Gui
 
         public ControllerFunction ControllerFunction
         {
-            get { return (ControllerFunction) GetValue(ControllerFunctionProperty); }
-            set { SetValue(ControllerFunctionProperty, value); }
+            get => (ControllerFunction) GetValue(ControllerFunctionProperty);
+            set => SetValue(ControllerFunctionProperty, value);
         }
 
         public bool Highlight
         {
-            get { return (bool) GetValue(HighlightProperty); }
-            set { SetValue(HighlightProperty, value); }
+            get => (bool) GetValue(HighlightProperty);
+            set => SetValue(HighlightProperty, value);
         }
 
         private void ControllerFunctionView_OnDragEnter(object sender, DragEventArgs e)

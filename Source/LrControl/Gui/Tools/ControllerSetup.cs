@@ -18,7 +18,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public Channel Channel
         {
-            get { return _channel; }
+            get => _channel;
             set
             {
                 if (value == _channel) return;
@@ -29,7 +29,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public ControllerType ControllerType
         {
-            get { return _controllerType; }
+            get => _controllerType;
             set
             {
                 if (value == _controllerType) return;
@@ -40,7 +40,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public int ControlNumber
         {
-            get { return _controlNumber; }
+            get => _controlNumber;
             set
             {
                 if (value == _controlNumber) return;
@@ -51,7 +51,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public ControllerMessageType MessageType
         {
-            get { return _messageType; }
+            get => _messageType;
             set
             {
                 if (value == _messageType) return;
@@ -62,7 +62,7 @@ namespace micdah.LrControl.Gui.Tools
 
         public Range Range
         {
-            get { return _range; }
+            get => _range;
             set
             {
                 if (Equals(value, _range)) return;
@@ -72,7 +72,7 @@ namespace micdah.LrControl.Gui.Tools
         }
 
         [NotifyPropertyChangedInvocator]
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
