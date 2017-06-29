@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
+using Serilog;
 
-namespace micdah.LrControlApi.Communication
+namespace LrControl.Api.Communication
 {
     internal delegate void ChangeMessageHandler(string parameterName);
     internal delegate void ModuleMessageHandler(string moduleName);
@@ -11,13 +12,14 @@ namespace micdah.LrControlApi.Communication
 
     internal class PluginClient
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<PluginClient>();
         private const string HostName = "localhost";
         private const string ChangedToken = "Changed:";
         private const string ModuleToken = "Module:";
         
         private readonly BlockingCollection<string> _changeQueue = new BlockingCollection<string>();
         private readonly BlockingCollection<string> _moduleQueue = new BlockingCollection<string>();
-        private readonly BlockingCollection<string> _receivedMessages = new BlockingCollection<string>();
+        private readonly BlockingCollection<string> _inputQueue = new BlockingCollection<string>();
         
         private readonly StartStopThread _changeProcessingThread;
         private readonly StartStopThread _moduleProcessingThread;
@@ -108,11 +110,13 @@ namespace micdah.LrControlApi.Communication
             lock (_sendLock)
             {
                 // Empty message queue
-                if (_receivedMessages.Count > 0)
+                if (_inputQueue.Count > 0)
                 {
-                    string throwAway;
-                    while (_receivedMessages.TryTake(out throwAway))
+                    Log.Warning("There are {Count} message in the input queue, emptying before sending message", _inputQueue.Count);
+
+                    while (_inputQueue.TryTake(out string throwAway))
                     {
+                        Log.Debug("Throwing away '{Message}'", throwAway);
                     }
                 }
 
@@ -124,7 +128,11 @@ namespace micdah.LrControlApi.Communication
                 }
 
                 // Wait for response
-                return _receivedMessages.TryTake(out response, SocketWrapper.SocketTimeout);
+                var success = _inputQueue.TryTake(out response, SocketWrapper.SocketTimeout);
+                if (!success)
+                    Log.Warning("Sent message '{Message}' but did not get any response within timeout of {SocketTimeout}", message, SocketWrapper.SocketTimeout);
+
+                return success;
             }
         }
 
@@ -159,7 +167,7 @@ namespace micdah.LrControlApi.Communication
             }
             else
             {
-                _receivedMessages.Add(message);
+                _inputQueue.Add(message);
             }
         }
 

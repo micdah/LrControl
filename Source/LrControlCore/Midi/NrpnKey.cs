@@ -1,7 +1,7 @@
 ﻿using Midi.Enums;
 using Midi.Messages;
 
-namespace LrControlCore.Midi
+namespace LrControl.Core.Midi
 {
     public class NrpnKey
     {

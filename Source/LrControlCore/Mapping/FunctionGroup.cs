@@ -4,15 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrDevelopController;
+using LrControl.Api;
+using LrControl.Api.Modules.LrDevelopController;
 using Serilog;
 
-namespace LrControlCore.Mapping
+namespace LrControl.Core.Mapping
 {
     public class FunctionGroup : INotifyPropertyChanged
     {
-        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<FunctionGroup>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<FunctionGroup>();
 
         private static readonly List<FunctionGroup> FunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;

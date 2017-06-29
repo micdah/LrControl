@@ -1,6 +1,6 @@
 using Midi.Messages;
 
-namespace LrControlCore.Midi
+namespace LrControl.Core.Midi
 {
     internal class ControlChangeMessageHolder : MessageHolder<ControlChangeMessage>
     {

@@ -1,8 +1,8 @@
-﻿using micdah.LrControlApi.Common;
+﻿using LrControl.Api.Common;
 
 // ReSharper disable InconsistentNaming
 
-namespace micdah.LrControlApi.Modules.LrDevelopController
+namespace LrControl.Api.Modules.LrDevelopController
 {
     public class ProcessVersion : ClassEnum<string, ProcessVersion>
     {

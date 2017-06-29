@@ -1,11 +1,11 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Configurations;
-using LrControlCore.Device;
-using micdah.LrControlApi;
+using LrControl.Api;
+using LrControl.Core.Configurations;
+using LrControl.Core.Device;
 
-namespace LrControlCore.Functions
+namespace LrControl.Core.Functions
 {
     internal abstract class Function : IFunction
     {

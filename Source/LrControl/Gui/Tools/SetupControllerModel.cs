@@ -4,12 +4,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using JetBrains.Annotations;
-using LrControlCore.Device.Enums;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
+using LrControl.Core.Device.Enums;
 using Midi.Devices;
 using Midi.Messages;
 
-namespace micdah.LrControl.Gui.Tools
+namespace LrControl.Gui.Tools
 {
     public class SetupControllerModel : INotifyPropertyChanged
     {

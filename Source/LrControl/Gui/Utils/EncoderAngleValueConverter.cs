@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
 
-namespace micdah.LrControl.Gui.Utils
+namespace LrControl.Gui.Utils
 {
     public class EncoderAngleValueConverter : IMultiValueConverter
     {

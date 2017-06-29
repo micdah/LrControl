@@ -1,18 +1,18 @@
 ﻿using System;
-using micdah.LrControlApi.Communication;
-using micdah.LrControlApi.Modules.LrApplicationView;
-using micdah.LrControlApi.Modules.LrControl;
-using micdah.LrControlApi.Modules.LrDevelopController;
-using micdah.LrControlApi.Modules.LrDialogs;
-using micdah.LrControlApi.Modules.LrSelection;
-using micdah.LrControlApi.Modules.LrUndo;
+using LrControl.Api.Communication;
+using LrControl.Api.Modules.LrApplicationView;
+using LrControl.Api.Modules.LrControl;
+using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Api.Modules.LrDialogs;
+using LrControl.Api.Modules.LrSelection;
+using LrControl.Api.Modules.LrUndo;
 
-namespace micdah.LrControlApi
+namespace LrControl.Api
 {
     public class LrApi : IDisposable
     {
         private readonly LrApplicationView _lrApplicationView;
-        private readonly LrControl _lrControl;
+        private readonly Modules.LrControl.LrControl _lrControl;
         private readonly LrDevelopController _lrDevelopController;
         private readonly LrDialogs _lrDialogs;
         private readonly LrSelection _lrSelection;
@@ -22,7 +22,7 @@ namespace micdah.LrControlApi
         public LrApi(int sendPort = 52008, int receivePort = 52009)
         {
             _pluginClient = new PluginClient(sendPort, receivePort);
-            _lrControl = new LrControl(new MessageProtocol<LrControl>(_pluginClient));
+            _lrControl = new Modules.LrControl.LrControl(new MessageProtocol<Modules.LrControl.LrControl>(_pluginClient));
             _lrDevelopController = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
             _lrApplicationView = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
             _lrDialogs = new LrDialogs(new MessageProtocol<LrDialogs>(_pluginClient));

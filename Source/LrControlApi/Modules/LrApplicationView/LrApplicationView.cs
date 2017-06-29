@@ -1,7 +1,7 @@
-﻿using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Communication;
+﻿using LrControl.Api.Common;
+using LrControl.Api.Communication;
 
-namespace micdah.LrControlApi.Modules.LrApplicationView
+namespace LrControl.Api.Modules.LrApplicationView
 {
     internal class LrApplicationView : ModuleBase<LrApplicationView>, ILrApplicationView
     {

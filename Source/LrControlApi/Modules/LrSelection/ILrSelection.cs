@@ -1,6 +1,6 @@
-﻿using micdah.LrControlApi.Common.Attributes;
+﻿using LrControl.Api.Common.Attributes;
 
-namespace micdah.LrControlApi.Modules.LrSelection
+namespace LrControl.Api.Modules.LrSelection
 {
     [LuaNativeModule("LrSelection")]
     public interface ILrSelection

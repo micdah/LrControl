@@ -2,14 +2,14 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Configurations;
-using LrControlCore.Device.Enums;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
+using LrControl.Core.Configurations;
+using LrControl.Core.Device.Enums;
 using Midi.Devices;
 using Midi.Enums;
 using Midi.Messages;
 
-namespace LrControlCore.Device
+namespace LrControl.Core.Device
 {
     public delegate void ControllerChangedHandler(int controllerValue);
 

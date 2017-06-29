@@ -7,7 +7,7 @@
     <ProjectGuid>{4BD68C41-8C8A-4ABF-9624-0379C2CED801}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>micdah.LrControlApi</RootNamespace>
+    <RootNamespace>LrControl.Api</RootNamespace>
     <AssemblyName>LrControlApi</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

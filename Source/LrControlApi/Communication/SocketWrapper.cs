@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
 using Serilog;
 
-namespace micdah.LrControlApi.Communication
+namespace LrControl.Api.Communication
 {
     public delegate void MessageHandler(string message);
 
@@ -14,7 +14,7 @@ namespace micdah.LrControlApi.Communication
     internal class SocketWrapper : IDisposable
     {
         public const int SocketTimeout = 1000;
-        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<SocketWrapper>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<SocketWrapper>();
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
 
         private readonly string _hostName;

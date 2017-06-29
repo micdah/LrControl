@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace micdah.LrControlApi
+namespace LrControl.Api
 {
     public class ApiException : Exception
     {

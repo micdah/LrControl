@@ -1,7 +1,7 @@
-﻿using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Communication;
+﻿using LrControl.Api.Common;
+using LrControl.Api.Communication;
 
-namespace micdah.LrControlApi.Modules.LrSelection
+namespace LrControl.Api.Modules.LrSelection
 {
     internal class LrSelection : ModuleBase<LrSelection>, ILrSelection
     {

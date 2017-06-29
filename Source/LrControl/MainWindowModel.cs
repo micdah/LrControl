@@ -5,20 +5,20 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using JetBrains.Annotations;
-using LrControlCore.Configurations;
-using LrControlCore.Device;
-using LrControlCore.Functions.Catalog;
-using LrControlCore.Mapping;
-using LrControlCore.Midi;
-using LrControlCore.Util;
-using micdah.LrControl.Core;
-using micdah.LrControl.Gui.Tools;
-using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrApplicationView;
+using LrControl.Api;
+using LrControl.Api.Modules.LrApplicationView;
+using LrControl.Core;
+using LrControl.Core.Configurations;
+using LrControl.Core.Device;
+using LrControl.Core.Functions.Catalog;
+using LrControl.Core.Mapping;
+using LrControl.Core.Midi;
+using LrControl.Core.Util;
+using LrControl.Gui.Tools;
 using Midi.Devices;
 using Prism.Commands;
 
-namespace micdah.LrControl
+namespace LrControl
 {
     public class MainWindowModel : INotifyPropertyChanged
     {
@@ -51,7 +51,7 @@ namespace micdah.LrControl
             SetupControllerCommand = new DelegateCommand(SetupController);
 
             // Initialize catalogs and controllers
-            FunctionCatalog = LrControlCore.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
+            FunctionCatalog = Core.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
             MidiDevice = new MidiDevice();
             FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, MidiDevice);
 

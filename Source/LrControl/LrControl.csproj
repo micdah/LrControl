@@ -7,7 +7,7 @@
     <ProjectGuid>{9C1D8D80-26C5-491E-96D1-643A6DD54520}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>micdah.LrControl</RootNamespace>
+    <RootNamespace>LrControl</RootNamespace>
     <AssemblyName>LrControl</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>micdah.LrControl.App</StartupObject>
+    <StartupObject>LrControl.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>

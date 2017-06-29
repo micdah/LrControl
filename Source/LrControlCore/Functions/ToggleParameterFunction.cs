@@ -1,7 +1,7 @@
-using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrDevelopController;
+using LrControl.Api;
+using LrControl.Api.Modules.LrDevelopController;
 
-namespace LrControlCore.Functions
+namespace LrControl.Core.Functions
 {
     internal class ToggleParameterFunction : Function
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace micdah.LrControlApi.Common
+namespace LrControl.Api.Common
 {
     public class Range
     {

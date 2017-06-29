@@ -1,4 +1,4 @@
-﻿namespace micdah.LrControl.Gui
+﻿namespace LrControl.Gui
 {
     /// <summary>
     /// Interaction logic for SettingsView.xaml

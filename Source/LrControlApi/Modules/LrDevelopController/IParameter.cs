@@ -1,6 +1,4 @@
-﻿using micdah.LrControlApi.Common;
-
-namespace micdah.LrControlApi.Modules.LrDevelopController
+﻿namespace LrControl.Api.Modules.LrDevelopController
 {
     public interface IParameter<out T> : IParameter
     {

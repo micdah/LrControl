@@ -1,4 +1,4 @@
-﻿namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
+﻿namespace LrControl.Api.Modules.LrDevelopController.Parameters
 {
     public class CropParameter : ParameterGroup
     {

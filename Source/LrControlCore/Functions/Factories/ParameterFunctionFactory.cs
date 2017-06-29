@@ -1,8 +1,8 @@
-using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrDevelopController;
-using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
+using LrControl.Api;
+using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Api.Modules.LrDevelopController.Parameters;
 
-namespace LrControlCore.Functions.Factories
+namespace LrControl.Core.Functions.Factories
 {
     internal class ParameterFunctionFactory : FunctionFactory
     {

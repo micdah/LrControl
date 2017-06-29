@@ -49,7 +49,5 @@ return {
         -- Close LrControl application
         progressFunction(0.75, "Closing LrControl application")
         LrShell.openFilesInApp({"/shutdown"}, appPath)
-    
-        
     end
 }

@@ -1,7 +1,7 @@
-﻿using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Communication;
+﻿using LrControl.Api.Common;
+using LrControl.Api.Communication;
 
-namespace micdah.LrControlApi.Modules.LrUndo
+namespace LrControl.Api.Modules.LrUndo
 {
     internal class LrUndo : ModuleBase<LrUndo>, ILrUndo
     {

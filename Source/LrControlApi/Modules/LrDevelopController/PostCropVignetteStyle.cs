@@ -1,6 +1,6 @@
-﻿using micdah.LrControlApi.Common;
+﻿using LrControl.Api.Common;
 
-namespace micdah.LrControlApi.Modules.LrDevelopController
+namespace LrControl.Api.Modules.LrDevelopController
 {
     public class PostCropVignetteStyle : ClassEnum<int,PostCropVignetteStyle>
     {

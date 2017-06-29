@@ -1,11 +1,11 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
-using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Communication;
+using LrControl.Api.Common;
+using LrControl.Api.Communication;
 
 // ReSharper disable DelegateSubtraction
 
-namespace micdah.LrControlApi.Modules.LrDevelopController
+namespace LrControl.Api.Modules.LrDevelopController
 {
     internal class LrDevelopController : ModuleBase<LrDevelopController>, ILrDevelopController
     {

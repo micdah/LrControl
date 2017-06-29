@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Util;
+using LrControl.Core.Util;
 using Midi.Devices;
 
-namespace LrControlCore.Configurations
+namespace LrControl.Core.Configurations
 {
     public class Settings : INotifyPropertyChanged
     {

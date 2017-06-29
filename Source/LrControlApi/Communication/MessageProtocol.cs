@@ -1,15 +1,15 @@
 using System;
 using System.Text;
-using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Modules.LrDevelopController;
+using LrControl.Api.Common;
+using LrControl.Api.Modules.LrDevelopController;
 using Serilog;
 
-namespace micdah.LrControlApi.Communication
+namespace LrControl.Api.Communication
 {
     internal class MessageProtocol<TModule>
     {
         // ReSharper disable once StaticMemberInGenericType
-        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<MessageProtocol<TModule>>();
+        private static readonly ILogger Log = Serilog.Log.ForContext(typeof(MessageProtocol<>));
 
         private const char RecordSeparator = '\u001E';
 

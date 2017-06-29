@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using micdah.LrControlApi.Modules.LrDevelopController;
+using LrControl.Api.Modules.LrDevelopController;
 
-namespace micdah.LrControlApi.Common
+namespace LrControl.Api.Common
 {
     public abstract class ClassEnum<TValue, TEnum> : IClassEnum<TValue>
         where TEnum : ClassEnum<TValue, TEnum>

@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Functions.Factories;
+using LrControl.Core.Functions.Factories;
 
-namespace LrControlCore.Functions.Catalog
+namespace LrControl.Core.Functions.Catalog
 {
     public class FunctionCatalogGroup : IFunctionCatalogGroup
     {

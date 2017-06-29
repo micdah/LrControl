@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Configurations;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
+using LrControl.Core.Configurations;
 using Midi.Devices;
 
-namespace LrControlCore.Device
+namespace LrControl.Core.Device
 {
     public class MidiDevice : INotifyPropertyChanged
     {

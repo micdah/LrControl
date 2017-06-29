@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace LrControlCore.Midi
+namespace LrControl.Core.Midi
 {
     public abstract class MessageHolder<T> where T : class
     {

@@ -1,4 +1,4 @@
-﻿namespace micdah.LrControlApi.Modules.LrDevelopController
+﻿namespace LrControl.Api.Modules.LrDevelopController
 {
     internal class Parameter<T> : IParameter<T>
     {

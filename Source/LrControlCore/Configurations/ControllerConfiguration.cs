@@ -1,7 +1,6 @@
-﻿using LrControlCore.Device;
-using LrControlCore.Device.Enums;
+﻿using LrControl.Core.Device.Enums;
 
-namespace LrControlCore.Configurations
+namespace LrControl.Core.Configurations
 {
     public class ControllerConfiguration : ControllerConfigurationKey
     {

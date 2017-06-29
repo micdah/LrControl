@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel;
-using LrControlCore.Device;
+using LrControl.Core.Device;
 
-namespace LrControlCore.Functions
+namespace LrControl.Core.Functions
 {
     public interface IFunction : INotifyPropertyChanged, IDisposable
     {

@@ -6,7 +6,7 @@ using System.Threading;
 using Midi.Devices;
 using Midi.Messages;
 
-namespace LrControlCore.Midi
+namespace LrControl.Core.Midi
 {
     public class InputDeviceDecorator : IInputDevice, IDisposable
     {

@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using LrControlCore.Functions.Factories;
-using LrControlCore.Mapping;
-using micdah.LrControl.Gui.Utils;
+using LrControl.Core.Functions.Factories;
+using LrControl.Core.Mapping;
+using LrControl.Gui.Utils;
 
-namespace micdah.LrControl.Gui
+namespace LrControl.Gui
 {
     /// <summary>
     ///     Interaction logic for ControllerFunctionView.xaml

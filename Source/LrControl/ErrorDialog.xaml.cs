@@ -2,9 +2,9 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
-using LrControlCore.Util;
+using LrControl.Core.Util;
 
-namespace micdah.LrControl
+namespace LrControl
 {
     /// <summary>
     ///     Interaction logic for ErrorDialog.xaml

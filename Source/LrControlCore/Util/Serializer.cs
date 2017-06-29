@@ -4,13 +4,16 @@ using System.Reflection;
 using System.Xml.Serialization;
 using Serilog;
 
-namespace LrControlCore.Util
+namespace LrControl.Core.Util
 {
     public static class Serializer
     {
-        private static readonly ILogger Log = Serilog.Log.Logger.ForContext(typeof(Serializer));
+        private static readonly ILogger Log = Serilog.Log.ForContext(typeof(Serializer));
+
         public static void Save<T>(string relativeFilename, T instance) where T : class
         {
+            Log.Debug("Saving instance of {Name} to relative file {Filename}", typeof(T).Name, relativeFilename);
+
             var path = ResolveRelativeFilename(relativeFilename);
             EnsurePathExists(path);
 
@@ -35,18 +38,21 @@ namespace LrControlCore.Util
             var dir = Path.GetDirectoryName(path);
             if (dir != null)
             {
+                Log.Debug("Directory {Directory} doesn't exist, creating it", dir);
                 Directory.CreateDirectory(dir);
             }
         }
 
         public static bool Load<T>(string relativeFilename, out T instance) where T : class
         {
+            Log.Debug("Loading instance of {Name} from relative file {Filename}", typeof(T).Name, relativeFilename);
+
             var path = ResolveRelativeFilename(relativeFilename);
             if (File.Exists(path))
             {
                 try
                 {
-                    var serializer = new XmlSerializer(typeof (T));
+                    var serializer = new XmlSerializer(typeof(T));
                     using (var reader = new StreamReader(path))
                     {
                         instance = serializer.Deserialize(reader) as T;
@@ -60,8 +66,8 @@ namespace LrControlCore.Util
                     return false;
                 }
             }
-
-            Log.Debug("Cannot load instance of {Name} from '{Path}', file does not exist", typeof(T).Name, path);
+            
+            Log.Warning("Cannot load instance of {Name} from '{Path}', file does not exist", typeof(T).Name, path);
             instance = null;
             return false;
         }
@@ -70,9 +76,14 @@ namespace LrControlCore.Util
         {
             var exePath = Assembly.GetExecutingAssembly().Location;
             var exeDir = Path.GetDirectoryName(exePath);
-            return exeDir != null
+            var absoluteFilename = exeDir != null
                 ? Path.GetFullPath(Path.Combine(exeDir, relativeFilename))
                 : Path.GetFullPath(relativeFilename);
+
+            Log.Debug("Resolved relative path {RelativePath} to absolute path {AbsolutePath}", relativeFilename,
+                absoluteFilename);
+
+            return absoluteFilename;
         }
     }
 }

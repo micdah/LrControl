@@ -1,8 +1,8 @@
-﻿using micdah.LrControl.Core;
+﻿using LrControl.Core;
 using MahApps.Metro.Controls;
 using Microsoft.Win32;
 
-namespace micdah.LrControl
+namespace LrControl
 {
     public interface IMainWindowDialogProvider : IDialogProvider
     {

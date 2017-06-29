@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using LrControlCore.Functions.Factories;
-using micdah.LrControlApi;
+using LrControl.Api;
+using LrControl.Core.Functions.Factories;
 
-namespace LrControlCore.Functions.Catalog
+namespace LrControl.Core.Functions.Catalog
 {
     public partial class FunctionCatalog
     {

@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using LrControlCore.Configurations;
-using micdah.LrControlApi;
+using LrControl.Api;
+using LrControl.Core.Configurations;
 using Serilog;
 
-namespace micdah.LrControl
+namespace LrControl
 {
     /// <summary>
     ///     Interaction logic for App.xaml
@@ -80,7 +80,8 @@ namespace micdah.LrControl
                     outputTemplate: template,
                     fileSizeLimitBytes: 10 * 1024 * 1024,
                     flushToDiskInterval: TimeSpan.FromSeconds(1),
-                    retainedFileCountLimit: 5)
+                    retainedFileCountLimit: 5,
+                    shared:true)
                 .CreateLogger();
 
             _log = Log.Logger.ForContext<App>();

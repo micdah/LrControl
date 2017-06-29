@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Configurations;
-using LrControlCore.Device;
-using LrControlCore.Functions.Catalog;
-using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrApplicationView;
-using micdah.LrControlApi.Modules.LrDevelopController;
+using LrControl.Api;
+using LrControl.Api.Modules.LrApplicationView;
+using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Core.Configurations;
+using LrControl.Core.Device;
+using LrControl.Core.Functions.Catalog;
 
-namespace LrControlCore.Mapping
+namespace LrControl.Core.Mapping
 {
     public class FunctionGroupManager : INotifyPropertyChanged
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace micdah.LrControlApi.Common.Attributes
+namespace LrControl.Api.Common.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     internal class LuaMethodAttribute : Attribute

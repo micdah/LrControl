@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using LrControlCore.Functions.Catalog;
-using LrControlCore.Functions.Factories;
+using LrControl.Core.Functions.Catalog;
+using LrControl.Core.Functions.Factories;
 
-namespace micdah.LrControl.Gui
+namespace LrControl.Gui
 {
     /// <summary>
     ///     Interaction logic for FunctionCatalogView.xaml

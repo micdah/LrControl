@@ -1,7 +1,7 @@
 using System;
-using micdah.LrControlApi;
+using LrControl.Api;
 
-namespace LrControlCore.Functions.Factories
+namespace LrControl.Core.Functions.Factories
 {
     internal class MethodFunctionFactory : FunctionFactory
     {

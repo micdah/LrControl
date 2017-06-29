@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace micdah.LrControlApi.Modules.LrDevelopController.Parameters
+namespace LrControl.Api.Modules.LrDevelopController.Parameters
 {
     public abstract class ParameterGroup
     {

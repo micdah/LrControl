@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using JetBrains.Annotations;
-using LrControlCore.Mapping;
+using LrControl.Core.Mapping;
 
-namespace micdah.LrControl.Gui
+namespace LrControl.Gui
 {
     /// <summary>
     ///     Interaction logic for ModuleGroupView.xaml

@@ -1,4 +1,4 @@
-namespace micdah.LrControlApi.Common
+namespace LrControl.Api.Common
 {
     public interface IClassEnum<out TValue>
     {

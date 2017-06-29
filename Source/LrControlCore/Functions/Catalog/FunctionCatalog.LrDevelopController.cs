@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using LrControlCore.Functions.Factories;
-using micdah.LrControlApi;
-using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Modules.LrDevelopController;
-using micdah.LrControlApi.Modules.LrDevelopController.Parameters;
-using Panel = micdah.LrControlApi.Modules.LrDevelopController.Panel;
+using LrControl.Api;
+using LrControl.Api.Common;
+using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Api.Modules.LrDevelopController.Parameters;
+using LrControl.Core.Functions.Factories;
+using Panel = LrControl.Api.Modules.LrDevelopController.Panel;
 
-namespace LrControlCore.Functions.Catalog
+namespace LrControl.Core.Functions.Catalog
 {
     public partial class FunctionCatalog
     {

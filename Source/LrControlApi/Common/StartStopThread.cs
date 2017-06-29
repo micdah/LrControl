@@ -2,7 +2,7 @@
 using System.Threading;
 using Serilog;
 
-namespace micdah.LrControlApi.Common
+namespace LrControl.Api.Common
 {
     internal delegate void RequestStopHandler();
 
@@ -10,7 +10,7 @@ namespace micdah.LrControlApi.Common
 
     internal class StartStopThread : IDisposable
     {
-        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<StartStopThread>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<StartStopThread>();
 
         private readonly IterationHandler _iterationFunction;
         private readonly ManualResetEvent _runEvent = new ManualResetEvent(false);

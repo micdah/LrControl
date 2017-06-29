@@ -1,6 +1,6 @@
-﻿using micdah.LrControlApi.Common;
+﻿using LrControl.Api.Common;
 
-namespace micdah.LrControlApi.Modules.LrApplicationView
+namespace LrControl.Api.Modules.LrApplicationView
 {
     public class PrimaryView : ClassEnum<string, PrimaryView>
     {

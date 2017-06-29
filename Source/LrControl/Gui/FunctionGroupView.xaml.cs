@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using LrControlCore.Mapping;
+using LrControl.Core.Mapping;
 
-namespace micdah.LrControl.Gui
+namespace LrControl.Gui
 {
     /// <summary>
     ///     Interaction logic for FunctionGroupView.xaml

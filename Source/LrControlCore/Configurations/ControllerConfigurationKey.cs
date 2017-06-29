@@ -1,8 +1,7 @@
-﻿using LrControlCore.Device;
-using LrControlCore.Device.Enums;
+﻿using LrControl.Core.Device.Enums;
 using Midi.Enums;
 
-namespace LrControlCore.Configurations
+namespace LrControl.Core.Configurations
 {
     public class ControllerConfigurationKey
     {

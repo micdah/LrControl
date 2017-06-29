@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using micdah.LrControlApi.Common.Attributes;
+using LrControl.Api.Common.Attributes;
 
-namespace micdah.LrControlApi.t4
+namespace LrControl.Api.t4
 {
     public class ModuleGenerator : GeneratorBase
     {

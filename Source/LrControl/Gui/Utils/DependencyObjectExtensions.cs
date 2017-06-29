@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 
-namespace micdah.LrControl.Gui.Utils
+namespace LrControl.Gui.Utils
 {
     public static class DependencyObjectExtensions
     {

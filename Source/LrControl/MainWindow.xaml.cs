@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
-namespace micdah.LrControl
+namespace LrControl
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml

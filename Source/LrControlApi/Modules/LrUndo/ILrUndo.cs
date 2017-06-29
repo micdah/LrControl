@@ -1,6 +1,6 @@
-﻿using micdah.LrControlApi.Common.Attributes;
+﻿using LrControl.Api.Common.Attributes;
 
-namespace micdah.LrControlApi.Modules.LrUndo
+namespace LrControl.Api.Modules.LrUndo
 {
     [LuaNativeModule("LrUndo")]
     public interface ILrUndo

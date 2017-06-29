@@ -2,11 +2,11 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Device;
-using LrControlCore.Device.Enums;
-using LrControlCore.Functions;
+using LrControl.Core.Device;
+using LrControl.Core.Device.Enums;
+using LrControl.Core.Functions;
 
-namespace LrControlCore.Mapping
+namespace LrControl.Core.Mapping
 {
     public class ControllerFunction : INotifyPropertyChanged, IDisposable
     {

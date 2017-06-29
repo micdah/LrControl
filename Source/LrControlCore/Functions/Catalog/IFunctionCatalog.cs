@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using LrControlCore.Functions.Factories;
+using LrControl.Core.Functions.Factories;
 
-namespace LrControlCore.Functions.Catalog
+namespace LrControl.Core.Functions.Catalog
 {
     public interface IFunctionCatalog : INotifyPropertyChanged
     {

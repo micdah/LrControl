@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using LrControlCore.Functions.Factories;
-using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrApplicationView;
+using LrControl.Api;
+using LrControl.Api.Modules.LrApplicationView;
+using LrControl.Core.Functions.Factories;
 
-namespace LrControlCore.Functions.Catalog
+namespace LrControl.Core.Functions.Catalog
 {
     public partial class FunctionCatalog
     {

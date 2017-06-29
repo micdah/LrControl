@@ -1,4 +1,4 @@
-﻿namespace micdah.LrControlApi.Modules.LrControl
+﻿namespace LrControl.Api.Modules.LrControl
 {
     public interface ILrControl
     {

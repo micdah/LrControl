@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
-namespace micdah.LrControl.Gui.Tools
+namespace LrControl.Gui.Tools
 {
     /// <summary>
     ///     Interaction logic for SetupController.xaml

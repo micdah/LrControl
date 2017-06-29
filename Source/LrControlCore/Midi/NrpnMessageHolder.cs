@@ -1,7 +1,6 @@
-using System.Diagnostics;
 using Midi.Messages;
 
-namespace LrControlCore.Midi
+namespace LrControl.Core.Midi
 {
     public class NrpnMessageHolder : MessageHolder<NrpnMessage>
     {

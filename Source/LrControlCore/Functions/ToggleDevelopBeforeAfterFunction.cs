@@ -1,7 +1,7 @@
-﻿using micdah.LrControlApi;
-using micdah.LrControlApi.Modules.LrApplicationView;
+﻿using LrControl.Api;
+using LrControl.Api.Modules.LrApplicationView;
 
-namespace LrControlCore.Functions
+namespace LrControl.Core.Functions
 {
     internal class ToggleDevelopBeforeAfterFunction : Function
     {

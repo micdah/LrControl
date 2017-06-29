@@ -4,15 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Device;
-using micdah.LrControlApi.Modules.LrApplicationView;
+using LrControl.Api.Modules.LrApplicationView;
+using LrControl.Core.Device;
 using Serilog;
 
-namespace LrControlCore.Mapping
+namespace LrControl.Core.Mapping
 {
     public class ModuleGroup : INotifyPropertyChanged
     {
-        private static readonly ILogger Log = Serilog.Log.Logger.ForContext<ModuleGroup>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<ModuleGroup>();
 
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private bool _enabled;

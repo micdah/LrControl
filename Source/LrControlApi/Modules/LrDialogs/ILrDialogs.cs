@@ -1,6 +1,6 @@
-﻿using micdah.LrControlApi.Common.Attributes;
+﻿using LrControl.Api.Common.Attributes;
 
-namespace micdah.LrControlApi.Modules.LrDialogs
+namespace LrControl.Api.Modules.LrDialogs
 {
     [LuaNativeModule("LrDialogs")]
     public interface ILrDialogs

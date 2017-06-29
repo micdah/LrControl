@@ -1,6 +1,6 @@
-﻿using micdah.LrControlApi.Common;
+﻿using LrControl.Api.Common;
 
-namespace micdah.LrControlApi.Modules.LrSelection
+namespace LrControl.Api.Modules.LrSelection
 {
     public class Direction : ClassEnum<string, Direction>
     {

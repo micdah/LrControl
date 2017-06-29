@@ -2,9 +2,8 @@
 using System.Threading.Tasks;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Win32;
 
-namespace micdah.LrControl.Core
+namespace LrControl.Core
 {
     public class MetroWindowDialogProvider : IDialogProvider
     {

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControlCore.Device.Enums;
-using micdah.LrControlApi.Common;
+using LrControl.Api.Common;
+using LrControl.Core.Device.Enums;
 using Midi.Enums;
 
-namespace micdah.LrControl.Gui.Tools
+namespace LrControl.Gui.Tools
 {
     public class ControllerSetup : INotifyPropertyChanged
     {

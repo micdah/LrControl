@@ -1,7 +1,7 @@
 using System;
-using micdah.LrControlApi;
+using LrControl.Api;
 
-namespace LrControlCore.Functions
+namespace LrControl.Core.Functions
 {
     internal class MethodFunction : Function
     {

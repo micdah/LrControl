@@ -1,4 +1,4 @@
-namespace LrControlCore.Device.Enums
+namespace LrControl.Core.Device.Enums
 {
     public enum ControllerType
     {

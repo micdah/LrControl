@@ -1,7 +1,7 @@
-﻿using micdah.LrControlApi.Common;
-using micdah.LrControlApi.Common.Attributes;
+﻿using LrControl.Api.Common;
+using LrControl.Api.Common.Attributes;
 
-namespace micdah.LrControlApi.Modules.LrDevelopController
+namespace LrControl.Api.Modules.LrDevelopController
 {
     public delegate void ParameterChangedHandler();
 

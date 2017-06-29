@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace micdah.LrControl.Core
+namespace LrControl.Core
 {
     public interface IDialogProvider
     {

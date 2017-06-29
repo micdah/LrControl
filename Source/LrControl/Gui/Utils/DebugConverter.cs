@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace micdah.LrControl.Gui.Utils
+namespace LrControl.Gui.Utils
 {
     public class DebugConverter : IValueConverter
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace LrControlCore.Util
+namespace LrControl.Core.Util
 {
     /// <summary>
     ///     Build a string with message and stacktrace of the provided exception,
