@@ -75,7 +75,8 @@ namespace micdah.LrControl
                 .WriteTo.RollingFile("LrControl.exe.{Date}.log", 
                     outputTemplate: template, 
                     fileSizeLimitBytes:10*1024*1024,
-                    flushToDiskInterval:TimeSpan.FromSeconds(1))
+                    flushToDiskInterval:TimeSpan.FromSeconds(1),
+                    retainedFileCountLimit:5)
                 .CreateLogger();
         }
 
