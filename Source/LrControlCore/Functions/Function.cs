@@ -26,7 +26,7 @@ namespace LrControl.Core.Functions
 
         public string Key
         {
-            get { return _key; }
+            get => _key;
             private set
             {
                 if (value == _key) return;
@@ -37,7 +37,7 @@ namespace LrControl.Core.Functions
 
         public Controller Controller
         {
-            get { return _controller; }
+            get => _controller;
             set
             {
                 if (Equals(value, _controller)) return;
@@ -58,7 +58,7 @@ namespace LrControl.Core.Functions
 
         public bool Enabled
         {
-            get { return _enabled; }
+            get => _enabled;
             private set
             {
                 if (value == _enabled) return;
@@ -69,7 +69,7 @@ namespace LrControl.Core.Functions
 
         public string DisplayName
         {
-            get { return _displayName; }
+            get => _displayName;
             set
             {
                 if (value == _displayName) return;

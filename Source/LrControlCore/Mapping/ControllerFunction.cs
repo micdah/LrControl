@@ -16,7 +16,7 @@ namespace LrControl.Core.Mapping
 
         public Controller Controller
         {
-            get { return _controller; }
+            get => _controller;
             set
             {
                 if (Equals(value, _controller)) return;
@@ -31,7 +31,7 @@ namespace LrControl.Core.Mapping
 
         public IFunction Function
         {
-            get { return _function; }
+            get => _function;
             set
             {
                 if (Equals(value, _function)) return;
@@ -53,7 +53,7 @@ namespace LrControl.Core.Mapping
 
         public bool Assignable
         {
-            get { return _assignable; }
+            get => _assignable;
             set
             {
                 if (value == _assignable) return;

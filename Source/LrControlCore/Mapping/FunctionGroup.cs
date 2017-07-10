@@ -36,7 +36,7 @@ namespace LrControl.Core.Mapping
 
         public string Key
         {
-            get { return _key; }
+            get => _key;
             set
             {
                 if (value == _key) return;
@@ -47,7 +47,7 @@ namespace LrControl.Core.Mapping
 
         public ObservableCollection<ControllerFunction> ControllerFunctions
         {
-            get { return _controllerFunctions; }
+            get => _controllerFunctions;
             private set
             {
                 if (Equals(value, _controllerFunctions)) return;
@@ -58,7 +58,7 @@ namespace LrControl.Core.Mapping
 
         public bool IsGlobal
         {
-            get { return _isGlobal; }
+            get => _isGlobal;
             private set
             {
                 if (value == _isGlobal) return;
@@ -69,7 +69,7 @@ namespace LrControl.Core.Mapping
 
         public Panel Panel
         {
-            get { return _panel; }
+            get => _panel;
             private set
             {
                 if (Equals(value, _panel)) return;
@@ -80,7 +80,7 @@ namespace LrControl.Core.Mapping
 
         public bool Enabled
         {
-            get { return _enabled; }
+            get => _enabled;
             private set
             {
                 if (value == _enabled) return;

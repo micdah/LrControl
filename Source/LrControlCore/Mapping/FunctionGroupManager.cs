@@ -27,7 +27,7 @@ namespace LrControl.Core.Mapping
 
         public ObservableCollection<ModuleGroup> Modules
         {
-            get { return _modules; }
+            get => _modules;
             set
             {
                 if (Equals(value, _modules)) return;

@@ -25,7 +25,7 @@ namespace LrControl.Core.Device
 
         public ControllerMessageType MessageType
         {
-            get { return _messageType; }
+            get => _messageType;
             set
             {
                 if (value == _messageType) return;
@@ -37,7 +37,7 @@ namespace LrControl.Core.Device
 
         public ControllerType ControllerType
         {
-            get { return _controllerType; }
+            get => _controllerType;
             set
             {
                 if (value == _controllerType) return;
@@ -50,7 +50,7 @@ namespace LrControl.Core.Device
 
         public Channel Channel
         {
-            get { return _channel; }
+            get => _channel;
             set
             {
                 if (value == _channel) return;
@@ -64,7 +64,7 @@ namespace LrControl.Core.Device
 
         public int ControlNumber
         {
-            get { return _controlNumber; }
+            get => _controlNumber;
             set
             {
                 if (value == _controlNumber) return;
@@ -75,7 +75,7 @@ namespace LrControl.Core.Device
 
         public Range Range
         {
-            get { return _range; }
+            get => _range;
             set
             {
                 if (Equals(value, _range)) return;
@@ -86,7 +86,7 @@ namespace LrControl.Core.Device
 
         public int LastValue
         {
-            get { return _lastValue; }
+            get => _lastValue;
             private set
             {
                 if (value == _lastValue) return;

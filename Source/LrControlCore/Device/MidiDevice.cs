@@ -23,7 +23,7 @@ namespace LrControl.Core.Device
 
         public ObservableCollection<Controller> Controllers
         {
-            get { return _controllers; }
+            get => _controllers;
             private set
             {
                 if (Equals(value, _controllers)) return;

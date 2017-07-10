@@ -18,7 +18,7 @@ namespace LrControl.Core.Functions.Catalog
 
         public ObservableCollection<IFunctionCatalogGroup> Groups
         {
-            get { return _groups; }
+            get => _groups;
             set
             {
                 if (Equals(value, _groups)) return;

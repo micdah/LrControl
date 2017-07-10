@@ -27,7 +27,7 @@ namespace LrControl.Core.Mapping
 
         public Module Module
         {
-            get { return _module; }
+            get => _module;
             private set
             {
                 if (Equals(value, _module)) return;
@@ -38,7 +38,7 @@ namespace LrControl.Core.Mapping
 
         public ObservableCollection<FunctionGroup> FunctionGroups
         {
-            get { return _functionGroups; }
+            get => _functionGroups;
             private set
             {
                 if (Equals(value, _functionGroups)) return;
@@ -49,7 +49,7 @@ namespace LrControl.Core.Mapping
 
         public bool Enabled
         {
-            get { return _enabled; }
+            get => _enabled;
             private set
             {
                 if (value == _enabled) return;

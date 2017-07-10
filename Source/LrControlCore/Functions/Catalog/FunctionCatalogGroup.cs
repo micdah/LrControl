@@ -14,7 +14,7 @@ namespace LrControl.Core.Functions.Catalog
             
         public string DisplayName
         {
-            get { return _displayName; }
+            get => _displayName;
             set
             {
                 if (value == _displayName) return;
@@ -25,7 +25,7 @@ namespace LrControl.Core.Functions.Catalog
 
         public string Key
         {
-            get { return _key; }
+            get => _key;
             set
             {
                 if (value == _key) return;
@@ -36,7 +36,7 @@ namespace LrControl.Core.Functions.Catalog
 
         public ObservableCollection<IFunctionFactory> Functions
         {
-            get { return _functions; }
+            get => _functions;
             set
             {
                 if (Equals(value, _functions)) return;
