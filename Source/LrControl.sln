@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl\LrControl.csproj", "{9C1D8D80-26C5-491E-96D1-643A6DD54520}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midi", "..\Libraries\midi-dot-net\Midi\Midi.csproj", "{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{3D18C536-FA5D-4E7E-B7FC-E7496DFB902C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlPlugin", "LrControlPlugin\LrControlPlugin.csproj", "{892ED5AF-E453-4A14-960D-CAE363455EE6}"
 EndProject
@@ -25,10 +21,6 @@ Global
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,7 +37,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F60D8B7B-2D2E-4B94-A736-3783FFE1A25C} = {3D18C536-FA5D-4E7E-B7FC-E7496DFB902C}
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E9DB943-07DB-4EB0-90A6-8E9612AF6937}
 	EndGlobalSection
 EndGlobal
