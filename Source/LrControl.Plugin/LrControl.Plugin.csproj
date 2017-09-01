@@ -1,0 +1,129 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\Build\Debug\LrControl.lrplugin\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\..\Build\Release\LrControl.lrplugin\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- ChangeObserverParameters -->
+    <None Update="About.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ChangeObserverParameters.lua">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ChangeObserverParameters.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ChangeObserverParameters.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ChangeObserverParameters.lua</LastGenOutput>
+    </None>
+    <None Update="CommandInterpreter.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DisablePlugin.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Info.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Logger.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="LrControlApp.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Main.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Modules.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- ModulesLrApplicationView -->
+    <None Update="ModulesLrApplicationView.lua">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModulesLrApplicationView.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ModulesLrApplicationView.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrApplicationView.lua</LastGenOutput>
+    </None>
+    <!-- ModulesLrDevelopController -->
+    <None Update="ModulesLrDevelopController.lua">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModulesLrDevelopController.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ModulesLrDevelopController.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrDevelopController.lua</LastGenOutput>
+    </None>
+    <!-- ModulesLrDialogs -->
+    <None Update="ModulesLrDialogs.lua">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModulesLrDialogs.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ModulesLrDialogs.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrDialogs.lua</LastGenOutput>
+    </None>
+    <!-- ModulesLrSelection -->
+    <None Update="ModulesLrSelection.lua">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModulesLrSelection.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ModulesLrSelection.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrSelection.lua</LastGenOutput>
+    </None>
+    <!-- ModulesLrUndo -->
+    <None Update="ModulesLrUndo.lua">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModulesLrUndo.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ModulesLrUndo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModulesLrUndo.lua</LastGenOutput>
+    </None>
+    <None Update="ModuleTools.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Options.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Shutdown.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ShutdownPlugin.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="DEL /Q &quot;$(TargetDir)LrControl.Plugin.pdb&quot; &quot;$(TargetDir)LrControl.Plugin.dll&quot; &quot;$(TargetDir)LrControl.Plugin.deps.json&quot;" />
+  </Target>
+
+</Project>

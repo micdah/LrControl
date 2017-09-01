@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="LrControl.Ui.Gui.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:configurations="clr-namespace:LrControl.Core.Configurations;assembly=LrControl.Core"
+             mc:Ignorable="d"
+             d:DesignHeight="600" d:DesignWidth="500"
+             DataContext="{Binding Source={x:Static configurations:Settings.Current}}">
+    <UserControl.Resources>
+        <Style TargetType="controls:ToggleSwitch" BasedOn="{StaticResource MetroToggleSwitch}">
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel>
+        <controls:ToggleSwitch
+            Header="Show pop-up message while changing parameters"
+            OnLabel="Yes" OffLabel="No"
+            IsChecked="{Binding ShowHudMessages}" />
+        
+        <controls:ToggleSwitch
+            Header="Start minimized"
+            OnLabel="Yes" OffLabel="No"
+            IsChecked="{Binding StartMinimized}"/>
+
+        <controls:ToggleSwitch
+            Header="Save configuration when closing"
+            OnLabel="Yes" OffLabel="No"
+            IsChecked="{Binding SaveConfigurationOnExit}"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                       Foreground="{DynamicResource GrayBrush5}"
+                       FontSize="15" 
+                       FontWeight="Bold"
+                       Margin="0,0,0,10">
+                Parameter send frequency (updates / second)
+            </TextBlock>
+            
+            <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="60" Value="{Binding ParameterUpdateFrequency}"
+                    TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ParameterUpdateFrequency}"
+                       Foreground="{DynamicResource GrayBrush1}"
+                       FontSize="15" FontWeight="Normal"
+                       HorizontalAlignment="Center"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

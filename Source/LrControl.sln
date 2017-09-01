@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl\LrControl.csproj", "{9C1D8D80-26C5-491E-96D1-643A6DD54520}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Plugin", "LrControl.Plugin\LrControl.Plugin.csproj", "{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlPlugin", "LrControlPlugin\LrControlPlugin.csproj", "{892ED5AF-E453-4A14-960D-CAE363455EE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Api", "LrControl.Api\LrControl.Api.csproj", "{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlApi", "LrControlApi\LrControlApi.csproj", "{4BD68C41-8C8A-4ABF-9624-0379C2CED801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Core", "LrControl.Core\LrControl.Core.csproj", "{F2E03799-9ABC-4A52-B702-25F226E4AA98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControlCore", "LrControlCore\LrControlCore.csproj", "{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Ui", "LrControl.Ui\LrControl.Ui.csproj", "{9C1D8D80-26C5-491E-96D1-643A6DD54520}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,22 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2E03799-9ABC-4A52-B702-25F226E4AA98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2E03799-9ABC-4A52-B702-25F226E4AA98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2E03799-9ABC-4A52-B702-25F226E4AA98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2E03799-9ABC-4A52-B702-25F226E4AA98}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C1D8D80-26C5-491E-96D1-643A6DD54520}.Release|Any CPU.Build.0 = Release|Any CPU
-		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{892ED5AF-E453-4A14-960D-CAE363455EE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BD68C41-8C8A-4ABF-9624-0379C2CED801}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9CEC7B8-1428-40A0-B6A3-6E6927FFC7F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
