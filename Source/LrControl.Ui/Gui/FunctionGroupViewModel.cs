@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Threading;
 using JetBrains.Annotations;
@@ -17,7 +18,7 @@ namespace LrControl.Ui.Gui
         private bool _enabled;
         private string _displayName;
         private bool _isGlobal;
-        private ObservableCollection<ControllerFunction> _controllerFunctions;
+        private ObservableCollection<ControllerFunctionViewModel> _controllerFunctions;
 
         public FunctionGroupViewModel(Dispatcher dispatcher, FunctionGroup functionGroup)
         {
@@ -26,7 +27,7 @@ namespace LrControl.Ui.Gui
             Enabled = functionGroup.Enabled;
             DisplayName = functionGroup.DisplayName;
             IsGlobal = functionGroup.IsGlobal;
-            ControllerFunctions = new ObservableCollection<ControllerFunction>();
+            ControllerFunctions = new ObservableCollection<ControllerFunctionViewModel>();
             UpdateControllerFunctions(functionGroup.ControllerFunctions);
 
             functionGroup.PropertyChanged += FunctionGroupOnPropertyChanged;
@@ -67,7 +68,7 @@ namespace LrControl.Ui.Gui
             }
         }
 
-        public ObservableCollection<ControllerFunction> ControllerFunctions
+        public ObservableCollection<ControllerFunctionViewModel> ControllerFunctions
         {
             get => _controllerFunctions;
             private set
@@ -107,7 +108,7 @@ namespace LrControl.Ui.Gui
                 return;
             }
 
-            ControllerFunctions.SyncWith(controllerFunctions);
+            ControllerFunctions.SyncWith(controllerFunctions.Select(c => new ControllerFunctionViewModel(_dispatcher, c)));
         }
 
         public void Dispose()

@@ -95,6 +95,7 @@
     <Compile Include="ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\ControllerFunctionViewModel.cs" />
     <Compile Include="Gui\FunctionGroupManagerViewModel.cs" />
     <Compile Include="Gui\FunctionGroupViewModel.cs" />
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">

@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using LrControl.Core.Functions.Factories;
-using LrControl.Core.Mapping;
 using LrControl.Ui.Gui.Utils;
 
 namespace LrControl.Ui.Gui
@@ -11,8 +10,8 @@ namespace LrControl.Ui.Gui
     public partial class ControllerFunctionView
     {
         public static readonly DependencyProperty ControllerFunctionProperty = DependencyProperty.Register(
-            "ControllerFunction", typeof (ControllerFunction), typeof (ControllerFunctionView),
-            new PropertyMetadata(default(ControllerFunction)));
+            "ControllerFunction", typeof (ControllerFunctionViewModel), typeof (ControllerFunctionView),
+            new PropertyMetadata(default(ControllerFunctionViewModel)));
 
         public static readonly DependencyProperty HighlightProperty = DependencyProperty.Register(
             "Highlight", typeof (bool), typeof (ControllerFunctionView), new PropertyMetadata(default(bool)));
@@ -22,9 +21,9 @@ namespace LrControl.Ui.Gui
             InitializeComponent();
         }
 
-        public ControllerFunction ControllerFunction
+        public ControllerFunctionViewModel ControllerFunction
         {
-            get => (ControllerFunction) GetValue(ControllerFunctionProperty);
+            get => (ControllerFunctionViewModel) GetValue(ControllerFunctionProperty);
             set => SetValue(ControllerFunctionProperty, value);
         }
 
@@ -74,7 +73,7 @@ namespace LrControl.Ui.Gui
 
             if (moduleGroup.CanAssignFunction(controllerFunction.Controller, functionGroup.IsGlobal))
             {
-                ControllerFunction.Function = functionFactory.CreateFunction();
+                ControllerFunction.SetFunction(functionFactory.CreateFunction());
                 moduleGroup.RecalculateControllerFunctionState();
             }
         }
@@ -84,7 +83,7 @@ namespace LrControl.Ui.Gui
             var moduleGroup = this.FindParent<ModuleGroupView>()?.ModuleGroup;
             if (moduleGroup != null)
             {
-                ControllerFunction.Function = null;
+                ControllerFunction.SetFunction(null);
                 moduleGroup.RecalculateControllerFunctionState();
             }
         }
