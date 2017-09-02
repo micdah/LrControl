@@ -5,73 +5,29 @@ using JetBrains.Annotations;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
-using Midi.Devices;
 using Midi.Enums;
-using Midi.Messages;
 
 namespace LrControl.Core.Devices
 {
     public delegate void ControllerChangedHandler(int controllerValue);
 
-    public class Controller : INotifyPropertyChanged, IDisposable
+    public class Controller : INotifyPropertyChanged
     {
-        private Channel _channel;
-        private ControllerType _controllerType;
-        private int _controlNumber;
-        private IInputDevice _inputDevice;
+        private readonly Device _device;
         private int _lastValue;
-        private ControllerMessageType _messageType;
         private Range _range;
 
-        public ControllerMessageType MessageType
+        public Controller(Device device)
         {
-            get => _messageType;
-            set
-            {
-                if (value == _messageType) return;
-                _messageType = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(MessageTypeShort));
-            }
+            _device = device;
         }
 
-        public ControllerType ControllerType
-        {
-            get => _controllerType;
-            set
-            {
-                if (value == _controllerType) return;
-                _controllerType = value;
-                OnPropertyChanged();
-            }
-        }
-
+        public ControllerMessageType MessageType { get; set; }
+        public ControllerType ControllerType { get; set; }
         public string MessageTypeShort => MessageType == ControllerMessageType.Nrpn ? "NRPN" : "CC";
-
-        public Channel Channel
-        {
-            get => _channel;
-            set
-            {
-                if (value == _channel) return;
-                _channel = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(ChannelShort));
-            }
-        }
-
+        public Channel Channel { get; set; }
         public string ChannelShort => $"C{(int) Channel}";
-
-        public int ControlNumber
-        {
-            get => _controlNumber;
-            set
-            {
-                if (value == _controlNumber) return;
-                _controlNumber = value;
-                OnPropertyChanged();
-            }
-        }
+        public int ControlNumber { get; set; }
 
         public Range Range
         {
@@ -95,67 +51,12 @@ namespace LrControl.Core.Devices
             }
         }
 
-        public IInputDevice InputDevice
-        {
-            set
-            {
-                if (_inputDevice != null)
-                {
-                    switch (MessageType)
-                    {
-                        case ControllerMessageType.ControlChange:
-                            _inputDevice.ControlChange -= Handle;
-                            break;
-                        case ControllerMessageType.Nrpn:
-                            _inputDevice.Nrpn -= Handle;
-                            break;
-                    }
-                }
-
-                _inputDevice = value;
-
-                if (_inputDevice == null) return;
-                switch (MessageType)
-                {
-                    case ControllerMessageType.ControlChange:
-                        _inputDevice.ControlChange += Handle;
-                        break;
-                    case ControllerMessageType.Nrpn:
-                        _inputDevice.Nrpn += Handle;
-                        break;
-                }
-            }
-        }
-
-        public IOutputDevice OutputDevice { private get; set; }
-
-        public void Dispose()
-        {
-            if (_inputDevice != null)
-            {
-                _inputDevice.Nrpn -= Handle;
-                _inputDevice.ControlChange -= Handle;
-            }
-        }
-
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         public event ControllerChangedHandler ControllerChanged;
 
         public void SetControllerValue(int controllerValue)
         {
-            if (OutputDevice == null) return;
-
-            switch (MessageType)
-            {
-                case ControllerMessageType.ControlChange:
-                    OutputDevice.SendControlChange(Channel, (Control) ControlNumber, controllerValue);
-                    break;
-                case ControllerMessageType.Nrpn:
-                    OutputDevice.SendNrpn(Channel, ControlNumber, controllerValue);
-                    break;
-            }
+            _device.OnDeviceOutput(this, controllerValue);
         }
 
         public ControllerConfiguration GetConfiguration()
@@ -184,25 +85,7 @@ namespace LrControl.Core.Devices
         public void Reset()
         {
             if (Range != null)
-            {
                 SetControllerValue((int) Range.Minimum);
-            }
-        }
-
-        private void Handle(NrpnMessage msg)
-        {
-            if (msg.Channel == Channel && msg.Parameter == ControlNumber)
-            {
-                OnControllerChanged(msg.Value);
-            }
-        }
-
-        private void Handle(ControlChangeMessage msg)
-        {
-            if (msg.Channel == Channel && (int) msg.Control == ControlNumber)
-            {
-                OnControllerChanged(msg.Value);
-            }
         }
 
         [NotifyPropertyChangedInvocator]
@@ -211,9 +94,9 @@ namespace LrControl.Core.Devices
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void OnControllerChanged(int controllervalue)
+        internal void OnDeviceInput(int deviceValue)
         {
-            var clampedValue = Convert.ToInt32(Range.ClampToRange(controllervalue));
+            var clampedValue = Convert.ToInt32(Range.ClampToRange(deviceValue));
 
             LastValue = clampedValue;
             ControllerChanged?.Invoke(clampedValue);
