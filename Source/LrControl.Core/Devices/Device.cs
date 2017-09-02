@@ -86,7 +86,7 @@ namespace LrControl.Core.Devices
 
         public void ResetAllControls()
         {
-            foreach (var controller in Controllers)
+            foreach (var controller in _controllers.Values)
                 controller.Reset();
         }
 
