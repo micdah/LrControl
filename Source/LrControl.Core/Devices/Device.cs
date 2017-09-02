@@ -7,12 +7,12 @@ using Midi.Devices;
 
 namespace LrControl.Core.Devices
 {
-    public class MidiDevice
+    public class Device
     {
         private IInputDevice _inputDevice;
         private IOutputDevice _outputDevice;
 
-        public MidiDevice()
+        public Device()
         {
             Controllers = new Collection<Controller>();
         }

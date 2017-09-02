@@ -22,7 +22,7 @@ namespace LrControl.Ui
 {
     public class MainWindowModel : INotifyPropertyChanged
     {
-        private MidiDevice _midiDevice;
+        private Device _device;
         private IMainWindowDialogProvider _dialogProvider;
         private IFunctionCatalog _functionCatalog;
         private FunctionGroupManager _functionGroupManager;
@@ -52,8 +52,8 @@ namespace LrControl.Ui
 
             // Initialize catalogs and controllers
             FunctionCatalog = LrControl.Core.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
-            MidiDevice = new MidiDevice();
-            FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, MidiDevice);
+            Device = new Device();
+            FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, Device);
 
             // Hookup module listener
             api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
@@ -96,7 +96,7 @@ namespace LrControl.Ui
                     ? new InputDeviceDecorator(value, 1000/Settings.Current.ParameterUpdateFrequency)
                     : null;
 
-                MidiDevice.InputDevice = _inputDevice;
+                Device.InputDevice = _inputDevice;
 
                 if (_inputDevice != null)
                 {
@@ -147,7 +147,7 @@ namespace LrControl.Ui
                 }
 
                 _outputDevice = value;
-                MidiDevice.OutputDevice = value;
+                Device.OutputDevice = value;
 
                 if (_outputDevice != null)
                 {
@@ -184,13 +184,13 @@ namespace LrControl.Ui
             }
         }
 
-        private MidiDevice MidiDevice
+        private Device Device
         {
-            get => _midiDevice;
+            get => _device;
             set
             {
-                if (Equals(value, _midiDevice)) return;
-                _midiDevice = value;
+                if (Equals(value, _device)) return;
+                _device = value;
                 OnPropertyChanged();
             }
         }
@@ -250,7 +250,7 @@ namespace LrControl.Ui
         {
             var conf = new MappingConfiguration
             {
-                Controllers = MidiDevice.GetConfiguration(),
+                Controllers = Device.GetConfiguration(),
                 Modules = FunctionGroupManager.GetConfiguration()
             };
 
@@ -262,8 +262,8 @@ namespace LrControl.Ui
             var conf = MappingConfiguration.Load(file);
             if (conf == null) return;
 
-            MidiDevice.Load(conf.Controllers);
-            MidiDevice.ResetAllControls();
+            Device.Load(conf.Controllers);
+            Device.ResetAllControls();
 
             FunctionGroupManager.Load(conf.Modules);
 
@@ -299,7 +299,7 @@ namespace LrControl.Ui
                 "Confirm clear configuration", DialogButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                MidiDevice?.Clear();
+                Device?.Clear();
                 FunctionGroupManager?.Reset();
             }
         }

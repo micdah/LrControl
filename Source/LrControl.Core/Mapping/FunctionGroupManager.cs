@@ -16,13 +16,13 @@ namespace LrControl.Core.Mapping
     public class FunctionGroupManager : INotifyPropertyChanged
     {
         private readonly IFunctionCatalog _functionCatalog;
-        private readonly MidiDevice _midiDevice;
+        private readonly Device _device;
         private ObservableCollection<ModuleGroup> _modules;
 
-        private FunctionGroupManager(IFunctionCatalog functionCatalog, MidiDevice midiDevice)
+        private FunctionGroupManager(IFunctionCatalog functionCatalog, Device device)
         {
             _functionCatalog = functionCatalog;
-            _midiDevice = midiDevice;
+            _device = device;
         }
 
         public ObservableCollection<ModuleGroup> Modules
@@ -38,9 +38,9 @@ namespace LrControl.Core.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, MidiDevice midiDevice)
+        public static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, Device device)
         {
-            return new FunctionGroupManager(functionCatalog, midiDevice)
+            return new FunctionGroupManager(functionCatalog, device)
             {
                 Modules = new ObservableCollection<ModuleGroup>
                 {
@@ -130,7 +130,7 @@ namespace LrControl.Core.Mapping
                 {
                     group.ClearControllerFunctions();
 
-                    foreach (var controller in _midiDevice.Controllers)
+                    foreach (var controller in _device.Controllers)
                     {
                         group.ControllerFunctions.Add(new ControllerFunction
                         {
