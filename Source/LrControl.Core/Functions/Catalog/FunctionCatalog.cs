@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+using System.Linq;
 using LrControl.Api;
 using LrControl.Core.Functions.Factories;
 
@@ -10,50 +7,26 @@ namespace LrControl.Core.Functions.Catalog
 {
     public partial class FunctionCatalog : IFunctionCatalog
     {
-        private ObservableCollection<IFunctionCatalogGroup> _groups;
-
-        private FunctionCatalog()
+        private FunctionCatalog(IEnumerable<IFunctionCatalogGroup> groups)
         {
+            Groups = groups;
         }
 
-        public ObservableCollection<IFunctionCatalogGroup> Groups
-        {
-            get => _groups;
-            set
-            {
-                if (Equals(value, _groups)) return;
-                _groups = value;
-                OnPropertyChanged();
-            }
-        }
+        public IEnumerable<IFunctionCatalogGroup> Groups { get; }
 
         public IFunctionFactory GetFunctionFactory(string functionKey)
         {
-            foreach (var group in Groups)
-            {
-                foreach (var functionFactory in group.Functions)
-                {
-                    if (functionFactory.Key == functionKey)
-                    {
-                        return functionFactory;
-                    }
-                }
-            }
-
-            return null;
+            return Groups
+                .SelectMany(g => g.Functions)
+                .FirstOrDefault(f => f.Key == functionKey);
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public static IFunctionCatalog DefaultCatalog(LrApi api)
         {
-            return new FunctionCatalog
-            {
-                Groups = CreateGroups(api)
-            };
+            return new FunctionCatalog(CreateGroups(api));
         }
 
-        private static ObservableCollection<IFunctionCatalogGroup> CreateGroups(LrApi api)
+        private static IEnumerable<IFunctionCatalogGroup> CreateGroups(LrApi api)
         {
             var groups = new List<IFunctionCatalogGroup>
             {
@@ -62,14 +35,7 @@ namespace LrControl.Core.Functions.Catalog
                 CreateSelectionGroup(api)
             };
             groups.AddRange(CreateDevelopGroups(api));
-
-            return new ObservableCollection<IFunctionCatalogGroup>(groups);
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            return groups;
         }
     }
 }
