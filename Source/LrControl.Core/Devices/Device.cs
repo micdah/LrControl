@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
@@ -14,13 +13,14 @@ namespace LrControl.Core.Devices
     public class Device
     {
         private IInputDevice _inputDevice;
+        private readonly Dictionary<ControllerKey, Controller> _controllers;
 
         public Device()
         {
-            Controllers = new Collection<Controller>();
+            _controllers = new Dictionary<ControllerKey, Controller>();
         }
 
-        public ICollection<Controller> Controllers { get; }
+        public IEnumerable<Controller> Controllers => _controllers.Values;
 
         public IInputDevice InputDevice
         {
@@ -46,16 +46,20 @@ namespace LrControl.Core.Devices
 
         private void InputDeviceOnControlChange(ControlChangeMessage msg)
         {
-            foreach (var controller in Controllers)
-                if (msg.Channel == controller.Channel && (int) msg.Control == controller.ControlNumber)
-                    controller.OnDeviceInput(msg.Value);
+            var key = new ControllerKey(ControllerMessageType.ControlChange, msg.Channel, (int) msg.Control);
+            if (_controllers.TryGetValue(key, out var controller))
+            {
+                controller.OnDeviceInput(msg.Value);
+            }
         }
 
         private void InputDeviceOnNrpn(NrpnMessage msg)
         {
-            foreach (var controller in Controllers)
-                if (msg.Channel == controller.Channel && msg.Parameter == controller.ControlNumber)
-                    controller.OnDeviceInput(msg.Value);
+            var key = new ControllerKey(ControllerMessageType.Nrpn, msg.Channel, msg.Parameter);
+            if (_controllers.TryGetValue(key, out var controller))
+            {
+                controller.OnDeviceInput(msg.Value);
+            }
         }
 
         internal void OnDeviceOutput(Controller controller, int controllerValue)
@@ -89,22 +93,23 @@ namespace LrControl.Core.Devices
 
         public void Clear()
         {
-            Controllers.Clear();
+            _controllers.Clear();
         }
 
         public void Load(IEnumerable<ControllerConfiguration> controllerConfiguration)
         {
             Clear();
 
-            foreach (var controller in controllerConfiguration)
-                Controllers.Add(new Controller(this)
+            foreach (var conf in controllerConfiguration)
+            {
+                var controller = new Controller(this, conf.MessageType, conf.ControllerType, conf.Channel,
+                    conf.ControlNumber)
                 {
-                    Channel = controller.Channel,
-                    MessageType = controller.MessageType,
-                    ControlNumber = controller.ControlNumber,
-                    ControllerType = controller.ControllerType,
-                    Range = new Range(controller.RangeMin, controller.RangeMax)
-                });
+                    Range = new Range(conf.RangeMin, conf.RangeMax)
+                };
+
+                _controllers[new ControllerKey(controller)] = controller;
+            }
         }
     }
 }

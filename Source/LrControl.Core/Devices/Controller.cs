@@ -17,17 +17,21 @@ namespace LrControl.Core.Devices
         private int _lastValue;
         private Range _range;
 
-        public Controller(Device device)
+        public Controller(Device device, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber)
         {
             _device = device;
+            MessageType = messageType;
+            ControllerType = controllerType;
+            Channel = channel;
+            ControlNumber = controlNumber;
         }
 
-        public ControllerMessageType MessageType { get; set; }
-        public ControllerType ControllerType { get; set; }
+        public ControllerMessageType MessageType { get; }
+        public ControllerType ControllerType { get; }
         public string MessageTypeShort => MessageType == ControllerMessageType.Nrpn ? "NRPN" : "CC";
-        public Channel Channel { get; set; }
+        public Channel Channel { get; }
         public string ChannelShort => $"C{(int) Channel}";
-        public int ControlNumber { get; set; }
+        public int ControlNumber { get; }
 
         public Range Range
         {
