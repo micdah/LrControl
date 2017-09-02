@@ -14,7 +14,7 @@ namespace LrControl.Core.Mapping
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<FunctionGroup>();
 
-        private static readonly List<FunctionGroup> FunctionGroups = new List<FunctionGroup>();
+        private static readonly List<FunctionGroup> AllFunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;
         private bool _enabled;
         private ObservableCollection<ControllerFunction> _controllerFunctions;
@@ -29,7 +29,7 @@ namespace LrControl.Core.Mapping
             IsGlobal = panel == null;
             Panel = panel;
 
-            FunctionGroups.Add(this);
+            AllFunctionGroups.Add(this);
         }
 
         public string DisplayName => IsGlobal ? "Global" : $"{Panel.Name}";
@@ -93,7 +93,7 @@ namespace LrControl.Core.Mapping
 
         public static FunctionGroup GetFunctionGroupFor(Panel panel)
         {
-            return FunctionGroups.FirstOrDefault(group => group.Panel == panel);
+            return AllFunctionGroups.FirstOrDefault(group => group.Panel == panel);
         }
 
         public void Enable()
@@ -101,7 +101,7 @@ namespace LrControl.Core.Mapping
             if (!IsGlobal)
             {
                 // Disable other non-global groups
-                foreach (var group in FunctionGroups.Where(g => !g.IsGlobal && g != this))
+                foreach (var group in AllFunctionGroups.Where(g => !g.IsGlobal && g != this))
                 {
                     group.Disable();
                 }

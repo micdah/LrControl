@@ -87,32 +87,31 @@ namespace LrControl.Core.Mapping
             return group;
         }
 
-        public void Load(List<ModuleConfiguration> modules)
+        public void Load(List<ModuleConfiguration> moduleConfigurations)
         {
             Reset();
 
-            foreach (var confModule in modules)
+            foreach (var moduleConfiguration in moduleConfigurations)
             {
                 // Find matching module
-                var module = Modules.SingleOrDefault(m => m.Module.Value == confModule.ModuleName);
+                var module = Modules.SingleOrDefault(m => m.Module.Value == moduleConfiguration.ModuleName);
                 if (module == null) continue;
 
-                foreach (var confFunctionGroup in confModule.FunctionGroups)
+                foreach (var functionGroupConfiguration in moduleConfiguration.FunctionGroups)
                 {
                     // Find matching function group
-                    var functionGroup = module.FunctionGroups.SingleOrDefault(g => g.Key == confFunctionGroup.Key);
+                    var functionGroup = module.FunctionGroups.SingleOrDefault(g => g.Key == functionGroupConfiguration.Key);
                     if (functionGroup == null) continue;
 
-                    foreach (var confControllerFunction in confFunctionGroup.ControllerFunctions)
+                    foreach (var controllerFunctionConfiguration in functionGroupConfiguration.ControllerFunctions)
                     {
                         // Find controller function, for controller key
-                        var controllerFunction =
-                            functionGroup.ControllerFunctions.SingleOrDefault(
-                                c => c.Controller.IsController(confControllerFunction.ControllerKey));
+                        var controllerFunction = functionGroup.ControllerFunctions
+                            .SingleOrDefault(c => c.Controller.IsController(controllerFunctionConfiguration.ControllerKey));
                         if (controllerFunction == null) continue;
 
                         // Find function factory, for function key
-                        var functionFactory = _functionCatalog.GetFunctionFactory(confControllerFunction.FunctionKey);
+                        var functionFactory = _functionCatalog.GetFunctionFactory(controllerFunctionConfiguration.FunctionKey);
                         if (functionFactory == null) continue;
 
                         controllerFunction.Function = functionFactory.CreateFunction();

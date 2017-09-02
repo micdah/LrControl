@@ -1,36 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using Midi.Devices;
 
 namespace LrControl.Core.Device
 {
-    public class MidiDevice : INotifyPropertyChanged
+    public class MidiDevice
     {
-        private ObservableCollection<Controller> _controllers;
         private IInputDevice _inputDevice;
         private IOutputDevice _outputDevice;
 
         public MidiDevice()
         {
-            Controllers = new ObservableCollection<Controller>();
+            Controllers = new Collection<Controller>();
         }
 
-        public ObservableCollection<Controller> Controllers
-        {
-            get => _controllers;
-            private set
-            {
-                if (Equals(value, _controllers)) return;
-                _controllers = value;
-                OnPropertyChanged();
-            }
-        }
+        public ICollection<Controller> Controllers { get; private set; }
 
         public IInputDevice InputDevice
         {
@@ -59,8 +46,6 @@ namespace LrControl.Core.Device
                 }
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public void ResetAllControls()
         {
@@ -101,12 +86,6 @@ namespace LrControl.Core.Device
                     OutputDevice = OutputDevice
                 });
             }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
