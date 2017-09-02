@@ -92,7 +92,7 @@ namespace LrControl.Core.Devices
 
         public List<ControllerConfiguration> GetConfiguration()
         {
-            return Controllers.Select(controller => controller.GetConfiguration()).ToList();
+            return _controllers.Values.Select(controller => controller.GetConfiguration()).ToList();
         }
 
         public void Clear()
