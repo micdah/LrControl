@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using LrControl.Api;
 using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Core.Configurations;
-using LrControl.Core.Device;
+using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Mapping;
 using LrControl.Core.Midi;

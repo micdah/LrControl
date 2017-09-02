@@ -5,7 +5,7 @@ using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using Midi.Devices;
 
-namespace LrControl.Core.Device
+namespace LrControl.Core.Devices
 {
     public class MidiDevice
     {

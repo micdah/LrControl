@@ -8,7 +8,7 @@ using LrControl.Api;
 using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Api.Modules.LrDevelopController;
 using LrControl.Core.Configurations;
-using LrControl.Core.Device;
+using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
 
 namespace LrControl.Core.Mapping

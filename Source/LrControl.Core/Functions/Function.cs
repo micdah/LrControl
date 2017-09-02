@@ -3,7 +3,6 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Api;
 using LrControl.Core.Configurations;
-using LrControl.Core.Device;
 
 namespace LrControl.Core.Functions
 {

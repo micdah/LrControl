@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Api.Modules.LrApplicationView;
-using LrControl.Core.Device;
 using Serilog;
 
 namespace LrControl.Core.Mapping
