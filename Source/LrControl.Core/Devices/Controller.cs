@@ -15,15 +15,15 @@ namespace LrControl.Core.Devices
     {
         private readonly Device _device;
         private int _lastValue;
-        private Range _range;
 
-        public Controller(Device device, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber)
+        public Controller(Device device, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber, Range range)
         {
             _device = device;
             MessageType = messageType;
             ControllerType = controllerType;
             Channel = channel;
             ControlNumber = controlNumber;
+            Range = range;
         }
 
         public ControllerMessageType MessageType { get; }
@@ -32,17 +32,7 @@ namespace LrControl.Core.Devices
         public Channel Channel { get; }
         public string ChannelShort => $"C{(int) Channel}";
         public int ControlNumber { get; }
-
-        public Range Range
-        {
-            get => _range;
-            set
-            {
-                if (Equals(value, _range)) return;
-                _range = value;
-                OnPropertyChanged();
-            }
-        }
+        public Range Range { get; }
 
         public int LastValue
         {
@@ -98,13 +88,21 @@ namespace LrControl.Core.Devices
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        internal void OnDeviceInput(int deviceValue)
+        internal void OnDeviceInput(int value)
         {
-            // TODO Update Range if value falls outside current range
-            var clampedValue = Convert.ToInt32(Range.ClampToRange(deviceValue));
-
-            LastValue = clampedValue;
-            ControllerChanged?.Invoke(clampedValue);
+            if (value < Range)
+            {
+                Range.Minimum = value;
+                OnPropertyChanged(nameof(Range));
+            }
+            else if (value > Range)
+            {
+                Range.Maximum = value;
+                OnPropertyChanged(nameof(Range));
+            }
+            
+            LastValue = value;
+            ControllerChanged?.Invoke(value);
         }
 
         public bool IsController(ControllerConfigurationKey controllerKey)

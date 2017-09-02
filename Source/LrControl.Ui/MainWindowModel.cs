@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Threading;
 using JetBrains.Annotations;
 using LrControl.Api;
 using LrControl.Api.Modules.LrApplicationView;
@@ -14,7 +15,6 @@ using LrControl.Core.Mapping;
 using LrControl.Core.Midi;
 using LrControl.Core.Util;
 using LrControl.Ui.Core;
-using LrControl.Ui.Gui.Tools;
 using Midi.Devices;
 using Prism.Commands;
 
@@ -25,7 +25,6 @@ namespace LrControl.Ui
         private Device _device;
         private IMainWindowDialogProvider _dialogProvider;
         private IFunctionCatalog _functionCatalog;
-        private FunctionGroupManager _functionGroupManager;
         private InputDeviceDecorator _inputDevice;
         private string _inputDeviceName;
         private ObservableCollection<IInputDevice> _inputDevices;
@@ -48,12 +47,12 @@ namespace LrControl.Ui
             ImportCommand = new DelegateCommand(ImportConfiguration);
             ResetCommand = new DelegateCommand(Reset);
             RefreshAvailableDevicesCommand = new DelegateCommand(RefreshAvailableDevices);
-            SetupControllerCommand = new DelegateCommand(SetupController);
-
+            
             // Initialize catalogs and controllers
             FunctionCatalog = LrControl.Core.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
             Device = new Device();
             FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, Device);
+            FunctionGroupManagerViewModel = new FunctionGroupManagerViewModel(Dispatcher.CurrentDispatcher, FunctionGroupManager);
 
             // Hookup module listener
             api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
@@ -81,8 +80,7 @@ namespace LrControl.Ui
         public ICommand ImportCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand RefreshAvailableDevicesCommand { get; }
-        public ICommand SetupControllerCommand { get; }
-
+        
         public IInputDevice InputDevice
         {
             get => _inputDevice;
@@ -134,6 +132,17 @@ namespace LrControl.Ui
             }
         }
 
+        public ObservableCollection<IOutputDevice> OutputDevices
+        {
+            get => _outputDevices;
+            private set
+            {
+                if (Equals(value, _outputDevices)) return;
+                _outputDevices = value;
+                OnPropertyChanged();
+            }
+        }
+
         public IOutputDevice OutputDevice
         {
             get => _outputDevice;
@@ -173,13 +182,24 @@ namespace LrControl.Ui
             }
         }
 
-        public ObservableCollection<IOutputDevice> OutputDevices
+        public IFunctionCatalog FunctionCatalog
         {
-            get => _outputDevices;
+            get => _functionCatalog;
             private set
             {
-                if (Equals(value, _outputDevices)) return;
-                _outputDevices = value;
+                if (Equals(value, _functionCatalog)) return;
+                _functionCatalog = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool ShowSettingsDialog
+        {
+            get => _showSettingsDialog;
+            set
+            {
+                if (value == _showSettingsDialog) return;
+                _showSettingsDialog = value;
                 OnPropertyChanged();
             }
         }
@@ -195,38 +215,9 @@ namespace LrControl.Ui
             }
         }
 
-        public IFunctionCatalog FunctionCatalog
-        {
-            get => _functionCatalog;
-            private set
-            {
-                if (Equals(value, _functionCatalog)) return;
-                _functionCatalog = value;
-                OnPropertyChanged();
-            }
-        }
+        public FunctionGroupManagerViewModel FunctionGroupManagerViewModel { get; }
 
-        public FunctionGroupManager FunctionGroupManager
-        {
-            get => _functionGroupManager;
-            private set
-            {
-                if (Equals(value, _functionGroupManager)) return;
-                _functionGroupManager = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool ShowSettingsDialog
-        {
-            get => _showSettingsDialog;
-            set
-            {
-                if (value == _showSettingsDialog) return;
-                _showSettingsDialog = value;
-                OnPropertyChanged();
-            }
-        }
+        private FunctionGroupManager FunctionGroupManager { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -323,19 +314,6 @@ namespace LrControl.Ui
                 OutputDevices.Add(outputDevice);
             }
             OutputDeviceName = outputDeviceName;
-        }
-
-        public void SetupController()
-        {
-            var viewModel = new SetupControllerModel
-            {
-                InputDevice = InputDevice
-            };
-
-            var dialog = new SetupController(viewModel);
-            dialog.ShowDialog();
-
-            // TODO Update configuration based on setup
         }
 
         private static string GetSettingsFolder()

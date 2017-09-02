@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,11 +12,10 @@ namespace LrControl.Core.Mapping
     public class FunctionGroup : INotifyPropertyChanged
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<FunctionGroup>();
-
         private static readonly List<FunctionGroup> AllFunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;
+        private readonly List<ControllerFunction> _controllerFunctions;
         private bool _enabled;
-        private ObservableCollection<ControllerFunction> _controllerFunctions;
         private bool _isGlobal;
         private Panel _panel;
         private string _key;
@@ -25,14 +23,17 @@ namespace LrControl.Core.Mapping
         public FunctionGroup(LrApi api, Panel panel = null)
         {
             _api = api;
-            ControllerFunctions = new ObservableCollection<ControllerFunction>();
             IsGlobal = panel == null;
             Panel = panel;
+
+            _controllerFunctions = new List<ControllerFunction>();
+            OnPropertyChanged(nameof(ControllerFunctions));
 
             AllFunctionGroups.Add(this);
         }
 
         public string DisplayName => IsGlobal ? "Global" : $"{Panel.Name}";
+        public IEnumerable<ControllerFunction> ControllerFunctions => _controllerFunctions;
 
         public string Key
         {
@@ -41,17 +42,6 @@ namespace LrControl.Core.Mapping
             {
                 if (value == _key) return;
                 _key = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<ControllerFunction> ControllerFunctions
-        {
-            get => _controllerFunctions;
-            private set
-            {
-                if (Equals(value, _controllerFunctions)) return;
-                _controllerFunctions = value;
                 OnPropertyChanged();
             }
         }
@@ -136,14 +126,21 @@ namespace LrControl.Core.Mapping
             Log.Debug("Disabled FunctionGroup for {Name}", Panel?.Name);
         }
 
+        public void AddControllerFunction(ControllerFunction controllerFunction)
+        {
+            _controllerFunctions.Add(controllerFunction);
+            OnPropertyChanged(nameof(ControllerFunctions));
+        }
+
         public void ClearControllerFunctions()
         {
-            foreach (var controllerFunction in ControllerFunctions)
+            foreach (var controllerFunction in _controllerFunctions)
             {
                 controllerFunction.Dispose();
             }
 
-            ControllerFunctions.Clear();
+            _controllerFunctions.Clear();
+            OnPropertyChanged(nameof(ControllerFunctions));
         }
 
         [NotifyPropertyChangedInvocator]

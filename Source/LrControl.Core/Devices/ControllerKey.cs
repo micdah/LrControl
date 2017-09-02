@@ -6,9 +6,9 @@ namespace LrControl.Core.Devices
 {
     internal struct ControllerKey : IEquatable<ControllerKey>
     {
-        private ControllerMessageType ControllerMessageType { get; }
-        private Channel Channel { get; }
-        private int ControlNumber { get; }
+        public ControllerMessageType ControllerMessageType { get; }
+        public Channel Channel { get; }
+        public int ControlNumber { get; }
 
         public ControllerKey(ControllerMessageType controllerMessageType, Channel channel, int controlNumber)
         {

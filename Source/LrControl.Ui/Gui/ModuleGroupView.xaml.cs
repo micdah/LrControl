@@ -3,7 +3,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using JetBrains.Annotations;
-using LrControl.Core.Mapping;
 
 namespace LrControl.Ui.Gui
 {
@@ -13,26 +12,26 @@ namespace LrControl.Ui.Gui
     public partial class ModuleGroupView : INotifyPropertyChanged
     {
         public static readonly DependencyProperty ModuleGroupProperty = DependencyProperty.Register(
-            "ModuleGroup", typeof (ModuleGroup), typeof (ModuleGroupView),
-            new PropertyMetadata(default(ModuleGroup), ModuleGroupChanged));
+            "ModuleGroup", typeof (ModuleGroupViewModel), typeof (ModuleGroupView),
+            new PropertyMetadata(default(ModuleGroupViewModel), ModuleGroupChanged));
 
         public static readonly DependencyProperty SelectedProperty = DependencyProperty.Register(
-            "Selected", typeof (FunctionGroup), typeof (ModuleGroupView), new PropertyMetadata(default(FunctionGroup)));
+            "Selected", typeof (FunctionGroupViewModel), typeof (ModuleGroupView), new PropertyMetadata(default(FunctionGroupViewModel)));
 
         public ModuleGroupView()
         {
             InitializeComponent();
         }
 
-        public ModuleGroup ModuleGroup
+        public ModuleGroupViewModel ModuleGroup
         {
-            get => (ModuleGroup) GetValue(ModuleGroupProperty);
+            get => (ModuleGroupViewModel) GetValue(ModuleGroupProperty);
             set => SetValue(ModuleGroupProperty, value);
         }
 
-        public FunctionGroup Selected
+        public FunctionGroupViewModel Selected
         {
-            get => (FunctionGroup) GetValue(SelectedProperty);
+            get => (FunctionGroupViewModel) GetValue(SelectedProperty);
             set => SetValue(SelectedProperty, value);
         }
 

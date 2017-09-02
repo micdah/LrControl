@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -17,47 +16,38 @@ namespace LrControl.Core.Mapping
     {
         private readonly IFunctionCatalog _functionCatalog;
         private readonly Device _device;
-        private ObservableCollection<ModuleGroup> _modules;
+        private readonly List<ModuleGroup> _modules;
 
-        private FunctionGroupManager(IFunctionCatalog functionCatalog, Device device)
+        private FunctionGroupManager(IFunctionCatalog functionCatalog, Device device, List<ModuleGroup> modules)
         {
             _functionCatalog = functionCatalog;
             _device = device;
+            _device.ControllerAdded += DeviceOnControllerAdded;
+            _modules = modules;
+            OnPropertyChanged(nameof(Modules));
         }
 
-        public ObservableCollection<ModuleGroup> Modules
-        {
-            get => _modules;
-            set
-            {
-                if (Equals(value, _modules)) return;
-                _modules = value;
-                OnPropertyChanged();
-            }
-        }
+        public IEnumerable<ModuleGroup> Modules => _modules;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, Device device)
         {
-            return new FunctionGroupManager(functionCatalog, device)
+            return new FunctionGroupManager(functionCatalog, device, new List<ModuleGroup>
             {
-                Modules = new ObservableCollection<ModuleGroup>
-                {
-                    CreateModuleWithGlobal(api, Module.Library),
-                    CreateDevelopModule(api),
-                    CreateModuleWithGlobal(api, Module.Map),
-                    CreateModuleWithGlobal(api, Module.Book),
-                    CreateModuleWithGlobal(api, Module.Slideshow),
-                    CreateModuleWithGlobal(api, Module.Print),
-                    CreateModuleWithGlobal(api, Module.Web)
-                }
-            };
+                CreateModuleWithGlobal(api, Module.Library),
+                CreateDevelopModule(api),
+                CreateModuleWithGlobal(api, Module.Map),
+                CreateModuleWithGlobal(api, Module.Book),
+                CreateModuleWithGlobal(api, Module.Slideshow),
+                CreateModuleWithGlobal(api, Module.Print),
+                CreateModuleWithGlobal(api, Module.Web)
+            });
         }
 
         private static ModuleGroup CreateModuleWithGlobal(LrApi api, Module module)
         {
-            return new ModuleGroup(module, new[]
+            return new ModuleGroup(module, new List<FunctionGroup>
             {
                 new FunctionGroup(api)
                 {
@@ -68,7 +58,7 @@ namespace LrControl.Core.Mapping
 
         private static ModuleGroup CreateDevelopModule(LrApi api)
         {
-            var group = new ModuleGroup(Module.Develop, new[]
+            var group = new ModuleGroup(Module.Develop, new List<FunctionGroup>
             {
                 new FunctionGroup(api)
                 {
@@ -78,7 +68,7 @@ namespace LrControl.Core.Mapping
 
             foreach (var panel in Panel.AllEnums)
             {
-                group.FunctionGroups.Add(new FunctionGroup(api, panel)
+                group.AddFunctionGroup(new FunctionGroup(api, panel)
                 {
                     Key = $"{Module.Develop.Value}:{panel.Value}"
                 });
@@ -87,7 +77,7 @@ namespace LrControl.Core.Mapping
             return group;
         }
 
-        public void Load(List<ModuleConfiguration> moduleConfigurations)
+        public void Load(IEnumerable<ModuleConfiguration> moduleConfigurations)
         {
             Reset();
 
@@ -132,7 +122,7 @@ namespace LrControl.Core.Mapping
 
                     foreach (var controller in _device.Controllers)
                     {
-                        group.ControllerFunctions.Add(new ControllerFunction
+                        group.AddControllerFunction(new ControllerFunction
                         {
                             Controller = controller
                         });
@@ -175,6 +165,21 @@ namespace LrControl.Core.Mapping
             foreach (var moduleGroup in Modules.Where(g => g.Module == module))
             {
                 moduleGroup.Enable();
+            }
+        }
+
+        private void DeviceOnControllerAdded(Controller controller)
+        {
+            // Add new controller to each function group, within each module
+            foreach (var module in Modules)
+            {
+                foreach (var group in module.FunctionGroups)
+                {
+                    group.AddControllerFunction(new ControllerFunction
+                    {
+                        Controller = controller
+                    });
+                }
             }
         }
 

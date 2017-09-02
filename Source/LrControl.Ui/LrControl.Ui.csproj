@@ -91,9 +91,12 @@
     </ApplicationDefinition>
     <Compile Include="Core\IDialogProvider.cs" />
     <Compile Include="Core\MetroWindowDialogProvider.cs" />
+    <Compile Include="Core\ObservableCollectionExtensions.cs" />
     <Compile Include="ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FunctionGroupManagerViewModel.cs" />
+    <Compile Include="FunctionGroupViewModel.cs" />
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">
       <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
     </Compile>
@@ -109,14 +112,6 @@
     <Compile Include="Gui\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gui\Tools\BCF2000Tester.xaml.cs">
-      <DependentUpon>BCF2000Tester.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Tools\ControllerSetup.cs" />
-    <Compile Include="Gui\Tools\SetupController.xaml.cs">
-      <DependentUpon>SetupController.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\Tools\SetupControllerModel.cs" />
     <Compile Include="Gui\Utils\BooleanFillValueConverter.cs" />
     <Compile Include="Gui\Utils\ButtonFillValueConverter.cs" />
     <Compile Include="Gui\Utils\DebugConverter.cs" />
@@ -153,14 +148,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Gui\Tools\BCF2000Tester.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Gui\Tools\SetupController.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +165,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModuleGroupViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
