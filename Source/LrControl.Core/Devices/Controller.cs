@@ -100,6 +100,7 @@ namespace LrControl.Core.Devices
 
         internal void OnDeviceInput(int deviceValue)
         {
+            // TODO Update Range if value falls outside current range
             var clampedValue = Convert.ToInt32(Range.ClampToRange(deviceValue));
 
             LastValue = clampedValue;

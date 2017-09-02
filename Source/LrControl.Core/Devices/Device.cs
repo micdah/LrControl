@@ -51,6 +51,8 @@ namespace LrControl.Core.Devices
             {
                 controller.OnDeviceInput(msg.Value);
             }
+
+            // TODO Add controller if not found
         }
 
         private void InputDeviceOnNrpn(NrpnMessage msg)
@@ -60,6 +62,8 @@ namespace LrControl.Core.Devices
             {
                 controller.OnDeviceInput(msg.Value);
             }
+
+            // TODO Add controller if not found
         }
 
         internal void OnDeviceOutput(Controller controller, int controllerValue)
