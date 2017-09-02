@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using LrControl.Core.Devices;
 
 namespace LrControl.Core.Functions
 {

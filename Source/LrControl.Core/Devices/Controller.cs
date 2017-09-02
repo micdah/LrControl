@@ -4,12 +4,12 @@ using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
-using LrControl.Core.Device.Enums;
+using LrControl.Core.Devices.Enums;
 using Midi.Devices;
 using Midi.Enums;
 using Midi.Messages;
 
-namespace LrControl.Core.Device
+namespace LrControl.Core.Devices
 {
     public delegate void ControllerChangedHandler(int controllerValue);
 
