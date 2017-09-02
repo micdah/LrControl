@@ -6,13 +6,13 @@ namespace LrControl.Api.Common
     {
         public Range(double minimum, double maximum)
         {
-            if (maximum <= minimum) throw new ArgumentException("Maximum must be larger than minimum", nameof(maximum));
+            if (maximum < minimum) throw new ArgumentException("Maximum must be larger than minimum", nameof(maximum));
 
             Minimum = minimum;
             Maximum = maximum;
         }
 
-        public Range()
+        public Range() : this(0,0)
         {
         }
 
@@ -32,18 +32,29 @@ namespace LrControl.Api.Common
             return Minimum + (Maximum - Minimum)*((value - range.Minimum)/(range.Maximum - range.Minimum));
         }
 
-        public double ClampToRange(double value)
-        {
-            if (value < Minimum)
-                return Minimum;
-            if (value > Maximum)
-                return Maximum;
-            return value;
-        }
-
         public override string ToString()
         {
             return $"[{Minimum},{Maximum}]";
+        }
+
+        public static bool operator <(double value, Range range)
+        {
+            return value < range.Minimum;
+        }
+
+        public static bool operator <=(double value, Range range)
+        {
+            return value <= range.Minimum;
+        }
+
+        public static bool operator >(double value, Range range)
+        {
+            return value > range.Maximum;
+        }
+
+        public static bool operator >=(double value, Range range)
+        {
+            return value >= range.Maximum;
         }
     }
 }

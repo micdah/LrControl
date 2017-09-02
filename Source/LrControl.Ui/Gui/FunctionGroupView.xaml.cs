@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using LrControl.Core.Mapping;
 
 namespace LrControl.Ui.Gui
 {
@@ -9,17 +8,17 @@ namespace LrControl.Ui.Gui
     public partial class FunctionGroupView
     {
         public static readonly DependencyProperty FunctionGroupProperty = DependencyProperty.Register(
-            "FunctionGroup", typeof (FunctionGroup), typeof (FunctionGroupView),
-            new PropertyMetadata(default(FunctionGroup)));
+            "FunctionGroup", typeof (FunctionGroupViewModel), typeof (FunctionGroupView),
+            new PropertyMetadata(default(FunctionGroupViewModel)));
 
         public FunctionGroupView()
         {
             InitializeComponent();
         }
 
-        public FunctionGroup FunctionGroup
+        public FunctionGroupViewModel FunctionGroup
         {
-            get => (FunctionGroup) GetValue(FunctionGroupProperty);
+            get => (FunctionGroupViewModel) GetValue(FunctionGroupProperty);
             set => SetValue(FunctionGroupProperty, value);
         }
     }

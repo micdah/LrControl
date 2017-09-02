@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Api.Modules.LrApplicationView;
-using LrControl.Core.Device;
+using LrControl.Core.Devices;
 using Serilog;
 
 namespace LrControl.Core.Mapping
@@ -13,39 +12,21 @@ namespace LrControl.Core.Mapping
     public class ModuleGroup : INotifyPropertyChanged
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ModuleGroup>();
-
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
+        private readonly List<FunctionGroup> _functionGroups;
         private bool _enabled;
-        private ObservableCollection<FunctionGroup> _functionGroups;
-        private Module _module;
 
-        public ModuleGroup(Module module, IEnumerable<FunctionGroup> functionGroups)
+        public ModuleGroup(Module module, List<FunctionGroup> functionGroups)
         {
             Module = module;
-            FunctionGroups = new ObservableCollection<FunctionGroup>(functionGroups);
+            OnPropertyChanged(nameof(Module));
+
+            _functionGroups = functionGroups;
+            OnPropertyChanged(nameof(FunctionGroups));
         }
 
-        public Module Module
-        {
-            get => _module;
-            private set
-            {
-                if (Equals(value, _module)) return;
-                _module = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<FunctionGroup> FunctionGroups
-        {
-            get => _functionGroups;
-            private set
-            {
-                if (Equals(value, _functionGroups)) return;
-                _functionGroups = value;
-                OnPropertyChanged();
-            }
-        }
+        public Module Module { get; }
+        public IEnumerable<FunctionGroup> FunctionGroups => _functionGroups;
 
         public bool Enabled
         {
@@ -59,6 +40,12 @@ namespace LrControl.Core.Mapping
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public void AddFunctionGroup(FunctionGroup functionGroup)
+        {
+            _functionGroups.Add(functionGroup);
+            OnPropertyChanged(nameof(FunctionGroups));
+        }
 
         public void Enable()
         {

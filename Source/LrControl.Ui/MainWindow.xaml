@@ -54,7 +54,7 @@
             </Grid.RowDefinitions>
 
             <!-- Module tabs -->
-            <TabControl Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding FunctionGroupManager.Modules}" SelectedIndex="0">
+            <TabControl Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" ItemsSource="{Binding FunctionGroupManagerViewModel.Modules}" SelectedIndex="0">
                 <TabControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Background="{Binding Enabled, Converter={StaticResource EnabledFillConverter}}">
@@ -86,7 +86,6 @@
 
                 <DockPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3">
                     <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
-                        <Button Command="{Binding SetupControllerCommand}">setup</Button>
                         <Button Command="{Binding RefreshAvailableDevicesCommand}">refresh</Button>
                     </StackPanel>
                     

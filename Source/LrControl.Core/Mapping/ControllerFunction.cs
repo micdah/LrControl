@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
-using LrControl.Core.Device;
-using LrControl.Core.Device.Enums;
+using LrControl.Core.Devices;
+using LrControl.Core.Devices.Enums;
 using LrControl.Core.Functions;
 
 namespace LrControl.Core.Mapping

@@ -7,7 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              x:Name="UserControl">
-    <ItemsControl ItemsSource="{Binding ElementName=UserControl, Path=FunctionGroup.ControllerFunctions}">
+    <ItemsControl ItemsSource="{Binding 
+        ElementName=UserControl, 
+        Path=FunctionGroup.ControllerFunctions, 
+        Mode=OneWay}">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <WrapPanel Orientation="Horizontal"/>

@@ -1,4 +1,4 @@
-﻿using LrControl.Core.Device.Enums;
+﻿using LrControl.Core.Devices.Enums;
 using Midi.Enums;
 
 namespace LrControl.Core.Configurations
