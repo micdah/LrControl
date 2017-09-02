@@ -5,7 +5,7 @@ using LrControl.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions
 {
-    internal class TemperatureParameterFunction : ParameterFunction
+    internal class TemperatureParameterFunction : ParameterFunction<double>
     {
         private const double ParameterRangeSplit = 12000.0/48000.0;
         private const double ControllerRangeSplit = 85.0/100.0;
@@ -15,7 +15,7 @@ namespace LrControl.Core.Functions
 
         private Range _parameterRangeLow;
 
-        public TemperatureParameterFunction(LrApi api, string displayName, IParameter parameter, string key)
+        public TemperatureParameterFunction(LrApi api, string displayName, IParameter<double> parameter, string key)
             : base(api, displayName, parameter, key)
         {
         }
@@ -34,10 +34,9 @@ namespace LrControl.Core.Functions
 
         protected override int CalculateControllerValue()
         {
-            double value;
-            if (!Api.LrDevelopController.GetValue(out value, DoubleParameter)) return 0;
+            if (!Api.LrDevelopController.GetValue(out var value, Parameter)) return 0;
 
-            var controllerValue = value < ParameterRange.Maximum*ParameterRangeSplit
+            var controllerValue = value < ParameterRange.Maximum * ParameterRangeSplit
                 ? _controllerRangeLow.FromRange(_parameterRangeLow, value)
                 : _controllerRangeHigh.FromRange(_parameterRangeHigh, value);
 

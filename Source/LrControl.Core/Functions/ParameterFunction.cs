@@ -5,38 +5,17 @@ using LrControl.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions
 {
-    internal class ParameterFunction : Function
+    internal class ParameterFunction<T> : Function
     {
-        protected readonly IParameter<bool> BoolParameter;
-        protected readonly IParameter<double> DoubleParameter;
-        protected readonly IParameter<int> IntParameter;
+        protected readonly IParameter<T> Parameter;
         protected Range ParameterRange;
 
-        public ParameterFunction(LrApi api, string displayName, IParameter parameter, string key)
+        public ParameterFunction(LrApi api, string displayName, IParameter<T> parameter, string key)
             : base(api, displayName, key)
         {
-            IntParameter = parameter as IParameter<int>;
-            DoubleParameter = parameter as IParameter<double>;
-            BoolParameter = parameter as IParameter<bool>;
-
-            if (IntParameter == null && DoubleParameter == null && BoolParameter == null)
-                throw new ArgumentException(@"Unsupported parameter type", nameof(parameter));
+            Parameter = parameter;
 
             api.LrDevelopController.AddParameterChangedListener(parameter, ParameterChanged);
-        }
-
-        private IParameter Parameter
-        {
-            get
-            {
-                if (IntParameter != null)
-                    return IntParameter;
-                if (BoolParameter != null)
-                    return BoolParameter;
-                if (DoubleParameter != null)
-                    return DoubleParameter;
-                throw new InvalidOperationException();
-            }
         }
 
         public override void Enable()
@@ -55,25 +34,27 @@ namespace LrControl.Core.Functions
             if (!UpdateRange()) return;
 
             var parameterValue = CalculateParamterValue(controllerValue);
-            if (IntParameter != null)
+            switch (Parameter)
             {
-                var intValue = Convert.ToInt32(parameterValue);
-                Api.LrDevelopController.SetValue(IntParameter, intValue);
+                case IParameter<int> intParameter:
+                    var intValue = Convert.ToInt32(parameterValue);
+                    Api.LrDevelopController.SetValue(intParameter, intValue);
 
-                ShowHud($"{IntParameter.DisplayName}: {intValue}");
-            }
-            else if (DoubleParameter != null)
-            {
-                Api.LrDevelopController.SetValue(DoubleParameter, parameterValue);
+                    ShowHud($"{intParameter.DisplayName}: {intValue}");
+                    break;
 
-                ShowHud($"{DoubleParameter.DisplayName}: {parameterValue:F2}");
-            }
-            else if (BoolParameter != null)
-            {
-                var enabled = controllerValue == (int) Controller.Range.Maximum;
-                Api.LrDevelopController.SetValue(BoolParameter, enabled);
+                case IParameter<double> doubleParameter:
+                    Api.LrDevelopController.SetValue(doubleParameter, parameterValue);
 
-                ShowHud($"{BoolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
+                    ShowHud($"{doubleParameter.DisplayName}: {parameterValue:F2}");
+                    break;
+
+                case IParameter<bool> boolParameter:
+                    var enabled = controllerValue == (int)Controller.Range.Maximum;
+                    Api.LrDevelopController.SetValue(boolParameter, enabled);
+
+                    ShowHud($"{boolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
+                    break;
             }
         }
 
@@ -98,32 +79,27 @@ namespace LrControl.Core.Functions
 
         protected virtual int CalculateControllerValue()
         {
-            if (IntParameter != null)
+            switch (Parameter)
             {
-                int value;
-                if (Api.LrDevelopController.GetValue(out value, IntParameter))
-                {
-                    return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, value));
-                }
-            }
-            else if (DoubleParameter != null)
-            {
-                double value;
-                if (Api.LrDevelopController.GetValue(out value, DoubleParameter))
-                {
-                    return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, value));
-                }
-            }
-            else if (BoolParameter != null)
-            {
-                bool value;
-                if (Api.LrDevelopController.GetValue(out value, BoolParameter))
-                {
-                    var controllerValue = value
-                        ? Controller.Range.Maximum
-                        : Controller.Range.Minimum;
-                    return Convert.ToInt32(controllerValue);
-                }
+                case IParameter<int> intParameter:
+                    if (Api.LrDevelopController.GetValue(out var intValue, intParameter))
+                    {
+                        return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, intValue));
+                    }
+                    break;
+                case IParameter<double> doubleParameter:
+                    if (Api.LrDevelopController.GetValue(out var doubleValue, doubleParameter))
+                    {
+                        return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, doubleValue));
+                    }
+                    break;
+                case IParameter<bool> boolParameter:
+                    if (Api.LrDevelopController.GetValue(out var boolValue, boolParameter))
+                    {
+                        var controllerValue = boolValue ? Controller.Range.Maximum : Controller.Range.Minimum;
+                        return Convert.ToInt32(controllerValue);
+                    }
+                    break;
             }
             return 0;
         }
