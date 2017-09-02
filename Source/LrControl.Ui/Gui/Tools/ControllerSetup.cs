@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Api.Common;
-using LrControl.Core.Device.Enums;
+using LrControl.Core.Devices.Enums;
 using Midi.Enums;
 
 namespace LrControl.Ui.Gui.Tools

@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Data;
 using JetBrains.Annotations;
 using LrControl.Api.Common;
-using LrControl.Core.Device.Enums;
+using LrControl.Core.Devices.Enums;
 using Midi.Devices;
 using Midi.Messages;
 
