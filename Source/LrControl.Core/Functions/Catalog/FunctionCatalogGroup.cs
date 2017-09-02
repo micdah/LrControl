@@ -1,56 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+﻿using System.Collections.Generic;
 using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {
     public class FunctionCatalogGroup : IFunctionCatalogGroup
     {
-        private string _displayName;
-        private ObservableCollection<IFunctionFactory> _functions;
-        private string _key;
-            
-        public string DisplayName
-        {
-            get => _displayName;
-            set
-            {
-                if (value == _displayName) return;
-                _displayName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string Key
-        {
-            get => _key;
-            set
-            {
-                if (value == _key) return;
-                _key = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<IFunctionFactory> Functions
-        {
-            get => _functions;
-            set
-            {
-                if (Equals(value, _functions)) return;
-                _functions = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        public string DisplayName { get; internal set; }
+        public string Key { get; internal set; }
+        public IEnumerable<IFunctionFactory> Functions { get; internal set; }
     }
 }

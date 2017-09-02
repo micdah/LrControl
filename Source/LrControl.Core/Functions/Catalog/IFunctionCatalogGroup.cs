@@ -1,13 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {
-    public interface IFunctionCatalogGroup : INotifyPropertyChanged
+    public interface IFunctionCatalogGroup 
     {
-        string DisplayName { get; set; }
-        string Key { get; set; }
-        ObservableCollection<IFunctionFactory> Functions { get; set; }
+        string DisplayName { get; }
+        string Key { get; }
+        IEnumerable<IFunctionFactory> Functions { get; }
     }
 }
