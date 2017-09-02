@@ -9,7 +9,7 @@ using Midi.Enums;
 
 namespace LrControl.Core.Devices
 {
-    public delegate void ControllerChangedHandler(int controllerValue);
+    public delegate void ControllerValueChangedHandler(int controllerValue);
 
     public class Controller : INotifyPropertyChanged
     {
@@ -46,7 +46,7 @@ namespace LrControl.Core.Devices
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public event ControllerChangedHandler ControllerChanged;
+        public event ControllerValueChangedHandler ControllerValueChanged;
 
         public void SetControllerValue(int controllerValue)
         {
@@ -102,7 +102,7 @@ namespace LrControl.Core.Devices
             }
             
             LastValue = value;
-            ControllerChanged?.Invoke(value);
+            ControllerValueChanged?.Invoke(value);
         }
 
         public bool IsController(ControllerConfigurationKey controllerKey)

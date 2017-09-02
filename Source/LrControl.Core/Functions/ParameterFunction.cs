@@ -9,31 +9,25 @@ namespace LrControl.Core.Functions
     {
         protected readonly IParameter<T> Parameter;
         protected Range ParameterRange;
-
+        
         public ParameterFunction(LrApi api, string displayName, IParameter<T> parameter, string key)
             : base(api, displayName, key)
         {
             Parameter = parameter;
 
-            api.LrDevelopController.AddParameterChangedListener(parameter, ParameterChanged);
-        }
-
-        public override void Enable()
-        {
-            base.Enable();
-            UpdateControllerValue();
+            api.LrDevelopController.AddParameterChangedListener(parameter, RequestUpdateControllerValue);
         }
 
         protected override void Disposing()
         {
-            Api.LrDevelopController.RemoveParameterChangedListener(Parameter, ParameterChanged);
+            Api.LrDevelopController.RemoveParameterChangedListener(Parameter, RequestUpdateControllerValue);
         }
 
-        protected override void ControllerChanged(int controllerValue)
+        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (!UpdateRange()) return;
+            if (!UpdateRange(controllerRange)) return;
 
-            var parameterValue = CalculateParamterValue(controllerValue);
+            var parameterValue = CalculateParamterValue(controllerValue, controllerRange);
             switch (Parameter)
             {
                 case IParameter<int> intParameter:
@@ -50,7 +44,7 @@ namespace LrControl.Core.Functions
                     break;
 
                 case IParameter<bool> boolParameter:
-                    var enabled = controllerValue == (int)Controller.Range.Maximum;
+                    var enabled = controllerValue == (int)controllerRange.Maximum;
                     Api.LrDevelopController.SetValue(boolParameter, enabled);
 
                     ShowHud($"{boolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
@@ -58,45 +52,43 @@ namespace LrControl.Core.Functions
             }
         }
 
-        protected virtual double CalculateParamterValue(int controllerValue)
+        protected virtual double CalculateParamterValue(int controllerValue, Range controllerRange)
         {
-            return ParameterRange.FromRange(Controller.Range, controllerValue);
+            return ParameterRange.FromRange(controllerRange, controllerValue);
         }
 
-        private void ParameterChanged()
+        public override bool UpdateControllerValue(out int controllerValue, Range controllerRange)
         {
-            if (!Enabled) return;
+            if (!UpdateRange(controllerRange))
+            {
+                controllerValue = default(int);
+                return false;
+            }
 
-            UpdateControllerValue();
+            controllerValue = CalculateControllerValue(controllerRange);
+            return true;
         }
 
-        private void UpdateControllerValue()
-        {
-            if (!UpdateRange()) return;
-
-            Controller.SetControllerValue(CalculateControllerValue());
-        }
-
-        protected virtual int CalculateControllerValue()
+        protected virtual int CalculateControllerValue(Range controllerRange)
         {
             switch (Parameter)
             {
                 case IParameter<int> intParameter:
                     if (Api.LrDevelopController.GetValue(out var intValue, intParameter))
                     {
-                        return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, intValue));
+                        return Convert.ToInt32(controllerRange.FromRange(ParameterRange, intValue));
                     }
                     break;
                 case IParameter<double> doubleParameter:
                     if (Api.LrDevelopController.GetValue(out var doubleValue, doubleParameter))
                     {
-                        return Convert.ToInt32(Controller.Range.FromRange(ParameterRange, doubleValue));
+                        return Convert.ToInt32(controllerRange.FromRange(ParameterRange, doubleValue));
                     }
                     break;
                 case IParameter<bool> boolParameter:
                     if (Api.LrDevelopController.GetValue(out var boolValue, boolParameter))
                     {
-                        var controllerValue = boolValue ? Controller.Range.Maximum : Controller.Range.Minimum;
+                        var controllerValue = boolValue ? controllerRange.Maximum : controllerRange.Minimum;
                         return Convert.ToInt32(controllerValue);
                     }
                     break;
@@ -104,7 +96,7 @@ namespace LrControl.Core.Functions
             return 0;
         }
 
-        protected virtual bool UpdateRange()
+        protected virtual bool UpdateRange(Range controllerRange)
         {
             return ParameterRange != null || Api.LrDevelopController.GetRange(out ParameterRange, Parameter);
         }

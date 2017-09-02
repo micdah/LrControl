@@ -1,4 +1,5 @@
 ﻿using LrControl.Api;
+using LrControl.Api.Common;
 using LrControl.Api.Modules.LrApplicationView;
 
 namespace LrControl.Core.Functions
@@ -11,9 +12,9 @@ namespace LrControl.Core.Functions
         {
         }
 
-        protected override void ControllerChanged(int controllerValue)
+        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (controllerValue != (int) Controller.Range.Maximum) return;
+            if (controllerValue != (int) controllerRange.Maximum) return;
 
             if (_toggled)
             {

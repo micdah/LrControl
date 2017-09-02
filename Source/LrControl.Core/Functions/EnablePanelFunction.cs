@@ -1,4 +1,5 @@
 using LrControl.Api;
+using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
 using LrControl.Core.Mapping;
 
@@ -15,9 +16,9 @@ namespace LrControl.Core.Functions
             _enablePanelParamter = enablePanelParameter;
         }
 
-        protected override void ControllerChanged(int controllerValue)
+        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (controllerValue != (int) Controller.Range.Maximum) return;
+            if (controllerValue != (int) controllerRange.Maximum) return;
 
             var functionGroup = FunctionGroup.GetFunctionGroupFor(_panel);
             if (functionGroup != null)
@@ -32,8 +33,7 @@ namespace LrControl.Core.Functions
                 {
                     if (_enablePanelParamter == null) return;
 
-                    bool enabled;
-                    if (Api.LrDevelopController.GetValue(out enabled, _enablePanelParamter))
+                    if (Api.LrDevelopController.GetValue(out var enabled, _enablePanelParamter))
                     {
                         Api.LrDevelopController.SetValue(_enablePanelParamter, !enabled);
 

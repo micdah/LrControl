@@ -10,40 +10,32 @@ namespace LrControl.Core.Mapping
 {
     public class ControllerFunction : INotifyPropertyChanged, IDisposable
     {
-        private Controller _controller;
         private IFunction _function;
         private bool _assignable;
 
-        public Controller Controller
+        public ControllerFunction(Controller controller)
         {
-            get => _controller;
-            set
-            {
-                if (Equals(value, _controller)) return;
-                _controller = value;
-
-                if (_function != null)
-                    _function.Controller = value;
-
-                OnPropertyChanged();
-            }
+            Controller = controller;
+            Controller.ControllerValueChanged += OnControllerValueChanged;
         }
+
+        public Controller Controller { get; private set; }
 
         public IFunction Function
         {
             get => _function;
             set
             {
-                if (Equals(value, _function)) return;
-
-                _function?.Disable();
+                if (_function != null)
+                {
+                    _function.OnRequestUpdateControllerValue = null;
+                }
 
                 _function = value;
 
                 if (_function != null)
                 {
-                    _function.Controller = _controller;
-                    if (Enabled) _function.Enable();
+                    _function.OnRequestUpdateControllerValue = OnRequestUpdateControllerValue;
                 }
 
                 OnPropertyChanged();
@@ -66,27 +58,11 @@ namespace LrControl.Core.Mapping
 
         public bool HasFunction => Function != null;
 
-        public void Dispose()
-        {
-            _controller = null;
-
-            if (_function != null)
-            {
-                _function.Disable();
-                _function.Controller = null;
-                _function = null;
-            }
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Enable(bool resetIfUnmapped)
         {
-            if (Function != null)
-            {
-                Function.Enable();
-            }
-            else if(resetIfUnmapped)
+            if(_function == null && resetIfUnmapped)
             {
                 if (Controller.ControllerType == ControllerType.Encoder ||
                     Controller.ControllerType == ControllerType.Fader)
@@ -96,12 +72,43 @@ namespace LrControl.Core.Mapping
             }
 
             Enabled = true;
+
+            // Check if function has a value to initialize controller with
+            OnRequestUpdateControllerValue();
         }
 
         public void Disable()
         {
-            Function?.Disable();
             Enabled = false;
+        }
+
+        public void Dispose()
+        {
+            if (Controller != null)
+            {
+                Controller.ControllerValueChanged -= OnControllerValueChanged;
+                Controller = null;
+            }
+
+            _function = null;
+        }
+
+        private void OnRequestUpdateControllerValue()
+        {
+            if (!Enabled) return;
+            if (_function == null) return;
+
+            if (_function.UpdateControllerValue(out var controllerValue, Controller.Range))
+            {
+                Controller.SetControllerValue(controllerValue);
+            }
+        }
+
+        private void OnControllerValueChanged(int controllerValue)
+        {
+            if (!Enabled) return;
+
+            _function?.ControllerValueChanged(controllerValue, Controller.Range);
         }
 
         [NotifyPropertyChangedInvocator]

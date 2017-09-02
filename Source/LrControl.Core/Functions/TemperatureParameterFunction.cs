@@ -20,19 +20,19 @@ namespace LrControl.Core.Functions
         {
         }
 
-        protected override bool UpdateRange()
+        protected override bool UpdateRange(Range controllerRange)
         {
-            if (!base.UpdateRange()) return false;
+            if (!base.UpdateRange(controllerRange)) return false;
 
             _parameterRangeLow = new Range(ParameterRange.Minimum, ParameterRange.Maximum*ParameterRangeSplit);
             _parameterRangeHigh = new Range(ParameterRange.Maximum*ParameterRangeSplit, ParameterRange.Maximum);
 
-            _controllerRangeLow = new Range(0, Controller.Range.Maximum*ControllerRangeSplit);
-            _controllerRangeHigh = new Range(Controller.Range.Maximum*ControllerRangeSplit, Controller.Range.Maximum);
+            _controllerRangeLow = new Range(0, controllerRange.Maximum*ControllerRangeSplit);
+            _controllerRangeHigh = new Range(controllerRange.Maximum*ControllerRangeSplit, controllerRange.Maximum);
             return true;
         }
 
-        protected override int CalculateControllerValue()
+        protected override int CalculateControllerValue(Range controllerRange)
         {
             if (!Api.LrDevelopController.GetValue(out var value, Parameter)) return 0;
 
@@ -43,9 +43,9 @@ namespace LrControl.Core.Functions
             return Convert.ToInt32(controllerValue);
         }
 
-        protected override double CalculateParamterValue(int controllerValue)
+        protected override double CalculateParamterValue(int controllerValue, Range controllerRange)
         {
-            return controllerValue < (Controller.Range.Maximum - Controller.Range.Minimum)*ControllerRangeSplit
+            return controllerValue < (controllerRange.Maximum - controllerRange.Minimum)*ControllerRangeSplit
                 ? (int) _parameterRangeLow.FromRange(_controllerRangeLow, controllerValue)
                 : (int) _parameterRangeHigh.FromRange(_controllerRangeHigh, controllerValue);
         }

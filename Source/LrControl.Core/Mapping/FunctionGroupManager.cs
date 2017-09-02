@@ -122,10 +122,7 @@ namespace LrControl.Core.Mapping
 
                     foreach (var controller in _device.Controllers)
                     {
-                        group.AddControllerFunction(new ControllerFunction
-                        {
-                            Controller = controller
-                        });
+                        group.AddControllerFunction(new ControllerFunction(controller));
                     }
                 }
             }
@@ -175,10 +172,7 @@ namespace LrControl.Core.Mapping
             {
                 foreach (var group in module.FunctionGroups)
                 {
-                    group.AddControllerFunction(new ControllerFunction
-                    {
-                        Controller = controller
-                    });
+                    group.AddControllerFunction(new ControllerFunction(controller));
                 }
             }
         }

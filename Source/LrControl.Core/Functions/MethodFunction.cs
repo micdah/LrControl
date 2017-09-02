@@ -1,5 +1,6 @@
 using System;
 using LrControl.Api;
+using LrControl.Api.Common;
 
 namespace LrControl.Core.Functions
 {
@@ -14,13 +15,12 @@ namespace LrControl.Core.Functions
             _displayText = displayText;
         }
 
-        protected override void ControllerChanged(int controllerValue)
+        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (controllerValue == (int) Controller.Range.Maximum)
-            {
-                _method(Api);
-                ShowHud(_displayText);
-            }
+            if (controllerValue != (int) controllerRange.Maximum) return;
+
+            _method(Api);
+            ShowHud(_displayText);
         }
     }
 }

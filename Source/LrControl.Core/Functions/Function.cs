@@ -1,19 +1,14 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
+using System;
 using LrControl.Api;
+using LrControl.Api.Common;
 using LrControl.Core.Configurations;
-using LrControl.Core.Devices;
 
 namespace LrControl.Core.Functions
 {
     internal abstract class Function : IFunction
     {
-        private Controller _controller;
-        private bool _enabled;
-        private string _displayName;
-        private string _key;
         private bool _dispoed;
+        private Action _onRequestUpdateControllerValue;
 
         protected Function(LrApi api, string displayName, string key)
         {
@@ -23,104 +18,39 @@ namespace LrControl.Core.Functions
         }
 
         protected LrApi Api { get; }
+        public string Key { get; }
+        public string DisplayName { get; }
 
-        public string Key
+        public abstract void ControllerValueChanged(int controllerValue, Range controllerRange);
+        
+        public virtual bool UpdateControllerValue(out int controllerValue, Range controllerRange)
         {
-            get => _key;
-            private set
-            {
-                if (value == _key) return;
-                _key = value;
-                OnPropertyChanged();
-            }
+            controllerValue = default(int);
+            return false;
         }
 
-        public Controller Controller
+        public Action OnRequestUpdateControllerValue
         {
-            get => _controller;
-            set
-            {
-                if (Equals(value, _controller)) return;
-
-                if (_controller != null)
-                {
-                    _controller.ControllerChanged -= OnControllerChanged;
-                }
-
-                _controller = value;
-                if (_controller != null)
-                {
-                    _controller.ControllerChanged += OnControllerChanged;
-                }
-                OnPropertyChanged();
-            }
-        }
-
-        public bool Enabled
-        {
-            get => _enabled;
-            private set
-            {
-                if (value == _enabled) return;
-                _enabled = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string DisplayName
-        {
-            get => _displayName;
-            set
-            {
-                if (value == _displayName) return;
-                _displayName = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void Enable()
-        {
-            Enabled = true;
-        }
-
-        public virtual void Disable()
-        {
-            Enabled = false;
-        }
-
-        private void OnControllerChanged(int controllerValue)
-        {
-            if (!Enabled) return;
-
-            ControllerChanged(controllerValue);
-        }
-
-        protected void ShowHud(string message)
-        {
-            if (Settings.Current.ShowHudMessages)
-            {
-                Api.LrDialogs.ShowBezel(message, 0.25);
-            }
-        }
-
-        protected abstract void ControllerChanged(int controllerValue);
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            set => _onRequestUpdateControllerValue = value;
         }
 
         public void Dispose()
         {
             if (_dispoed) return;
 
-            Disable();
-            Controller = null;
             Disposing();
             _dispoed = true;
+        }
+
+        protected void RequestUpdateControllerValue()
+        {
+            _onRequestUpdateControllerValue?.Invoke();
+        }
+
+        protected void ShowHud(string message)
+        {
+            if (Settings.Current.ShowHudMessages)
+                Api.LrDialogs.ShowBezel(message, 0.25);
         }
 
         protected virtual void Disposing()

@@ -1,4 +1,5 @@
 using LrControl.Api;
+using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions
@@ -12,17 +13,15 @@ namespace LrControl.Core.Functions
             _parameter = parameter;
         }
 
-        protected override void ControllerChanged(int controllerValue)
+        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (controllerValue == (int) Controller.Range.Maximum)
-            {
-                bool enabled;
-                if (Api.LrDevelopController.GetValue(out enabled, _parameter))
-                {
-                    Api.LrDevelopController.SetValue(_parameter, !enabled);
+            if (controllerValue != (int) controllerRange.Maximum) return;
 
-                    ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {_parameter.DisplayName}");
-                }
+            if (Api.LrDevelopController.GetValue(out var enabled, _parameter))
+            {
+                Api.LrDevelopController.SetValue(_parameter, !enabled);
+
+                ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {_parameter.DisplayName}");
             }
         }
     }
