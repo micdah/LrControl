@@ -11,7 +11,7 @@ using LrControl.Core.Devices;
 using LrControl.Core.Mapping;
 using LrControl.Ui.Core;
 
-namespace LrControl.Ui
+namespace LrControl.Ui.Gui
 {
     public class ModuleGroupViewModel : INotifyPropertyChanged, IDisposable
     {
@@ -94,12 +94,7 @@ namespace LrControl.Ui
                 return;
             }
 
-            foreach (var functionGroup in FunctionGroups)
-            {
-                functionGroup.Dispose();
-            }
-            FunctionGroups.Clear();
-            FunctionGroups.AddRange(functionGroups.Select(f => new FunctionGroupViewModel(_dispatcher, f)));
+            FunctionGroups.SyncWith(functionGroups.Select(f => new FunctionGroupViewModel(_dispatcher, f)));
         }
 
         public void Dispose()

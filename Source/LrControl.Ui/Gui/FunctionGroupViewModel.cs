@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using LrControl.Core.Mapping;
 using LrControl.Ui.Core;
 
-namespace LrControl.Ui
+namespace LrControl.Ui.Gui
 {
     public class FunctionGroupViewModel : INotifyPropertyChanged, IDisposable
     {
@@ -107,8 +107,7 @@ namespace LrControl.Ui
                 return;
             }
 
-            ControllerFunctions.Clear();
-            ControllerFunctions.AddRange(controllerFunctions);
+            ControllerFunctions.SyncWith(controllerFunctions);
         }
 
         public void Dispose()

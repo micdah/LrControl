@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 using LrControl.Core.Mapping;
 using LrControl.Ui.Core;
 
-namespace LrControl.Ui
+namespace LrControl.Ui.Gui
 {
     public class FunctionGroupManagerViewModel : INotifyPropertyChanged, IDisposable
     {
@@ -59,12 +59,7 @@ namespace LrControl.Ui
                 return;
             }
 
-            foreach (var module in Modules)
-            {
-                module.Dispose();
-            }
-            Modules.Clear();
-            Modules.AddRange(modules.Select(m => new ModuleGroupViewModel(_dispatcher, m)));
+            Modules.SyncWith(modules.Select(m => new ModuleGroupViewModel(_dispatcher, m)));
             
         }
 

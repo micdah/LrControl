@@ -95,8 +95,8 @@
     <Compile Include="ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FunctionGroupManagerViewModel.cs" />
-    <Compile Include="FunctionGroupViewModel.cs" />
+    <Compile Include="Gui\FunctionGroupManagerViewModel.cs" />
+    <Compile Include="Gui\FunctionGroupViewModel.cs" />
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">
       <DependentUpon>ControllerFunctionView.xaml</DependentUpon>
     </Compile>
@@ -165,7 +165,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ModuleGroupViewModel.cs" />
+    <Compile Include="Gui\ModuleGroupViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -15,6 +15,7 @@ using LrControl.Core.Mapping;
 using LrControl.Core.Midi;
 using LrControl.Core.Util;
 using LrControl.Ui.Core;
+using LrControl.Ui.Gui;
 using Midi.Devices;
 using Prism.Commands;
 
