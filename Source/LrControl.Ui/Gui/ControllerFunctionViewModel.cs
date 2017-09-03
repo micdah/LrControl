@@ -12,7 +12,7 @@ namespace LrControl.Ui.Gui
         private bool _assignable;
         private ControllerViewModel _controller;
         private bool _hasFunction;
-        private IFunction _function;
+        private FunctionViewModel _function;
 
         public ControllerFunctionViewModel(Dispatcher dispatcher, ControllerFunction controllerFunction) : base(dispatcher)
         {
@@ -20,7 +20,9 @@ namespace LrControl.Ui.Gui
             Assignable = controllerFunction.Assignable;
             Controller = new ControllerViewModel(dispatcher, controllerFunction.Controller);
             HasFunction = controllerFunction.HasFunction;
-            Function = controllerFunction.Function;
+            Function = controllerFunction.Function != null
+                ? new FunctionViewModel(dispatcher, controllerFunction.Function)
+                : null;
 
             _controllerFunction.PropertyChanged += ControllerFunctionOnPropertyChanged;
         }
@@ -59,7 +61,7 @@ namespace LrControl.Ui.Gui
             }
         }
 
-        public IFunction Function
+        public FunctionViewModel Function
         {
             get => _function;
             private set
@@ -93,7 +95,9 @@ namespace LrControl.Ui.Gui
                         HasFunction = controllerFunction.HasFunction;
                         break;
                     case nameof(ControllerFunction.Function):
-                        Function = controllerFunction.Function;
+                        Function = controllerFunction.Function != null
+                            ? new FunctionViewModel(Dispatcher, controllerFunction.Function)
+                            : null;
                         break;
                 }
             });

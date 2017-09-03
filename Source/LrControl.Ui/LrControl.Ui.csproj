@@ -109,6 +109,7 @@
     <Compile Include="Gui\FunctionGroupView.xaml.cs">
       <DependentUpon>FunctionGroupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gui\FunctionViewModel.cs" />
     <Compile Include="Gui\ModuleGroupView.xaml.cs">
       <DependentUpon>ModuleGroupView.xaml</DependentUpon>
     </Compile>
