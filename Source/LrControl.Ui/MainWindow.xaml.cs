@@ -11,17 +11,15 @@ namespace LrControl.Ui
     {
         private MainWindowModel _viewModel;
 
-        public MainWindow(MainWindowModel viewModel)
+        public MainWindow()
         {
             InitializeComponent();
-            
-            ViewModel = viewModel;
         }
 
         public MainWindowModel ViewModel
         {
             get => _viewModel;
-            private set
+            set
             {
                 if (Equals(value, _viewModel)) return;
                 _viewModel = value;

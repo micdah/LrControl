@@ -15,15 +15,16 @@ namespace LrControl.Ui
     public class MainWindowModel : ViewModel
     {
         private readonly ILrControlApplication _lrControlApplication;
-        private IMainWindowDialogProvider _dialogProvider;
+        private readonly IMainWindowDialogProvider _dialogProvider;
         private bool _showSettingsDialog;
         private string _connectionStatus = "Not connected";
         private ObservableCollection<IInputDevice> _inputDevices;
         private ObservableCollection<IOutputDevice> _outputDevices;
 
-        public MainWindowModel(Dispatcher dispatcher, ILrControlApplication lrControlApplication) : base(dispatcher)
+        public MainWindowModel(Dispatcher dispatcher, ILrControlApplication lrControlApplication, IMainWindowDialogProvider mainWindowDialogProvider) : base(dispatcher)
         {
             _lrControlApplication = lrControlApplication;
+            _dialogProvider = mainWindowDialogProvider;
             
             // Commands
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
@@ -45,17 +46,6 @@ namespace LrControl.Ui
             _lrControlApplication.PropertyChanged += LrControlApplicationOnPropertyChanged;
 
             _lrControlApplication.UpdateConnectionStatus();
-        }
-
-        public IMainWindowDialogProvider DialogProvider
-        {
-            get => _dialogProvider;
-            set
-            {
-                if (Equals(value, _dialogProvider)) return;
-                _dialogProvider = value;
-                OnPropertyChanged();
-            }
         }
 
         public ICommand OpenSettingsCommand { get; }
@@ -128,26 +118,26 @@ namespace LrControl.Ui
 
         public FunctionGroupManagerViewModel FunctionGroupManagerViewModel { get; }
 
-        public void OpenSettings()
+        private void OpenSettings()
         {
             ShowSettingsDialog = !ShowSettingsDialog;
         }
 
-        public void ExportConfiguration()
+        private void ExportConfiguration()
         {
             var file = _dialogProvider.ShowSaveDialog(_lrControlApplication.GetSettingsFolder());
             if (!string.IsNullOrEmpty(file))
                 _lrControlApplication.SaveConfiguration(file);
         }
 
-        public void ImportConfiguration()
+        private void ImportConfiguration()
         {
             var file = _dialogProvider.ShowOpenDialog(_lrControlApplication.GetSettingsFolder());
             if (!string.IsNullOrEmpty(file))
                 _lrControlApplication.LoadConfiguration(file);
         }
 
-        public async void Reset()
+        private async void Reset()
         {
             var result = await _dialogProvider.ShowMessage("Are you sure, you want to clear the current configuration?",
                 "Confirm clear configuration", DialogButtons.YesNo);

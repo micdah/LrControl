@@ -60,12 +60,11 @@ namespace LrControl.Ui
             // Create and show main window
             _lrControlApplication = LrControlApplication.Create();
 
-            var mainWindowViewModel = new MainWindowModel(Dispatcher.CurrentDispatcher, _lrControlApplication);
-            var mainWindow = new MainWindow(mainWindowViewModel)
+            var mainWindow = new MainWindow
             {
                 WindowState = _lrControlApplication.Settings.StartMinimized ? WindowState.Minimized : WindowState.Normal
             };
-            mainWindowViewModel.DialogProvider = new MainWindowDialogProvider(mainWindow);
+            mainWindow.ViewModel = new MainWindowModel(Dispatcher.CurrentDispatcher, _lrControlApplication, new MainWindowDialogProvider(mainWindow));
             mainWindow.Show();
         }
 
@@ -88,7 +87,7 @@ namespace LrControl.Ui
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Unable to kill process ({other.Id}): {e.Message}");
+                    Console.WriteLine($@"Unable to kill process ({other.Id}): {e.Message}");
                 }
 
             current.Kill();
