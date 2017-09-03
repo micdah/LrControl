@@ -1,6 +1,7 @@
 using LrControl.Api;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Core.Configurations;
 using LrControl.Core.Mapping;
 
 namespace LrControl.Core.Functions
@@ -10,7 +11,7 @@ namespace LrControl.Core.Functions
         private readonly IParameter<bool> _enablePanelParamter;
         private readonly Panel _panel;
 
-        public EnablePanelFunction(LrApi api, string displayName, Panel panel, IParameter<bool> enablePanelParameter, string key) : base(api, displayName, key)
+        public EnablePanelFunction(ISettings settings, LrApi api, string displayName, Panel panel, IParameter<bool> enablePanelParameter, string key) : base(settings, api, displayName, key)
         {
             _panel = panel;
             _enablePanelParamter = enablePanelParameter;

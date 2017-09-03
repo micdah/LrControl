@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using LrControl.Api;
-using LrControl.Core.Configurations;
+using LrControl.Core;
 using Serilog;
 
 namespace LrControl.Ui
@@ -15,45 +14,30 @@ namespace LrControl.Ui
     /// </summary>
     public partial class App
     {
-        private ILogger _log;
-        private LrApi _lrApi;
-        private MainWindow _mainWindow;
-        private MainWindowModel _viewModel;
+        private static readonly ILogger Log = Serilog.Log.ForContext<App>();
 
+        private ILrControlApplication _lrControlApplication;
+        
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             if (IsShutdownRequest(e))
             {
-                _log?.Information("Shutdown request received, terminating all running instances of LrControl.exe");
+                Log.Information("Shutdown request received, terminating all running instances of LrControl.exe");
                 TerminateAllInstances();
             }
             else
             {
-                SetupExceptionHandling();
-                SetupLogging();
+                ConfigureExceptionHandling();
                 ShowMainWindow();
             }
         }
 
         private void App_OnExit(object sender, ExitEventArgs e)
         {
-            if (Settings.Current.SaveConfigurationOnExit)
-            {
-                _log?.Information("Saving configuration");
-                _viewModel.SaveConfiguration();
-            }
-
-            Settings.Current.SetLastUsed(_viewModel.InputDevice, _viewModel.OutputDevice);
-            Settings.Current.Save();
-            _log?.Information("Saving settings");
-
-            _lrApi.Dispose();
-            _log?.Information("Closing api");
-
-            Log.CloseAndFlush();
+            _lrControlApplication?.Dispose();
         }
 
-        private void SetupExceptionHandling()
+        private void ConfigureExceptionHandling()
         {
             AppDomain.CurrentDomain.UnhandledException +=
                 (sender, args) => { new ErrorDialog(args.ExceptionObject as Exception).Show(); };
@@ -71,44 +55,17 @@ namespace LrControl.Ui
             };
         }
 
-        private void SetupLogging()
-        {
-            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
-
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.ColoredConsole(outputTemplate: template)
-                .WriteTo.RollingFile("LrControl.exe.{Date}.log",
-                    outputTemplate: template,
-                    fileSizeLimitBytes: 10 * 1024 * 1024,
-                    flushToDiskInterval: TimeSpan.FromSeconds(1),
-                    retainedFileCountLimit: 5,
-                    shared:true)
-                .CreateLogger();
-
-            _log = Log.Logger.ForContext<App>();
-            
-            _log.Information("LrControl application started, running {Version}", Environment.Version);
-        }
-
         private void ShowMainWindow()
         {
-            // Create LrApi
-            _lrApi = new LrApi();
-
             // Create and show main window
-            _viewModel = new MainWindowModel(Dispatcher.CurrentDispatcher, _lrApi);
-            _mainWindow = new MainWindow(_viewModel)
+            _lrControlApplication = LrControlApplication.Create();
+
+            var mainWindow = new MainWindow
             {
-                WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal
+                WindowState = _lrControlApplication.Settings.StartMinimized ? WindowState.Minimized : WindowState.Normal
             };
-            _viewModel.DialogProvider = new MainWindowDialogProvider(_mainWindow);
-
-            _viewModel.LoadConfiguration();
-            _viewModel.RefreshAvailableDevices();
-            _viewModel.InputDeviceName = Settings.Current.LastUsedInputDevice;
-            _viewModel.OutputDeviceName = Settings.Current.LastUsedOutputDevice;
-
-            _mainWindow.Show();
+            mainWindow.ViewModel = new MainWindowModel(Dispatcher.CurrentDispatcher, _lrControlApplication, new MainWindowDialogProvider(mainWindow));
+            mainWindow.Show();
         }
 
         private static bool IsShutdownRequest(StartupEventArgs e)
@@ -130,7 +87,7 @@ namespace LrControl.Ui
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Unable to kill process ({other.Id}): {e.Message}");
+                    Console.WriteLine($@"Unable to kill process ({other.Id}): {e.Message}");
                 }
 
             current.Kill();

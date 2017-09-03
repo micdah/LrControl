@@ -1,6 +1,7 @@
 ﻿using LrControl.Api;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrApplicationView;
+using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions
 {
@@ -8,7 +9,7 @@ namespace LrControl.Core.Functions
     {
         private bool _toggled;
 
-        public ToggleDevelopBeforeAfterFunction(LrApi api, string displayName, string key) : base(api, displayName, key)
+        public ToggleDevelopBeforeAfterFunction(ISettings settings, LrApi api, string displayName, string key) : base(settings, api, displayName, key)
         {
         }
 

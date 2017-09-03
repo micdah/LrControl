@@ -14,9 +14,7 @@ namespace LrControl.Core.Configurations
 
         public static MappingConfiguration Load(string file)
         {
-
-            MappingConfiguration conf;
-            if (Serializer.Load(file, out conf))
+            if (Serializer.Load(file, out MappingConfiguration conf))
             {
                 return conf;
             }

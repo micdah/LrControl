@@ -1,6 +1,7 @@
 using System;
 using LrControl.Api;
 using LrControl.Api.Common;
+using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions
 {
@@ -9,7 +10,7 @@ namespace LrControl.Core.Functions
         private readonly Action<LrApi> _method;
         private readonly string _displayText;
 
-        public MethodFunction(LrApi api, string displayName, Action<LrApi> method, string displayText, string key) : base(api, displayName, key)
+        public MethodFunction(ISettings settings, LrApi api, string displayName, Action<LrApi> method, string displayText, string key) : base(settings, api, displayName, key)
         {
             _method = method;
             _displayText = displayText;

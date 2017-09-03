@@ -2,6 +2,7 @@ using System;
 using LrControl.Api;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions
 {
@@ -10,8 +11,8 @@ namespace LrControl.Core.Functions
         protected readonly IParameter<T> Parameter;
         protected Range ParameterRange;
         
-        public ParameterFunction(LrApi api, string displayName, IParameter<T> parameter, string key)
-            : base(api, displayName, key)
+        public ParameterFunction(ISettings settings, LrApi api, string displayName, IParameter<T> parameter, string key)
+            : base(settings, api, displayName, key)
         {
             Parameter = parameter;
 

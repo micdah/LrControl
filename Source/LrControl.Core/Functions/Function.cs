@@ -7,11 +7,13 @@ namespace LrControl.Core.Functions
 {
     internal abstract class Function : IFunction
     {
+        protected readonly ISettings Settings;
         private bool _dispoed;
         private Action _onRequestUpdateControllerValue;
 
-        protected Function(LrApi api, string displayName, string key)
+        protected Function(ISettings settings, LrApi api, string displayName, string key)
         {
+            Settings = settings;
             Api = api;
             DisplayName = displayName;
             Key = key;
@@ -49,7 +51,7 @@ namespace LrControl.Core.Functions
 
         protected void ShowHud(string message)
         {
-            if (Settings.Current.ShowHudMessages)
+            if (Settings.ShowHudMessages)
                 Api.LrDialogs.ShowBezel(message, 0.25);
         }
 
