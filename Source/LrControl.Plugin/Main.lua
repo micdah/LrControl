@@ -80,7 +80,7 @@ local function main(context)
         port			= Options.MessageReceivePort,
         mode			= 'receive',
         onMessage		= function (socket, message)
-			Log:tracef("ReceiveSocket: Received message '%s'", message)
+			--Log:tracef("ReceiveSocket: Received message '%s'", message)
             local status, result = pcall(CommandInterpreter.InterpretCommand, Modules,message)
             if status then
                 Sockets.SendSocket:send(result .. "\n")
