@@ -213,8 +213,7 @@ namespace LrControl.Api.Communication
 
         private void ReceiveIteration(RequestStopHandler stop)
         {
-            string messages;
-            if (Receive(out messages, EndOfLineByte))
+            if (Receive(out var messages, EndOfLineByte))
             {
                 // There can be multiple messages bundled into a single receive
                 foreach (var message in messages.Split('\n'))
@@ -239,7 +238,7 @@ namespace LrControl.Api.Communication
             }
             catch (SocketException e)
             {
-                Log.Error(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
+                //Log.Error(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
                 return false;
             }
         }

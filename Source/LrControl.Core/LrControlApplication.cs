@@ -41,6 +41,7 @@ namespace LrControl.Core
             var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
 
             Serilog.Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
                 .WriteTo.ColoredConsole(outputTemplate: template)
                 .WriteTo.RollingFile("LrControl.exe.{Date}.log",
                     outputTemplate: template,

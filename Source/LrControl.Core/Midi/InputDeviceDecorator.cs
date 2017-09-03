@@ -5,11 +5,14 @@ using System.Diagnostics;
 using System.Threading;
 using Midi.Devices;
 using Midi.Messages;
+using Serilog;
 
 namespace LrControl.Core.Midi
 {
     internal class InputDeviceDecorator : IInputDevice, IDisposable
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<InputDeviceDecorator>();
+
         private readonly ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder> _controlChangeMessages;
         private readonly IInputDevice _inputDevice;
         private readonly ConcurrentDictionary<NrpnKey, NrpnMessageHolder> _nrpnMessages;
@@ -97,28 +100,31 @@ namespace LrControl.Core.Midi
             where TMessage : class
         {
             var holder = FindOldestMessage(messageHolders);
-            if (holder != null)
-            {
-                var message = holder.Message;
-                eventInvocator(message);
-                holder.SetLastSent(message);
-                return true;
-            }
-            return false;
+            if (holder == null) return false;
+
+            var message = holder.Message;
+            eventInvocator(message);
+            holder.SetLastSent(message);
+            return true;
         }
 
         private static MessageHolder<TMessage> FindOldestMessage<TMessage>(
             IEnumerable<MessageHolder<TMessage>> messageHolders) where TMessage : class
         {
-            var timestamp = long.MaxValue;
             MessageHolder<TMessage> oldest = null;
 
             foreach (var holder in messageHolders)
             {
                 if (!holder.HasChanged) continue;
-                if (holder.LastSentTimestamp >= timestamp) continue;
 
-                oldest = holder;
+                if (oldest == null)
+                {
+                    oldest = holder;
+                }
+                else if(holder.LastSentTimestamp <= oldest.LastSentTimestamp)
+                {
+                    oldest = holder;
+                }
             }
 
             return oldest;
