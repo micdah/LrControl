@@ -26,7 +26,7 @@ local appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrCont
 
 return {
     Start = function() 
-        LrShell.openFilesInApp ({""}, appPath)
+        --LrShell.openFilesInApp ({""}, appPath)
     end,
     Stop = function(progressFunction) 
         if progressFunction == nil then
@@ -48,6 +48,6 @@ return {
 
         -- Close LrControl application
         progressFunction(0.75, "Closing LrControl application")
-        LrShell.openFilesInApp({"/shutdown"}, appPath)
+        --LrShell.openFilesInApp({"/shutdown"}, appPath)
     end
 }
