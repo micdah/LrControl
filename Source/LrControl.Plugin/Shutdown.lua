@@ -20,17 +20,19 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 local LrTasks      = import 'LrTasks'
 local LrControlApp = require 'LrControlApp'
+local Log          = require 'Logger'
 
 
 return {
     LrShutdownFunction = function (doneFunction, progressFunction)
+        Log:info("Shutting down LrControl")
         progressFunction (0, "Shutting down LrControl")
 
         local pf = function(progress,message)
             progressFunction(progress,message)
-            progressFunction(progress, message)
         end
 
+        Log:debug("Calling LrControlApp.Stop")
         LrControlApp.Stop(pf)
 
         progressFunction (1, "Done")   

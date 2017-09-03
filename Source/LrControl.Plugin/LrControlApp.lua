@@ -20,13 +20,16 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 local LrShell	        = import 'LrShell'
 local LrPathUtils       = import 'LrPathUtils'
+local Log               = require 'Logger'
 
 local appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.ui.exe'))
 
 
 return {
     Start = function() 
+		Log:info("Starting LrControl application")
         LrShell.openFilesInApp ({""}, appPath)
+		Log:info("...running")
     end,
     Stop = function(progressFunction) 
         if progressFunction == nil then
@@ -34,20 +37,35 @@ return {
         end
 
         -- Stop main thread
-        progressFunction(0.25, "Stopping plugin")
+		Log:info("Stopping plugin")
+        progressFunction(0.00, "Stopping plugin")
         LrControl.Running = false
-        Sockets.AutoReconnect = 0
+        Sockets.AutoReconnect = false
 
-        if Sockets.ReceiveSocket ~= nil then
-            Sockets.ReceiveSocket:close()
-        end
-
-        if Sockets.SendSocket ~= nil then
-            Sockets.SendSocket:close()
-        end
-
-        -- Close LrControl application
-        progressFunction(0.75, "Closing LrControl application")
+		-- Close LrControl application
+		progressFunction(0.25, "Closing LrControl application")
+		Log:info("Closing LrControl application")
         LrShell.openFilesInApp({"/shutdown"}, appPath)
+		Log:info("...closed")
+
+		progressFunction(0.50, "Closing connections...")
+
+		-- Close ReceiveSocket?
+        if Sockets.ReceiveSocket ~= nil then
+			Log:debug("Closing receive socket")
+            Sockets.ReceiveSocket:close()
+			Log:debug("...closed")
+        end
+
+		progressFunction(0.75, "Closing connections...")
+
+		-- Close SendSocket?
+        if Sockets.SendSocket ~= nil then
+			Log:debug("Closing send socket")
+            Sockets.SendSocket:close()
+			Log:debug("...closed")
+        end
+
+		progressFunction(1.0, "Finished")
     end
 }

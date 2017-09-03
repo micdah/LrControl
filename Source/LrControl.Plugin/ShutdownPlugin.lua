@@ -19,6 +19,8 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
 local LrControlApp = require 'LrControlApp'
+local Log          = require 'Logger'
 
 -- Stop application
+Log:info("ShutdownPlugin called")
 LrControlApp.Stop()

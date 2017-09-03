@@ -20,4 +20,8 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 local LrLogger      = import 'LrLogger'
 
-local log = LrLogger()
+local log = LrLogger('LrControl')
+
+log:enable("logfile")
+
+return log

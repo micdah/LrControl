@@ -18,18 +18,21 @@ You should have received a copy of the GNU General Public License
 along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
-local LrTasks			       = import 'LrTasks'
+local LrTasks                  = import 'LrTasks'
 local LrDialogs                = import 'LrDialogs'
 local LrFunctionContext        = import 'LrFunctionContext'
 local LrSocket                 = import 'LrSocket'
 local LrApplicationView        = import 'LrApplicationView'
 local LrDevelopController      = import 'LrDevelopController' 
+local Log                      = require 'Logger'
 local LrControlApp             = require 'LrControlApp'
 local Options                  = require 'Options'
 local Modules                  = require 'Modules' 
 local CommandInterpreter       = require 'CommandInterpreter'
 local ChangeObserverParameters = require 'ChangeObserverParameters'
 local ModuleTools              = require 'ModuleTools'
+
+Log:info("Main running")
 
 Sockets = {
     SendSocket = nil,
@@ -55,12 +58,16 @@ local function main(context)
             port = Options.MessageSendPort,
             mode = 'send',
             onError = function(socket, err)
+				Log:tracef("SendSocket received error %s", err)
                 if Sockets.AutoReconnect then
+					Log:trace("AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end,
             onClosed = function(socket)
+				Log:trace("SendSocket closed")
                 if Sockets.AutoReconnect then
+					Log:trace("AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end
@@ -85,14 +92,18 @@ local function main(context)
             end
         end,
         onError         = function(socket, err)
+			Log:tracef("ReceiveSocket received error %s", err)
             if err == "timeout" then
                 if Sockets.AutoReconnect then
+					Log:trace("AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end
         end,
         onClosed        = function(socket) 
+			Log:trace("ReceiveSocket closed")
             if Sockets.AutoReconnect then
+				Log:trace("AutoReconnect enabled, reconnecting")
                 socket:reconnect()
                 --openSendSocket()
             end
