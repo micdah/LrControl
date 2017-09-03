@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using LrControl.Api;
 using LrControl.Core.Configurations;
 using Serilog;
@@ -95,7 +96,7 @@ namespace LrControl.Ui
             _lrApi = new LrApi();
 
             // Create and show main window
-            _viewModel = new MainWindowModel(_lrApi);
+            _viewModel = new MainWindowModel(Dispatcher.CurrentDispatcher, _lrApi);
             _mainWindow = new MainWindow(_viewModel)
             {
                 WindowState = Settings.Current.StartMinimized ? WindowState.Minimized : WindowState.Normal

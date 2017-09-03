@@ -1,26 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-using JetBrains.Annotations;
 using LrControl.Core.Mapping;
 using LrControl.Ui.Core;
 
 namespace LrControl.Ui.Gui
 {
-    public class FunctionGroupManagerViewModel : INotifyPropertyChanged, IDisposable
+    public class FunctionGroupManagerViewModel : ViewModel
     {
-        private readonly Dispatcher _dispatcher;
-        private FunctionGroupManager _functionGroupManager;
+        private readonly FunctionGroupManager _functionGroupManager;
         private ObservableCollection<ModuleGroupViewModel> _modules;
-        public event PropertyChangedEventHandler PropertyChanged;
 
-        public FunctionGroupManagerViewModel(Dispatcher dispatcher, FunctionGroupManager functionGroupManager)
+        public FunctionGroupManagerViewModel(Dispatcher dispatcher, FunctionGroupManager functionGroupManager) :
+            base(dispatcher)
         {
-            _dispatcher = dispatcher;
             _functionGroupManager = functionGroupManager;
             Modules = new ObservableCollection<ModuleGroupViewModel>();
             UpdateModules(functionGroupManager.Modules);
@@ -43,39 +38,25 @@ namespace LrControl.Ui.Gui
         {
             if (!(sender is FunctionGroupManager functionGroupManager)) return;
 
-            switch (e.PropertyName)
+            SafeInvoke(() =>
             {
-                case nameof(FunctionGroupManager.Modules):
-                    UpdateModules(functionGroupManager.Modules);
-                    break;
-            }
+                switch (e.PropertyName)
+                {
+                    case nameof(FunctionGroupManager.Modules):
+                        UpdateModules(functionGroupManager.Modules);
+                        break;
+                }
+            });
         }
 
         private void UpdateModules(IEnumerable<ModuleGroup> modules)
         {
-            if (!_dispatcher.CheckAccess())
-            {
-                _dispatcher.BeginInvoke(new Action(() => UpdateModules(modules)));
-                return;
-            }
-
-            Modules.SyncWith(modules.Select(m => new ModuleGroupViewModel(_dispatcher, m)));
-            
+            Modules.SyncWith(modules.Select(m => new ModuleGroupViewModel(Dispatcher, m)));
         }
 
-        public void Dispose()
+        protected override void Disposing()
         {
-            if (_functionGroupManager != null)
-            {
-                _functionGroupManager.PropertyChanged -= FunctionGroupManagerOnPropertyChanged;
-                _functionGroupManager = null;
-            }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _functionGroupManager.PropertyChanged -= FunctionGroupManagerOnPropertyChanged;
         }
     }
 }

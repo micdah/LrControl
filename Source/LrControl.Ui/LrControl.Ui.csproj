@@ -92,10 +92,12 @@
     <Compile Include="Core\IDialogProvider.cs" />
     <Compile Include="Core\MetroWindowDialogProvider.cs" />
     <Compile Include="Core\ObservableCollectionExtensions.cs" />
+    <Compile Include="Core\ViewModel.cs" />
     <Compile Include="ErrorDialog.xaml.cs">
       <DependentUpon>ErrorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gui\ControllerFunctionViewModel.cs" />
+    <Compile Include="Gui\ControllerViewModel.cs" />
     <Compile Include="Gui\FunctionGroupManagerViewModel.cs" />
     <Compile Include="Gui\FunctionGroupViewModel.cs" />
     <Compile Include="Gui\ControllerFunctionView.xaml.cs">

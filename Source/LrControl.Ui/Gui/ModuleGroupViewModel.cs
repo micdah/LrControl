@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Threading;
-using JetBrains.Annotations;
 using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Core.Devices;
 using LrControl.Core.Mapping;
@@ -13,17 +10,15 @@ using LrControl.Ui.Core;
 
 namespace LrControl.Ui.Gui
 {
-    public class ModuleGroupViewModel : INotifyPropertyChanged, IDisposable
+    public class ModuleGroupViewModel : ViewModel
     {
-        private readonly Dispatcher _dispatcher;
-        private ModuleGroup _moduleGroup;
+        private readonly ModuleGroup _moduleGroup;
         private bool _enabled;
-        private Module _module;
         private ObservableCollection<FunctionGroupViewModel> _functionGroups;
+        private Module _module;
 
-        public ModuleGroupViewModel(Dispatcher dispatcher, ModuleGroup moduleGroup)
+        public ModuleGroupViewModel(Dispatcher dispatcher, ModuleGroup moduleGroup) : base(dispatcher)
         {
-            _dispatcher = dispatcher;
             _moduleGroup = moduleGroup;
             Enabled = moduleGroup.Enabled;
             Module = moduleGroup.Module;
@@ -32,8 +27,6 @@ namespace LrControl.Ui.Gui
 
             moduleGroup.PropertyChanged += ModuleGroupOnPropertyChanged;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool Enabled
         {
@@ -72,44 +65,26 @@ namespace LrControl.Ui.Gui
         {
             if (!(sender is ModuleGroup moduleGroup)) return;
 
-            switch (e.PropertyName)
+            SafeInvoke(() =>
             {
-                case nameof(ModuleGroup.Enabled):
-                    Enabled = moduleGroup.Enabled;
-                    break;
-                case nameof(ModuleGroup.Module):
-                    Module = moduleGroup.Module;
-                    break;
-                case nameof(ModuleGroup.FunctionGroups):
-                    UpdateFunctionGroups(moduleGroup.FunctionGroups);
-                    break;
-            }
+                switch (e.PropertyName)
+                {
+                    case nameof(ModuleGroup.Enabled):
+                        Enabled = moduleGroup.Enabled;
+                        break;
+                    case nameof(ModuleGroup.Module):
+                        Module = moduleGroup.Module;
+                        break;
+                    case nameof(ModuleGroup.FunctionGroups):
+                        UpdateFunctionGroups(moduleGroup.FunctionGroups);
+                        break;
+                }
+            });
         }
 
         private void UpdateFunctionGroups(IEnumerable<FunctionGroup> functionGroups)
         {
-            if (!_dispatcher.CheckAccess())
-            {
-                _dispatcher.BeginInvoke(new Action(() => UpdateFunctionGroups(functionGroups)));
-                return;
-            }
-
-            FunctionGroups.SyncWith(functionGroups.Select(f => new FunctionGroupViewModel(_dispatcher, f)));
-        }
-
-        public void Dispose()
-        {
-            if (_moduleGroup != null)
-            {
-                _moduleGroup.PropertyChanged -= ModuleGroupOnPropertyChanged;
-                _moduleGroup = null;
-            }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            FunctionGroups.SyncWith(functionGroups.Select(f => new FunctionGroupViewModel(Dispatcher, f)));
         }
 
         public bool CanAssignFunction(Controller controllerFunctionController, bool functionGroupIsGlobal)
@@ -120,6 +95,11 @@ namespace LrControl.Ui.Gui
         public void RecalculateControllerFunctionState()
         {
             _moduleGroup.RecalculateControllerFunctionState();
+        }
+
+        protected override void Disposing()
+        {
+            _moduleGroup.PropertyChanged -= ModuleGroupOnPropertyChanged;
         }
     }
 }

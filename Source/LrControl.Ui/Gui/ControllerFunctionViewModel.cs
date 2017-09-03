@@ -1,26 +1,22 @@
-﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.ComponentModel;
 using System.Windows.Threading;
-using JetBrains.Annotations;
 using LrControl.Core.Devices;
 using LrControl.Core.Functions;
 using LrControl.Core.Mapping;
+using LrControl.Ui.Core;
 
 namespace LrControl.Ui.Gui
 {
-    public class ControllerFunctionViewModel : INotifyPropertyChanged, IDisposable
+    public class ControllerFunctionViewModel : ViewModel
     {
-        private readonly Dispatcher _dispatcher;
-        private ControllerFunction _controllerFunction;
+        private readonly ControllerFunction _controllerFunction;
         private bool _assignable;
         private Controller _controller;
         private bool _hasFunction;
         private IFunction _function;
 
-        public ControllerFunctionViewModel(Dispatcher dispatcher, ControllerFunction controllerFunction)
+        public ControllerFunctionViewModel(Dispatcher dispatcher, ControllerFunction controllerFunction) : base(dispatcher)
         {
-            _dispatcher = dispatcher;
             _controllerFunction = controllerFunction;
             Assignable = controllerFunction.Assignable;
             Controller = controllerFunction.Controller;
@@ -29,8 +25,6 @@ namespace LrControl.Ui.Gui
 
             _controllerFunction.PropertyChanged += ControllerFunctionOnPropertyChanged;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public bool Assignable
         {
@@ -85,36 +79,29 @@ namespace LrControl.Ui.Gui
         {
             if (!(sender is ControllerFunction controllerFunction)) return;
 
-            switch (e.PropertyName)
+            SafeInvoke(() =>
             {
-                case nameof(ControllerFunction.Assignable):
-                    Assignable = controllerFunction.Assignable;
-                    break;
-                case nameof(ControllerFunction.Controller):
-                    Controller = controllerFunction.Controller;
-                    break;
-                case nameof(ControllerFunction.HasFunction):
-                    HasFunction = controllerFunction.HasFunction;
-                    break;
-                case nameof(ControllerFunction.Function):
-                    Function = controllerFunction.Function;
-                    break;
-            }
+                switch (e.PropertyName)
+                {
+                    case nameof(ControllerFunction.Assignable):
+                        Assignable = controllerFunction.Assignable;
+                        break;
+                    case nameof(ControllerFunction.Controller):
+                        Controller = controllerFunction.Controller;
+                        break;
+                    case nameof(ControllerFunction.HasFunction):
+                        HasFunction = controllerFunction.HasFunction;
+                        break;
+                    case nameof(ControllerFunction.Function):
+                        Function = controllerFunction.Function;
+                        break;
+                }
+            });
         }
 
-        public void Dispose()
+        protected override void Disposing()
         {
-            if (_controllerFunction != null)
-            {
-                _controllerFunction.PropertyChanged -= ControllerFunctionOnPropertyChanged;
-                _controllerFunction = null;
-            }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _controllerFunction.PropertyChanged -= ControllerFunctionOnPropertyChanged;
         }
     }
 }

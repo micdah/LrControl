@@ -2,12 +2,9 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Threading;
-using JetBrains.Annotations;
 using LrControl.Api;
-using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
@@ -21,7 +18,7 @@ using Prism.Commands;
 
 namespace LrControl.Ui
 {
-    public class MainWindowModel : INotifyPropertyChanged
+    public class MainWindowModel : ViewModel
     {
         private Device _device;
         private IMainWindowDialogProvider _dialogProvider;
@@ -34,7 +31,7 @@ namespace LrControl.Ui
         private ObservableCollection<IOutputDevice> _outputDevices;
         private bool _showSettingsDialog;
 
-        public MainWindowModel(LrApi api)
+        public MainWindowModel(Dispatcher dispatcher, LrApi api) : base(dispatcher)
         {
             Api = api;
             InputDevices = new ObservableCollection<IInputDevice>();
@@ -48,12 +45,12 @@ namespace LrControl.Ui
             ImportCommand = new DelegateCommand(ImportConfiguration);
             ResetCommand = new DelegateCommand(Reset);
             RefreshAvailableDevicesCommand = new DelegateCommand(RefreshAvailableDevices);
-            
+
             // Initialize catalogs and controllers
             FunctionCatalog = LrControl.Core.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
             Device = new Device();
             FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, Device);
-            FunctionGroupManagerViewModel = new FunctionGroupManagerViewModel(Dispatcher.CurrentDispatcher, FunctionGroupManager);
+            FunctionGroupManagerViewModel = new FunctionGroupManagerViewModel(dispatcher, FunctionGroupManager);
 
             // Hookup module listener
             api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
@@ -81,7 +78,7 @@ namespace LrControl.Ui
         public ICommand ImportCommand { get; }
         public ICommand ResetCommand { get; }
         public ICommand RefreshAvailableDevicesCommand { get; }
-        
+
         public IInputDevice InputDevice
         {
             get => _inputDevice;
@@ -92,7 +89,7 @@ namespace LrControl.Ui
                 _inputDevice?.Dispose();
 
                 _inputDevice = value != null
-                    ? new InputDeviceDecorator(value, 1000/Settings.Current.ParameterUpdateFrequency)
+                    ? new InputDeviceDecorator(value, 1000 / Settings.Current.ParameterUpdateFrequency)
                     : null;
 
                 Device.InputDevice = _inputDevice;
@@ -152,17 +149,13 @@ namespace LrControl.Ui
                 if (Equals(value, _outputDevice)) return;
 
                 if (_outputDevice != null)
-                {
                     if (_outputDevice.IsOpen) _outputDevice.Close();
-                }
 
                 _outputDevice = value;
                 Device.OutputDevice = value;
 
                 if (_outputDevice != null)
-                {
                     if (!_outputDevice.IsOpen) _outputDevice.Open();
-                }
 
                 OnPropertyChanged();
 
@@ -220,17 +213,11 @@ namespace LrControl.Ui
 
         private FunctionGroupManager FunctionGroupManager { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private void CurrentOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Settings.ParameterUpdateFrequency))
-            {
                 if (_inputDevice != null)
-                {
                     _inputDevice.UpdateInterval = 1000 / Settings.Current.ParameterUpdateFrequency;
-                }
-            }
         }
 
         public void OpenSettings()
@@ -260,29 +247,22 @@ namespace LrControl.Ui
             FunctionGroupManager.Load(conf.Modules);
 
             // Enable current module group
-            Module currentModule;
-            if (Api.LrApplicationView.GetCurrentModuleName(out currentModule))
-            {
+            if (Api.LrApplicationView.GetCurrentModuleName(out var currentModule))
                 FunctionGroupManager.EnableModule(currentModule);
-            }
         }
 
         public void ExportConfiguration()
         {
             var file = _dialogProvider.ShowSaveDialog(GetSettingsFolder());
             if (!string.IsNullOrEmpty(file))
-            {
                 SaveConfiguration(file);
-            }
         }
 
         public void ImportConfiguration()
         {
             var file = _dialogProvider.ShowOpenDialog(GetSettingsFolder());
             if (!string.IsNullOrEmpty(file))
-            {
                 LoadConfiguration(file);
-            }
         }
 
         public async void Reset()
@@ -302,18 +282,14 @@ namespace LrControl.Ui
             InputDevices.Clear();
             DeviceManager.UpdateInputDevices();
             foreach (var inputDevice in DeviceManager.InputDevices)
-            {
                 InputDevices.Add(inputDevice);
-            }
             InputDeviceName = inputDeviceName;
 
             var outputDeviceName = OutputDeviceName;
             OutputDevices.Clear();
             DeviceManager.UpdateOutputDevices();
             foreach (var outputDevice in DeviceManager.OutputDevices)
-            {
                 OutputDevices.Add(outputDevice);
-            }
             OutputDeviceName = outputDeviceName;
         }
 
@@ -322,12 +298,6 @@ namespace LrControl.Ui
             var settingsFolder =
                 Path.GetDirectoryName(Serializer.ResolveRelativeFilename(MappingConfiguration.ConfigurationsFile));
             return settingsFolder;
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
