@@ -49,6 +49,7 @@ local function main(context)
     -- Open send socket
     local function openSendSocket()
         if Sockets.SendSocket ~= nil then
+			Log:debug("Closing SendSocket")
             Sockets.SendSocket:close()
         end
 
@@ -58,18 +59,14 @@ local function main(context)
             port = Options.MessageSendPort,
             mode = 'send',
             onError = function(socket, err)
-				Log:tracef("SendSocket received error %s", err)
+				Log:tracef("SendSocket: Received error '%s'", err)
                 if Sockets.AutoReconnect then
-					Log:trace("AutoReconnect enabled, reconnecting")
+					Log:trace("SendSocket: AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end,
             onClosed = function(socket)
-				Log:trace("SendSocket closed")
-                if Sockets.AutoReconnect then
-					Log:trace("AutoReconnect enabled, reconnecting")
-                    socket:reconnect()
-                end
+				Log:trace("SendSocket: Closed")
             end
         }
     end
@@ -83,6 +80,7 @@ local function main(context)
         port			= Options.MessageReceivePort,
         mode			= 'receive',
         onMessage		= function (socket, message)
+			Log:tracef("ReceiveSocket: Received message '%s'", message)
             local status, result = pcall(CommandInterpreter.InterpretCommand, Modules,message)
             if status then
                 Sockets.SendSocket:send(result .. "\n")
@@ -92,20 +90,20 @@ local function main(context)
             end
         end,
         onError         = function(socket, err)
-			Log:tracef("ReceiveSocket received error %s", err)
+			Log:tracef("ReceiveSocket: Received error '%s'", err)
             if err == "timeout" then
                 if Sockets.AutoReconnect then
-					Log:trace("AutoReconnect enabled, reconnecting")
+					Log:trace("ReceiveSocket: AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end
         end,
         onClosed        = function(socket) 
-			Log:trace("ReceiveSocket closed")
+			Log:trace("ReceiveSocket: Closed")
             if Sockets.AutoReconnect then
-				Log:trace("AutoReconnect enabled, reconnecting")
+				Log:trace("ReceiveSocket: AutoReconnect enabled, reconnecting")
                 socket:reconnect()
-                --openSendSocket()
+                openSendSocket()
             end
         end,
     }
