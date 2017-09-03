@@ -28,22 +28,4 @@ namespace LrControl.Core.Configurations
             Serializer.Save(file, conf);
         }
     }
-
-    public class ModuleConfiguration
-    {
-        public string ModuleName { get; set; }
-        public List<FunctionGroupConfiguration> FunctionGroups { get; set; }
-    }
-
-    public class FunctionGroupConfiguration
-    {
-        public string Key { get; set; }
-        public List<ControllerFunctionConfiguration> ControllerFunctions { get; set; }
-    }
-
-    public class ControllerFunctionConfiguration
-    {
-        public ControllerConfigurationKey ControllerKey { get; set; }
-        public string FunctionKey { get; set; }
-    }
 }

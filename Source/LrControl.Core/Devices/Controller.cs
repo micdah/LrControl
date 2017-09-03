@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Api.Common;
@@ -52,30 +51,7 @@ namespace LrControl.Core.Devices
         {
             _device.OnDeviceOutput(this, controllerValue);
         }
-
-        public ControllerConfiguration GetConfiguration()
-        {
-            return new ControllerConfiguration
-            {
-                Channel = Channel,
-                ControllerType = ControllerType,
-                ControlNumber = ControlNumber,
-                MessageType = MessageType,
-                RangeMin = Convert.ToInt32(Range.Minimum),
-                RangeMax = Convert.ToInt32(Range.Maximum)
-            };
-        }
-
-        public ControllerConfigurationKey GetConfigurationKey()
-        {
-            return new ControllerConfigurationKey
-            {
-                Channel = Channel,
-                ControlNumber = ControlNumber,
-                MessageType = MessageType
-            };
-        }
-
+        
         public void Reset()
         {
             if (Range != null)

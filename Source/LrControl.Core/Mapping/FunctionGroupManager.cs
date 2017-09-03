@@ -130,21 +130,7 @@ namespace LrControl.Core.Mapping
 
         public List<ModuleConfiguration> GetConfiguration()
         {
-            return Modules.Select(module => new ModuleConfiguration
-            {
-                ModuleName = module.Module.Value,
-                FunctionGroups = module.FunctionGroups
-                    .Select(functionGroup => new FunctionGroupConfiguration
-                    {
-                        Key = functionGroup.Key,
-                        ControllerFunctions = functionGroup.ControllerFunctions
-                            .Select(x => new ControllerFunctionConfiguration
-                            {
-                                ControllerKey = x.Controller.GetConfigurationKey(),
-                                FunctionKey = x.Function?.Key
-                            }).ToList()
-                    }).ToList()
-            }).ToList();
+            return Modules.Select(x => new ModuleConfiguration(x)).ToList();
         }
 
         public void EnableModule(Module module)
