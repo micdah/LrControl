@@ -67,6 +67,7 @@ namespace LrControl.Ui.Gui
             private set
             {
                 if (Equals(value, _function)) return;
+                _function?.Dispose();
                 _function = value;
                 OnPropertyChanged();
             }
