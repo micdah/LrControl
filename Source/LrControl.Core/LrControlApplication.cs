@@ -64,13 +64,13 @@ namespace LrControl.Core
             // Listen for Setting changes
             _settings.PropertyChanged += SettingsOnPropertyChanged;
 
-            // Load 
-            LoadConfiguration();
-
             // Restore previously selected input/output devices
             RefreshAvailableDevices(false);
             SetInputDevice(_inputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
             SetOutputDevice(_outputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
+
+            // Load configuration
+            LoadConfiguration();
 
             Log.Information("LrControl application started, running {Version}", Environment.Version);
         }
