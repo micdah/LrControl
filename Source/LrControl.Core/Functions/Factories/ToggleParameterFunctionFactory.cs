@@ -1,5 +1,6 @@
 using LrControl.Api;
 using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions.Factories
 {
@@ -7,7 +8,7 @@ namespace LrControl.Core.Functions.Factories
     {
         private readonly IParameter<bool> _parameter;
 
-        public ToggleParameterFunctionFactory(LrApi api, IParameter<bool> parameter) : base(api)
+        public ToggleParameterFunctionFactory(ISettings settings, LrApi api, IParameter<bool> parameter) : base(settings, api)
         {
             _parameter = parameter;
         }
@@ -15,9 +16,9 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName => $"Toggle {_parameter.DisplayName}";
         public override string Key => $"ToggleParameterFunction:{_parameter.Name}";
 
-        protected override IFunction CreateFunction(LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, LrApi api)
         {
-            return new ToggleParameterFunction(api, DisplayName, _parameter, Key);
+            return new ToggleParameterFunction(settings, api, DisplayName, _parameter, Key);
         }
     }
 }

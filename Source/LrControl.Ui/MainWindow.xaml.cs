@@ -14,13 +14,8 @@ namespace LrControl.Ui
         public MainWindow(MainWindowModel viewModel)
         {
             InitializeComponent();
-
-            UpdateConnectionStatus(false, null);
-
+            
             ViewModel = viewModel;
-            ViewModel.Api.ConnectionStatus += UpdateConnectionStatus;
-
-            UpdateConnectionStatus(ViewModel.Api.Connected, viewModel.Api.ApiVersion);
         }
 
         public MainWindowModel ViewModel
@@ -35,13 +30,7 @@ namespace LrControl.Ui
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void UpdateConnectionStatus(bool connected, string apiVersion)
-        {
-            Dispatcher.InvokeAsync(
-                () => { Connected.Text = $"{(connected ? $"Connected ({apiVersion})" : "Not connected")}"; });
-        }
-
+        
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

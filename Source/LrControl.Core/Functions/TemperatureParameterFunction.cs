@@ -2,6 +2,7 @@ using System;
 using LrControl.Api;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions
 {
@@ -15,8 +16,8 @@ namespace LrControl.Core.Functions
 
         private Range _parameterRangeLow;
 
-        public TemperatureParameterFunction(LrApi api, string displayName, IParameter<double> parameter, string key)
-            : base(api, displayName, parameter, key)
+        public TemperatureParameterFunction(ISettings settings, LrApi api, string displayName, IParameter<double> parameter, string key)
+            : base(settings, api, displayName, parameter, key)
         {
         }
 

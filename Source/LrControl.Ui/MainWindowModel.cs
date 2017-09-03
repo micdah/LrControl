@@ -1,16 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
-using LrControl.Api;
-using LrControl.Core.Configurations;
-using LrControl.Core.Devices;
+using LrControl.Core;
 using LrControl.Core.Functions.Catalog;
-using LrControl.Core.Mapping;
-using LrControl.Core.Midi;
-using LrControl.Core.Util;
 using LrControl.Ui.Core;
 using LrControl.Ui.Gui;
 using Midi.Devices;
@@ -20,45 +14,38 @@ namespace LrControl.Ui
 {
     public class MainWindowModel : ViewModel
     {
-        private Device _device;
+        private readonly ILrControlApplication _lrControlApplication;
         private IMainWindowDialogProvider _dialogProvider;
-        private IFunctionCatalog _functionCatalog;
-        private InputDeviceDecorator _inputDevice;
-        private string _inputDeviceName;
-        private ObservableCollection<IInputDevice> _inputDevices;
-        private IOutputDevice _outputDevice;
-        private string _outputDeviceName;
-        private ObservableCollection<IOutputDevice> _outputDevices;
         private bool _showSettingsDialog;
+        private string _connectionStatus = "Not connected";
+        private ObservableCollection<IInputDevice> _inputDevices;
+        private ObservableCollection<IOutputDevice> _outputDevices;
 
-        public MainWindowModel(Dispatcher dispatcher, LrApi api) : base(dispatcher)
+        public MainWindowModel(Dispatcher dispatcher, ILrControlApplication lrControlApplication) : base(dispatcher)
         {
-            Api = api;
-            InputDevices = new ObservableCollection<IInputDevice>();
-            OutputDevices = new ObservableCollection<IOutputDevice>();
-
+            _lrControlApplication = lrControlApplication;
+            
             // Commands
             OpenSettingsCommand = new DelegateCommand(OpenSettings);
-            SaveCommand = new DelegateCommand(() => SaveConfiguration());
-            LoadCommand = new DelegateCommand(() => LoadConfiguration());
+            SaveCommand = new DelegateCommand(() => _lrControlApplication.SaveConfiguration());
+            LoadCommand = new DelegateCommand(() => _lrControlApplication.LoadConfiguration());
             ExportCommand = new DelegateCommand(ExportConfiguration);
             ImportCommand = new DelegateCommand(ImportConfiguration);
             ResetCommand = new DelegateCommand(Reset);
-            RefreshAvailableDevicesCommand = new DelegateCommand(RefreshAvailableDevices);
+            RefreshAvailableDevicesCommand = new DelegateCommand(() => _lrControlApplication.RefreshAvailableDevices());
 
             // Initialize catalogs and controllers
-            FunctionCatalog = LrControl.Core.Functions.Catalog.FunctionCatalog.DefaultCatalog(api);
-            Device = new Device();
-            FunctionGroupManager = FunctionGroupManager.DefaultGroups(api, FunctionCatalog, Device);
-            FunctionGroupManagerViewModel = new FunctionGroupManagerViewModel(dispatcher, FunctionGroupManager);
+            FunctionGroupManagerViewModel = new FunctionGroupManagerViewModel(dispatcher, _lrControlApplication.FunctionGroupManager);
 
-            // Hookup module listener
-            api.LrApplicationView.ModuleChanged += FunctionGroupManager.EnableModule;
+            InputDevices = new ObservableCollection<IInputDevice>(_lrControlApplication.InputDevices);
+            OutputDevices = new ObservableCollection<IOutputDevice>(_lrControlApplication.OutputDevices);
 
-            Settings.Current.PropertyChanged += CurrentOnPropertyChanged;
+            // Listen for connection status
+            _lrControlApplication.ConnectionStatus += LrControlApplicationOnConnectionStatus;
+            _lrControlApplication.PropertyChanged += LrControlApplicationOnPropertyChanged;
+
+            _lrControlApplication.UpdateConnectionStatus();
         }
-
-        public LrApi Api { get; }
 
         public IMainWindowDialogProvider DialogProvider
         {
@@ -79,113 +66,7 @@ namespace LrControl.Ui
         public ICommand ResetCommand { get; }
         public ICommand RefreshAvailableDevicesCommand { get; }
 
-        public IInputDevice InputDevice
-        {
-            get => _inputDevice;
-            set
-            {
-                if (Equals(value, _inputDevice)) return;
-
-                _inputDevice?.Dispose();
-
-                _inputDevice = value != null
-                    ? new InputDeviceDecorator(value, 1000 / Settings.Current.ParameterUpdateFrequency)
-                    : null;
-
-                Device.InputDevice = _inputDevice;
-
-                if (_inputDevice != null)
-                {
-                    if (!_inputDevice.IsOpen) _inputDevice.Open();
-                    if (!_inputDevice.IsReceiving) _inputDevice.StartReceiving(null);
-                }
-
-                OnPropertyChanged();
-
-                InputDeviceName = _inputDevice?.Name;
-            }
-        }
-
-        public string InputDeviceName
-        {
-            get => _inputDeviceName;
-            set
-            {
-                if (value == _inputDeviceName) return;
-                _inputDeviceName = value;
-                OnPropertyChanged();
-
-                InputDevice = InputDevices.FirstOrDefault(x => x.Name == value);
-            }
-        }
-
-        public ObservableCollection<IInputDevice> InputDevices
-        {
-            get => _inputDevices;
-            private set
-            {
-                if (Equals(value, _inputDevices)) return;
-                _inputDevices = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public ObservableCollection<IOutputDevice> OutputDevices
-        {
-            get => _outputDevices;
-            private set
-            {
-                if (Equals(value, _outputDevices)) return;
-                _outputDevices = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public IOutputDevice OutputDevice
-        {
-            get => _outputDevice;
-            set
-            {
-                if (Equals(value, _outputDevice)) return;
-
-                if (_outputDevice != null)
-                    if (_outputDevice.IsOpen) _outputDevice.Close();
-
-                _outputDevice = value;
-                Device.OutputDevice = value;
-
-                if (_outputDevice != null)
-                    if (!_outputDevice.IsOpen) _outputDevice.Open();
-
-                OnPropertyChanged();
-
-                OutputDeviceName = _outputDevice?.Name;
-            }
-        }
-
-        public string OutputDeviceName
-        {
-            get => _outputDeviceName;
-            set
-            {
-                if (value == _outputDeviceName) return;
-                _outputDeviceName = value;
-                OnPropertyChanged();
-
-                OutputDevice = OutputDevices.FirstOrDefault(x => x.Name == value);
-            }
-        }
-
-        public IFunctionCatalog FunctionCatalog
-        {
-            get => _functionCatalog;
-            private set
-            {
-                if (Equals(value, _functionCatalog)) return;
-                _functionCatalog = value;
-                OnPropertyChanged();
-            }
-        }
+        public IFunctionCatalog FunctionCatalog => _lrControlApplication.FunctionCatalog;
 
         public bool ShowSettingsDialog
         {
@@ -198,71 +79,72 @@ namespace LrControl.Ui
             }
         }
 
-        private Device Device
+        public string ConnectionStatus
         {
-            get => _device;
+            get => _connectionStatus;
             set
             {
-                if (Equals(value, _device)) return;
-                _device = value;
+                if (value == _connectionStatus) return;
+                _connectionStatus = value;
                 OnPropertyChanged();
             }
         }
 
-        public FunctionGroupManagerViewModel FunctionGroupManagerViewModel { get; }
-
-        private FunctionGroupManager FunctionGroupManager { get; }
-
-        private void CurrentOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        public ObservableCollection<IInputDevice> InputDevices
         {
-            if (e.PropertyName == nameof(Settings.ParameterUpdateFrequency))
-                if (_inputDevice != null)
-                    _inputDevice.UpdateInterval = 1000 / Settings.Current.ParameterUpdateFrequency;
+            get => _inputDevices;
+            set
+            {
+                if (Equals(value, _inputDevices)) return;
+                _inputDevices = value;
+                OnPropertyChanged();
+            }
         }
+
+        public ObservableCollection<IOutputDevice> OutputDevices
+        {
+            get => _outputDevices;
+            set
+            {
+                if (Equals(value, _outputDevices)) return;
+                _outputDevices = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string InputDeviceName
+        {
+            get => _lrControlApplication.InputDevice?.Name;
+            set => _lrControlApplication.SetInputDevice(
+                _lrControlApplication.InputDevices.FirstOrDefault(x => x.Name == value));
+        }
+
+        public string OutputDeviceName
+        {
+            get => _lrControlApplication.OutputDevice?.Name;
+            set => _lrControlApplication.SetOutputDevice(
+                _lrControlApplication.OutputDevices.FirstOrDefault(x => x.Name == value));
+        }
+
+        public FunctionGroupManagerViewModel FunctionGroupManagerViewModel { get; }
 
         public void OpenSettings()
         {
             ShowSettingsDialog = !ShowSettingsDialog;
         }
 
-        public void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile)
-        {
-            var conf = new MappingConfiguration
-            {
-                Controllers = Device.GetConfiguration(),
-                Modules = FunctionGroupManager.GetConfiguration()
-            };
-
-            MappingConfiguration.Save(conf, file);
-        }
-
-        public void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile)
-        {
-            var conf = MappingConfiguration.Load(file);
-            if (conf == null) return;
-
-            Device.Load(conf.Controllers);
-            Device.ResetAllControls();
-
-            FunctionGroupManager.Load(conf.Modules);
-
-            // Enable current module group
-            if (Api.LrApplicationView.GetCurrentModuleName(out var currentModule))
-                FunctionGroupManager.EnableModule(currentModule);
-        }
-
         public void ExportConfiguration()
         {
-            var file = _dialogProvider.ShowSaveDialog(GetSettingsFolder());
+            var file = _dialogProvider.ShowSaveDialog(_lrControlApplication.GetSettingsFolder());
             if (!string.IsNullOrEmpty(file))
-                SaveConfiguration(file);
+                _lrControlApplication.SaveConfiguration(file);
         }
 
         public void ImportConfiguration()
         {
-            var file = _dialogProvider.ShowOpenDialog(GetSettingsFolder());
+            var file = _dialogProvider.ShowOpenDialog(_lrControlApplication.GetSettingsFolder());
             if (!string.IsNullOrEmpty(file))
-                LoadConfiguration(file);
+                _lrControlApplication.LoadConfiguration(file);
         }
 
         public async void Reset()
@@ -271,33 +153,40 @@ namespace LrControl.Ui
                 "Confirm clear configuration", DialogButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                Device?.Clear();
-                FunctionGroupManager?.Reset();
+                _lrControlApplication.Reset();
             }
         }
 
-        public void RefreshAvailableDevices()
+        protected override void Disposing()
         {
-            var inputDeviceName = InputDeviceName;
-            InputDevices.Clear();
-            DeviceManager.UpdateInputDevices();
-            foreach (var inputDevice in DeviceManager.InputDevices)
-                InputDevices.Add(inputDevice);
-            InputDeviceName = inputDeviceName;
-
-            var outputDeviceName = OutputDeviceName;
-            OutputDevices.Clear();
-            DeviceManager.UpdateOutputDevices();
-            foreach (var outputDevice in DeviceManager.OutputDevices)
-                OutputDevices.Add(outputDevice);
-            OutputDeviceName = outputDeviceName;
+            _lrControlApplication.ConnectionStatus -= LrControlApplicationOnConnectionStatus;
         }
 
-        private static string GetSettingsFolder()
+        private void LrControlApplicationOnConnectionStatus(bool connected, string apiVersion)
         {
-            var settingsFolder =
-                Path.GetDirectoryName(Serializer.ResolveRelativeFilename(MappingConfiguration.ConfigurationsFile));
-            return settingsFolder;
+            SafeInvoke(() =>
+            {
+                ConnectionStatus = $"{(connected ? $"Connected ({apiVersion})" : "Not connected")}";
+            });
+        }
+
+        private void LrControlApplicationOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(ILrControlApplication.InputDevices):
+                    InputDevices = new ObservableCollection<IInputDevice>(_lrControlApplication.InputDevices);
+                    break;
+                case nameof(ILrControlApplication.OutputDevices):
+                    OutputDevices = new ObservableCollection<IOutputDevice>(_lrControlApplication.OutputDevices);
+                    break;
+                case nameof(ILrControlApplication.InputDevice):
+                    OnPropertyChanged(nameof(InputDeviceName));
+                    break;
+                case nameof(ILrControlApplication.OutputDevice):
+                    OnPropertyChanged(nameof(OutputDeviceName));
+                    break;
+            }
         }
     }
 }

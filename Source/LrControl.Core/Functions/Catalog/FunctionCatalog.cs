@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LrControl.Api;
+using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
@@ -21,20 +22,20 @@ namespace LrControl.Core.Functions.Catalog
                 .FirstOrDefault(f => f.Key == functionKey);
         }
 
-        public static IFunctionCatalog DefaultCatalog(LrApi api)
+        public static IFunctionCatalog DefaultCatalog(ISettings settings, LrApi api)
         {
-            return new FunctionCatalog(CreateGroups(api));
+            return new FunctionCatalog(CreateGroups(settings, api));
         }
 
-        private static IEnumerable<IFunctionCatalogGroup> CreateGroups(LrApi api)
+        private static IEnumerable<IFunctionCatalogGroup> CreateGroups(ISettings settings, LrApi api)
         {
             var groups = new List<IFunctionCatalogGroup>
             {
-                CreateViewGroup(api),
-                CreateUndoGroup(api),
-                CreateSelectionGroup(api)
+                CreateViewGroup(settings, api),
+                CreateUndoGroup(settings, api),
+                CreateSelectionGroup(settings, api)
             };
-            groups.AddRange(CreateDevelopGroups(api));
+            groups.AddRange(CreateDevelopGroups(settings, api));
             return groups;
         }
     }

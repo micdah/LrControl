@@ -8,7 +8,7 @@ using Midi.Messages;
 
 namespace LrControl.Core.Midi
 {
-    public class InputDeviceDecorator : IInputDevice, IDisposable
+    internal class InputDeviceDecorator : IInputDevice, IDisposable
     {
         private readonly ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder> _controlChangeMessages;
         private readonly IInputDevice _inputDevice;

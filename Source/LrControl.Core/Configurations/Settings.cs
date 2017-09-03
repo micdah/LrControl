@@ -6,11 +6,20 @@ using Midi.Devices;
 
 namespace LrControl.Core.Configurations
 {
-    public class Settings : INotifyPropertyChanged
+    public interface ISettings : INotifyPropertyChanged
+    {
+        bool ShowHudMessages { get; set; }
+        bool StartMinimized { get; set; }
+        bool SaveConfigurationOnExit { get; set; }
+        int ParameterUpdateFrequency { get; set; }
+        string LastUsedInputDevice { get; }
+        string LastUsedOutputDevice { get; }
+    }
+
+    public class Settings : ISettings
     {
         private const string SettingsFile = @"..\Settings\Settings.xml";
 
-        public static readonly Settings Current;
         private string _lastUsedInputDevice;
         private string _lastUsedOutputDevice;
         private int _parameterUpdateFrequency;
@@ -19,24 +28,29 @@ namespace LrControl.Core.Configurations
         private bool _showHudMessages;
         private bool _startMinimized;
 
-        static Settings()
+        internal static Settings LoadOrDefault()
         {
-            if (!Serializer.Load(SettingsFile, out Current))
+            // Load existing
+            if (Serializer.Load(SettingsFile, out Settings settings))
+                return settings;
+
+            // No existing, return default settings
+            return new Settings
             {
-                // No saved settings, load defaults
-                Current = new Settings
-                {
-                    ShowHudMessages = true,
-                    StartMinimized = false,
-                    SaveConfigurationOnExit = false,
-                    ParameterUpdateFrequency = 30
-                };
-            }
+                ShowHudMessages = true,
+                StartMinimized = false,
+                SaveConfigurationOnExit = false,
+                ParameterUpdateFrequency = 30
+            };
+        }
+
+        private Settings()
+        {
         }
 
         public bool ShowHudMessages
         {
-            get { return _showHudMessages; }
+            get => _showHudMessages;
             set
             {
                 if (value == _showHudMessages) return;
@@ -47,7 +61,7 @@ namespace LrControl.Core.Configurations
 
         public bool StartMinimized
         {
-            get { return _startMinimized; }
+            get => _startMinimized;
             set
             {
                 if (value == _startMinimized) return;
@@ -58,7 +72,7 @@ namespace LrControl.Core.Configurations
 
         public bool SaveConfigurationOnExit
         {
-            get { return _saveConfigurationOnExit; }
+            get => _saveConfigurationOnExit;
             set
             {
                 if (value == _saveConfigurationOnExit) return;
@@ -69,7 +83,7 @@ namespace LrControl.Core.Configurations
 
         public int ParameterUpdateFrequency
         {
-            get { return _parameterUpdateFrequency; }
+            get => _parameterUpdateFrequency;
             set
             {
                 if (value == _parameterUpdateFrequency) return;
@@ -80,7 +94,7 @@ namespace LrControl.Core.Configurations
 
         public string LastUsedInputDevice
         {
-            get { return _lastUsedInputDevice; }
+            get => _lastUsedInputDevice;
             set
             {
                 if (value == _lastUsedInputDevice) return;
@@ -91,7 +105,7 @@ namespace LrControl.Core.Configurations
 
         public string LastUsedOutputDevice
         {
-            get { return _lastUsedOutputDevice; }
+            get => _lastUsedOutputDevice;
             set
             {
                 if (value == _lastUsedOutputDevice) return;

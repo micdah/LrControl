@@ -1,12 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using LrControl.Api;
+using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {
     public partial class FunctionCatalog
     {
-        private static IFunctionCatalogGroup CreateUndoGroup(LrApi api)
+        private static IFunctionCatalogGroup CreateUndoGroup(ISettings settings, LrApi api)
         {
             return new FunctionCatalogGroup
             {
@@ -14,20 +15,18 @@ namespace LrControl.Core.Functions.Catalog
                 Key = "LrUndo",
                 Functions = new ObservableCollection<IFunctionFactory>(new[]
                 {
-                    new MethodFunctionFactory(api, "Undo", "Undo", a =>
+                    new MethodFunctionFactory(settings, api, "Undo", "Undo", a =>
                     {
-                        bool canUndo;
-                        api.LrUndo.CanUndo(out canUndo);
+                        api.LrUndo.CanUndo(out var canUndo);
                         if (canUndo)
                         {
                             api.LrDevelopController.StopTracking();
                             api.LrUndo.Undo();
                         }
                     }),
-                    new MethodFunctionFactory(api, "Redo", "Redo", a =>
+                    new MethodFunctionFactory(settings, api, "Redo", "Redo", a =>
                     {
-                        bool canRedo;
-                        api.LrUndo.CanRedo(out canRedo);
+                        api.LrUndo.CanRedo(out var canRedo);
                         if (canRedo)
                         {
                             api.LrDevelopController.StopTracking();

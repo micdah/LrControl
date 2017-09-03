@@ -1,6 +1,7 @@
 using LrControl.Api;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
+using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions
 {
@@ -8,7 +9,7 @@ namespace LrControl.Core.Functions
     {
         private readonly IParameter<bool> _parameter;
 
-        public ToggleParameterFunction(LrApi api, string displayName, IParameter<bool> parameter, string key) : base(api, displayName, key)
+        public ToggleParameterFunction(ISettings settings, LrApi api, string displayName, IParameter<bool> parameter, string key) : base(settings, api, displayName, key)
         {
             _parameter = parameter;
         }

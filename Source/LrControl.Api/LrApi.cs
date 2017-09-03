@@ -9,6 +9,8 @@ using LrControl.Api.Modules.LrUndo;
 
 namespace LrControl.Api
 {
+    public delegate void ConnectionStatusHandler(bool connected, string apiVersion);
+
     public class LrApi : IDisposable
     {
         private readonly LrApplicationView _lrApplicationView;
@@ -58,7 +60,7 @@ namespace LrControl.Api
             _pluginClient.Close();
         }
 
-        public event Action<bool, string> ConnectionStatus;
+        public event ConnectionStatusHandler ConnectionStatus;
 
         private void PluginClientOnConnection(bool connected)
         {

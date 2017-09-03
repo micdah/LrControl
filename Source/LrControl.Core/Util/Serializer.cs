@@ -6,7 +6,7 @@ using Serilog;
 
 namespace LrControl.Core.Util
 {
-    public static class Serializer
+    internal static class Serializer
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(typeof(Serializer));
 

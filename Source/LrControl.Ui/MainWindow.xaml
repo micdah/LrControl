@@ -38,7 +38,7 @@
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="Connected">Not connected</TextBlock>
+                    <TextBlock Text="{Binding ConnectionStatus}"/>
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
