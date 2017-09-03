@@ -29,6 +29,7 @@ namespace LrControl.Ui.Gui
             private set
             {
                 if (Equals(value, _modules)) return;
+                _modules?.DisposeAndClear();
                 _modules = value;
                 OnPropertyChanged();
             }
@@ -51,12 +52,13 @@ namespace LrControl.Ui.Gui
 
         private void UpdateModules(IEnumerable<ModuleGroup> modules)
         {
-            Modules.SyncWith(modules.Select(m => new ModuleGroupViewModel(Dispatcher, m)));
+            Modules.SyncWith(modules.Select(x => new ModuleGroupViewModel(Dispatcher, x)).ToList());
         }
 
         protected override void Disposing()
         {
             _functionGroupManager.PropertyChanged -= FunctionGroupManagerOnPropertyChanged;
+            Modules = null;
         }
     }
 }

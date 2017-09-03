@@ -27,9 +27,7 @@ namespace LrControl.Core.Devices
 
         public ControllerMessageType MessageType { get; }
         public ControllerType ControllerType { get; }
-        public string MessageTypeShort => MessageType == ControllerMessageType.Nrpn ? "NRPN" : "CC";
         public Channel Channel { get; }
-        public string ChannelShort => $"C{(int) Channel}";
         public int ControlNumber { get; }
         public Range Range { get; }
 

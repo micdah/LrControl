@@ -208,11 +208,11 @@
 
             <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource Label}">Channel</TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.ChannelShort}" />
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.Channel}" />
 
             <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Label}">Type</TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"
-                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.MessageTypeShort}" />
+                       Text="{Binding ElementName=UserControl, Path=ControllerFunction.Controller.MessageType}" />
 
             <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource Label}">Control</TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource SmallText}" Foreground="{DynamicResource GrayBrush3}"

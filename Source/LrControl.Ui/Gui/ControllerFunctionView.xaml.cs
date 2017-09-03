@@ -63,28 +63,27 @@ namespace LrControl.Ui.Gui
 
             // Verify drop object contains needed object
             if (!e.Data.GetDataPresent(typeof (IFunctionFactory))) return;
-            var functionFactory = (IFunctionFactory) e.Data.GetData(typeof (IFunctionFactory));
+            if (!(e.Data.GetData(typeof(IFunctionFactory)) is IFunctionFactory functionFactory)) return;
 
             // Verify we have all needed parameters
-            var moduleGroup = this.FindParent<ModuleGroupView>()?.ModuleGroup;
-            var functionGroup = this.FindParent<FunctionGroupView>()?.FunctionGroup;
-            var controllerFunction = ControllerFunction;
-            if (moduleGroup == null || functionGroup == null || controllerFunction == null) return;
+            var moduleGroupVm = this.FindParent<ModuleGroupView>()?.ModuleGroup;
+            var functionGroupVm = this.FindParent<FunctionGroupView>()?.FunctionGroup;
+            if (moduleGroupVm == null || functionGroupVm == null || ControllerFunction == null) return;
 
-            if (moduleGroup.CanAssignFunction(controllerFunction.Controller, functionGroup.IsGlobal))
+            if (moduleGroupVm.CanAssignFunction(ControllerFunction.Controller, functionGroupVm.IsGlobal))
             {
                 ControllerFunction.SetFunction(functionFactory.CreateFunction());
-                moduleGroup.RecalculateControllerFunctionState();
+                moduleGroupVm.RecalculateControllerFunctionState();
             }
         }
 
         private void DeleteFunctionButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var moduleGroup = this.FindParent<ModuleGroupView>()?.ModuleGroup;
-            if (moduleGroup != null)
+            var moduleGroupVm = this.FindParent<ModuleGroupView>()?.ModuleGroup;
+            if (moduleGroupVm != null)
             {
                 ControllerFunction.SetFunction(null);
-                moduleGroup.RecalculateControllerFunctionState();
+                moduleGroupVm.RecalculateControllerFunctionState();
             }
         }
     }

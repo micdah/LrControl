@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows.Threading;
-using LrControl.Core.Devices;
 using LrControl.Core.Functions;
 using LrControl.Core.Mapping;
 using LrControl.Ui.Core;
@@ -11,7 +10,7 @@ namespace LrControl.Ui.Gui
     {
         private readonly ControllerFunction _controllerFunction;
         private bool _assignable;
-        private Controller _controller;
+        private ControllerViewModel _controller;
         private bool _hasFunction;
         private IFunction _function;
 
@@ -19,7 +18,7 @@ namespace LrControl.Ui.Gui
         {
             _controllerFunction = controllerFunction;
             Assignable = controllerFunction.Assignable;
-            Controller = controllerFunction.Controller;
+            Controller = new ControllerViewModel(dispatcher, controllerFunction.Controller);
             HasFunction = controllerFunction.HasFunction;
             Function = controllerFunction.Function;
 
@@ -37,12 +36,13 @@ namespace LrControl.Ui.Gui
             }
         }
 
-        public Controller Controller
+        public ControllerViewModel Controller
         {
             get => _controller;
             private set
             {
                 if (Equals(value, _controller)) return;
+                _controller?.Dispose();
                 _controller = value;
                 OnPropertyChanged();
             }
@@ -87,7 +87,7 @@ namespace LrControl.Ui.Gui
                         Assignable = controllerFunction.Assignable;
                         break;
                     case nameof(ControllerFunction.Controller):
-                        Controller = controllerFunction.Controller;
+                        //Controller = new ControllerViewModel(Dispatcher, controllerFunction.Controller);
                         break;
                     case nameof(ControllerFunction.HasFunction):
                         HasFunction = controllerFunction.HasFunction;
@@ -102,6 +102,7 @@ namespace LrControl.Ui.Gui
         protected override void Disposing()
         {
             _controllerFunction.PropertyChanged -= ControllerFunctionOnPropertyChanged;
+            Controller = null;
         }
     }
 }

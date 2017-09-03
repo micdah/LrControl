@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Threading;
 using LrControl.Api.Modules.LrApplicationView;
-using LrControl.Core.Devices;
 using LrControl.Core.Mapping;
 using LrControl.Ui.Core;
 
@@ -56,6 +55,7 @@ namespace LrControl.Ui.Gui
             private set
             {
                 if (Equals(value, _functionGroups)) return;
+                _functionGroups?.DisposeAndClear();
                 _functionGroups = value;
                 OnPropertyChanged();
             }
@@ -84,12 +84,12 @@ namespace LrControl.Ui.Gui
 
         private void UpdateFunctionGroups(IEnumerable<FunctionGroup> functionGroups)
         {
-            FunctionGroups.SyncWith(functionGroups.Select(f => new FunctionGroupViewModel(Dispatcher, f)));
+            FunctionGroups.SyncWith(functionGroups.Select(x => new FunctionGroupViewModel(Dispatcher, x)).ToList());
         }
 
-        public bool CanAssignFunction(Controller controllerFunctionController, bool functionGroupIsGlobal)
+        public bool CanAssignFunction(ControllerViewModel controllerVm, bool functionGroupIsGlobal)
         {
-            return _moduleGroup.CanAssignFunction(controllerFunctionController, functionGroupIsGlobal);
+            return controllerVm.CanAssignFunction(_moduleGroup, functionGroupIsGlobal);
         }
 
         public void RecalculateControllerFunctionState()
@@ -100,6 +100,7 @@ namespace LrControl.Ui.Gui
         protected override void Disposing()
         {
             _moduleGroup.PropertyChanged -= ModuleGroupOnPropertyChanged;
+            FunctionGroups = null;
         }
     }
 }

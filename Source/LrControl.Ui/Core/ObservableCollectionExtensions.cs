@@ -7,15 +7,7 @@ namespace LrControl.Ui.Core
 {
     public static class ObservableCollectionExtensions
     {
-        public static void AddRange<T>(this ObservableCollection<T> observableCollection, IEnumerable<T> items)
-        {
-            foreach (var item in items)
-            {
-                observableCollection.Add(item);
-            }
-        }
-
-        public static void SyncWith<T>(this ObservableCollection<T> observableCollection, IEnumerable<T> source)
+        public static void SyncWith<T>(this ObservableCollection<T> observableCollection, IList<T> source)
         {
             // Detect removed
             foreach (var item in observableCollection
@@ -37,6 +29,19 @@ namespace LrControl.Ui.Core
             {
                 observableCollection.Add(item);
             }
+        }
+
+        public static void DisposeAndClear<T>(this ObservableCollection<T> observableCollection)
+        {
+            foreach (var item in observableCollection)
+            {
+                if (item is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
+
+            observableCollection.Clear();
         }
     }
 }

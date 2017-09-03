@@ -67,6 +67,7 @@ namespace LrControl.Ui.Gui
             private set
             {
                 if (Equals(value, _controllerFunctions)) return;
+                _controllerFunctions?.DisposeAndClear();
                 _controllerFunctions = value;
                 OnPropertyChanged();
             }
@@ -99,12 +100,13 @@ namespace LrControl.Ui.Gui
         private void UpdateControllerFunctions(IEnumerable<ControllerFunction> controllerFunctions)
         {
             ControllerFunctions.SyncWith(
-                controllerFunctions.Select(c => new ControllerFunctionViewModel(Dispatcher, c)));
+                controllerFunctions.Select(x => new ControllerFunctionViewModel(Dispatcher, x)).ToList());
         }
 
         protected override void Disposing()
         {
             _functionGroup.PropertyChanged -= FunctionGroupOnPropertyChanged;
+            ControllerFunctions = null;
         }
     }
 }
