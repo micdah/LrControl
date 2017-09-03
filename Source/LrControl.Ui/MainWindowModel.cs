@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
 using LrControl.Core;
+using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Ui.Core;
 using LrControl.Ui.Gui;
@@ -57,6 +58,7 @@ namespace LrControl.Ui
         public ICommand RefreshAvailableDevicesCommand { get; }
 
         public IFunctionCatalog FunctionCatalog => _lrControlApplication.FunctionCatalog;
+        public ISettings Settings => _lrControlApplication.Settings;
 
         public bool ShowSettingsDialog
         {

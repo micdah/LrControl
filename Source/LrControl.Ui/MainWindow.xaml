@@ -30,7 +30,7 @@
         <controls:FlyoutsControl>
             <controls:Flyout Header="Settings" Position="Right" Width="500" Theme="Accent"
                              IsOpen="{Binding ShowSettingsDialog}">
-                <gui:SettingsView Margin="10"/>
+                <gui:SettingsView Margin="10" Settings="{Binding Settings}"/>
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>

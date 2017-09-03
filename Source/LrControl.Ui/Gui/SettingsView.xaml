@@ -6,7 +6,7 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="500"
-             DataContext="{Binding RelativeSource={RelativeSource Self}, Path=Settings}">
+             Name="UserControl">
     <UserControl.Resources>
         <Style TargetType="controls:ToggleSwitch" BasedOn="{StaticResource MetroToggleSwitch}">
             <Setter Property="Margin" Value="0,0,0,20"/>
@@ -16,17 +16,17 @@
         <controls:ToggleSwitch
             Header="Show pop-up message while changing parameters"
             OnLabel="Yes" OffLabel="No"
-            IsChecked="{Binding ShowHudMessages}" />
+            IsChecked="{Binding ElementName=UserControl, Path=Settings.ShowHudMessages}" />
         
         <controls:ToggleSwitch
             Header="Start minimized"
             OnLabel="Yes" OffLabel="No"
-            IsChecked="{Binding StartMinimized}"/>
+            IsChecked="{Binding ElementName=UserControl, Path=Settings.StartMinimized}"/>
 
         <controls:ToggleSwitch
             Header="Save configuration when closing"
             OnLabel="Yes" OffLabel="No"
-            IsChecked="{Binding SaveConfigurationOnExit}"/>
+            IsChecked="{Binding ElementName=UserControl, Path=Settings.SaveConfigurationOnExit}"/>
 
         <Grid>
             <Grid.RowDefinitions>
@@ -45,10 +45,10 @@
                        Margin="0,0,0,10">
                 Parameter send frequency (updates / second)
             </TextBlock>
-            
-            <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="60" Value="{Binding ParameterUpdateFrequency}"
+
+            <Slider Grid.Row="1" Grid.Column="0" Minimum="10" Maximum="60" Value="{Binding ElementName=UserControl, Path=Settings.ParameterUpdateFrequency}"
                     TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ParameterUpdateFrequency}"
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=UserControl, Path=Settings.ParameterUpdateFrequency}"
                        Foreground="{DynamicResource GrayBrush1}"
                        FontSize="15" FontWeight="Normal"
                        HorizontalAlignment="Center"/>
