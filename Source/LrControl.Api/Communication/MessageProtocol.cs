@@ -8,8 +8,7 @@ namespace LrControl.Api.Communication
 {
     internal class MessageProtocol<TModule>
     {
-        // ReSharper disable once StaticMemberInGenericType
-        private static readonly ILogger Log = Serilog.Log.ForContext(typeof(MessageProtocol<>));
+        private static readonly ILogger Log = Serilog.Log.ForContext(typeof(MessageProtocol<TModule>));
 
         private const char RecordSeparator = '\u001E';
 
@@ -24,8 +23,7 @@ namespace LrControl.Api.Communication
 
         public bool Invoke(string method, params object[] args)
         {
-            string response;
-            if (!SendMessage(out response, method, args))
+            if (!SendMessage(out var response, method, args))
                 return false;
 
             if (response == "ack") return true;
@@ -36,8 +34,7 @@ namespace LrControl.Api.Communication
 
         public bool Invoke<TResult>(out TResult result, string method, params object[] args) 
         {
-            string response;
-            if (!SendMessage(out response, method, args))
+            if (!SendMessage(out var response, method, args))
                 return False(out result);
 
             if (response == "ack")
@@ -48,15 +45,13 @@ namespace LrControl.Api.Communication
 
         public bool Invoke<TResult1, TResult2>(out TResult1 result1, out TResult2 result2, string method, params object[] args) 
         {
-            string response;
-            if (!SendMessage(out response, method, args))
+            if (!SendMessage(out var response, method, args))
                 return False(out result1, out result2);
 
             if (response == "ack")
                 return False(out result1, out result2);
 
-            string[] results;
-            if (!SplitResponse(response, 2, out results))
+            if (!SplitResponse(response, 2, out var results))
                 return False(out result1, out result2);
 
             bool result = true;
@@ -67,15 +62,13 @@ namespace LrControl.Api.Communication
 
         public bool Invoke<TResult1, TResult2, TResult3>(out TResult1 result1, out TResult2 result2, out TResult3 result3, string method, params object[] args)
         {
-            string response;
-            if (!SendMessage(out response, method, args))
+            if (!SendMessage(out var response, method, args))
                 return False(out result1, out result2, out result3);
 
             if (response == "ack")
                 return False(out result1, out result2, out result3);
 
-            string[] results;
-            if (!SplitResponse(response, 3, out results))
+            if (!SplitResponse(response, 3, out var results))
                 return False(out result1, out result2, out result3);
 
             bool result = true;
@@ -121,29 +114,26 @@ namespace LrControl.Api.Communication
                     builder.Append(i == 0 ? ' ' : RecordSeparator);
                     var arg = args[i];
 
-                    if (arg is IParameter)
+                    switch (arg)
                     {
-                        var parameter = (IParameter) arg;
-                        AppendTypedArgument(builder, parameter.Name);
-                    }
-                    else if (arg is IClassEnum<string>)
-                    {
-                        AppendTypedArgument(builder, ((IClassEnum<string>)arg).Value);
-                    }
-                    else if (arg is IClassEnum<int>)
-                    {
-                        AppendTypedArgument(builder, ((IClassEnum<int>) arg).Value);
-                    } else if (arg is IClassEnum<double>)
-                    {
-                        AppendTypedArgument(builder, ((IClassEnum<double>) arg).Value);
-                    }
-                    else if (arg is IClassEnum<bool>)
-                    {
-                        AppendTypedArgument(builder, ((IClassEnum<bool>)arg).Value);
-                    }
-                    else
-                    {
-                        AppendTypedArgument(builder, arg);
+                        case IParameter parameter:
+                            AppendTypedArgument(builder, parameter.Name);
+                            break;
+                        case IClassEnum<string> stringClassEnum:
+                            AppendTypedArgument(builder, stringClassEnum.Value);
+                            break;
+                        case IClassEnum<int> intClassEnum:
+                            AppendTypedArgument(builder, intClassEnum.Value);
+                            break;
+                        case IClassEnum<double> doubleClassEnum:
+                            AppendTypedArgument(builder, doubleClassEnum.Value);
+                            break;
+                        case IClassEnum<bool> boolClassEnum:
+                            AppendTypedArgument(builder, boolClassEnum.Value);
+                            break;
+                        default:
+                            AppendTypedArgument(builder, arg);
+                            break;
                     }
                 }
             }
@@ -153,31 +143,29 @@ namespace LrControl.Api.Communication
 
         private static void AppendTypedArgument(StringBuilder builder, object arg)
         {
-            if (arg == null)
+            switch (arg)
             {
-                builder.Append("L");
-            } else if (arg is string)
-            {
-                builder.Append("S");
-                builder.Append((string) arg);
-            }
-            else if (arg is int)
-            {
-                builder.Append("N");
-                builder.Append((int) arg);
-            }
-            else if (arg is double)
-            {
-                builder.Append("N");
-                builder.Append($"{(double) arg:F2}");
-            } else if (arg is bool)
-            {
-                builder.Append("B");
-                builder.Append((bool) arg ? 1 : 0);
-            }
-            else
-            {
-                throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
+                case null:
+                    builder.Append("L");
+                    break;
+                case string @string:
+                    builder.Append("S");
+                    builder.Append(@string);
+                    break;
+                case int @int:
+                    builder.Append("N");
+                    builder.Append(@int);
+                    break;
+                case double @double:
+                    builder.Append("N");
+                    builder.Append($"{@double:F2}");
+                    break;
+                case bool @bool:
+                    builder.Append("B");
+                    builder.Append(@bool ? 1 : 0);
+                    break;
+                default:
+                    throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
             }
         }
 

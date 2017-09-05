@@ -44,8 +44,7 @@ namespace LrControl.Api.Modules.LrDevelopController
 
         public bool GetProcessVersion(out ProcessVersion processVersion)
         {
-            string result;
-            if (!Invoke(out result, nameof(GetProcessVersion)))
+            if (!Invoke(out string result, nameof(GetProcessVersion)))
                 return False(out processVersion);
 
             processVersion = ProcessVersion.GetEnumForValue(result);
@@ -54,8 +53,7 @@ namespace LrControl.Api.Modules.LrDevelopController
 
         public bool GetRange(out Range range, IParameter param)
         {
-            double min, max;
-            if (!Invoke(out min, out max, nameof(GetRange), param))
+            if (!Invoke(out double min, out double max, nameof(GetRange), param))
                 return False(out range);
 
             range = new Range(min, max);
@@ -64,8 +62,7 @@ namespace LrControl.Api.Modules.LrDevelopController
 
         public bool GetSelectedTool(out Tool tool)
         {
-            string result;
-            if (!Invoke(out result, nameof(GetSelectedTool)))
+            if (!Invoke(out string result, nameof(GetSelectedTool)))
                 return False(out tool);
 
             tool = Tool.GetEnumForValue(result);
@@ -95,8 +92,7 @@ namespace LrControl.Api.Modules.LrDevelopController
         public bool GetValue<TEnum, TValue>(out TEnum value, IParameter<ClassEnum<TValue, TEnum>> param)
             where TEnum : ClassEnum<TValue, TEnum>
         {
-            TValue result;
-            if (Invoke(out result, nameof(GetValue), param))
+            if (Invoke(out TValue result, nameof(GetValue), param))
             {
                 value = ClassEnum<TValue, TEnum>.GetEnumForValue(result);
                 return true;
@@ -225,11 +221,9 @@ namespace LrControl.Api.Modules.LrDevelopController
         {
             foreach (var parameterName in parameterNames.Split(','))
             {
-                IParameter parameter;
-                if (!_parameterLookup.TryGetValue(parameterName, out parameter)) return;
+                if (!_parameterLookup.TryGetValue(parameterName, out var parameter)) return;
 
-                ParameterChangedHandler handler;
-                if (_parameterChangedHandlers.TryGetValue(parameter, out handler))
+                if (_parameterChangedHandlers.TryGetValue(parameter, out var handler))
                 {
                     handler();
                 }

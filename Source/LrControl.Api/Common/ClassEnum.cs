@@ -32,19 +32,8 @@ namespace LrControl.Api.Common
 
         private static List<TEnum> GetAllEnums()
         {
-            var all = new List<TEnum>();
-
             var fields = typeof (TEnum).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
-            foreach (var info in fields)
-            {
-                var value = info.GetValue(null) as TEnum;
-                if (value != null)
-                {
-                    all.Add(value);
-                }
-            }
-
-            return all;
+            return fields.Select(info => info.GetValue(null)).OfType<TEnum>().ToList();
         }
 
         public static TEnum GetEnumForValue(TValue value)

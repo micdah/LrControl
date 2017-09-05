@@ -11,7 +11,7 @@
         public string Name { get; }
         public string DisplayName { get; }
 
-        private bool Equals(Parameter<T> other)
+        private bool Equals(IParameter other)
         {
             return string.Equals(Name, other.Name);
         }

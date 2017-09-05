@@ -66,8 +66,7 @@ namespace LrControl.Api
         {
             if (connected)
             {
-                string apiVersion;
-                if (LrControl.GetApiVersion(out apiVersion))
+                if (LrControl.GetApiVersion(out var apiVersion))
                 {
                     OnConnectionStatus(true, apiVersion);
                 }

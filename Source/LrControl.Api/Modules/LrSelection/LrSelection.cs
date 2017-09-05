@@ -46,8 +46,7 @@ namespace LrControl.Api.Modules.LrSelection
 
         public bool GetColorLabel(out ColorLabel colorLabel)
         {
-            string result;
-            if (!Invoke(out result, nameof(GetColorLabel)))
+            if (!Invoke(out string result, nameof(GetColorLabel)))
                 return False(out colorLabel);
 
             colorLabel = ColorLabel.GetEnumForValue(result);
@@ -56,8 +55,7 @@ namespace LrControl.Api.Modules.LrSelection
 
         public bool GetFlag(out Flag flag)
         {
-            int result;
-            if (!Invoke(out result, nameof(GetFlag)))
+            if (!Invoke(out int result, nameof(GetFlag)))
                 return False(out flag);
 
             flag = Flag.GetEnumForValue(result);

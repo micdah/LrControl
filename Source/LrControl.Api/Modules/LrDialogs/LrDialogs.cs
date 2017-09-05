@@ -12,8 +12,7 @@ namespace LrControl.Api.Modules.LrDialogs
         public bool Confirm(out ConfirmResult confirmResult, string message, string info, string actionVerb, string cancelVerb,
             string otherVerb = null)
         {
-            string result;
-            if (Invoke(out result, nameof(Confirm), message, info, actionVerb, cancelVerb, otherVerb))
+            if (Invoke(out string result, nameof(Confirm), message, info, actionVerb, cancelVerb, otherVerb))
             {
                 confirmResult = ConfirmResult.GetEnumForValue(result);
                 return true;

@@ -22,8 +22,7 @@ namespace LrControl.Api.Modules.LrApplicationView
 
         public bool GetCurrentModuleName(out Module module)
         {
-            string result;
-            if (!Invoke(out result, nameof(GetCurrentModuleName)))
+            if (!Invoke(out string result, nameof(GetCurrentModuleName)))
                 return False(out module);
 
             module = Module.GetEnumForValue(result);
@@ -32,8 +31,7 @@ namespace LrControl.Api.Modules.LrApplicationView
 
         public bool GetSecondaryViewName(out SecondaryView secondaryView)
         {
-            string result;
-            if (!Invoke(out result, nameof(GetSecondaryViewName)))
+            if (!Invoke(out string result, nameof(GetSecondaryViewName)))
                 return False(out secondaryView);
 
             secondaryView = SecondaryView.GetEnumForValue(result);
