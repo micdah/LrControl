@@ -23,8 +23,8 @@ namespace LrControl.Api.Communication
         private readonly bool _receiving;
         private readonly Stopwatch _stopwatch = new Stopwatch();
 
-        private StartStopThread _receiveThread;
-        private StartStopThread _reconnectThread;
+        private ProcessingThread _receiveThread;
+        private ProcessingThread _reconnectThread;
         private Socket _socket;
 
 
@@ -58,11 +58,11 @@ namespace LrControl.Api.Communication
             if (!TryCreateSocket())
                 return false;
 
-            _reconnectThread = new StartStopThread($"Socket Reconnect Thread (port {_port})", ReconnectIteration);
+            _reconnectThread = new ProcessingThread($"Socket Reconnect Thread (port {_port})", ReconnectIteration);
 
             if (_receiving)
             {
-                _receiveThread = new StartStopThread($"Socket Receive Thread (port {_port})", ReceiveIteration);
+                _receiveThread = new ProcessingThread($"Socket Receive Thread (port {_port})", ReceiveIteration);
             }
 
             // Initial state
@@ -237,7 +237,7 @@ namespace LrControl.Api.Communication
             }
             catch (SocketException e)
             {
-                //Log.Error(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
+                Log.Warning(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
                 return false;
             }
         }

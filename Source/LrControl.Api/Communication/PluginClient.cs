@@ -15,17 +15,12 @@ namespace LrControl.Api.Communication
         private const string HostName = "localhost";
         private const string ChangedToken = "Changed:";
         private const string ModuleToken = "Module:";
-        
-        private readonly BlockingCollection<string> _changeQueue = new BlockingCollection<string>();
-        private readonly BlockingCollection<string> _moduleQueue = new BlockingCollection<string>();
+
         private readonly BlockingCollection<string> _inputQueue = new BlockingCollection<string>();
-        
-        private readonly StartStopThread _changeProcessingThread;
-        private readonly StartStopThread _moduleProcessingThread;
-        
+        private readonly BlockingCollection<PluginEvent> _eventQueue = new BlockingCollection<PluginEvent>();
+        private readonly ProcessingThread _eventProcessingThread;
         private readonly SocketWrapper _sendSocket;
         private readonly SocketWrapper _receiveSocket;
-
         private readonly object _connectionStatusLock = new object();
         private readonly object _sendLock = new object();
         
@@ -39,26 +34,8 @@ namespace LrControl.Api.Communication
             _sendSocket.Connection += connected => SocketConnectionHandler(_sendSocket, connected);
             _receiveSocket.Connection += connected => SocketConnectionHandler(_receiveSocket, connected);
             _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
-            
-            /*
-             * TODO Have single input message queue, and single processing thread taking messages off queue
-             */
 
-            _changeProcessingThread = new StartStopThread("PluginClient Change processing thread", stop =>
-            {
-                if (_changeQueue.TryTake(out var param, 100))
-                {
-                    ChangeMessage?.Invoke(param);
-                }
-            });
-
-            _moduleProcessingThread = new StartStopThread("PluginClient Moduyle change processing thread", stop =>
-            {
-                if (_moduleQueue.TryTake(out var module, 100))
-                {
-                    ModuleMessage?.Invoke(module);
-                }
-            });
+            _eventProcessingThread = new ProcessingThread("PluginClient Event Processing thread", EventProcessingIteration);
         }
 
         public bool IsConnected => _sendSocket.IsConnected && _receiveSocket.IsConnected;
@@ -81,8 +58,7 @@ namespace LrControl.Api.Communication
                 return false;
             }
 
-            _changeProcessingThread.Start();
-            _moduleProcessingThread.Start();
+            _eventProcessingThread.Start();
             return true;
         }
 
@@ -94,9 +70,9 @@ namespace LrControl.Api.Communication
             if (_receiveSocket.IsOpen)
                 _receiveSocket.Close();
 
-            _changeProcessingThread.Stop();
-            _moduleProcessingThread.Stop();
-            }
+            _eventProcessingThread.Stop();
+            ClearQueue(_eventQueue);
+        }
 
         public bool SendMessage(string message, out string response)
         {
@@ -110,16 +86,7 @@ namespace LrControl.Api.Communication
 
             lock (_sendLock)
             {
-                // Empty message queue
-                if (_inputQueue.Count > 0)
-                {
-                    Log.Warning("There are {Count} message in the input queue, emptying before sending message", _inputQueue.Count);
-
-                    while (_inputQueue.TryTake(out string throwAway))
-                    {
-                        Log.Debug("Throwing away '{Message}'", throwAway);
-                    }
-                }
+                ClearQueue(_inputQueue);
 
                 // Send message
                 if (!_sendSocket.Send(message))
@@ -134,6 +101,24 @@ namespace LrControl.Api.Communication
                     Log.Warning("Sent message '{Message}' but did not get any response within timeout of {SocketTimeout}", message, SocketWrapper.SocketTimeout);
 
                 return success;
+            }
+        }
+
+        private void EventProcessingIteration(RequestStopHandler requestStopHandler)
+        {
+            if (!_eventQueue.TryTake(out var pluginEvent, 100)) return;
+
+            switch (pluginEvent.PluginEventType)
+            {
+                case PluginEventType.Change:
+                    ChangeMessage?.Invoke(pluginEvent.Data);
+                    break;
+                case PluginEventType.Module:
+                    ModuleMessage?.Invoke(pluginEvent.Data);
+                    break;
+                default:
+                    Log.Error("Unknown event type received in {@Event}", pluginEvent);
+                    break;
             }
         }
 
@@ -160,11 +145,11 @@ namespace LrControl.Api.Communication
 
             if (message.StartsWith(ChangedToken))
             {
-                _changeQueue.Add(message.Substring(ChangedToken.Length));
+                _eventQueue.Add(new PluginEvent(PluginEventType.Change, message.Substring(ChangedToken.Length)));
             }
             else if (message.StartsWith(ModuleToken))
             {
-                _moduleQueue.Add(message.Substring(ModuleToken.Length));
+                _eventQueue.Add(new PluginEvent(PluginEventType.Module, message.Substring(ModuleToken.Length)));
             }
             else
             {
@@ -181,6 +166,18 @@ namespace LrControl.Api.Communication
 
                 ThreadPool.QueueUserWorkItem(state => Connection?.Invoke((bool) state), isConnected);
                 _lastConnectionStatus = isConnected;
+            }
+        }
+
+        private static void ClearQueue<T>(BlockingCollection<T> queue)
+        {
+            if (queue.Count <= 0) return;
+
+            Log.Warning("There are {Count} messages left in queue, emptying", queue.Count);
+
+            while (queue.TryTake(out T item))
+            {
+                Log.Debug("Throwing away queue item {@Item}", item);
             }
         }
     }

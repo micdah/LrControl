@@ -8,9 +8,13 @@ namespace LrControl.Api.Common
 
     internal delegate void IterationHandler(RequestStopHandler stop);
 
-    internal class StartStopThread : IDisposable
+    /// <summary>
+    /// Processing-type thread that performs a repetitive processing iteration in an
+    /// endless loop until stopped.
+    /// </summary>
+    internal class ProcessingThread : IDisposable
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<StartStopThread>();
+        private static readonly ILogger Log = Serilog.Log.ForContext<ProcessingThread>();
 
         private readonly IterationHandler _iterationFunction;
         private readonly ManualResetEvent _runEvent = new ManualResetEvent(false);
@@ -19,7 +23,7 @@ namespace LrControl.Api.Common
         private readonly Thread _thread;
         private bool _terminate;
 
-        public StartStopThread(string name, IterationHandler iterationFunction)
+        public ProcessingThread(string name, IterationHandler iterationFunction)
         {
             _iterationFunction = iterationFunction;
 
