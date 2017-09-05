@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Threading;
 using LrControl.Api.Common;
+using LrControl.Api.Communication.Sockets;
 using Serilog;
 
 namespace LrControl.Api.Communication
@@ -19,8 +20,8 @@ namespace LrControl.Api.Communication
         private readonly BlockingCollection<string> _inputQueue = new BlockingCollection<string>();
         private readonly BlockingCollection<PluginEvent> _eventQueue = new BlockingCollection<PluginEvent>();
         private readonly ProcessingThread _eventProcessingThread;
-        private readonly SocketWrapper _sendSocket;
-        private readonly SocketWrapper _receiveSocket;
+        private readonly SendSocket _sendSocket;
+        private readonly ReceiveSocket _receiveSocket;
         private readonly object _connectionStatusLock = new object();
         private readonly object _sendLock = new object();
         
@@ -29,8 +30,8 @@ namespace LrControl.Api.Communication
 
         public PluginClient(int sendPort, int receivePort)
         {
-            _sendSocket = new SocketWrapper(HostName, sendPort, false);
-            _receiveSocket = new SocketWrapper(HostName, receivePort, true);
+            _sendSocket = new SendSocket(HostName, sendPort);
+            _receiveSocket = new ReceiveSocket(HostName, receivePort);
             _sendSocket.Connection += connected => SocketConnectionHandler(_sendSocket, connected);
             _receiveSocket.Connection += connected => SocketConnectionHandler(_receiveSocket, connected);
             _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
@@ -96,9 +97,9 @@ namespace LrControl.Api.Communication
                 }
 
                 // Wait for response
-                var success = _inputQueue.TryTake(out response, SocketWrapper.SocketTimeout);
+                var success = _inputQueue.TryTake(out response, SocketBase.SocketTimeout);
                 if (!success)
-                    Log.Warning("Sent message '{Message}' but did not get any response within timeout of {SocketTimeout}", message, SocketWrapper.SocketTimeout);
+                    Log.Warning("Sent message '{Message}' but did not get any response within timeout of {SocketTimeout}", message, SocketBase.SocketTimeout);
 
                 return success;
             }
@@ -122,7 +123,7 @@ namespace LrControl.Api.Communication
             }
         }
 
-        private void SocketConnectionHandler(SocketWrapper socket, bool connected)
+        private void SocketConnectionHandler(SocketBase socket, bool connected)
         {
             if (!connected)
             {
