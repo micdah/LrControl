@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using LrControl.Api.Common;
 using Serilog;
 
-namespace LrControl.Api.Communication
+namespace LrControl.Api.Communication.Sockets
 {
     public delegate void ConnectionHandler(bool connected);
 
