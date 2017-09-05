@@ -34,7 +34,7 @@ local levels = {
 
 local options = {
 	Levels	= levels,
-	Level	= levels.Trace
+	Level	= levels.Debug
 }
 
 local function wrap(level,f)

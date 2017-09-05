@@ -53,6 +53,7 @@ local function main(context)
             Sockets.SendSocket:close()
         end
 
+		Log.Debug("Opening SendSocket")
         Sockets.SendSocket = LrSocket.bind {
             functionContext = context,
             plugin = _PLUGIN,
@@ -123,11 +124,13 @@ local function main(context)
         end
         
         if string.len(changed) > 0 then
+			Log.Tracef("Adjustments changed, sending update '%s'", changed)
             Sockets.SendSocket:send("Changed:" .. changed .. "\n")
         end
     end
     
     local function moduleChanged(module) 
+		Log.Tracef("Sending module changed '%s'", module)
         Sockets.SendSocket:send("Module:" .. module .. "\n")
     end
     
@@ -150,12 +153,14 @@ local function main(context)
         -- Chcek if module has changed
         local currentModule = LrApplicationView.getCurrentModuleName()
         if lastModule ~= currentModule then
+			Log.Debug("Module changed from %s to %s", lastModule, currentModule)
             moduleChanged(currentModule)
             lastModule = currentModule
         end
         
         -- Check if we need to add adjustment change observer
         if not observerAdded and currentModule == "develop" then
+			Log.Debug("Adding adjustChangeObserver")
             LrDevelopController.addAdjustmentChangeObserver(context, adjustmentChanged, function(observer)
                 pcall(observer)
             end)

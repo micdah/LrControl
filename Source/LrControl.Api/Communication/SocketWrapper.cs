@@ -69,8 +69,6 @@ namespace LrControl.Api.Communication
             IsOpen = true;
             IsConnected = false;
             _reconnectThread.Start();
-            if (_receiving)
-                _receiveThread.Start();
 
             return true;
         }
@@ -172,21 +170,22 @@ namespace LrControl.Api.Communication
                     }
                 }
             }
+            catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut)
+            {
+                Log.Debug("Socket timouet");
+            }
             catch (SocketException e)
             {
-                if (e.SocketErrorCode != SocketError.TimedOut)
-                {
-                    Log.Error(e, "Error while receiving message, reconnecting");
-                    Reconnect();
-                }
-
-                message = null;
-                return false;
+                Log.Error(e, "Error while receiving message, reconnecting");
+                Reconnect();
             }
             finally
             {
                 _stopwatch.Stop();
             }
+
+            message = null;
+            return false;
         }
 
         private void ReconnectIteration(RequestStopHandler stop)

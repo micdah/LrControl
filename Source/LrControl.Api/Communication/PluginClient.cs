@@ -8,8 +8,7 @@ namespace LrControl.Api.Communication
 {
     internal delegate void ChangeMessageHandler(string parameterName);
     internal delegate void ModuleMessageHandler(string moduleName);
-    internal delegate void ShutdownMessageHandler();
-
+    
     internal class PluginClient
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<PluginClient>();
@@ -40,11 +39,14 @@ namespace LrControl.Api.Communication
             _sendSocket.Connection += connected => SocketConnectionHandler(_sendSocket, connected);
             _receiveSocket.Connection += connected => SocketConnectionHandler(_receiveSocket, connected);
             _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
+            
+            /*
+             * TODO Have single input message queue, and single processing thread taking messages off queue
+             */
 
             _changeProcessingThread = new StartStopThread("PluginClient Change processing thread", stop =>
             {
-                string param;
-                if (_changeQueue.TryTake(out param, 100))
+                if (_changeQueue.TryTake(out var param, 100))
                 {
                     ChangeMessage?.Invoke(param);
                 }
@@ -52,8 +54,7 @@ namespace LrControl.Api.Communication
 
             _moduleProcessingThread = new StartStopThread("PluginClient Moduyle change processing thread", stop =>
             {
-                string module;
-                if (_moduleQueue.TryTake(out module, 100))
+                if (_moduleQueue.TryTake(out var module, 100))
                 {
                     ModuleMessage?.Invoke(module);
                 }

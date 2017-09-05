@@ -64,7 +64,7 @@ namespace LrControl.Api.Common
 
         private void ThreadStart()
         {
-            RequestStopHandler stop = () => Stop();
+            void RequestStopHandler() => Stop();
 
             while (true)
             {
@@ -73,7 +73,7 @@ namespace LrControl.Api.Common
 
                 if (!_terminate)
                 {
-                    _iterationFunction(stop);
+                    _iterationFunction(RequestStopHandler);
                 }
                 else
                 {
