@@ -32,7 +32,7 @@ local CommandInterpreter       = require 'CommandInterpreter'
 local ChangeObserverParameters = require 'ChangeObserverParameters'
 local ModuleTools              = require 'ModuleTools'
 
-Log:info("Main running")
+Log.Info("Main running")
 
 Sockets = {
     SendSocket = nil,
@@ -49,7 +49,7 @@ local function main(context)
     -- Open send socket
     local function openSendSocket()
         if Sockets.SendSocket ~= nil then
-			Log:debug("Closing SendSocket")
+			Log.Debug("Closing SendSocket")
             Sockets.SendSocket:close()
         end
 
@@ -59,14 +59,14 @@ local function main(context)
             port = Options.MessageSendPort,
             mode = 'send',
             onError = function(socket, err)
-				Log:tracef("SendSocket: Received error '%s'", err)
+				Log.Debugf("SendSocket: Received error '%s'", err)
                 if Sockets.AutoReconnect then
-					Log:trace("SendSocket: AutoReconnect enabled, reconnecting")
+					Log.Debug("SendSocket: AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end,
             onClosed = function(socket)
-				Log:trace("SendSocket: Closed")
+				Log.Debug("SendSocket: Closed")
             end
         }
     end
@@ -80,28 +80,30 @@ local function main(context)
         port			= Options.MessageReceivePort,
         mode			= 'receive',
         onMessage		= function (socket, message)
-			--Log:tracef("ReceiveSocket: Received message '%s'", message)
+			Log.Tracef("ReceiveSocket: Received message '%s'", message)
             local status, result = pcall(CommandInterpreter.InterpretCommand, Modules,message)
             if status then
+				Log.Tracef("ReceiveSocket: Success, sending result '%s'", result)
                 Sockets.SendSocket:send(result .. "\n")
             else
                 local err = CommandInterpreter.ErrorMessage("Lua error: " .. result)
+				Log.Tracef("ReceiveSocket: Lua error '%s'", err)
                 Sockets.SendSocket:send(err .. "\n")
             end
         end,
         onError         = function(socket, err)
-			Log:tracef("ReceiveSocket: Received error '%s'", err)
+			Log.Debugf("ReceiveSocket: Received error '%s'", err)
             if err == "timeout" then
                 if Sockets.AutoReconnect then
-					Log:trace("ReceiveSocket: AutoReconnect enabled, reconnecting")
+					Log.Debug("ReceiveSocket: AutoReconnect enabled, reconnecting")
                     socket:reconnect()
                 end
             end
         end,
         onClosed        = function(socket) 
-			Log:trace("ReceiveSocket: Closed")
+			Log.Debug("ReceiveSocket: Closed")
             if Sockets.AutoReconnect then
-				Log:trace("ReceiveSocket: AutoReconnect enabled, reconnecting")
+				Log.Debug("ReceiveSocket: AutoReconnect enabled, reconnecting")
                 socket:reconnect()
                 openSendSocket()
             end

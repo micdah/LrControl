@@ -25,17 +25,18 @@ local Log          = require 'Logger'
 
 return {
     LrShutdownFunction = function (doneFunction, progressFunction)
-        Log:info("Shutting down LrControl")
+        Log.Info("Shutting down LrControl")
         progressFunction (0, "Shutting down LrControl")
 
         local pf = function(progress,message)
             progressFunction(progress,message)
         end
 
-        Log:debug("Calling LrControlApp.Stop")
+        Log.Debug("Calling LrControlApp.Stop")
         LrControlApp.Stop(pf)
 
-        progressFunction (1, "Done")   
+		Log.Info("Finished shutting down LrControl")
+        progressFunction (1, "Done")
         doneFunction()
     end
 }

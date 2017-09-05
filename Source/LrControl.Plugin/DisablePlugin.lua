@@ -22,5 +22,5 @@ local LrControlApp = require 'LrControlApp'
 local Log          = require 'Logger'
 
 -- Stop application
-Log:info("DisablePlugin called")
+Log.Info("DisablePlugin called")
 LrControlApp.Stop()
