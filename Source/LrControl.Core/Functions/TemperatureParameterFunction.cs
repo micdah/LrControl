@@ -41,7 +41,7 @@ namespace LrControl.Core.Functions
                 ? _controllerRangeLow.FromRange(_parameterRangeLow, value)
                 : _controllerRangeHigh.FromRange(_parameterRangeHigh, value);
 
-            return Convert.ToInt32(controllerValue);
+            return (int)controllerValue;
         }
 
         protected override double CalculateParamterValue(int controllerValue, Range controllerRange)

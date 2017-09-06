@@ -15,8 +15,8 @@ namespace LrControl.Core.Configurations
         public ControllerConfiguration(Controller controller) : base(controller)
         {
             ControllerType = controller.ControllerType;
-            RangeMin = Convert.ToInt32(controller.Range.Minimum);
-            RangeMax = Convert.ToInt32(controller.Range.Maximum);
+            RangeMin = (int)controller.Range.Minimum;
+            RangeMax = (int)controller.Range.Maximum;
         }
 
         public ControllerType ControllerType { get; set; }

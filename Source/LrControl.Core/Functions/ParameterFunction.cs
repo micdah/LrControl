@@ -32,7 +32,7 @@ namespace LrControl.Core.Functions
             switch (Parameter)
             {
                 case IParameter<int> intParameter:
-                    var intValue = Convert.ToInt32(parameterValue);
+                    var intValue = (int)parameterValue;
                     Api.LrDevelopController.SetValue(intParameter, intValue);
 
                     ShowHud($"{intParameter.DisplayName}: {intValue}");
@@ -77,20 +77,19 @@ namespace LrControl.Core.Functions
                 case IParameter<int> intParameter:
                     if (Api.LrDevelopController.GetValue(out var intValue, intParameter))
                     {
-                        return Convert.ToInt32(controllerRange.FromRange(ParameterRange, intValue));
+                        return (int)controllerRange.FromRange(ParameterRange, intValue);
                     }
                     break;
                 case IParameter<double> doubleParameter:
                     if (Api.LrDevelopController.GetValue(out var doubleValue, doubleParameter))
                     {
-                        return Convert.ToInt32(controllerRange.FromRange(ParameterRange, doubleValue));
+                        return (int)controllerRange.FromRange(ParameterRange, doubleValue);
                     }
                     break;
                 case IParameter<bool> boolParameter:
                     if (Api.LrDevelopController.GetValue(out var boolValue, boolParameter))
                     {
-                        var controllerValue = boolValue ? controllerRange.Maximum : controllerRange.Minimum;
-                        return Convert.ToInt32(controllerValue);
+                        return (int)(boolValue ? controllerRange.Maximum : controllerRange.Minimum);
                     }
                     break;
             }

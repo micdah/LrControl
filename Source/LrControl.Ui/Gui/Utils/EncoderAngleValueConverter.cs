@@ -16,9 +16,15 @@ namespace LrControl.Ui.Gui.Utils
                 return DependencyProperty.UnsetValue;
 
             var range = (Range) values[0];
-            var value = (int) values[1];
+            var value = (double)(int) values[1];
 
-            return AngleRange.FromRange(range, System.Convert.ToDouble(value));
+            // Clamp value to range
+            if (value > range)
+                value = range.Maximum;
+            else if (value < range)
+                value = range.Minimum;
+
+            return AngleRange.FromRange(range, value);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

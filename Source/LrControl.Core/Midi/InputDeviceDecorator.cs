@@ -61,11 +61,18 @@ namespace LrControl.Core.Midi
                 _timerThread = null;
             }
 
-            if (_inputDevice.IsReceiving)
-                _inputDevice.StopReceiving();
+            try
+            {
+                if (_inputDevice.IsReceiving)
+                    _inputDevice.StopReceiving();
 
-            if (_inputDevice.IsOpen)
-                _inputDevice.Close();
+                if (_inputDevice.IsOpen)
+                    _inputDevice.Close();
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "Exception while trying to stop and close input device");
+            }
 
             _inputDevice.Nrpn -= InputDeviceOnNrpn;
             _inputDevice.ControlChange -= InputDeviceOnControlChange;

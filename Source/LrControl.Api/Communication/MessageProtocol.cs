@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
@@ -154,11 +155,11 @@ namespace LrControl.Api.Communication
                     break;
                 case int @int:
                     builder.Append("N");
-                    builder.Append(@int);
+                    builder.Append(@int.ToString(CultureInfo.InvariantCulture));
                     break;
                 case double @double:
                     builder.Append("N");
-                    builder.Append($"{@double:F2}");
+                    builder.Append(@double.ToString(CultureInfo.InvariantCulture));
                     break;
                 case bool @bool:
                     builder.Append("B");
@@ -201,12 +202,12 @@ namespace LrControl.Api.Communication
                 case 'N':
                     if (typeof (TExpectedType) == typeof (int))
                     {
-                        value = (TExpectedType) (object) Convert.ToInt32(valueString);
+                        value = (TExpectedType) (object) int.Parse(valueString, CultureInfo.InvariantCulture);
                         return true;
                     }
                     if (typeof (TExpectedType) == typeof (double))
                     {
-                        value = (TExpectedType) (object) Convert.ToDouble(valueString);
+                        value = (TExpectedType) (object) double.Parse(valueString, CultureInfo.InvariantCulture);
                         return true;
                     }
                     break;
