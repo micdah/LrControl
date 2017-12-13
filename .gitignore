@@ -212,3 +212,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 Development Catalog/Development Catalog Previews.lrdata/
 *.DS_Store
+.idea/
