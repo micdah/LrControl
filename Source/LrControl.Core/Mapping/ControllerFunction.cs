@@ -13,7 +13,7 @@ namespace LrControl.Core.Mapping
         private IFunction _function;
         private bool _assignable;
 
-        public ControllerFunction(Controller controller)
+        internal ControllerFunction(Controller controller)
         {
             Controller = controller;
             Controller.ControllerValueChanged += OnControllerValueChanged;
@@ -46,7 +46,7 @@ namespace LrControl.Core.Mapping
         public bool Assignable
         {
             get => _assignable;
-            set
+            internal set
             {
                 if (value == _assignable) return;
                 _assignable = value;
@@ -60,7 +60,7 @@ namespace LrControl.Core.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void Enable(bool resetIfUnmapped)
+        internal void Enable(bool resetIfUnmapped)
         {
             if(_function == null && resetIfUnmapped)
             {
@@ -77,7 +77,7 @@ namespace LrControl.Core.Mapping
             OnRequestUpdateControllerValue();
         }
 
-        public void Disable()
+        internal void Disable()
         {
             Enabled = false;
         }

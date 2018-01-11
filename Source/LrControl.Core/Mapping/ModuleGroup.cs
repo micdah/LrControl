@@ -16,7 +16,7 @@ namespace LrControl.Core.Mapping
         private readonly List<FunctionGroup> _functionGroups;
         private bool _enabled;
 
-        public ModuleGroup(Module module, List<FunctionGroup> functionGroups)
+        internal ModuleGroup(Module module, List<FunctionGroup> functionGroups)
         {
             Module = module;
             OnPropertyChanged(nameof(Module));
@@ -41,13 +41,13 @@ namespace LrControl.Core.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void AddFunctionGroup(FunctionGroup functionGroup)
+        internal void AddFunctionGroup(FunctionGroup functionGroup)
         {
             _functionGroups.Add(functionGroup);
             OnPropertyChanged(nameof(FunctionGroups));
         }
 
-        public void Enable()
+        internal void Enable()
         {
             // Enable last enabled function group(s)
             foreach (var enabledGroup in _lastEnabledFunctionGroups)
@@ -67,7 +67,7 @@ namespace LrControl.Core.Mapping
         }
 
 
-        public void Disable()
+        internal void Disable()
         {
             if (!Enabled) return;
 

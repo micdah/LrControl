@@ -15,7 +15,7 @@ namespace LrControl.Core.Devices
         private readonly Device _device;
         private int _lastValue;
 
-        public Controller(Device device, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber, Range range)
+        internal Controller(Device device, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber, Range range)
         {
             _device = device;
             MessageType = messageType;
@@ -46,12 +46,12 @@ namespace LrControl.Core.Devices
         public event PropertyChangedEventHandler PropertyChanged;
         public event ControllerValueChangedHandler ControllerValueChanged;
 
-        public void SetControllerValue(int controllerValue)
+        internal void SetControllerValue(int controllerValue)
         {
             _device.OnDeviceOutput(this, controllerValue);
         }
         
-        public void Reset()
+        internal void Reset()
         {
             if (Range != null)
                 SetControllerValue((int) Range.Minimum);
@@ -80,7 +80,7 @@ namespace LrControl.Core.Devices
             ControllerValueChanged?.Invoke(value);
         }
 
-        public bool IsController(ControllerConfigurationKey controllerKey)
+        internal bool IsController(ControllerConfigurationKey controllerKey)
         {
             return MidiChannel == controllerKey.Channel
                    && ControlNumber == controllerKey.ControlNumber

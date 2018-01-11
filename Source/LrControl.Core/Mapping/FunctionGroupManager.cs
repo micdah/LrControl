@@ -31,7 +31,7 @@ namespace LrControl.Core.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, Device device)
+        internal static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, Device device)
         {
             return new FunctionGroupManager(functionCatalog, device, new List<ModuleGroup>
             {
@@ -77,7 +77,7 @@ namespace LrControl.Core.Mapping
             return group;
         }
 
-        public void Load(IEnumerable<ModuleConfiguration> moduleConfigurations)
+        internal void Load(IEnumerable<ModuleConfiguration> moduleConfigurations)
         {
             Reset();
 
@@ -112,7 +112,7 @@ namespace LrControl.Core.Mapping
             }
         }
 
-        public void Reset()
+        internal void Reset()
         {
             foreach (var module in Modules)
             {
@@ -128,12 +128,12 @@ namespace LrControl.Core.Mapping
             }
         }
 
-        public List<ModuleConfiguration> GetConfiguration()
+        internal List<ModuleConfiguration> GetConfiguration()
         {
             return Modules.Select(x => new ModuleConfiguration(x)).ToList();
         }
 
-        public void EnableModule(Module module)
+        internal void EnableModule(Module module)
         {
             // First disable all other module groups
             foreach (var moduleGroup in Modules.Where(g => g.Module != module))

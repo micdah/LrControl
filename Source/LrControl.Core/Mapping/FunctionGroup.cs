@@ -20,7 +20,7 @@ namespace LrControl.Core.Mapping
         private Panel _panel;
         private string _key;
 
-        public FunctionGroup(LrApi api, Panel panel = null)
+        internal FunctionGroup(LrApi api, Panel panel = null)
         {
             _api = api;
             IsGlobal = panel == null;
@@ -38,7 +38,7 @@ namespace LrControl.Core.Mapping
         public string Key
         {
             get => _key;
-            set
+            internal set
             {
                 if (value == _key) return;
                 _key = value;
@@ -81,12 +81,12 @@ namespace LrControl.Core.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static FunctionGroup GetFunctionGroupFor(Panel panel)
+        internal static FunctionGroup GetFunctionGroupFor(Panel panel)
         {
             return AllFunctionGroups.FirstOrDefault(group => group.Panel == panel);
         }
 
-        public void Enable()
+        internal void Enable()
         {
             if (!IsGlobal)
             {
@@ -113,7 +113,7 @@ namespace LrControl.Core.Mapping
             Log.Debug("Enabled FunctionGroup for {Name}", Panel?.Name);
         }
 
-        public void Disable()
+        internal void Disable()
         {
             if (!Enabled) return;
 
@@ -126,13 +126,13 @@ namespace LrControl.Core.Mapping
             Log.Debug("Disabled FunctionGroup for {Name}", Panel?.Name);
         }
 
-        public void AddControllerFunction(ControllerFunction controllerFunction)
+        internal void AddControllerFunction(ControllerFunction controllerFunction)
         {
             _controllerFunctions.Add(controllerFunction);
             OnPropertyChanged(nameof(ControllerFunctions));
         }
 
-        public void ClearControllerFunctions()
+        internal void ClearControllerFunctions()
         {
             foreach (var controllerFunction in _controllerFunctions)
             {
