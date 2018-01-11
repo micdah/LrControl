@@ -81,11 +81,11 @@ namespace LrControl.Core
         public ISettings Settings => _settings;
         public FunctionGroupManager FunctionGroupManager => _functionGroupManager;
         public IFunctionCatalog FunctionCatalog => _functionCatalog;
-        public IEnumerable<IInputDevice> InputDevices => _inputDevices;
-        public IEnumerable<IOutputDevice> OutputDevices => _outputDevices;
-        
-        public IInputDevice InputDevice => _inputDevice;
-        public IOutputDevice OutputDevice => _outputDevice;
+        public IEnumerable<InputDeviceInfo> InputDevices => _inputDevices.Select(x => new InputDeviceInfo(x));
+        public IEnumerable<OutputDeviceInfo> OutputDevices => _outputDevices.Select(x => new OutputDeviceInfo(x));
+
+        public InputDeviceInfo InputDevice => _inputDevice != null ? new InputDeviceInfo(_inputDevice) : null;
+        public OutputDeviceInfo OutputDevice => _outputDevice != null ? new OutputDeviceInfo(_outputDevice) : null;
         
         public void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile)
         {
@@ -150,7 +150,12 @@ namespace LrControl.Core
             }
         }
 
-        public void SetInputDevice(IInputDevice inputDevice)
+        public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
+        {
+            SetInputDevice(_inputDevices.FirstOrDefault(inputDeviceInfo.MatchThisFunc));
+        }
+
+        private void SetInputDevice(IInputDevice inputDevice)
         {
             _inputDevice?.Dispose();
 
@@ -174,7 +179,13 @@ namespace LrControl.Core
             OnPropertyChanged(nameof(InputDevice));
         }
 
-        public void SetOutputDevice(IOutputDevice outputDevice)
+        public void SetOutputDevice(OutputDeviceInfo outputDeviceInfo)
+        {
+            var outputDevice = _outputDevices.FirstOrDefault(outputDeviceInfo.MatchThisFunc);
+            SetOutputDevice(outputDevice);
+        }
+
+        private void SetOutputDevice(IOutputDevice outputDevice)
         {
             if (_outputDevice != null && _outputDevice.IsOpen)
                 _outputDevice.Close();
@@ -226,7 +237,7 @@ namespace LrControl.Core
 
             Log.Debug("Saving last used input ({InputName}) and output ({OutputName}) devices", InputDevice?.Name,
                 OutputDevice?.Name);
-            _settings.SetLastUsed(InputDevice, OutputDevice);
+            _settings.SetLastUsed(_inputDevice, _outputDevice);
 
             Log.Information("Saving settings");
             _settings.Save();
@@ -238,7 +249,7 @@ namespace LrControl.Core
         }
 
         [NotifyPropertyChangedInvocator]
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

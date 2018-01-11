@@ -5,10 +5,10 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using LrControl.Core;
 using LrControl.Core.Configurations;
+using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Ui.Core;
 using LrControl.Ui.Gui;
-using Midi.Devices;
 using Prism.Commands;
 
 namespace LrControl.Ui
@@ -19,8 +19,8 @@ namespace LrControl.Ui
         private readonly IMainWindowDialogProvider _dialogProvider;
         private bool _showSettingsDialog;
         private string _connectionStatus = "Not connected";
-        private ObservableCollection<IInputDevice> _inputDevices;
-        private ObservableCollection<IOutputDevice> _outputDevices;
+        private ObservableCollection<InputDeviceInfo> _inputDevices;
+        private ObservableCollection<OutputDeviceInfo> _outputDevices;
 
         public MainWindowModel(Dispatcher dispatcher, ILrControlApplication lrControlApplication, IMainWindowDialogProvider mainWindowDialogProvider) : base(dispatcher)
         {
@@ -39,8 +39,8 @@ namespace LrControl.Ui
             // Initialize catalogs and controllers
             FunctionGroupManagerViewModel = new FunctionGroupManagerViewModel(dispatcher, _lrControlApplication.FunctionGroupManager);
 
-            InputDevices = new ObservableCollection<IInputDevice>(_lrControlApplication.InputDevices);
-            OutputDevices = new ObservableCollection<IOutputDevice>(_lrControlApplication.OutputDevices);
+            InputDevices = new ObservableCollection<InputDeviceInfo>(_lrControlApplication.InputDevices);
+            OutputDevices = new ObservableCollection<OutputDeviceInfo>(_lrControlApplication.OutputDevices);
 
             // Listen for connection status
             _lrControlApplication.ConnectionStatus += LrControlApplicationOnConnectionStatus;
@@ -82,7 +82,7 @@ namespace LrControl.Ui
             }
         }
 
-        public ObservableCollection<IInputDevice> InputDevices
+        public ObservableCollection<InputDeviceInfo> InputDevices
         {
             get => _inputDevices;
             set
@@ -93,7 +93,7 @@ namespace LrControl.Ui
             }
         }
 
-        public ObservableCollection<IOutputDevice> OutputDevices
+        public ObservableCollection<OutputDeviceInfo> OutputDevices
         {
             get => _outputDevices;
             set
@@ -167,10 +167,10 @@ namespace LrControl.Ui
             switch (e.PropertyName)
             {
                 case nameof(ILrControlApplication.InputDevices):
-                    InputDevices = new ObservableCollection<IInputDevice>(_lrControlApplication.InputDevices);
+                    InputDevices = new ObservableCollection<InputDeviceInfo>(_lrControlApplication.InputDevices);
                     break;
                 case nameof(ILrControlApplication.OutputDevices):
-                    OutputDevices = new ObservableCollection<IOutputDevice>(_lrControlApplication.OutputDevices);
+                    OutputDevices = new ObservableCollection<OutputDeviceInfo>(_lrControlApplication.OutputDevices);
                     break;
                 case nameof(ILrControlApplication.InputDevice):
                     OnPropertyChanged(nameof(InputDeviceName));

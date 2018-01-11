@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using LrControl.Api;
 using LrControl.Core.Configurations;
+using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Mapping;
-using Midi.Devices;
 
 namespace LrControl.Core
 {
@@ -15,10 +15,10 @@ namespace LrControl.Core
         ISettings Settings { get; }
         FunctionGroupManager FunctionGroupManager { get; }
         IFunctionCatalog FunctionCatalog { get; }
-        IEnumerable<IInputDevice> InputDevices { get; }
-        IEnumerable<IOutputDevice> OutputDevices { get; }
-        IInputDevice InputDevice { get; }
-        IOutputDevice OutputDevice { get; }
+        IEnumerable<InputDeviceInfo> InputDevices { get; }
+        IEnumerable<OutputDeviceInfo> OutputDevices { get; }
+        InputDeviceInfo InputDevice { get; }
+        OutputDeviceInfo OutputDevice { get; }
 
         void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile);
         void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile);
@@ -26,7 +26,7 @@ namespace LrControl.Core
         void RefreshAvailableDevices(bool restorePrevious = true);
         string GetSettingsFolder();
         void UpdateConnectionStatus();
-        void SetInputDevice(IInputDevice inputDevice);
-        void SetOutputDevice(IOutputDevice outputDevice);
+        void SetInputDevice(InputDeviceInfo inputDevice);
+        void SetOutputDevice(OutputDeviceInfo outputDevice);
     }
 }

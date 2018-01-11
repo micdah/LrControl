@@ -12,7 +12,7 @@ namespace LrControl.Core.Configurations
 
         public ControllerConfigurationKey(Controller controller)
         {
-            Channel = controller.Channel;
+            Channel = controller.MidiChannel;
             MessageType = controller.MessageType;
             ControlNumber = controller.ControlNumber;
         }

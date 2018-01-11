@@ -20,14 +20,15 @@ namespace LrControl.Core.Devices
             _device = device;
             MessageType = messageType;
             ControllerType = controllerType;
-            Channel = channel;
+            MidiChannel = channel;
             ControlNumber = controlNumber;
             Range = range;
         }
 
         public ControllerMessageType MessageType { get; }
         public ControllerType ControllerType { get; }
-        public Channel Channel { get; }
+        internal Channel MidiChannel { get; }
+        public int Channel => (int) MidiChannel + 1;
         public int ControlNumber { get; }
         public Range Range { get; }
 
@@ -81,7 +82,7 @@ namespace LrControl.Core.Devices
 
         public bool IsController(ControllerConfigurationKey controllerKey)
         {
-            return Channel == controllerKey.Channel
+            return MidiChannel == controllerKey.Channel
                    && ControlNumber == controllerKey.ControlNumber
                    && MessageType == controllerKey.MessageType;
         }

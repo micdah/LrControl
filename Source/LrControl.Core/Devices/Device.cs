@@ -118,11 +118,11 @@ namespace LrControl.Core.Devices
             switch (controller.MessageType)
             {
                 case ControllerMessageType.ControlChange:
-                    OutputDevice.SendControlChange(controller.Channel, (Control) controller.ControlNumber,
+                    OutputDevice.SendControlChange(controller.MidiChannel, (Control) controller.ControlNumber,
                         controllerValue);
                     break;
                 case ControllerMessageType.Nrpn:
-                    OutputDevice.SendNrpn(controller.Channel, controller.ControlNumber, controllerValue);
+                    OutputDevice.SendNrpn(controller.MidiChannel, controller.ControlNumber, controllerValue);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

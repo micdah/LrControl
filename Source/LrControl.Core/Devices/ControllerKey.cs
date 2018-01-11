@@ -17,7 +17,7 @@ namespace LrControl.Core.Devices
             ControlNumber = controlNumber;
         }
 
-        public ControllerKey(Controller controller) : this(controller.MessageType, controller.Channel,
+        public ControllerKey(Controller controller) : this(controller.MessageType, controller.MidiChannel,
             controller.ControlNumber)
         {
         }
