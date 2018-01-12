@@ -1,4 +1,4 @@
-using Midi.Messages;
+using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Midi
 {

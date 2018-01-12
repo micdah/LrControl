@@ -12,7 +12,9 @@ using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Mapping;
 using LrControl.Core.Midi;
 using LrControl.Core.Util;
-using Midi.Devices;
+using RtMidi.Core;
+using RtMidi.Core.Devices;
+using RtMidi.Core.Devices.Infos;
 using Serilog;
 
 namespace LrControl.Core
@@ -25,10 +27,10 @@ namespace LrControl.Core
         private readonly IFunctionCatalog _functionCatalog;
         private readonly Device _device;
         private readonly FunctionGroupManager _functionGroupManager;
-        private readonly List<IInputDevice> _inputDevices = new List<IInputDevice>();
-        private readonly List<IOutputDevice> _outputDevices = new List<IOutputDevice>();
+        private readonly List<IMidiInputDeviceInfo> _inputDeviceInfos = new List<IMidiInputDeviceInfo>();
+        private readonly List<IMidiOutputDeviceInfo> _outputDeviceInfos = new List<IMidiOutputDeviceInfo>();
         private InputDeviceDecorator _inputDevice;
-        private IOutputDevice _outputDevice;
+        private IMidiOutputDevice _outputDevice;
         
         public static ILrControlApplication Create()
         {
@@ -38,7 +40,7 @@ namespace LrControl.Core
         private LrControlApplication()
         {
             // Configure logging
-            var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
+            const string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
 
             Serilog.Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
@@ -66,8 +68,8 @@ namespace LrControl.Core
 
             // Restore previously selected input/output devices
             RefreshAvailableDevices(false);
-            SetInputDevice(_inputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
-            SetOutputDevice(_outputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
+            SetInputDevice(_inputDeviceInfos.FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
+            SetOutputDevice(_outputDeviceInfos.FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
 
             // Load configuration
             LoadConfiguration();
@@ -81,8 +83,8 @@ namespace LrControl.Core
         public ISettings Settings => _settings;
         public FunctionGroupManager FunctionGroupManager => _functionGroupManager;
         public IFunctionCatalog FunctionCatalog => _functionCatalog;
-        public IEnumerable<InputDeviceInfo> InputDevices => _inputDevices.Select(x => new InputDeviceInfo(x));
-        public IEnumerable<OutputDeviceInfo> OutputDevices => _outputDevices.Select(x => new OutputDeviceInfo(x));
+        public IEnumerable<InputDeviceInfo> InputDevices => _inputDeviceInfos.Select(x => new InputDeviceInfo(x));
+        public IEnumerable<OutputDeviceInfo> OutputDevices => _outputDeviceInfos.Select(x => new OutputDeviceInfo(x));
 
         public InputDeviceInfo InputDevice => _inputDevice != null ? new InputDeviceInfo(_inputDevice) : null;
         public OutputDeviceInfo OutputDevice => _outputDevice != null ? new OutputDeviceInfo(_outputDevice) : null;
@@ -124,41 +126,40 @@ namespace LrControl.Core
             // Update input devices
             var inputDeviceName = InputDevice?.Name;
 
-            _inputDevices.Clear();
-            DeviceManager.UpdateInputDevices();
-            _inputDevices.AddRange(DeviceManager.InputDevices);
+            _inputDeviceInfos.Clear();
+            _inputDeviceInfos.AddRange(MidiDeviceManager.Default.InputDevices);
 
             OnPropertyChanged(nameof(InputDevices));
 
             if (inputDeviceName != null && restorePrevious)
             {
-                SetInputDevice(_inputDevices.FirstOrDefault(x => x.Name == inputDeviceName));
+                SetInputDevice(_inputDeviceInfos.FirstOrDefault(x => x.Name == inputDeviceName));
             }
 
             // Update output devices
             var outputDeviceName = OutputDevice?.Name;
 
-            _outputDevices.Clear();
-            DeviceManager.UpdateOutputDevices();
-            _outputDevices.AddRange(DeviceManager.OutputDevices);
+            _outputDeviceInfos.Clear();
+            _outputDeviceInfos.AddRange(MidiDeviceManager.Default.OutputDevices);
 
             OnPropertyChanged(nameof(OutputDevices));
             
             if (outputDeviceName != null && restorePrevious)
             {
-                SetOutputDevice(_outputDevices.FirstOrDefault(x => x.Name == outputDeviceName));
+                SetOutputDevice(_outputDeviceInfos.FirstOrDefault(x => x.Name == outputDeviceName));
             }
         }
 
         public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
         {
-            SetInputDevice(_inputDevices.FirstOrDefault(inputDeviceInfo.MatchThisFunc));
+            SetInputDevice(_inputDeviceInfos.FirstOrDefault(inputDeviceInfo.MatchThisFunc));
         }
 
-        private void SetInputDevice(IInputDevice inputDevice)
+        private void SetInputDevice(IMidiInputDeviceInfo inputDeviceInfo)
         {
             _inputDevice?.Dispose();
 
+            var inputDevice = inputDeviceInfo?.CreateDevice();
             if (inputDevice != null)
             {
                 _inputDevice = new InputDeviceDecorator(inputDevice, 1000 / _settings.ParameterUpdateFrequency);
@@ -166,9 +167,6 @@ namespace LrControl.Core
 
                 if (!_inputDevice.IsOpen)
                     _inputDevice.Open();
-
-                if (!_inputDevice.IsReceiving)
-                    _inputDevice.StartReceiving(null);
             }
             else
             {
@@ -181,15 +179,16 @@ namespace LrControl.Core
 
         public void SetOutputDevice(OutputDeviceInfo outputDeviceInfo)
         {
-            var outputDevice = _outputDevices.FirstOrDefault(outputDeviceInfo.MatchThisFunc);
+            var outputDevice = _outputDeviceInfos.FirstOrDefault(outputDeviceInfo.MatchThisFunc);
             SetOutputDevice(outputDevice);
         }
 
-        private void SetOutputDevice(IOutputDevice outputDevice)
+        private void SetOutputDevice(IMidiOutputDeviceInfo outputDeviceInfo)
         {
             if (_outputDevice != null && _outputDevice.IsOpen)
                 _outputDevice.Close();
 
+            var outputDevice = outputDeviceInfo?.CreateDevice();
             if (outputDevice != null)
             {
                 _outputDevice = outputDevice;

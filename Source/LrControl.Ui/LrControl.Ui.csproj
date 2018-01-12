@@ -53,6 +53,9 @@
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
+    <Reference Include="RtMidi.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\RtMidi.Core.1.0.39\lib\netstandard2.0\RtMidi.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
       <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
     </Reference>
@@ -219,6 +222,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\RtMidi.Core.1.0.39\build\RtMidi.Core.targets" Condition="Exists('..\packages\RtMidi.Core.1.0.39\build\RtMidi.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

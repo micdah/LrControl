@@ -1,17 +1,22 @@
 ﻿using System;
-using System.Linq.Expressions;
-using Midi.Devices;
+using RtMidi.Core.Devices;
+using RtMidi.Core.Devices.Infos;
 
 namespace LrControl.Core.Devices
 {
     public class InputDeviceInfo
     {
-        internal InputDeviceInfo(IInputDevice inputDevice)
+        internal InputDeviceInfo(IMidiInputDeviceInfo info)
         {
-            Name = inputDevice.Name;
+            Name = info.Name;
         }
 
-        internal Func<IInputDevice, bool> MatchThisFunc => inputDevice => inputDevice.Name == Name;
+        internal InputDeviceInfo(IMidiInputDevice device)
+        {
+            Name = device.Name;
+        }
+
+        internal Func<IMidiInputDeviceInfo, bool> MatchThisFunc => inputDevice => inputDevice.Name == Name;
 
         public string Name { get; }
     }

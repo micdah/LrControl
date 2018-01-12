@@ -4,7 +4,7 @@ using JetBrains.Annotations;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
-using Midi.Enums;
+using RtMidi.Core.Enums;
 
 namespace LrControl.Core.Devices
 {

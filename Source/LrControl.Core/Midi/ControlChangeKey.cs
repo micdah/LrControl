@@ -1,11 +1,11 @@
-﻿using Midi.Enums;
-using Midi.Messages;
+﻿using RtMidi.Core.Enums;
+using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Midi
 {
     public class ControlChangeKey
     {
-        public ControlChangeKey(Channel channel, Control control)
+        public ControlChangeKey(Channel channel, int control)
         {
             Channel = channel;
             Control = control;
@@ -16,7 +16,7 @@ namespace LrControl.Core.Midi
         }
 
         private Channel Channel { get; }
-        private Control Control { get; }
+        private int Control { get; }
 
         private bool Equals(ControlChangeKey other)
         {
@@ -33,7 +33,7 @@ namespace LrControl.Core.Midi
 
         public override int GetHashCode()
         {
-            return (int) Control | (int) Channel << 4;
+            return Control | (int) Channel << 4;
         }
     }
 }

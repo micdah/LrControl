@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 namespace LrControl.Core.Midi
 {
-    public abstract class MessageHolder<T> where T : class
+    public abstract class MessageHolder<T>
     {
         protected MessageHolder(T msg)
         {

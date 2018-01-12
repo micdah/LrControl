@@ -4,10 +4,8 @@ using System.Linq;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
-using Midi.Devices;
-using Midi.Enums;
-using Midi.Messages;
-using Serilog;
+using RtMidi.Core.Devices;
+using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Devices
 {
@@ -15,8 +13,7 @@ namespace LrControl.Core.Devices
 
     public class Device
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<Device>();
-        private IInputDevice _inputDevice;
+        private IMidiInputDevice _inputDevice;
         private readonly Dictionary<ControllerKey, Controller> _controllers;
 
         public Device()
@@ -26,27 +23,27 @@ namespace LrControl.Core.Devices
 
         public IEnumerable<Controller> Controllers => _controllers.Values;
 
-        public IInputDevice InputDevice
+        public IMidiInputDevice InputDevice
         {
             set
             {
                 if (_inputDevice != null)
                 {
-                    _inputDevice.ControlChange -= InputDeviceOnChannelMessage;
-                    _inputDevice.Nrpn -= InputDeviceOnChannelMessage;
+                    _inputDevice.ControlChange -= InputDeviceOnControlChange;
+                    _inputDevice.Nrpn -= InputDeviceOnNrpn;
                 }
 
                 _inputDevice = value;
 
                 if (_inputDevice != null)
                 {
-                    _inputDevice.ControlChange += InputDeviceOnChannelMessage;
-                    _inputDevice.Nrpn += InputDeviceOnChannelMessage;
+                    _inputDevice.ControlChange += InputDeviceOnControlChange;
+                    _inputDevice.Nrpn += InputDeviceOnNrpn;
                 }
             }
         }
 
-        public IOutputDevice OutputDevice { private get; set; }
+        public IMidiOutputDevice OutputDevice { private get; set; }
 
         public event ControllerAddedHandler ControllerAdded;
 
@@ -79,26 +76,20 @@ namespace LrControl.Core.Devices
             }
         }
 
-        private void InputDeviceOnChannelMessage(ChannelMessage channelMessage)
+        private void InputDeviceOnControlChange(object sender, ControlChangeMessage message)
         {
-            ControllerKey key;
-            int value;
+            var key = new ControllerKey(ControllerMessageType.ControlChange, message.Channel, message.Control);
+            UpdateControllerValue(key, message.Value);
+        }
 
-            switch (channelMessage)
-            {
-                case ControlChangeMessage controlChangeMessage:
-                    key = new ControllerKey(ControllerMessageType.ControlChange, controlChangeMessage.Channel, (int) controlChangeMessage.Control);
-                    value = controlChangeMessage.Value;
-                    break;
-                case NrpnMessage nrpnMessage:
-                    key = new ControllerKey(ControllerMessageType.Nrpn, nrpnMessage.Channel, nrpnMessage.Parameter);
-                    value = nrpnMessage.Value;
-                    break;
-                default:
-                    Log.Error("Unsupported ChannelMessage {@Message}", channelMessage);
-                    return;
-            }
+        private void InputDeviceOnNrpn(object sender, NrpnMessage message)
+        {
+            var key = new ControllerKey(ControllerMessageType.Nrpn, message.Channel, message.Parameter);
+            UpdateControllerValue(key, message.Value);
+        }
 
+        private void UpdateControllerValue(ControllerKey key, int value)
+        {
             // Get controller or create new if not previously seen
             if (!_controllers.TryGetValue(key, out var controller))
             {
@@ -118,11 +109,11 @@ namespace LrControl.Core.Devices
             switch (controller.MessageType)
             {
                 case ControllerMessageType.ControlChange:
-                    OutputDevice.SendControlChange(controller.MidiChannel, (Control) controller.ControlNumber,
-                        controllerValue);
+                    OutputDevice.Send(new ControlChangeMessage(controller.MidiChannel, controller.ControlNumber,
+                        controllerValue));
                     break;
                 case ControllerMessageType.Nrpn:
-                    OutputDevice.SendNrpn(controller.MidiChannel, controller.ControlNumber, controllerValue);
+                    OutputDevice.Send(new NrpnMessage(controller.MidiChannel, controller.ControlNumber, controllerValue));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

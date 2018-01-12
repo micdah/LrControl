@@ -1,16 +1,22 @@
 ﻿using System;
-using Midi.Devices;
+using RtMidi.Core.Devices;
+using RtMidi.Core.Devices.Infos;
 
 namespace LrControl.Core.Devices
 {
     public class OutputDeviceInfo
     {
-        internal OutputDeviceInfo(IOutputDevice outputDevice)
+        internal OutputDeviceInfo(IMidiOutputDeviceInfo info)
         {
-            Name = outputDevice.Name;
+            Name = info.Name;
         }
 
-        internal Func<IOutputDevice, bool> MatchThisFunc => outputDevice => outputDevice.Name == Name;
+        internal OutputDeviceInfo(IMidiOutputDevice device)
+        {
+            Name = device.Name;
+        }
+
+        internal Func<IMidiOutputDeviceInfo, bool> MatchThisFunc => outputDevice => outputDevice.Name == Name;
 
         public string Name { get; }
     }

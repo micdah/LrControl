@@ -1,6 +1,6 @@
 ﻿using LrControl.Core.Devices;
 using LrControl.Core.Devices.Enums;
-using Midi.Enums;
+using RtMidi.Core.Enums;
 
 namespace LrControl.Core.Configurations
 {

@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Core.Util;
-using Midi.Devices;
+using RtMidi.Core.Devices;
 
 namespace LrControl.Core.Configurations
 {
@@ -121,7 +121,7 @@ namespace LrControl.Core.Configurations
             Serializer.Save(SettingsFile, this);
         }
 
-        public void SetLastUsed(IInputDevice inputDevice, IOutputDevice outputDevice)
+        public void SetLastUsed(IMidiInputDevice inputDevice, IMidiOutputDevice outputDevice)
         {
             if (inputDevice != null)
             {

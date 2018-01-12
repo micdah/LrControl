@@ -1,5 +1,5 @@
-﻿using Midi.Enums;
-using Midi.Messages;
+﻿using RtMidi.Core.Enums;
+using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Midi
 {

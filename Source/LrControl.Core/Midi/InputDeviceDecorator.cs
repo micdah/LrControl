@@ -3,25 +3,26 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
-using Midi.Devices;
-using Midi.Messages;
+using RtMidi.Core.Devices;
+using RtMidi.Core.Devices.Nrpn;
+using RtMidi.Core.Messages;
 using Serilog;
 
 namespace LrControl.Core.Midi
 {
-    internal class InputDeviceDecorator : IInputDevice, IDisposable
+    internal class InputDeviceDecorator : IMidiInputDevice
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<InputDeviceDecorator>();
 
         private readonly ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder> _controlChangeMessages;
-        private readonly IInputDevice _inputDevice;
+        private readonly IMidiInputDevice _inputDevice;
         private readonly ConcurrentDictionary<NrpnKey, NrpnMessageHolder> _nrpnMessages;
         private readonly ManualResetEvent _stopTimerEvent = new ManualResetEvent(false);
         private bool _disposed;
         private Thread _timerThread;
         private int _updateInterval;
 
-        public InputDeviceDecorator(IInputDevice inputDevice, int updateInterval)
+        public InputDeviceDecorator(IMidiInputDevice inputDevice, int updateInterval)
         {
             _inputDevice = inputDevice;
             _controlChangeMessages = new ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder>();
@@ -63,9 +64,6 @@ namespace LrControl.Core.Midi
 
             try
             {
-                if (_inputDevice.IsReceiving)
-                    _inputDevice.StopReceiving();
-
                 if (_inputDevice.IsOpen)
                     _inputDevice.Close();
             }
@@ -76,6 +74,8 @@ namespace LrControl.Core.Midi
 
             _inputDevice.Nrpn -= InputDeviceOnNrpn;
             _inputDevice.ControlChange -= InputDeviceOnControlChange;
+            
+            _inputDevice.Dispose();
 
             _disposed = true;
         }
@@ -88,9 +88,9 @@ namespace LrControl.Core.Midi
             {
                 stopwatch.Restart();
 
-                if (!TrySendOldest(_controlChangeMessages.Values, msg => ControlChange?.Invoke(msg)))
+                if (!TrySendOldest(_controlChangeMessages.Values, msg => ControlChange?.Invoke(this, msg)))
                 {
-                    TrySendOldest(_nrpnMessages.Values, msg => Nrpn?.Invoke(msg));
+                    TrySendOldest(_nrpnMessages.Values, msg => Nrpn?.Invoke(this, msg));
                 }
 
                 // Sleep
@@ -104,7 +104,6 @@ namespace LrControl.Core.Midi
 
         private static bool TrySendOldest<TMessage>(IEnumerable<MessageHolder<TMessage>> messageHolders,
             Action<TMessage> eventInvocator)
-            where TMessage : class
         {
             var holder = FindOldestMessage(messageHolders);
             if (holder == null) return false;
@@ -116,7 +115,7 @@ namespace LrControl.Core.Midi
         }
 
         private static MessageHolder<TMessage> FindOldestMessage<TMessage>(
-            IEnumerable<MessageHolder<TMessage>> messageHolders) where TMessage : class
+            IEnumerable<MessageHolder<TMessage>> messageHolders)
         {
             MessageHolder<TMessage> oldest = null;
 
@@ -137,7 +136,7 @@ namespace LrControl.Core.Midi
             return oldest;
         }
 
-        private void InputDeviceOnNrpn(NrpnMessage msg)
+        private void InputDeviceOnNrpn(object sender, NrpnMessage msg)
         {
             _nrpnMessages.AddOrUpdate(new NrpnKey(msg),
                 key => new NrpnMessageHolder(msg),
@@ -148,7 +147,7 @@ namespace LrControl.Core.Midi
                 });
         }
 
-        private void InputDeviceOnControlChange(ControlChangeMessage msg)
+        private void InputDeviceOnControlChange(object sender, ControlChangeMessage msg)
         {
             _controlChangeMessages.AddOrUpdate(new ControlChangeKey(msg),
                 key => new ControlChangeMessageHolder(msg),
@@ -161,76 +160,21 @@ namespace LrControl.Core.Midi
 
         #region Delegated members
 
-        public string Name => _inputDevice.Name;
+        public bool Open() => _inputDevice.Open();
+        public void Close() => _inputDevice.Close();
         public bool IsOpen => _inputDevice.IsOpen;
+        public string Name => _inputDevice.Name;
+        public void SetNrpnMode(NrpnMode mode) => _inputDevice.SetNrpnMode(mode);
 
-        public bool IsReceiving => _inputDevice.IsReceiving;
-
-        public event ControlChangeHandler ControlChange;
-
-        public event ProgramChangeHandler ProgramChange
-        {
-            add => _inputDevice.ProgramChange += value;
-            remove => _inputDevice.ProgramChange -= value;
-        }
-
-        public event NoteOnHandler NoteOn
-        {
-            add => _inputDevice.NoteOn += value;
-            remove => _inputDevice.NoteOn -= value;
-        }
-
-        public event NoteOffHandler NoteOff
-        {
-            add => _inputDevice.NoteOff += value;
-            remove => _inputDevice.NoteOff -= value;
-        }
-
-        public event PitchBendHandler PitchBend
-        {
-            add => _inputDevice.PitchBend += value;
-            remove => _inputDevice.PitchBend -= value;
-        }
-
-        public event SysExHandler SysEx
-        {
-            add => _inputDevice.SysEx += value;
-            remove => _inputDevice.SysEx -= value;
-        }
-
-        public event NrpnHandler Nrpn;
-
-
-        public void RemoveAllEventHandlers()
-        {
-            _inputDevice.RemoveAllEventHandlers();
-        }
-
-        public void Open()
-        {
-            _inputDevice.Open();
-        }
-
-        public void Close()
-        {
-            _inputDevice.Close();
-        }
-
-        public void StartReceiving(Clock clock)
-        {
-            _inputDevice.StartReceiving(clock);
-        }
-
-        public void StartReceiving(Clock clock, bool handleSysEx)
-        {
-            _inputDevice.StartReceiving(clock, handleSysEx);
-        }
-
-        public void StopReceiving()
-        {
-            _inputDevice.StopReceiving();
-        }
-
+        public event EventHandler<NoteOffMessage> NoteOff;
+        public event EventHandler<NoteOnMessage> NoteOn;
+        public event EventHandler<PolyphonicKeyPressureMessage> PolyphonicKeyPressure;
+        public event EventHandler<ControlChangeMessage> ControlChange;
+        public event EventHandler<ProgramChangeMessage> ProgramChange;
+        public event EventHandler<ChannelPressureMessage> ChannelPressure;
+        public event EventHandler<PitchBendMessage> PitchBend;
+        public event EventHandler<NrpnMessage> Nrpn;
+        
         #endregion
     }
 }
