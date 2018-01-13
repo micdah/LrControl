@@ -123,7 +123,8 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="DEL /Q &quot;$(TargetDir)LrControl.Plugin.pdb&quot; &quot;$(TargetDir)LrControl.Plugin.dll&quot; &quot;$(TargetDir)LrControl.Plugin.deps.json&quot;" />
+    <Exec Condition=" '$(OS)' != 'Unix'" Command="DEL /Q &quot;$(TargetDir)LrControl.Plugin.pdb&quot; &quot;$(TargetDir)LrControl.Plugin.dll&quot; &quot;$(TargetDir)LrControl.Plugin.deps.json&quot;" />
+    <Exec Condition=" '$(OS)' == 'Unix'" Command="rm &quot;$(TargetDir)LrControl.Plugin.pdb&quot; &quot;$(TargetDir)LrControl.Plugin.dll&quot; &quot;$(TargetDir)LrControl.Plugin.deps.json&quot;" />
   </Target>
 
 </Project>
