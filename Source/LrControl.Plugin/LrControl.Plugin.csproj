@@ -1,18 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Build\Debug\LrControl.lrplugin\</OutputPath>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\..\Build\Release\LrControl.lrplugin\</OutputPath>
   </PropertyGroup>
-
   <ItemGroup>
     <!-- ChangeObserverParameters -->
     <None Update="About.lua">
@@ -117,14 +114,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Condition=" '$(OS)' != 'Unix'" Command="DEL /Q &quot;$(TargetDir)LrControl.Plugin.pdb&quot; &quot;$(TargetDir)LrControl.Plugin.dll&quot; &quot;$(TargetDir)LrControl.Plugin.deps.json&quot;" />
     <Exec Condition=" '$(OS)' == 'Unix'" Command="rm &quot;$(TargetDir)LrControl.Plugin.pdb&quot; &quot;$(TargetDir)LrControl.Plugin.dll&quot; &quot;$(TargetDir)LrControl.Plugin.deps.json&quot;" />
   </Target>
-
 </Project>

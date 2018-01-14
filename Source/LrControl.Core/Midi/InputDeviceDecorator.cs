@@ -136,24 +136,26 @@ namespace LrControl.Core.Midi
             return oldest;
         }
 
-        private void InputDeviceOnNrpn(object sender, NrpnMessage msg)
+        private void InputDeviceOnNrpn(IMidiInputDevice sender, in NrpnMessage msg)
         {
+            var nrpnMsg = msg;
             _nrpnMessages.AddOrUpdate(new NrpnKey(msg),
-                key => new NrpnMessageHolder(msg),
+                key => new NrpnMessageHolder(nrpnMsg),
                 (key, holder) =>
                 {
-                    holder.SetMessage(msg);
+                    holder.SetMessage(nrpnMsg);
                     return holder;
                 });
         }
 
-        private void InputDeviceOnControlChange(object sender, ControlChangeMessage msg)
+        private void InputDeviceOnControlChange(IMidiInputDevice sender, in ControlChangeMessage msg)
         {
+            var ccMsg = msg;
             _controlChangeMessages.AddOrUpdate(new ControlChangeKey(msg),
-                key => new ControlChangeMessageHolder(msg),
+                key => new ControlChangeMessageHolder(ccMsg),
                 (key, holder) =>
                 {
-                    holder.SetMessage(msg);
+                    holder.SetMessage(ccMsg);
                     return holder;
                 });
         }
@@ -165,16 +167,16 @@ namespace LrControl.Core.Midi
         public bool IsOpen => _inputDevice.IsOpen;
         public string Name => _inputDevice.Name;
         public void SetNrpnMode(NrpnMode mode) => _inputDevice.SetNrpnMode(mode);
-
-        public event EventHandler<NoteOffMessage> NoteOff;
-        public event EventHandler<NoteOnMessage> NoteOn;
-        public event EventHandler<PolyphonicKeyPressureMessage> PolyphonicKeyPressure;
-        public event EventHandler<ControlChangeMessage> ControlChange;
-        public event EventHandler<ProgramChangeMessage> ProgramChange;
-        public event EventHandler<ChannelPressureMessage> ChannelPressure;
-        public event EventHandler<PitchBendMessage> PitchBend;
-        public event EventHandler<NrpnMessage> Nrpn;
         
+        public event NoteOffMessageHandler NoteOff;
+        public event NoteOnMessageHandler NoteOn;
+        public event PolyphonicKeyPressureMessageHandler PolyphonicKeyPressure;
+        public event ControlChangeMessageHandler ControlChange;
+        public event ProgramChangeMessageHandler ProgramChange;
+        public event ChannelPressureMessageHandler ChannelPressure;
+        public event PitchBendMessageHandler PitchBend;
+        public event NrpnMessageHandler Nrpn;
+
         #endregion
     }
 }

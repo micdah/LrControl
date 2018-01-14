@@ -76,13 +76,13 @@ namespace LrControl.Core.Devices
             }
         }
 
-        private void InputDeviceOnControlChange(object sender, ControlChangeMessage message)
+        private void InputDeviceOnControlChange(IMidiInputDevice sender, in ControlChangeMessage message)
         {
             var key = new ControllerKey(ControllerMessageType.ControlChange, message.Channel, message.Control);
             UpdateControllerValue(key, message.Value);
         }
 
-        private void InputDeviceOnNrpn(object sender, NrpnMessage message)
+        private void InputDeviceOnNrpn(IMidiInputDevice sender, in NrpnMessage message)
         {
             var key = new ControllerKey(ControllerMessageType.Nrpn, message.Channel, message.Parameter);
             UpdateControllerValue(key, message.Value);

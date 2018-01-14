@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\..\Build\Debug\LrControl.lrplugin\console\</OutputPath>
@@ -15,6 +16,6 @@
     <ProjectReference Include="..\LrControl.Core\LrControl.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="RtMidi.Core" Version="1.0.39" />
+    <PackageReference Include="RtMidi.Core" Version="1.0.42" />
   </ItemGroup>
 </Project>
