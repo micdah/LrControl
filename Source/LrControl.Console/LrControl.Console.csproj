@@ -16,6 +16,6 @@
     <ProjectReference Include="..\LrControl.Core\LrControl.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="RtMidi.Core" Version="1.0.42" />
+    <PackageReference Include="RtMidi.Core" Version="1.0.44" />
   </ItemGroup>
 </Project>
