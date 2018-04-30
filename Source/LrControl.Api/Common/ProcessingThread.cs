@@ -78,6 +78,8 @@ namespace LrControl.Api.Common
             // Dispose events
             _runEvent.Dispose();
             _stopEvent.Dispose();
+
+            Log.Debug("Terminated {Name}", _name);
         }
 
         private void ThreadStart()
