@@ -39,20 +39,6 @@ namespace LrControl.Core
 
         private LrControlApplication()
         {
-            // Configure logging
-            const string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
-
-            Serilog.Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .WriteTo.ColoredConsole(outputTemplate: template)
-                .WriteTo.RollingFile("LrControl.exe.{Date}.log",
-                    outputTemplate: template,
-                    fileSizeLimitBytes: 10 * 1024 * 1024,
-                    flushToDiskInterval: TimeSpan.FromSeconds(1),
-                    retainedFileCountLimit: 5,
-                    shared: true)
-                .CreateLogger();
-
             _settings = Configurations.Settings.LoadOrDefault();
             _lrApi = new LrApi();
             _functionCatalog = Functions.Catalog.FunctionCatalog.DefaultCatalog(_settings, _lrApi);

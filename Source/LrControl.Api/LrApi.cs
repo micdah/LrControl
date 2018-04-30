@@ -57,7 +57,7 @@ namespace LrControl.Api
 
         public void Dispose()
         {
-            _pluginClient.Close();
+            _pluginClient.Dispose();
         }
 
         public event ConnectionStatusHandler ConnectionStatus;

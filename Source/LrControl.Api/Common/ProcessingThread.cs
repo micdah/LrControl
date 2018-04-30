@@ -4,9 +4,11 @@ using Serilog;
 
 namespace LrControl.Api.Common
 {
-    internal delegate void RequestStopHandler();
-
-    internal delegate void IterationHandler(RequestStopHandler stop);
+    /// <summary>
+    /// Iteration handler, executed on each iteration while the processing thread is running
+    /// </summary>
+    /// <param name="stop">Called if the iteration wishes the processing to be stopped after current execution</param>
+    internal delegate void IterationHandler(Action stop = null);
 
     /// <summary>
     /// Processing-type thread that performs a repetitive processing iteration in an
@@ -16,78 +18,101 @@ namespace LrControl.Api.Common
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ProcessingThread>();
 
+        private readonly string _name;
         private readonly IterationHandler _iterationFunction;
         private readonly ManualResetEvent _runEvent = new ManualResetEvent(false);
         private readonly ManualResetEvent _stopEvent = new ManualResetEvent(true);
-        private readonly ManualResetEvent _terminatedEvent = new ManualResetEvent(false);
-        private readonly Thread _thread;
-        private bool _terminate;
+        private volatile ProcessingThreadState _state;
 
         public ProcessingThread(string name, IterationHandler iterationFunction)
         {
+            _name = name;
             _iterationFunction = iterationFunction;
+            _state = ProcessingThreadState.Stopped;
 
-            _thread = new Thread(ThreadStart)
+            var thread = new Thread(ThreadStart)
             {
                 IsBackground = true,
                 Name = name
             };
-            _thread.Start();
+            thread.Start();
         }
 
         public void Start()
         {
-            Log.Debug("Start");
-            _runEvent.Set();
+            if (_state == ProcessingThreadState.Started) return;
+            
+            Log.Debug("Starting {Name}", _name);
+
+            _state = ProcessingThreadState.Started;
+            
+            _runEvent.Set();    // Unblock iteration thread
         }
 
-        public void Stop(bool wait = false)
+        public void Stop()
         {
-            Log.Debug("Stop");
-            _runEvent.Reset();
+            if (_state == ProcessingThreadState.Stopped) return;
+            
+            Log.Debug("Stopping {Name}", _name);
 
-            if (wait)
-            {
-                _stopEvent.WaitOne();
-            }
+            _state = ProcessingThreadState.Stopped;
+            
+            _runEvent.Reset();       // Stop executing iteration function        
+            _stopEvent.WaitOne();    // Wait for last iteration to complete
+            
+            Log.Debug("Stopped {Name}", _name);
         }
 
         public void Dispose()
         {
-            if (_thread == null) return;
+            if (_state == ProcessingThreadState.Terminated) return;
 
-            // Stop thread
-            _terminate = true;
-            _runEvent.Set();
-            _terminatedEvent.WaitOne();
+            Log.Debug("Terminating {Name}", _name);
+            
+            _state = ProcessingThreadState.Terminated;
 
+            _stopEvent.Reset();    // Ensure stop event is not set (if already stopped)
+            _runEvent.Set();       // Unblock iteration thread so that it can discover new state and terminate
+            _stopEvent.WaitOne();  // Wait for iteration thread to terminate
+            
+            // Dispose events
             _runEvent.Dispose();
             _stopEvent.Dispose();
-            _terminatedEvent.Dispose();
         }
 
         private void ThreadStart()
         {
-            void RequestStopHandler() => Stop();
-
-            while (true)
+            void StopAfterIteration()
             {
-                _runEvent.WaitOne();
-                _stopEvent.Reset();
-
-                if (!_terminate)
-                {
-                    _iterationFunction(RequestStopHandler);
-                }
-                else
-                {
-                    break;
-                }
-
-                _stopEvent.Set();
+                _state = ProcessingThreadState.Stopped;
+                _runEvent.Reset();
             }
+            
+        Loop:
+            // Wait for thread to be started
+            _runEvent.WaitOne();
+            _stopEvent.Reset();
+            
+            // Check requested state and act accordingly
+            if (_state == ProcessingThreadState.Started)
+            {
+                try
+                {
+                    _iterationFunction(StopAfterIteration);
+                }
+                catch (Exception e)
+                {
+                    Log.Error(e,
+                        "Exception occurred while executing iteration function for processing thread '{Name}'",
+                        _name);
+                }
+            }
+            
+            _stopEvent.Set();
 
-            _terminatedEvent.Set();
+            if (_state != ProcessingThreadState.Terminated)
+                goto Loop;
         }
     }
+    
 }

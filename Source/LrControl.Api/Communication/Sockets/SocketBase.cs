@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using LrControl.Api.Common;
 using Serilog;
 
@@ -9,30 +11,26 @@ namespace LrControl.Api.Communication.Sockets
 
     internal abstract class SocketBase : IDisposable
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<SocketBase>();
         public const int SocketTimeout = 1000;
-        protected Socket Socket;
+
+        protected readonly ILogger Log;
+        
         private readonly int _port;
         private readonly string _hostName;
-        private ProcessingThread _reconnectThread;
+        private readonly ProcessingThread _reconnectThread;
+        protected Socket Socket;
 
         protected SocketBase(string hostName, int port)
         {
+            Log = Serilog.Log.ForContext(GetType());
+            
             _hostName = hostName;
             _port = port;
+            _reconnectThread = new ProcessingThread($"Socket Reconnect Thread (port {_port})", ReconnectIteration);
         }
 
         public bool IsOpen { get; private set; }
         public bool IsConnected { get; private set; }
-
-        public void Dispose()
-        {
-            if (IsOpen)
-            {
-                Close();
-            }
-        }
-
         public event ConnectionHandler Connection;
         
         public bool Open()
@@ -44,10 +42,6 @@ namespace LrControl.Api.Communication.Sockets
             if (!TryCreateSocket())
                 return false;
 
-            _reconnectThread = new ProcessingThread($"Socket Reconnect Thread (port {_port})", ReconnectIteration);
-
-            OnOpen();
-
             // Initial state
             IsOpen = true;
             IsConnected = false;
@@ -56,19 +50,12 @@ namespace LrControl.Api.Communication.Sockets
             return true;
         }
 
-        protected virtual void OnOpen()
-        {
-        }
-
         public void Close()
         {
             if (!IsOpen)
                 throw new InvalidOperationException("Cannot close, is not open");
 
-            _reconnectThread.Dispose();
-            _reconnectThread = null;
-
-            OnClose();
+            _reconnectThread.Stop();
 
             CloseSocket();
 
@@ -78,14 +65,10 @@ namespace LrControl.Api.Communication.Sockets
             Log.Debug("Socket connected to {HostName}:{Port} has been closed", _hostName, _port);
         }
 
-        protected virtual void OnClose()
-        {
-        }
-
         public void Reconnect(bool fireEvent = true)
         {
             if (!IsOpen)
-                throw new InvalidOperationException("Canont reconnect, is not open");
+                throw new InvalidOperationException("Cannot reconnect, is not open");
 
             if (fireEvent) OnConnection(false);
 
@@ -93,7 +76,19 @@ namespace LrControl.Api.Communication.Sockets
             _reconnectThread.Start();
         }
         
-        private void ReconnectIteration(RequestStopHandler stop)
+        public void Dispose()
+        {
+            if (IsOpen)
+            {
+                Close();
+            }
+            
+            _reconnectThread.Dispose();
+            
+            OnDispose();
+        }
+        
+        private void ReconnectIteration(Action stop)
         {
             BeforeReconnect();
             
@@ -111,14 +106,12 @@ namespace LrControl.Api.Communication.Sockets
                 // Stop reconnect loop, successfully reconnected
                 stop();
             }
-        }
-
-        protected virtual void BeforeReconnect()
-        {
-        }
-
-        protected virtual void AfterReconnect()
-        {
+            else
+            {
+                var duration = TimeSpan.FromSeconds(5);
+                Log.Debug("Waiting {Duration} before retrying...", duration);
+                Thread.Sleep(duration);
+            }
         }
 
         private bool TryReconnect()
@@ -136,7 +129,7 @@ namespace LrControl.Api.Communication.Sockets
             }
             catch (SocketException e)
             {
-                Log.Warning(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
+                Log.Debug(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
                 return false;
             }
         }
@@ -182,10 +175,22 @@ namespace LrControl.Api.Communication.Sockets
             }
             Socket = null;
         }
-
+        
         private void OnConnection(bool connected)
         {
             Connection?.Invoke(connected);
+        }
+        
+        protected virtual void BeforeReconnect()
+        {
+        }
+
+        protected virtual void AfterReconnect()
+        {
+        }
+
+        protected virtual void OnDispose()
+        {
         }
     }
 }

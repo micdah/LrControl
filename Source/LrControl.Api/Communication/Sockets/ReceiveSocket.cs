@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using LrControl.Api.Common;
 using Serilog;
 
@@ -11,59 +12,52 @@ namespace LrControl.Api.Communication.Sockets
 
     internal class ReceiveSocket : SocketBase
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<ReceiveSocket>();
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
-        private readonly int _port;
         private readonly Stopwatch _stopwatch = new Stopwatch();
-        private ProcessingThread _receiveThread;
+        private readonly ProcessingThread _receiveThread;
         private readonly byte[] _receiveBuffer = new byte[1024];
+        private readonly StringBuilder _inputBuffer = new StringBuilder();
 
         public ReceiveSocket(string hostName, int port) : base(hostName, port)
         {
-            _port = port;
+            _receiveThread = new ProcessingThread($"Socket Receive Thread (port {port})", ReceiveIteration);
         }
 
         public event MessageHandler MessageReceived;
 
-        protected override void OnOpen()
-        {
-            _receiveThread = new ProcessingThread($"Socket Receive Thread (port {_port})", ReceiveIteration);
-        }
-
-        protected override void OnClose()
-        {
-            _receiveThread?.Dispose();
-            _receiveThread = null;
-        }
-
         protected override void BeforeReconnect()
         {
             // Stop trying to receive messages, while reconnecting
-            _receiveThread?.Stop(true);
+            _receiveThread.Stop();
         }
 
         protected override void AfterReconnect()
         {
             // Start trying to receive messages again
-            _receiveThread?.Start();
+            _receiveThread.Start();
         }
 
-        private void ReceiveIteration(RequestStopHandler stop)
+        protected override void OnDispose()
         {
-            if (Receive(out var messages, EndOfLineByte))
+            _receiveThread.Dispose();
+        }
+
+        private void ReceiveIteration(Action stop)
+        {
+            if (Receive(out var messages, EndOfLineByte, stop))
             {
                 // There can be multiple messages bundled into a single receive
                 foreach (var message in messages.Split('\n'))
                 {
-                    OnMessageReceived(message);
+                    MessageReceived?.Invoke(message);
                 }
             }
         }
 
-        private bool Receive(out string message, byte stopByte)
+        private bool Receive(out string message, byte stopByte, Action stop)
         {
             if (!IsOpen)
-                throw new InvalidOperationException("Canont receive whne not open");
+                throw new InvalidOperationException("Canont receive when not open");
 
             if (!IsConnected)
             {
@@ -71,7 +65,7 @@ namespace LrControl.Api.Communication.Sockets
                 return false;
             }
 
-            var inputBuffer = new StringBuilder();
+            _inputBuffer.Clear();
 
             try
             {
@@ -94,11 +88,11 @@ namespace LrControl.Api.Communication.Sockets
                     }
 
                     var part = Encoding.UTF8.GetString(_receiveBuffer, 0, receivedBytes);
-                    inputBuffer.Append(part);
+                    _inputBuffer.Append(part);
 
                     if (_receiveBuffer[receivedBytes - 1] == stopByte)
                     {
-                        var str = inputBuffer.ToString();
+                        var str = _inputBuffer.ToString();
                         message = str.Substring(0, str.Length - 1);
                         return true;
                     }
@@ -106,25 +100,26 @@ namespace LrControl.Api.Communication.Sockets
             }
             catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut)
             {
-                Log.Debug("Socket timouet");
+                Log.Debug(e, "Socket timouet");
+            }
+            catch (SocketException e) when (e.SocketErrorCode == SocketError.ConnectionRefused)
+            {
+                Log.Debug(e, "Connection refused, waiting {Duration} before trying again");
             }
             catch (SocketException e)
             {
-                Log.Error(e, "Error while receiving message, reconnecting");
-                Reconnect();
+                Log.Error(e, "Exception while receiving message");
             }
             finally
             {
                 _stopwatch.Stop();
             }
 
+            Log.Debug("Error occurred, trying to reconnect");
+            stop();
+            Reconnect();
             message = null;
             return false;
-        }
-
-        private void OnMessageReceived(string message)
-        {
-            MessageReceived?.Invoke(message);
         }
     }
 }

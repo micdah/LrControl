@@ -1,19 +1,54 @@
-﻿using LrControl.Core;
+﻿using System;
+using LrControl.Core;
+using Serilog;
 
 namespace LrControl.Console
 {
     class Program
     {
-        static void Main(string[] args)
+        private static readonly ILogger Log = Serilog.Log.ForContext<Program>();
+
+        static void Main()
         {
+            InitializeLogging();
+
             var lrControlApplication = LrControlApplication.Create();
 
             lrControlApplication.ConnectionStatus += (connected, version) =>
-                System.Console.WriteLine($"Connection status: {connected} {version}");
+                Log.Information("Connection status: {Connected} {Version}", connected, version);
 
             lrControlApplication.UpdateConnectionStatus();
 
+            Log.Information("Available input devices:");
+            foreach (var info in lrControlApplication.InputDevices)
+                Log.Information("\tDevice: {@Info}", info);
+
+            Log.Information("Available output devices:");
+            foreach (var info in lrControlApplication.OutputDevices)
+                Log.Information("\tDevice: {@Info}", info);
+
+            System.Console.WriteLine("Press any key to quit...");
             System.Console.ReadLine();
+
+            lrControlApplication.Dispose();
+        }
+
+        private static void InitializeLogging()
+        {
+            // Configure logging
+            const string template =
+                "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
+
+            Serilog.Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.ColoredConsole(outputTemplate: template)
+                .WriteTo.RollingFile("LrControl.exe.{Date}.log",
+                    outputTemplate: template,
+                    fileSizeLimitBytes: 10 * 1024 * 1024,
+                    flushToDiskInterval: TimeSpan.FromSeconds(1),
+                    retainedFileCountLimit: 5,
+                    shared: true)
+                .CreateLogger();
         }
     }
 }

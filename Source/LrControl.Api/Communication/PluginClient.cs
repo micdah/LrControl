@@ -10,7 +10,7 @@ namespace LrControl.Api.Communication
     internal delegate void ChangeMessageHandler(string parameterName);
     internal delegate void ModuleMessageHandler(string moduleName);
     
-    internal class PluginClient
+    internal class PluginClient : IDisposable
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<PluginClient>();
         private const string HostName = "localhost";
@@ -63,15 +63,15 @@ namespace LrControl.Api.Communication
             return true;
         }
 
-        public void Close()
+        public void Dispose()
         {
             if (_sendSocket.IsOpen)
-                _sendSocket.Close();
+                _sendSocket.Dispose();
 
             if (_receiveSocket.IsOpen)
-                _receiveSocket.Close();
+                _receiveSocket.Dispose();
 
-            _eventProcessingThread.Stop();
+            _eventProcessingThread.Dispose();
             ClearQueue(_eventQueue);
         }
 
@@ -105,7 +105,7 @@ namespace LrControl.Api.Communication
             }
         }
 
-        private void EventProcessingIteration(RequestStopHandler requestStopHandler)
+        private void EventProcessingIteration(Action stop)
         {
             if (!_eventQueue.TryTake(out var pluginEvent, 100)) return;
 

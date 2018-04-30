@@ -7,8 +7,6 @@ namespace LrControl.Api.Communication.Sockets
 {
     internal class SendSocket : SocketBase
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<SendSocket>();
-
         public SendSocket(string hostName, int port) : base(hostName, port)
         {
         }
@@ -27,13 +25,22 @@ namespace LrControl.Api.Communication.Sockets
                 Socket.Send(bytes);
                 return true;
             }
+            catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut)
+            {
+                Log.Debug(e, "Socket timouet");
+            }
+            catch (SocketException e) when (e.SocketErrorCode == SocketError.ConnectionRefused)
+            {
+                Log.Debug(e, "Connection refused");
+            }
             catch (SocketException e)
             {
-                Log.Error(e, "Error while sending message '{Message}', reconnecting", message);
-                Reconnect();
-
-                return false;
+                Log.Error(e, "Exception while sending message '{Message}'", message);
             }
+
+            Log.Debug("Error occurred while sending, trying to reconnect");
+            Reconnect();
+            return false;
         }
     }
 }
