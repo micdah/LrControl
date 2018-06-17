@@ -1,6 +1,7 @@
 ﻿using System;
 using LrControl.Core;
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 namespace LrControl.Console
 {
@@ -37,11 +38,11 @@ namespace LrControl.Console
         {
             // Configure logging
             const string template =
-                "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{SourceContext:l}] [{Level}] {Message}{NewLine}{Exception}";
+                "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{Level:u3}] {Message:lj}    ({SourceContext}){NewLine}{Exception}";
 
             Serilog.Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.ColoredConsole(outputTemplate: template)
+                .WriteTo.Console(theme: AnsiConsoleTheme.Code, outputTemplate: template)
                 .WriteTo.RollingFile("LrControl.exe.{Date}.log",
                     outputTemplate: template,
                     fileSizeLimitBytes: 10 * 1024 * 1024,
