@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using LrControl.Api.Common;
 using Serilog;
@@ -11,9 +10,9 @@ namespace LrControl.Api.Communication.Sockets
 
     internal abstract class SocketBase : IDisposable
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<SocketBase>();
+        
         public const int SocketTimeout = 1000;
-
-        protected readonly ILogger Log;
         
         private readonly int _port;
         private readonly string _hostName;
@@ -22,8 +21,6 @@ namespace LrControl.Api.Communication.Sockets
 
         protected SocketBase(string hostName, int port)
         {
-            Log = Serilog.Log.ForContext(GetType());
-            
             _hostName = hostName;
             _port = port;
             _reconnectThread = new ProcessingThread($"Socket Reconnect Thread (port {_port})", ReconnectIteration);
@@ -78,21 +75,21 @@ namespace LrControl.Api.Communication.Sockets
         
         public void Dispose()
         {
+            _reconnectThread.Dispose();
+            
             if (IsOpen)
             {
-                Close();
+                CloseSocket();
             }
-            
-            _reconnectThread.Dispose();
             
             OnDispose();
         }
         
-        private void ReconnectIteration(Action stop)
+        private void ReconnectIteration(CancellationToken cancellationToken, Action stop)
         {
             BeforeReconnect();
             
-            Log.Debug("Trying to reconnect to {HostName}:{Port}", _hostName, _port);
+            Log.Verbose("Trying to reconnect to {HostName}:{Port}", _hostName, _port);
 
             if (TryReconnect())
             {
@@ -109,8 +106,8 @@ namespace LrControl.Api.Communication.Sockets
             else
             {
                 var duration = TimeSpan.FromSeconds(5);
-                Log.Debug("Waiting {Duration} before retrying...", duration);
-                Thread.Sleep(duration);
+                Log.Verbose("Waiting {Duration} before retrying...", duration);
+                cancellationToken.WaitHandle.WaitOne(duration);
             }
         }
 
@@ -129,7 +126,7 @@ namespace LrControl.Api.Communication.Sockets
             }
             catch (SocketException e)
             {
-                Log.Debug(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
+                Log.Verbose(e, "Unable to connect to {HostName}:{Port}", _hostName, _port);
                 return false;
             }
         }

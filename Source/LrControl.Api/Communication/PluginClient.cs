@@ -35,7 +35,6 @@ namespace LrControl.Api.Communication
             _sendSocket.Connection += connected => SocketConnectionHandler(_sendSocket, connected);
             _receiveSocket.Connection += connected => SocketConnectionHandler(_receiveSocket, connected);
             _receiveSocket.MessageReceived += ReceiveSocketOnMessageReceived;
-
             _eventProcessingThread = new ProcessingThread("PluginClient Event Processing thread", EventProcessingIteration);
         }
 
@@ -65,12 +64,8 @@ namespace LrControl.Api.Communication
 
         public void Dispose()
         {
-            if (_sendSocket.IsOpen)
-                _sendSocket.Dispose();
-
-            if (_receiveSocket.IsOpen)
-                _receiveSocket.Dispose();
-
+            _sendSocket.Dispose();
+            _receiveSocket.Dispose();
             _eventProcessingThread.Dispose();
             ClearQueue(_eventQueue);
         }
@@ -105,9 +100,12 @@ namespace LrControl.Api.Communication
             }
         }
 
-        private void EventProcessingIteration(Action stop)
+        private void EventProcessingIteration(CancellationToken cancellationToken, Action stop)
         {
-            if (!_eventQueue.TryTake(out var pluginEvent, 100)) return;
+            if (!_eventQueue.TryTake(out var pluginEvent, 250, cancellationToken))
+            {
+                return;
+            }
 
             switch (pluginEvent.PluginEventType)
             {

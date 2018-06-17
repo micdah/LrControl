@@ -12,6 +12,7 @@ namespace LrControl.Api.Communication.Sockets
 
     internal class ReceiveSocket : SocketBase
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<ReceiveSocket>();
         private static readonly byte EndOfLineByte = Encoding.UTF8.GetBytes("\n")[0];
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private readonly ProcessingThread _receiveThread;
@@ -42,19 +43,18 @@ namespace LrControl.Api.Communication.Sockets
             _receiveThread.Dispose();
         }
 
-        private void ReceiveIteration(Action stop)
+        private void ReceiveIteration(CancellationToken cancellationToken, Action stop)
         {
-            if (Receive(out var messages, EndOfLineByte, stop))
+            if (!Receive(out var messages, EndOfLineByte, cancellationToken, stop)) return;
+            
+            // There can be multiple messages bundled into a single receive
+            foreach (var message in messages.Split('\n'))
             {
-                // There can be multiple messages bundled into a single receive
-                foreach (var message in messages.Split('\n'))
-                {
-                    MessageReceived?.Invoke(message);
-                }
+                MessageReceived?.Invoke(message);
             }
         }
 
-        private bool Receive(out string message, byte stopByte, Action stop)
+        private bool Receive(out string message, byte stopByte, CancellationToken cancellationToken, Action stop)
         {
             if (!IsOpen)
                 throw new InvalidOperationException("Canont receive when not open");
@@ -71,7 +71,7 @@ namespace LrControl.Api.Communication.Sockets
             {
                 _stopwatch.Restart();
 
-                while (true)
+                while (!cancellationToken.IsCancellationRequested)
                 {
                     var receivedBytes = Socket.Receive(_receiveBuffer);
                     if (receivedBytes == 0)
@@ -115,9 +115,13 @@ namespace LrControl.Api.Communication.Sockets
                 _stopwatch.Stop();
             }
 
-            Log.Debug("Error occurred, trying to reconnect");
-            stop();
-            Reconnect();
+            if (!cancellationToken.IsCancellationRequested)
+            {
+                Log.Debug("Error occurred, trying to reconnect");
+                stop();
+                Reconnect();
+            }
+
             message = null;
             return false;
         }
