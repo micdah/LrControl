@@ -1,6 +1,6 @@
 using RtMidi.Core.Messages;
 
-namespace LrControl.Core.Midi
+namespace LrControl.Core.Midi.Messages
 {
     internal class ControlChangeMessageHolder : MessageHolder<ControlChangeMessage>
     {
@@ -13,6 +13,11 @@ namespace LrControl.Core.Midi
             return LastSent.Channel != Message.Channel
                    || LastSent.Control != Message.Control
                    || LastSent.Value != Message.Value;
+        }
+
+        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in ControlChangeMessage msg)
+        {
+            dispatcher.OnControlChange(in msg);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using LrControl.Core.Midi.Messages;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Nrpn;
 using RtMidi.Core.Messages;
@@ -10,15 +10,14 @@ using Serilog;
 
 namespace LrControl.Core.Midi
 {
-    public delegate void EventInvocator<T>(in T msg);
-    
-    internal class InputDeviceDecorator : IMidiInputDevice
+    internal class InputDeviceDecorator : IMidiInputDevice, IMidiInputDeviceEventDispatcher
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<InputDeviceDecorator>();
+        private delegate MessageHolder<TMessage> MessageHolderFactory<TMessage>(in TMessage msg)
+            where TMessage : struct;
 
-        private readonly ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder> _controlChangeMessages;
+        private static readonly ILogger Log = Serilog.Log.ForContext<InputDeviceDecorator>();
         private readonly IMidiInputDevice _inputDevice;
-        private readonly ConcurrentDictionary<NrpnKey, NrpnMessageHolder> _nrpnMessages;
+        private readonly ConcurrentDictionary<string, MessageHolder> _holders;
         private readonly ManualResetEvent _stopTimerEvent = new ManualResetEvent(false);
         private bool _disposed;
         private Thread _timerThread;
@@ -27,8 +26,7 @@ namespace LrControl.Core.Midi
         public InputDeviceDecorator(IMidiInputDevice inputDevice, int updateInterval)
         {
             _inputDevice = inputDevice;
-            _controlChangeMessages = new ConcurrentDictionary<ControlChangeKey, ControlChangeMessageHolder>();
-            _nrpnMessages = new ConcurrentDictionary<NrpnKey, NrpnMessageHolder>();
+            _holders = new ConcurrentDictionary<string, MessageHolder>();
             UpdateInterval = updateInterval;
 
             // Start timer thread
@@ -47,37 +45,6 @@ namespace LrControl.Core.Midi
             _inputDevice.ChannelPressure += InputDeviceOnChannelPressure;
             _inputDevice.PitchBend += InputDeviceOnPitchBend;
             _inputDevice.Nrpn += InputDeviceOnNrpn;
-            
-        }
-
-        private void InputDeviceOnPitchBend(IMidiInputDevice sender, in PitchBendMessage msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void InputDeviceOnChannelPressure(IMidiInputDevice sender, in ChannelPressureMessage msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void InputDeviceOnProgramChange(IMidiInputDevice sender, in ProgramChangeMessage msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void InputDeviceOnPolyphonicKeyPressure(IMidiInputDevice sender, in PolyphonicKeyPressureMessage msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void InputDeviceOnNoteOn(IMidiInputDevice sender, in NoteOnMessage msg)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void InputDeviceOnNoteOff(IMidiInputDevice sender, in NoteOffMessage msg)
-        {
-            throw new NotImplementedException();
         }
 
         public int UpdateInterval
@@ -110,10 +77,16 @@ namespace LrControl.Core.Midi
             {
                 Log.Error(e, "Exception while trying to stop and close input device");
             }
-
-            _inputDevice.Nrpn -= InputDeviceOnNrpn;
-            _inputDevice.ControlChange -= InputDeviceOnControlChange;
             
+            _inputDevice.NoteOff -= InputDeviceOnNoteOff;
+            _inputDevice.NoteOn -= InputDeviceOnNoteOn;
+            _inputDevice.PolyphonicKeyPressure -= InputDeviceOnPolyphonicKeyPressure;
+            _inputDevice.ControlChange -= InputDeviceOnControlChange;
+            _inputDevice.ProgramChange -= InputDeviceOnProgramChange;
+            _inputDevice.ChannelPressure -= InputDeviceOnChannelPressure;
+            _inputDevice.PitchBend -= InputDeviceOnPitchBend;
+            _inputDevice.Nrpn -= InputDeviceOnNrpn;
+
             _inputDevice.Dispose();
 
             _disposed = true;
@@ -127,11 +100,8 @@ namespace LrControl.Core.Midi
             {
                 stopwatch.Restart();
 
-                if (!TrySendOldest(_controlChangeMessages.Values, 
-                    (in ControlChangeMessage msg) => ControlChange?.Invoke(this, in msg)))
-                {
-                    TrySendOldest(_nrpnMessages.Values, (in NrpnMessage msg) => Nrpn?.Invoke(this, in msg));
-                }
+                // Find and send oldest message
+                FindOldest()?.SendMessage(this);
 
                 // Sleep
                 var remainingTicks = (int) (UpdateInterval - stopwatch.ElapsedMilliseconds);
@@ -141,25 +111,12 @@ namespace LrControl.Core.Midi
                 }
             }
         }
-
-        private static bool TrySendOldest<TMessage>(IEnumerable<MessageHolder<TMessage>> messageHolders,
-            EventInvocator<TMessage> eventInvocator) where TMessage : struct
+        
+        private MessageHolder FindOldest()
         {
-            var holder = FindOldest(messageHolders);
-            if (holder == null) return false;
+            MessageHolder oldest = null;
 
-            ref readonly var message = ref holder.Message;
-            eventInvocator(in message);
-            holder.SetLastSent(in message);
-            return true;
-        }
-
-        private static MessageHolder<TMessage> FindOldest<TMessage>(
-            IEnumerable<MessageHolder<TMessage>> messageHolders) where TMessage : struct
-        {
-            MessageHolder<TMessage> oldest = null;
-
-            foreach (var holder in messageHolders)
+            foreach (var holder in _holders.Values)
             {
                 if (!holder.HasChanged) continue;
 
@@ -167,7 +124,7 @@ namespace LrControl.Core.Midi
                 {
                     oldest = holder;
                 }
-                else if(holder.LastSentTimestamp <= oldest.LastSentTimestamp)
+                else if (holder.LastSentTimestamp <= oldest.LastSentTimestamp)
                 {
                     oldest = holder;
                 }
@@ -176,36 +133,98 @@ namespace LrControl.Core.Midi
             return oldest;
         }
 
-        private void InputDeviceOnNrpn(IMidiInputDevice sender, in NrpnMessage msg)
+        private void InputDeviceOnNoteOff(IMidiInputDevice sender, in NoteOffMessage msg)
         {
-            var key = new NrpnKey(in msg);
+            OnMessageHandler(in msg, (in NoteOffMessage message) => new NoteOffMessageHolder(in message));
+        }
 
-            if (!_nrpnMessages.TryGetValue(key, out var holder))
-            {
-                holder = new NrpnMessageHolder(in msg);
-                if (!_nrpnMessages.TryAdd(key, holder))
-                {
-                    holder = _nrpnMessages[key];
-                }
-            }
+        private void InputDeviceOnNoteOn(IMidiInputDevice sender, in NoteOnMessage msg)
+        {
+            OnMessageHandler(in msg, (in NoteOnMessage message) => new NoteOnMessageHolder(in message));
+        }
 
-            holder.SetMessage(in msg);
+        private void InputDeviceOnPolyphonicKeyPressure(IMidiInputDevice sender, in PolyphonicKeyPressureMessage msg)
+        {
+            OnMessageHandler(in msg,
+                (in PolyphonicKeyPressureMessage message) => new PolyphonicKeyPressureMessageHolder(message));
         }
 
         private void InputDeviceOnControlChange(IMidiInputDevice sender, in ControlChangeMessage msg)
         {
-            var key = new ControlChangeKey(in msg);
+            OnMessageHandler(in msg, (in ControlChangeMessage message) => new ControlChangeMessageHolder(in message));
+        }
 
-            if (!_controlChangeMessages.TryGetValue(key, out var holder))
+        private void InputDeviceOnProgramChange(IMidiInputDevice sender, in ProgramChangeMessage msg)
+        {
+            OnMessageHandler(in msg, (in ProgramChangeMessage message) => new ProgramChangeMessageHolder(in message));
+        }
+
+        private void InputDeviceOnChannelPressure(IMidiInputDevice sender, in ChannelPressureMessage msg)
+        {
+            OnMessageHandler(in msg,
+                (in ChannelPressureMessage message) => new ChannelPressureMessageHolder(in message));
+        }
+
+        private void InputDeviceOnPitchBend(IMidiInputDevice sender, in PitchBendMessage msg)
+        {
+            OnMessageHandler(in msg, (in PitchBendMessage message) => new PitchBendMessageHolder(in message));
+        }
+
+        private void InputDeviceOnNrpn(IMidiInputDevice sender, in NrpnMessage msg)
+        {
+            OnMessageHandler(in msg, (in NrpnMessage message) => new NrpnMessageHolder(in message));
+        }
+        
+        private void OnMessageHandler<TMessage>(in TMessage msg, MessageHolderFactory<TMessage> factory)
+            where TMessage : struct
+        {
+            var key = GetMessageKey(in msg);
+
+            // Fetch or create message holder for specific key
+            MessageHolder<TMessage> typedHolder;
+            if (_holders.TryGetValue(key, out var holder))
             {
-                holder = new ControlChangeMessageHolder(in msg);
-                if (!_controlChangeMessages.TryAdd(key, holder))
+                // Use existing holder for message key
+                typedHolder = (MessageHolder<TMessage>) holder;
+            }
+            else
+            {
+                // Try register new holder for message key
+                typedHolder = factory(in msg);
+                if (!_holders.TryAdd(key, typedHolder))
                 {
-                    holder = _controlChangeMessages[key];
+                    // Holder registered in the mean-time, must exist now
+                    typedHolder = (MessageHolder<TMessage>) _holders[key];
                 }
             }
 
-            holder.SetMessage(in msg);
+            typedHolder.SetMessage(in msg);
+        }
+
+        private static string GetMessageKey<TMessage>(in TMessage msg) where TMessage : struct
+        {
+            switch (msg)
+            {
+                case NoteOffMessage message:
+                    return $"{nameof(NoteOffMessage)}_{message.Channel}_{message.Key}";
+                case NoteOnMessage message:
+                    return $"{nameof(NoteOnMessage)}_{message.Channel}_{message.Key}";
+                case PolyphonicKeyPressureMessage message:
+                    return $"{nameof(PolyphonicKeyPressureMessage)}_{message.Channel}_{message.Key}";
+                case ControlChangeMessage message:
+                    return $"{nameof(ControlChangeMessage)}_{message.Channel}_{message.Control}";
+                case ProgramChangeMessage message:
+                    return $"{nameof(ProgramChangeMessage)}_{message.Channel}";
+                case ChannelPressureMessage message:
+                    return $"{nameof(ChannelPressureMessage)}_{message.Channel}";
+                case PitchBendMessage message:
+                    return $"{nameof(PitchBendMessage)}_{message.Channel}";
+                case NrpnMessage message:
+                    return $"{nameof(NrpnMessage)}_{message.Channel}_{message.Parameter}";
+
+                default:
+                    throw new InvalidOperationException($"Unknown message type {msg}");
+            }
         }
 
         #region Delegated members
@@ -215,7 +234,7 @@ namespace LrControl.Core.Midi
         public bool IsOpen => _inputDevice.IsOpen;
         public string Name => _inputDevice.Name;
         public void SetNrpnMode(NrpnMode mode) => _inputDevice.SetNrpnMode(mode);
-        
+
         public event NoteOffMessageHandler NoteOff;
         public event NoteOnMessageHandler NoteOn;
         public event PolyphonicKeyPressureMessageHandler PolyphonicKeyPressure;
@@ -224,6 +243,50 @@ namespace LrControl.Core.Midi
         public event ChannelPressureMessageHandler ChannelPressure;
         public event PitchBendMessageHandler PitchBend;
         public event NrpnMessageHandler Nrpn;
+
+        #endregion
+
+        #region Event dispatchers
+
+        public void OnNoteOff(in NoteOffMessage msg)
+        {
+            NoteOff?.Invoke(this, in msg);
+        }
+
+        public void OnNoteOn(in NoteOnMessage msg)
+        {
+            NoteOn?.Invoke(this, in msg);
+        }
+
+        public void OnPolyphonicKeyPressure(in PolyphonicKeyPressureMessage msg)
+        {
+            PolyphonicKeyPressure?.Invoke(this, in msg);
+        }
+
+        public void OnControlChange(in ControlChangeMessage msg)
+        {
+            ControlChange?.Invoke(this, in msg);
+        }
+
+        public void OnProgramChange(in ProgramChangeMessage msg)
+        {
+            ProgramChange?.Invoke(this, in msg);
+        }
+
+        public void OnChannelPressure(in ChannelPressureMessage msg)
+        {
+            ChannelPressure?.Invoke(this, in msg);
+        }
+
+        public void OnPitchBend(in PitchBendMessage msg)
+        {
+            PitchBend?.Invoke(this, in msg);
+        }
+
+        public void OnNrpn(in NrpnMessage msg)
+        {
+            Nrpn?.Invoke(this, in msg);
+        }
 
         #endregion
     }
