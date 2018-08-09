@@ -11,7 +11,7 @@ namespace LrControl.Core.Midi
             Parameter = parameter;
         }
 
-        public NrpnKey(NrpnMessage msg) : this(msg.Channel, msg.Parameter)
+        public NrpnKey(in NrpnMessage msg) : this(msg.Channel, msg.Parameter)
         {
         }
 

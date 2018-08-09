@@ -4,7 +4,7 @@ namespace LrControl.Core.Midi
 {
     public class NrpnMessageHolder : MessageHolder<NrpnMessage>
     {
-        public NrpnMessageHolder(NrpnMessage msg) : base(msg)
+        public NrpnMessageHolder(in NrpnMessage msg) : base(in msg)
         {
         }
 

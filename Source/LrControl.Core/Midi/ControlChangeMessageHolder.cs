@@ -4,7 +4,7 @@ namespace LrControl.Core.Midi
 {
     internal class ControlChangeMessageHolder : MessageHolder<ControlChangeMessage>
     {
-        public ControlChangeMessageHolder(ControlChangeMessage msg) : base(msg)
+        public ControlChangeMessageHolder(in ControlChangeMessage msg) : base(in msg)
         {
         }
 

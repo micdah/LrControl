@@ -3,39 +3,35 @@ using System.Diagnostics;
 namespace LrControl.Core.Midi
 {
     public abstract class MessageHolder<T>
+        where T : struct
     {
-        protected MessageHolder(T msg)
+        private T _message;
+        private T _lastSent;
+        
+        protected MessageHolder(in T msg)
         {
-            SetMessage(msg);
+            SetMessage(in msg);
         }
 
-        public T Message { get; private set; }
+        public ref readonly T Message => ref _message;
         public long MessageTimestamp { get; private set; }
-        public T LastSent { get; private set; }
+        public ref readonly T LastSent => ref _lastSent;
         public long LastSentTimestamp { get; private set; }
 
-        public bool HasChanged
-        {
-            get
-            {
-                if (Message == null) return false;
-                if (LastSent == null) return true;
-                return CalculateHasChanged();
-            }
-        }
+        public bool HasChanged => CalculateHasChanged();
 
         protected abstract bool CalculateHasChanged();
 
-        public void SetMessage(T msg)
+        public void SetMessage(in T msg)
         {
             MessageTimestamp = Stopwatch.GetTimestamp();
-            Message = msg;
+            _message = msg;
         }
 
-        public void SetLastSent(T lastSent)
+        public void SetLastSent(in T lastSent)
         {
             LastSentTimestamp = Stopwatch.GetTimestamp();
-            LastSent = lastSent;
+            _lastSent = lastSent;
         }
     }
 }

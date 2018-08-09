@@ -10,6 +10,8 @@ using Serilog;
 
 namespace LrControl.Core.Midi
 {
+    public delegate void EventInvocator<T>(in T msg);
+    
     internal class InputDeviceDecorator : IMidiInputDevice
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<InputDeviceDecorator>();
@@ -37,8 +39,45 @@ namespace LrControl.Core.Midi
             };
             _timerThread.Start();
 
-            _inputDevice.Nrpn += InputDeviceOnNrpn;
+            _inputDevice.NoteOff += InputDeviceOnNoteOff;
+            _inputDevice.NoteOn += InputDeviceOnNoteOn;
+            _inputDevice.PolyphonicKeyPressure += InputDeviceOnPolyphonicKeyPressure;
             _inputDevice.ControlChange += InputDeviceOnControlChange;
+            _inputDevice.ProgramChange += InputDeviceOnProgramChange;
+            _inputDevice.ChannelPressure += InputDeviceOnChannelPressure;
+            _inputDevice.PitchBend += InputDeviceOnPitchBend;
+            _inputDevice.Nrpn += InputDeviceOnNrpn;
+            
+        }
+
+        private void InputDeviceOnPitchBend(IMidiInputDevice sender, in PitchBendMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InputDeviceOnChannelPressure(IMidiInputDevice sender, in ChannelPressureMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InputDeviceOnProgramChange(IMidiInputDevice sender, in ProgramChangeMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InputDeviceOnPolyphonicKeyPressure(IMidiInputDevice sender, in PolyphonicKeyPressureMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InputDeviceOnNoteOn(IMidiInputDevice sender, in NoteOnMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void InputDeviceOnNoteOff(IMidiInputDevice sender, in NoteOffMessage msg)
+        {
+            throw new NotImplementedException();
         }
 
         public int UpdateInterval
@@ -88,9 +127,10 @@ namespace LrControl.Core.Midi
             {
                 stopwatch.Restart();
 
-                if (!TrySendOldest(_controlChangeMessages.Values, msg => ControlChange?.Invoke(this, msg)))
+                if (!TrySendOldest(_controlChangeMessages.Values, 
+                    (in ControlChangeMessage msg) => ControlChange?.Invoke(this, in msg)))
                 {
-                    TrySendOldest(_nrpnMessages.Values, msg => Nrpn?.Invoke(this, msg));
+                    TrySendOldest(_nrpnMessages.Values, (in NrpnMessage msg) => Nrpn?.Invoke(this, in msg));
                 }
 
                 // Sleep
@@ -103,19 +143,19 @@ namespace LrControl.Core.Midi
         }
 
         private static bool TrySendOldest<TMessage>(IEnumerable<MessageHolder<TMessage>> messageHolders,
-            Action<TMessage> eventInvocator)
+            EventInvocator<TMessage> eventInvocator) where TMessage : struct
         {
-            var holder = FindOldestMessage(messageHolders);
+            var holder = FindOldest(messageHolders);
             if (holder == null) return false;
 
-            var message = holder.Message;
-            eventInvocator(message);
-            holder.SetLastSent(message);
+            ref readonly var message = ref holder.Message;
+            eventInvocator(in message);
+            holder.SetLastSent(in message);
             return true;
         }
 
-        private static MessageHolder<TMessage> FindOldestMessage<TMessage>(
-            IEnumerable<MessageHolder<TMessage>> messageHolders)
+        private static MessageHolder<TMessage> FindOldest<TMessage>(
+            IEnumerable<MessageHolder<TMessage>> messageHolders) where TMessage : struct
         {
             MessageHolder<TMessage> oldest = null;
 
@@ -138,26 +178,34 @@ namespace LrControl.Core.Midi
 
         private void InputDeviceOnNrpn(IMidiInputDevice sender, in NrpnMessage msg)
         {
-            var nrpnMsg = msg;
-            _nrpnMessages.AddOrUpdate(new NrpnKey(msg),
-                key => new NrpnMessageHolder(nrpnMsg),
-                (key, holder) =>
+            var key = new NrpnKey(in msg);
+
+            if (!_nrpnMessages.TryGetValue(key, out var holder))
+            {
+                holder = new NrpnMessageHolder(in msg);
+                if (!_nrpnMessages.TryAdd(key, holder))
                 {
-                    holder.SetMessage(nrpnMsg);
-                    return holder;
-                });
+                    holder = _nrpnMessages[key];
+                }
+            }
+
+            holder.SetMessage(in msg);
         }
 
         private void InputDeviceOnControlChange(IMidiInputDevice sender, in ControlChangeMessage msg)
         {
-            var ccMsg = msg;
-            _controlChangeMessages.AddOrUpdate(new ControlChangeKey(msg),
-                key => new ControlChangeMessageHolder(ccMsg),
-                (key, holder) =>
+            var key = new ControlChangeKey(in msg);
+
+            if (!_controlChangeMessages.TryGetValue(key, out var holder))
+            {
+                holder = new ControlChangeMessageHolder(in msg);
+                if (!_controlChangeMessages.TryAdd(key, holder))
                 {
-                    holder.SetMessage(ccMsg);
-                    return holder;
-                });
+                    holder = _controlChangeMessages[key];
+                }
+            }
+
+            holder.SetMessage(in msg);
         }
 
         #region Delegated members

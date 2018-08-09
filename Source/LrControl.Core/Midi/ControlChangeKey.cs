@@ -11,7 +11,7 @@ namespace LrControl.Core.Midi
             Control = control;
         }
 
-        public ControlChangeKey(ControlChangeMessage msg) : this(msg.Channel, msg.Control)
+        public ControlChangeKey(in ControlChangeMessage msg) : this(msg.Channel, msg.Control)
         {
         }
 
