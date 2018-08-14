@@ -9,14 +9,14 @@ using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Devices
 {
-    public delegate void ControllerAddedHandler(Controller controller);
+    internal delegate void ControllerAddedHandler(Controller controller);
 
-    public class Device
+    internal class DeviceManager
     {
         private IMidiInputDevice _inputDevice;
         private readonly Dictionary<ControllerKey, Controller> _controllers;
 
-        public Device()
+        public DeviceManager()
         {
             _controllers = new Dictionary<ControllerKey, Controller>();
         }

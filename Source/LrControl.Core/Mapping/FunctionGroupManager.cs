@@ -15,14 +15,14 @@ namespace LrControl.Core.Mapping
     public class FunctionGroupManager : INotifyPropertyChanged
     {
         private readonly IFunctionCatalog _functionCatalog;
-        private readonly Device _device;
+        private readonly DeviceManager _deviceManager;
         private readonly List<ModuleGroup> _modules;
 
-        private FunctionGroupManager(IFunctionCatalog functionCatalog, Device device, List<ModuleGroup> modules)
+        private FunctionGroupManager(IFunctionCatalog functionCatalog, DeviceManager deviceManager, List<ModuleGroup> modules)
         {
             _functionCatalog = functionCatalog;
-            _device = device;
-            _device.ControllerAdded += DeviceOnControllerAdded;
+            _deviceManager = deviceManager;
+            _deviceManager.ControllerAdded += DeviceManagerOnControllerAdded;
             _modules = modules;
             OnPropertyChanged(nameof(Modules));
         }
@@ -31,9 +31,9 @@ namespace LrControl.Core.Mapping
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        internal static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, Device device)
+        internal static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, DeviceManager deviceManager)
         {
-            return new FunctionGroupManager(functionCatalog, device, new List<ModuleGroup>
+            return new FunctionGroupManager(functionCatalog, deviceManager, new List<ModuleGroup>
             {
                 CreateModuleWithGlobal(api, Module.Library),
                 CreateDevelopModule(api),
@@ -120,7 +120,7 @@ namespace LrControl.Core.Mapping
                 {
                     group.ClearControllerFunctions();
 
-                    foreach (var controller in _device.Controllers)
+                    foreach (var controller in _deviceManager.Controllers)
                     {
                         group.AddControllerFunction(new ControllerFunction(controller));
                     }
@@ -151,7 +151,7 @@ namespace LrControl.Core.Mapping
             }
         }
 
-        private void DeviceOnControllerAdded(Controller controller)
+        private void DeviceManagerOnControllerAdded(Controller controller)
         {
             // Add new controller to each function group, within each module
             foreach (var module in Modules)

@@ -12,12 +12,12 @@ namespace LrControl.Core.Devices
 
     public class Controller : INotifyPropertyChanged
     {
-        private readonly Device _device;
+        private readonly DeviceManager _deviceManager;
         private int _lastValue;
 
-        internal Controller(Device device, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber, Range range)
+        internal Controller(DeviceManager deviceManager, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber, Range range)
         {
-            _device = device;
+            _deviceManager = deviceManager;
             MessageType = messageType;
             ControllerType = controllerType;
             MidiChannel = channel;
@@ -48,7 +48,7 @@ namespace LrControl.Core.Devices
 
         internal void SetControllerValue(int controllerValue)
         {
-            _device.OnDeviceOutput(this, controllerValue);
+            _deviceManager.OnDeviceOutput(this, controllerValue);
         }
         
         internal void Reset()
