@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using LrControl.Core.Configurations;
 using LrControl.Core.Midi.Messages;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Nrpn;
@@ -17,17 +19,20 @@ namespace LrControl.Core.Midi
 
         private static readonly ILogger Log = Serilog.Log.ForContext<InputDeviceDecorator>();
         private readonly IMidiInputDevice _inputDevice;
+        private readonly ISettings _settings;
         private readonly ConcurrentDictionary<string, MessageHolder> _holders;
         private readonly ManualResetEvent _stopTimerEvent = new ManualResetEvent(false);
         private bool _disposed;
         private Thread _timerThread;
         private int _updateInterval;
 
-        public InputDeviceDecorator(IMidiInputDevice inputDevice, int updateInterval)
+        public InputDeviceDecorator(IMidiInputDevice inputDevice, ISettings settings)
         {
             _inputDevice = inputDevice;
+            _settings = settings;
             _holders = new ConcurrentDictionary<string, MessageHolder>();
-            UpdateInterval = updateInterval;
+            UpdateInterval = _settings.ParameterUpdateFrequency / 1000;
+            _settings.PropertyChanged += SettingsOnPropertyChanged;
 
             // Start timer thread
             _timerThread = new Thread(TimerThreadStart)
@@ -89,7 +94,20 @@ namespace LrControl.Core.Midi
 
             _inputDevice.Dispose();
 
+            _settings.PropertyChanged -= SettingsOnPropertyChanged;
+
             _disposed = true;
+        }
+
+        private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (_disposed) return;
+            if (e.PropertyName != nameof(ISettings.ParameterUpdateFrequency)) return;
+            
+            if (_settings.ParameterUpdateFrequency < 0)
+                throw new ArgumentOutOfRangeException(nameof(ISettings.ParameterUpdateFrequency));
+
+            _updateInterval = _settings.ParameterUpdateFrequency / 1000;
         }
 
         private void TimerThreadStart()
@@ -111,6 +129,8 @@ namespace LrControl.Core.Midi
                 }
             }
         }
+        
+        
         
         private MessageHolder FindOldest()
         {

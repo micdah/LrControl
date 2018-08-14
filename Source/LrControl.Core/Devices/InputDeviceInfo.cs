@@ -6,18 +6,24 @@ namespace LrControl.Core.Devices
 {
     public class InputDeviceInfo
     {
-        internal InputDeviceInfo(IMidiInputDeviceInfo info)
+        private readonly IMidiInputDevice _midiInputDevice;
+        private readonly IMidiInputDeviceInfo _midiInputDeviceInfo;
+        
+        internal InputDeviceInfo(IMidiInputDeviceInfo midiInputDeviceInfo)
         {
-            Name = info.Name;
+            _midiInputDeviceInfo = midiInputDeviceInfo;
         }
 
-        internal InputDeviceInfo(IMidiInputDevice device)
+        internal InputDeviceInfo(IMidiInputDevice midiInputDevice)
         {
-            Name = device.Name;
+            _midiInputDevice = midiInputDevice;
         }
 
-        internal Func<IMidiInputDeviceInfo, bool> MatchThisFunc => inputDevice => inputDevice.Name == Name;
+        internal IMidiInputDevice CreateDevice()
+        {
+            return _midiInputDevice ?? _midiInputDeviceInfo.CreateDevice();
+        }
 
-        public string Name { get; }
+        public string Name => _midiInputDevice?.Name ?? _midiInputDeviceInfo.Name;
     }
 }

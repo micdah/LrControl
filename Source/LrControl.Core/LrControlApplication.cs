@@ -10,27 +10,23 @@ using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Mapping;
-using LrControl.Core.Midi;
 using LrControl.Core.Util;
 using RtMidi.Core;
-using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Infos;
 using Serilog;
 
 namespace LrControl.Core
-{
+{   
     public class LrControlApplication : ILrControlApplication
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<LrControlApplication>();
         private readonly LrApi _lrApi;
         private readonly Settings _settings;
         private readonly IFunctionCatalog _functionCatalog;
-        private readonly DeviceManager _deviceManagerManager;
+        private readonly DeviceManager _deviceManager;
         private readonly FunctionGroupManager _functionGroupManager;
         private readonly List<IMidiInputDeviceInfo> _inputDeviceInfos = new List<IMidiInputDeviceInfo>();
         private readonly List<IMidiOutputDeviceInfo> _outputDeviceInfos = new List<IMidiOutputDeviceInfo>();
-        private InputDeviceDecorator _inputDevice;
-        private IMidiOutputDevice _outputDevice;
         
         public static ILrControlApplication Create()
         {
@@ -42,22 +38,19 @@ namespace LrControl.Core
             _settings = Configurations.Settings.LoadOrDefault();
             _lrApi = new LrApi();
             _functionCatalog = Functions.Catalog.FunctionCatalog.CreateCatalog(_settings, _lrApi);
-            _deviceManagerManager = new DeviceManager();
-            _functionGroupManager = FunctionGroupManager.DefaultGroups(_lrApi, _functionCatalog, _deviceManagerManager);
+            _deviceManager = new DeviceManager(_settings);
+            _functionGroupManager = FunctionGroupManager.DefaultGroups(_lrApi, _functionCatalog, _deviceManager);
 
             // Hookup module listener
             _lrApi.LrApplicationView.ModuleChanged += _functionGroupManager.EnableModule;
             _lrApi.ConnectionStatus += (connected, version) => ConnectionStatus?.Invoke(connected, version);
 
-            // Listen for Setting changes
-            _settings.PropertyChanged += SettingsOnPropertyChanged;
-
             // Restore previously selected input/output devices
             RefreshAvailableDevices(false);
-            SetInputDevice(_inputDeviceInfos.FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
-            SetOutputDevice(_outputDeviceInfos.FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
+            SetInputDevice(InputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
+            SetOutputDevice(OutputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
 
-            // Load configuration
+            // SetConfiguration configuration
             LoadConfiguration();
 
             Log.Information("LrControl application started, running {Version}", Environment.Version);
@@ -72,14 +65,17 @@ namespace LrControl.Core
         public IEnumerable<InputDeviceInfo> InputDevices => _inputDeviceInfos.Select(x => new InputDeviceInfo(x));
         public IEnumerable<OutputDeviceInfo> OutputDevices => _outputDeviceInfos.Select(x => new OutputDeviceInfo(x));
 
-        public InputDeviceInfo InputDevice => _inputDevice != null ? new InputDeviceInfo(_inputDevice) : null;
-        public OutputDeviceInfo OutputDevice => _outputDevice != null ? new OutputDeviceInfo(_outputDevice) : null;
+        // TODO Remove
+        public InputDeviceInfo InputDevice => _deviceManager.InputDevice;
+        
+        // TODO Remove
+        public OutputDeviceInfo OutputDevice => _deviceManager.OutputDevice;
         
         public void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile)
         {
             var conf = new MappingConfiguration
             {
-                Controllers = _deviceManagerManager.GetConfiguration(),
+                Controllers = _deviceManager.GetConfiguration(),
                 Modules = FunctionGroupManager.GetConfiguration()
             };
 
@@ -91,9 +87,7 @@ namespace LrControl.Core
             var conf = MappingConfiguration.Load(file);
             if (conf == null) return;
 
-            _deviceManagerManager.Load(conf.Controllers);
-            _deviceManagerManager.ResetAllControls();
-
+            _deviceManager.SetConfiguration(conf.Controllers);
             FunctionGroupManager.Load(conf.Modules);
 
             // Enable current module group
@@ -103,7 +97,7 @@ namespace LrControl.Core
 
         public void Reset()
         {
-            _deviceManagerManager.Clear();
+            _deviceManager.Clear();
             _functionGroupManager.Reset();
         }
 
@@ -119,7 +113,7 @@ namespace LrControl.Core
 
             if (inputDeviceName != null && restorePrevious)
             {
-                SetInputDevice(_inputDeviceInfos.FirstOrDefault(x => x.Name == inputDeviceName));
+                SetInputDevice(InputDevices.FirstOrDefault(x => x.Name == inputDeviceName));
             }
 
             // Update output devices
@@ -132,64 +126,20 @@ namespace LrControl.Core
             
             if (outputDeviceName != null && restorePrevious)
             {
-                SetOutputDevice(_outputDeviceInfos.FirstOrDefault(x => x.Name == outputDeviceName));
+                SetOutputDevice(OutputDevices.FirstOrDefault(x => x.Name == outputDeviceName));
             }
         }
 
+        // TODO Remove in favor of IDeviceManager property
         public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
         {
-            SetInputDevice(_inputDeviceInfos.FirstOrDefault(inputDeviceInfo.MatchThisFunc));
+            _deviceManager.SetInputDevice(inputDeviceInfo);
         }
-
-        private void SetInputDevice(IMidiInputDeviceInfo inputDeviceInfo)
-        {
-            _inputDevice?.Dispose();
-
-            var inputDevice = inputDeviceInfo?.CreateDevice();
-            if (inputDevice != null)
-            {
-                _inputDevice = new InputDeviceDecorator(inputDevice, 1000 / _settings.ParameterUpdateFrequency);
-                _deviceManagerManager.InputDevice = _inputDevice;
-
-                if (!_inputDevice.IsOpen)
-                    _inputDevice.Open();
-            }
-            else
-            {
-                _inputDevice = null;
-                _deviceManagerManager.InputDevice = null;
-            }
-
-            OnPropertyChanged(nameof(InputDevice));
-        }
-
+        
+        // TODO Remove in favor of IDeviceManager property
         public void SetOutputDevice(OutputDeviceInfo outputDeviceInfo)
         {
-            var outputDevice = _outputDeviceInfos.FirstOrDefault(outputDeviceInfo.MatchThisFunc);
-            SetOutputDevice(outputDevice);
-        }
-
-        private void SetOutputDevice(IMidiOutputDeviceInfo outputDeviceInfo)
-        {
-            if (_outputDevice != null && _outputDevice.IsOpen)
-                _outputDevice.Close();
-
-            var outputDevice = outputDeviceInfo?.CreateDevice();
-            if (outputDevice != null)
-            {
-                _outputDevice = outputDevice;
-                _deviceManagerManager.OutputDevice = _outputDevice;
-
-                if (!_outputDevice.IsOpen)
-                    _outputDevice.Open();
-            }
-            else
-            {
-                _outputDevice = null;
-                _deviceManagerManager.OutputDevice = null;
-            }
-
-            OnPropertyChanged(nameof(OutputDevice));
+            _deviceManager.SetOutputDevice(outputDeviceInfo);
         }
 
         public string GetSettingsFolder()
@@ -202,16 +152,6 @@ namespace LrControl.Core
             ConnectionStatus?.Invoke(_lrApi.Connected, _lrApi.ApiVersion);
         }
 
-        private void SettingsOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName != nameof(Settings.ParameterUpdateFrequency)) return;
-
-            if (InputDevice != null)
-            {
-                _inputDevice.UpdateInterval = 1000 / _settings.ParameterUpdateFrequency;
-            }
-        }
-
         public void Dispose()
         {
             if (_settings.SaveConfigurationOnExit)
@@ -222,7 +162,7 @@ namespace LrControl.Core
 
             Log.Debug("Saving last used input ({InputName}) and output ({OutputName}) devices", InputDevice?.Name,
                 OutputDevice?.Name);
-            _settings.SetLastUsed(_inputDevice, _outputDevice);
+            _settings.SetLastUsed(_deviceManager.InputDevice, _deviceManager.OutputDevice);
 
             Log.Information("Saving settings");
             _settings.Save();

@@ -4,75 +4,163 @@ using System.Linq;
 using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
+using LrControl.Core.Midi;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Devices
-{
+{   
     internal delegate void ControllerAddedHandler(Controller controller);
 
-    internal class DeviceManager
+    public interface IDeviceManager
     {
-        private IMidiInputDevice _inputDevice;
-        private readonly Dictionary<ControllerKey, Controller> _controllers;
+        /// <summary>
+        /// Get input device (if any)
+        /// </summary>
+        InputDeviceInfo InputDevice { get; }
+        
+        /// <summary>
+        /// Get output device (if any)
+        /// </summary>
+        OutputDeviceInfo OutputDevice { get; }        
+        
+        /// <summary>
+        /// Set the input device being used
+        /// </summary>
+        /// <param name="inputDeviceInfo">Input device info to create device from</param>
+        void SetInputDevice(InputDeviceInfo inputDeviceInfo);
+        
+        /// <summary>
+        /// Set the output device being used
+        /// </summary>
+        /// <param name="outputDeviceInfo">Output device info to create device from</param>
+        void SetOutputDevice(OutputDeviceInfo outputDeviceInfo);
+    }
 
-        public DeviceManager()
+    internal class DeviceManager : IDeviceManager
+    {
+        private readonly ISettings _settings;
+        private readonly Dictionary<ControllerKey, Controller> _controllers;
+        private IMidiInputDevice _inputDevice;
+        private IMidiOutputDevice _outputDevice;
+
+        public DeviceManager(ISettings settings)
         {
             _controllers = new Dictionary<ControllerKey, Controller>();
+            _settings = settings;
         }
 
-        public IEnumerable<Controller> Controllers => _controllers.Values;
+        internal IReadOnlyCollection<Controller> Controllers => _controllers.Values;
 
-        public IMidiInputDevice InputDevice
-        {
-            set
-            {
-                if (_inputDevice != null)
-                {
-                    _inputDevice.ControlChange -= InputDeviceOnControlChange;
-                    _inputDevice.Nrpn -= InputDeviceOnNrpn;
-                }
+        public InputDeviceInfo InputDevice => _inputDevice != null
+            ? new InputDeviceInfo(_inputDevice)
+            : null;
 
-                _inputDevice = value;
-
-                if (_inputDevice != null)
-                {
-                    _inputDevice.ControlChange += InputDeviceOnControlChange;
-                    _inputDevice.Nrpn += InputDeviceOnNrpn;
-                }
-            }
-        }
-
-        public IMidiOutputDevice OutputDevice { private get; set; }
+        public OutputDeviceInfo OutputDevice => _outputDevice != null
+            ? new OutputDeviceInfo(_outputDevice)
+            : null;
 
         public event ControllerAddedHandler ControllerAdded;
 
-        public void ResetAllControls()
+        public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
         {
-            foreach (var controller in _controllers.Values)
-                controller.Reset();
+            if (_inputDevice != null)
+            {
+                if (_inputDevice.IsOpen)
+                    _inputDevice.Close();
+                
+                _inputDevice.ControlChange -= InputDeviceOnControlChange;
+                _inputDevice.Nrpn -= InputDeviceOnNrpn;
+                _inputDevice.Dispose();
+            }
+
+            if (inputDeviceInfo != null)
+            {
+                var inputDevice = inputDeviceInfo.CreateDevice();
+                _inputDevice = new InputDeviceDecorator(inputDevice, _settings);
+                
+                _inputDevice.ControlChange += InputDeviceOnControlChange;
+                _inputDevice.Nrpn += InputDeviceOnNrpn;
+
+                if (!_inputDevice.IsOpen)
+                    _inputDevice.Open();
+            }
+            else
+            {
+                _inputDevice = null;
+            }
         }
 
-        public List<ControllerConfiguration> GetConfiguration()
+        public void SetOutputDevice(OutputDeviceInfo outputDeviceInfo)
         {
-            return _controllers.Values.Select(x => new ControllerConfiguration(x)).ToList();
-        }
+            if (_outputDevice != null)
+            {
+                if (_outputDevice.IsOpen)
+                    _outputDevice.Close();
 
+                _outputDevice.Dispose();
+            }
+
+            if (outputDeviceInfo != null)
+            {
+                _outputDevice = outputDeviceInfo.CreateDevice();
+                
+                if (!_outputDevice.IsOpen)
+                    _outputDevice.Open();
+            }
+            else
+            {
+                _outputDevice = null;
+            }
+        }
+        
         public void Clear()
         {
             _controllers.Clear();
         }
 
-        public void Load(IEnumerable<ControllerConfiguration> controllerConfiguration)
+        public void SetConfiguration(IEnumerable<ControllerConfiguration> controllerConfiguration)
         {
+            // Clear existing controllers
             Clear();
 
+            // Load configuration controllers from configuration
             foreach (var conf in controllerConfiguration)
             {
                 var controller = new Controller(this, conf.MessageType, conf.ControllerType, conf.Channel,
                     conf.ControlNumber, new Range(conf.RangeMin, conf.RangeMax));
 
                 _controllers[new ControllerKey(controller)] = controller;
+            }
+            
+            // Reset all controllers new controllers
+            foreach (var controller in _controllers.Values)
+            {
+                controller.Reset();
+            }
+        }
+        
+        public List<ControllerConfiguration> GetConfiguration()
+        {
+            return _controllers.Values.Select(x => new ControllerConfiguration(x)).ToList();
+        }
+
+        // TODO Figure out way to not have this as a public method, but injected into Controller somehow
+        public void OnDeviceOutput(Controller controller, int controllerValue)
+        {
+            if (OutputDevice == null) return;
+
+            switch (controller.MessageType)
+            {
+                case ControllerMessageType.ControlChange:
+                    _outputDevice.Send(new ControlChangeMessage(controller.MidiChannel, controller.ControlNumber,
+                        controllerValue));
+                    break;
+                case ControllerMessageType.Nrpn:
+                    _outputDevice.Send(new NrpnMessage(controller.MidiChannel, controller.ControlNumber, controllerValue));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -100,24 +188,6 @@ namespace LrControl.Core.Devices
             }
 
             controller.OnDeviceInput(value);
-        }
-
-        internal void OnDeviceOutput(Controller controller, int controllerValue)
-        {
-            if (OutputDevice == null) return;
-
-            switch (controller.MessageType)
-            {
-                case ControllerMessageType.ControlChange:
-                    OutputDevice.Send(new ControlChangeMessage(controller.MidiChannel, controller.ControlNumber,
-                        controllerValue));
-                    break;
-                case ControllerMessageType.Nrpn:
-                    OutputDevice.Send(new NrpnMessage(controller.MidiChannel, controller.ControlNumber, controllerValue));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         private void OnControllerAdded(Controller controller)

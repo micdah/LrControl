@@ -1,8 +1,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using LrControl.Core.Devices;
 using LrControl.Core.Util;
-using RtMidi.Core.Devices;
 
 namespace LrControl.Core.Configurations
 {
@@ -30,7 +30,7 @@ namespace LrControl.Core.Configurations
 
         internal static Settings LoadOrDefault()
         {
-            // Load existing
+            // SetConfiguration existing
             if (Serializer.Load(SettingsFile, out Settings settings))
                 return settings;
 
@@ -121,16 +121,16 @@ namespace LrControl.Core.Configurations
             Serializer.Save(SettingsFile, this);
         }
 
-        public void SetLastUsed(IMidiInputDevice inputDevice, IMidiOutputDevice outputDevice)
+        public void SetLastUsed(InputDeviceInfo inputDeviceInfo, OutputDeviceInfo outputDeviceInfo)
         {
-            if (inputDevice != null)
+            if (inputDeviceInfo != null)
             {
-                LastUsedInputDevice = inputDevice.Name;
+                LastUsedInputDevice = inputDeviceInfo.Name;
             }
 
-            if (outputDevice != null)
+            if (outputDeviceInfo != null)
             {
-                LastUsedOutputDevice = outputDevice.Name;
+                LastUsedOutputDevice = outputDeviceInfo.Name;
             }
         }
 
