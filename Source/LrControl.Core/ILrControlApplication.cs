@@ -9,21 +9,21 @@ using LrControl.Core.Mapping;
 
 namespace LrControl.Core
 {
-    public interface ILrControlApplication : IDisposable, INotifyPropertyChanged
+    public interface ILrControlApplication : IDisposable
     {
         event ConnectionStatusHandler ConnectionStatus;
         ISettings Settings { get; }
         FunctionGroupManager FunctionGroupManager { get; }
         IFunctionCatalog FunctionCatalog { get; }
-        IEnumerable<InputDeviceInfo> InputDevices { get; }
-        IEnumerable<OutputDeviceInfo> OutputDevices { get; }
+        IReadOnlyCollection<InputDeviceInfo> InputDevices { get; }
+        IReadOnlyCollection<OutputDeviceInfo> OutputDevices { get; }
         InputDeviceInfo InputDevice { get; }
         OutputDeviceInfo OutputDevice { get; }
 
         void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile);
         void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile);
         void Reset();
-        void RefreshAvailableDevices(bool restorePrevious = true);
+        void RefreshAvailableDevices();
         string GetSettingsFolder();
         void UpdateConnectionStatus();
         void SetInputDevice(InputDeviceInfo inputDevice);
