@@ -15,18 +15,13 @@ namespace LrControl.Core
         ISettings Settings { get; }
         FunctionGroupManager FunctionGroupManager { get; }
         IFunctionCatalog FunctionCatalog { get; }
-        IReadOnlyCollection<InputDeviceInfo> InputDevices { get; }
-        IReadOnlyCollection<OutputDeviceInfo> OutputDevices { get; }
-        InputDeviceInfo InputDevice { get; }
-        OutputDeviceInfo OutputDevice { get; }
+        IDeviceBrowser DeviceBrowser { get; }
+        IDeviceManager DeviceManager { get; }
 
         void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile);
         void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile);
         void Reset();
-        void RefreshAvailableDevices();
         string GetSettingsFolder();
         void UpdateConnectionStatus();
-        void SetInputDevice(InputDeviceInfo inputDevice);
-        void SetOutputDevice(OutputDeviceInfo outputDevice);
     }
 }

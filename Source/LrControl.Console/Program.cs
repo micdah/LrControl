@@ -1,5 +1,4 @@
-﻿using System;
-using LrControl.Core;
+﻿using LrControl.Core;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
@@ -21,11 +20,11 @@ namespace LrControl.Console
             lrControlApplication.UpdateConnectionStatus();
 
             Log.Information("Available input devices:");
-            foreach (var info in lrControlApplication.InputDevices)
+            foreach (var info in lrControlApplication.DeviceBrowser.InputDevices)
                 Log.Information("\tDevice: {@Info}", info);
 
             Log.Information("Available output devices:");
-            foreach (var info in lrControlApplication.OutputDevices)
+            foreach (var info in lrControlApplication.DeviceBrowser.OutputDevices)
                 Log.Information("\tDevice: {@Info}", info);
 
             System.Console.WriteLine("Press any key to quit...");

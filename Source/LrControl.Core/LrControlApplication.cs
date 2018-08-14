@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LrControl.Api;
@@ -41,9 +40,11 @@ namespace LrControl.Core
             _lrApi.ConnectionStatus += (connected, version) => ConnectionStatus?.Invoke(connected, version);
 
             // Restore previously selected input/output devices
-            RefreshAvailableDevices();
-            SetInputDevice(InputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
-            SetOutputDevice(OutputDevices.FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
+            _deviceBrowser.Refresh();
+            _deviceManager.SetInputDevice(_deviceBrowser.InputDevices
+                .FirstOrDefault(x => x.Name == _settings.LastUsedInputDevice));
+            _deviceManager.SetOutputDevice(_deviceBrowser.OutputDevices
+                .FirstOrDefault(x => x.Name == _settings.LastUsedOutputDevice));
 
             // SetConfiguration configuration
             LoadConfiguration();
@@ -56,18 +57,8 @@ namespace LrControl.Core
         public ISettings Settings => _settings;
         public FunctionGroupManager FunctionGroupManager => _functionGroupManager;
         public IFunctionCatalog FunctionCatalog => _functionCatalog;
-
-        // TODO Remove
-        public IReadOnlyCollection<InputDeviceInfo> InputDevices => _deviceBrowser.InputDevices;
-
-        // TODO Remove
-        public IReadOnlyCollection<OutputDeviceInfo> OutputDevices => _deviceBrowser.OutputDevices;
-
-        // TODO Remove
-        public InputDeviceInfo InputDevice => _deviceManager.InputDevice;
-
-        // TODO Remove
-        public OutputDeviceInfo OutputDevice => _deviceManager.OutputDevice;
+        public IDeviceBrowser DeviceBrowser => _deviceBrowser;
+        public IDeviceManager DeviceManager => _deviceManager;
 
         public void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile)
         {
@@ -99,17 +90,6 @@ namespace LrControl.Core
             _functionGroupManager.Reset();
         }
 
-        public void RefreshAvailableDevices()
-            => _deviceBrowser.Refresh();
-
-        // TODO Remove in favor of IDeviceManager property
-        public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
-            => _deviceManager.SetInputDevice(inputDeviceInfo);
-
-        // TODO Remove in favor of IDeviceManager property
-        public void SetOutputDevice(OutputDeviceInfo outputDeviceInfo)
-            => _deviceManager.SetOutputDevice(outputDeviceInfo);
-
         public string GetSettingsFolder()
         {
             return Path.GetDirectoryName(Serializer.ResolveRelativeFilename(MappingConfiguration.ConfigurationsFile));
@@ -128,8 +108,9 @@ namespace LrControl.Core
                 SaveConfiguration();
             }
 
-            Log.Debug("Saving last used input ({InputName}) and output ({OutputName}) devices", InputDevice?.Name,
-                OutputDevice?.Name);
+            Log.Debug("Saving last used input ({InputName}) and output ({OutputName}) devices",
+                _deviceManager.InputDevice?.Name,
+                _deviceManager.OutputDevice?.Name);
             _settings.SetLastUsed(_deviceManager.InputDevice, _deviceManager.OutputDevice);
 
             Log.Information("Saving settings");
