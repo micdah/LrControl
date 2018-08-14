@@ -12,7 +12,7 @@ using Panel = LrControl.Api.Modules.LrDevelopController.Panel;
 
 namespace LrControl.Core.Functions.Catalog
 {
-    public partial class FunctionCatalog
+    internal partial class FunctionCatalog
     {
         private static IEnumerable<IFunctionCatalogGroup> CreateDevelopGroups(ISettings settings, LrApi api)
         {

@@ -6,7 +6,7 @@ using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {
-    public partial class FunctionCatalog : IFunctionCatalog
+    internal partial class FunctionCatalog : IFunctionCatalog
     {
         private FunctionCatalog(IEnumerable<IFunctionCatalogGroup> groups)
         {
@@ -22,7 +22,7 @@ namespace LrControl.Core.Functions.Catalog
                 .FirstOrDefault(f => f.Key == functionKey);
         }
 
-        public static IFunctionCatalog DefaultCatalog(ISettings settings, LrApi api)
+        public static IFunctionCatalog CreateCatalog(ISettings settings, LrApi api)
         {
             return new FunctionCatalog(CreateGroups(settings, api));
         }

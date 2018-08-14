@@ -3,7 +3,7 @@ using LrControl.Core.Configurations;
 
 namespace LrControl.Core.Functions.Factories
 {
-    public abstract class FunctionFactory : IFunctionFactory
+    internal abstract class FunctionFactory : IFunctionFactory
     {
         private readonly ISettings _settings;
         private readonly LrApi _api;

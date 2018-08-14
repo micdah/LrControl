@@ -5,7 +5,7 @@ using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {
-    public partial class FunctionCatalog
+    internal partial class FunctionCatalog
     {
         private static IFunctionCatalogGroup CreateUndoGroup(ISettings settings, LrApi api)
         {

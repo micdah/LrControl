@@ -41,14 +41,14 @@ namespace LrControl.Console
                 "{Timestamp:yyyy-MM-dd HH:mm:ss.sss} [{Level:u3}] {Message:lj}    ({SourceContext}){NewLine}{Exception}";
 
             Serilog.Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
+                .MinimumLevel.Debug()//.Verbose()
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code, outputTemplate: template)
-                .WriteTo.RollingFile("LrControl.exe.{Date}.log",
-                    outputTemplate: template,
-                    fileSizeLimitBytes: 10 * 1024 * 1024,
-                    flushToDiskInterval: TimeSpan.FromSeconds(1),
-                    retainedFileCountLimit: 5,
-                    shared: true)
+//                .WriteTo.RollingFile("LrControl.exe.{Date}.log",
+//                    outputTemplate: template,
+//                    fileSizeLimitBytes: 10 * 1024 * 1024,
+//                    flushToDiskInterval: TimeSpan.FromSeconds(1),
+//                    retainedFileCountLimit: 5,
+//                    shared: true)
                 .CreateLogger();
         }
     }

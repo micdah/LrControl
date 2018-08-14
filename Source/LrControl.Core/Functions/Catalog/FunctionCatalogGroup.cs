@@ -3,7 +3,7 @@ using LrControl.Core.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {
-    public class FunctionCatalogGroup : IFunctionCatalogGroup
+    internal class FunctionCatalogGroup : IFunctionCatalogGroup
     {
         public string DisplayName { get; internal set; }
         public string Key { get; internal set; }

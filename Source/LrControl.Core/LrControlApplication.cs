@@ -25,7 +25,7 @@ namespace LrControl.Core
         private readonly LrApi _lrApi;
         private readonly Settings _settings;
         private readonly IFunctionCatalog _functionCatalog;
-        private readonly Device _device;
+        private readonly Device _deviceManager;
         private readonly FunctionGroupManager _functionGroupManager;
         private readonly List<IMidiInputDeviceInfo> _inputDeviceInfos = new List<IMidiInputDeviceInfo>();
         private readonly List<IMidiOutputDeviceInfo> _outputDeviceInfos = new List<IMidiOutputDeviceInfo>();
@@ -41,9 +41,9 @@ namespace LrControl.Core
         {
             _settings = Configurations.Settings.LoadOrDefault();
             _lrApi = new LrApi();
-            _functionCatalog = Functions.Catalog.FunctionCatalog.DefaultCatalog(_settings, _lrApi);
-            _device = new Device();
-            _functionGroupManager = FunctionGroupManager.DefaultGroups(_lrApi, _functionCatalog, _device);
+            _functionCatalog = Functions.Catalog.FunctionCatalog.CreateCatalog(_settings, _lrApi);
+            _deviceManager = new Device();
+            _functionGroupManager = FunctionGroupManager.DefaultGroups(_lrApi, _functionCatalog, _deviceManager);
 
             // Hookup module listener
             _lrApi.LrApplicationView.ModuleChanged += _functionGroupManager.EnableModule;
@@ -79,7 +79,7 @@ namespace LrControl.Core
         {
             var conf = new MappingConfiguration
             {
-                Controllers = _device.GetConfiguration(),
+                Controllers = _deviceManager.GetConfiguration(),
                 Modules = FunctionGroupManager.GetConfiguration()
             };
 
@@ -91,8 +91,8 @@ namespace LrControl.Core
             var conf = MappingConfiguration.Load(file);
             if (conf == null) return;
 
-            _device.Load(conf.Controllers);
-            _device.ResetAllControls();
+            _deviceManager.Load(conf.Controllers);
+            _deviceManager.ResetAllControls();
 
             FunctionGroupManager.Load(conf.Modules);
 
@@ -103,7 +103,7 @@ namespace LrControl.Core
 
         public void Reset()
         {
-            _device.Clear();
+            _deviceManager.Clear();
             _functionGroupManager.Reset();
         }
 
@@ -149,7 +149,7 @@ namespace LrControl.Core
             if (inputDevice != null)
             {
                 _inputDevice = new InputDeviceDecorator(inputDevice, 1000 / _settings.ParameterUpdateFrequency);
-                _device.InputDevice = _inputDevice;
+                _deviceManager.InputDevice = _inputDevice;
 
                 if (!_inputDevice.IsOpen)
                     _inputDevice.Open();
@@ -157,7 +157,7 @@ namespace LrControl.Core
             else
             {
                 _inputDevice = null;
-                _device.InputDevice = null;
+                _deviceManager.InputDevice = null;
             }
 
             OnPropertyChanged(nameof(InputDevice));
@@ -178,7 +178,7 @@ namespace LrControl.Core
             if (outputDevice != null)
             {
                 _outputDevice = outputDevice;
-                _device.OutputDevice = _outputDevice;
+                _deviceManager.OutputDevice = _outputDevice;
 
                 if (!_outputDevice.IsOpen)
                     _outputDevice.Open();
@@ -186,7 +186,7 @@ namespace LrControl.Core
             else
             {
                 _outputDevice = null;
-                _device.OutputDevice = null;
+                _deviceManager.OutputDevice = null;
             }
 
             OnPropertyChanged(nameof(OutputDevice));
