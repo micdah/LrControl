@@ -11,6 +11,22 @@ using Serilog;
 
 namespace LrControl.Core
 {
+    public interface ILrControlApplication : IDisposable
+    {
+        event ConnectionStatusHandler ConnectionStatus;
+        ISettings Settings { get; }
+        FunctionGroupManager FunctionGroupManager { get; }
+        IFunctionCatalog FunctionCatalog { get; }
+        IDeviceBrowser DeviceBrowser { get; }
+        IDeviceManager DeviceManager { get; }
+
+        void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile);
+        void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile);
+        void Reset();
+        string GetSettingsFolder();
+        void UpdateConnectionStatus();
+    }
+
     public class LrControlApplication : ILrControlApplication
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<LrControlApplication>();

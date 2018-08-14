@@ -1,50 +1,30 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Core.Devices;
 using Serilog;
 
 namespace LrControl.Core.Mapping
 {
-    public class ModuleGroup : INotifyPropertyChanged
+    public class ModuleGroup
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ModuleGroup>();
         private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
         private readonly List<FunctionGroup> _functionGroups;
-        private bool _enabled;
 
         internal ModuleGroup(Module module, List<FunctionGroup> functionGroups)
         {
             Module = module;
-            OnPropertyChanged(nameof(Module));
-
             _functionGroups = functionGroups;
-            OnPropertyChanged(nameof(FunctionGroups));
         }
 
         public Module Module { get; }
         public IEnumerable<FunctionGroup> FunctionGroups => _functionGroups;
-
-        public bool Enabled
-        {
-            get => _enabled;
-            private set
-            {
-                if (value == _enabled) return;
-                _enabled = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public bool Enabled { get; private set; }
 
         internal void AddFunctionGroup(FunctionGroup functionGroup)
         {
             _functionGroups.Add(functionGroup);
-            OnPropertyChanged(nameof(FunctionGroups));
         }
 
         internal void Enable()
@@ -123,12 +103,6 @@ namespace LrControl.Core.Mapping
                         : globalFunctions.All(cf => cf.Controller != controllerFunction.Controller);
                 }
             }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

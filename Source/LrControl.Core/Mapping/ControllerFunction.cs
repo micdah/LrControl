@@ -1,17 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using LrControl.Core.Devices;
 using LrControl.Core.Devices.Enums;
 using LrControl.Core.Functions;
 
 namespace LrControl.Core.Mapping
 {
-    public class ControllerFunction : INotifyPropertyChanged, IDisposable
+    public class ControllerFunction : IDisposable
     {
         private IFunction _function;
-        private bool _assignable;
 
         internal ControllerFunction(Controller controller)
         {
@@ -37,28 +33,14 @@ namespace LrControl.Core.Mapping
                 {
                     _function.OnRequestUpdateControllerValue = OnRequestUpdateControllerValue;
                 }
-
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(HasFunction));
             }
         }
 
-        public bool Assignable
-        {
-            get => _assignable;
-            internal set
-            {
-                if (value == _assignable) return;
-                _assignable = value;
-                OnPropertyChanged();
-            }
-        }
+        public bool Assignable { get; internal set; }
 
         private bool Enabled { get; set; }
 
         public bool HasFunction => Function != null;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         internal void Enable(bool resetIfUnmapped)
         {
@@ -109,12 +91,6 @@ namespace LrControl.Core.Mapping
             if (!Enabled) return;
 
             _function?.ControllerValueChanged(controllerValue, Controller.Range);
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

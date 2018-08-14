@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
-using LrControl.Api.Common;
+﻿using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
 using RtMidi.Core.Enums;
@@ -10,12 +7,12 @@ namespace LrControl.Core.Devices
 {
     public delegate void ControllerValueChangedHandler(int controllerValue);
 
-    public class Controller : INotifyPropertyChanged
+    public class Controller
     {
         private readonly DeviceManager _deviceManager;
-        private int _lastValue;
 
-        internal Controller(DeviceManager deviceManager, ControllerMessageType messageType, ControllerType controllerType, Channel channel, int controlNumber, Range range)
+        internal Controller(DeviceManager deviceManager, ControllerMessageType messageType,
+            ControllerType controllerType, Channel channel, int controlNumber, Range range)
         {
             _deviceManager = deviceManager;
             MessageType = messageType;
@@ -31,36 +28,19 @@ namespace LrControl.Core.Devices
         public int Channel => (int) MidiChannel + 1;
         public int ControlNumber { get; }
         public Range Range { get; }
+        public int LastValue { get; private set; }
 
-        public int LastValue
-        {
-            get => _lastValue;
-            private set
-            {
-                if (value == _lastValue) return;
-                _lastValue = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
         public event ControllerValueChangedHandler ControllerValueChanged;
 
         internal void SetControllerValue(int controllerValue)
         {
             _deviceManager.OnDeviceOutput(this, controllerValue);
         }
-        
+
         internal void Reset()
         {
             if (Range != null)
                 SetControllerValue((int) Range.Minimum);
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         internal void OnDeviceInput(int value)
@@ -68,14 +48,12 @@ namespace LrControl.Core.Devices
             if (value < Range)
             {
                 Range.Minimum = value;
-                OnPropertyChanged(nameof(Range));
             }
             else if (value > Range)
             {
                 Range.Maximum = value;
-                OnPropertyChanged(nameof(Range));
             }
-            
+
             LastValue = value;
             ControllerValueChanged?.Invoke(value);
         }

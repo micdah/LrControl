@@ -49,8 +49,8 @@ namespace LrControl.Core.Devices
             _controllers = new Dictionary<ControllerKey, Controller>();
             _settings = settings;
         }
-
-        internal IReadOnlyCollection<Controller> Controllers => _controllers.Values;
+        
+        internal IEnumerable<Controller> Controllers => _controllers.Values;
 
         public InputDeviceInfo InputDevice => _inputDevice != null
             ? new InputDeviceInfo(_inputDevice)
@@ -113,13 +113,13 @@ namespace LrControl.Core.Devices
                 _outputDevice = null;
             }
         }
-        
-        public void Clear()
+               
+        internal void Clear()
         {
             _controllers.Clear();
         }
 
-        public void SetConfiguration(IEnumerable<ControllerConfiguration> controllerConfiguration)
+        internal void SetConfiguration(IEnumerable<ControllerConfiguration> controllerConfiguration)
         {
             // Clear existing controllers
             Clear();
@@ -140,13 +140,13 @@ namespace LrControl.Core.Devices
             }
         }
         
-        public List<ControllerConfiguration> GetConfiguration()
+        internal List<ControllerConfiguration> GetConfiguration()
         {
             return _controllers.Values.Select(x => new ControllerConfiguration(x)).ToList();
         }
 
         // TODO Figure out way to not have this as a public method, but injected into Controller somehow
-        public void OnDeviceOutput(Controller controller, int controllerValue)
+        internal void OnDeviceOutput(Controller controller, int controllerValue)
         {
             if (OutputDevice == null) return;
 

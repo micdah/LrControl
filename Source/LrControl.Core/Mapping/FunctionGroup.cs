@@ -1,24 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using LrControl.Api;
 using LrControl.Api.Modules.LrDevelopController;
 using Serilog;
 
 namespace LrControl.Core.Mapping
 {
-    public class FunctionGroup : INotifyPropertyChanged
+    public class FunctionGroup
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<FunctionGroup>();
         private static readonly List<FunctionGroup> AllFunctionGroups = new List<FunctionGroup>();
         private readonly LrApi _api;
         private readonly List<ControllerFunction> _controllerFunctions;
-        private bool _enabled;
-        private bool _isGlobal;
-        private Panel _panel;
-        private string _key;
 
         internal FunctionGroup(LrApi api, Panel panel = null)
         {
@@ -27,7 +20,6 @@ namespace LrControl.Core.Mapping
             Panel = panel;
 
             _controllerFunctions = new List<ControllerFunction>();
-            OnPropertyChanged(nameof(ControllerFunctions));
 
             AllFunctionGroups.Add(this);
         }
@@ -35,51 +27,13 @@ namespace LrControl.Core.Mapping
         public string DisplayName => IsGlobal ? "Global" : $"{Panel.Name}";
         public IEnumerable<ControllerFunction> ControllerFunctions => _controllerFunctions;
 
-        public string Key
-        {
-            get => _key;
-            internal set
-            {
-                if (value == _key) return;
-                _key = value;
-                OnPropertyChanged();
-            }
-        }
+        public string Key { get; internal set; }
 
-        public bool IsGlobal
-        {
-            get => _isGlobal;
-            private set
-            {
-                if (value == _isGlobal) return;
-                _isGlobal = value;
-                OnPropertyChanged();
-            }
-        }
+        public bool IsGlobal { get; private set; }
 
-        public Panel Panel
-        {
-            get => _panel;
-            private set
-            {
-                if (Equals(value, _panel)) return;
-                _panel = value;
-                OnPropertyChanged();
-            }
-        }
+        public Panel Panel { get; private set; }
 
-        public bool Enabled
-        {
-            get => _enabled;
-            private set
-            {
-                if (value == _enabled) return;
-                _enabled = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public bool Enabled { get; private set; }
 
         internal static FunctionGroup GetFunctionGroupFor(Panel panel)
         {
@@ -129,7 +83,6 @@ namespace LrControl.Core.Mapping
         internal void AddControllerFunction(ControllerFunction controllerFunction)
         {
             _controllerFunctions.Add(controllerFunction);
-            OnPropertyChanged(nameof(ControllerFunctions));
         }
 
         internal void ClearControllerFunctions()
@@ -140,13 +93,6 @@ namespace LrControl.Core.Mapping
             }
 
             _controllerFunctions.Clear();
-            OnPropertyChanged(nameof(ControllerFunctions));
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

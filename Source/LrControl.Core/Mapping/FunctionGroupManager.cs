@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using JetBrains.Annotations;
 using LrControl.Api;
 using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Api.Modules.LrDevelopController;
@@ -12,7 +9,7 @@ using LrControl.Core.Functions.Catalog;
 
 namespace LrControl.Core.Mapping
 {
-    public class FunctionGroupManager : INotifyPropertyChanged
+    public class FunctionGroupManager
     {
         private readonly IFunctionCatalog _functionCatalog;
         private readonly DeviceManager _deviceManager;
@@ -24,12 +21,9 @@ namespace LrControl.Core.Mapping
             _deviceManager = deviceManager;
             _deviceManager.ControllerAdded += DeviceManagerOnControllerAdded;
             _modules = modules;
-            OnPropertyChanged(nameof(Modules));
         }
 
         public IEnumerable<ModuleGroup> Modules => _modules;
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         internal static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, DeviceManager deviceManager)
         {
@@ -161,12 +155,6 @@ namespace LrControl.Core.Mapping
                     group.AddControllerFunction(new ControllerFunction(controller));
                 }
             }
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
