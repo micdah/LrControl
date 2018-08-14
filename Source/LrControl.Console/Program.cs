@@ -12,25 +12,24 @@ namespace LrControl.Console
         {
             InitializeLogging();
 
-            var lrControlApplication = LrControlApplication.Create();
+            using (var lrControlApplication = LrControlApplication.Create())
+            {
+                lrControlApplication.ConnectionStatus += (connected, version) =>
+                    Log.Information("Connection status: {Connected} {Version}", connected, version);
 
-            lrControlApplication.ConnectionStatus += (connected, version) =>
-                Log.Information("Connection status: {Connected} {Version}", connected, version);
+                lrControlApplication.UpdateConnectionStatus();
 
-            lrControlApplication.UpdateConnectionStatus();
+                Log.Information("Available input devices:");
+                foreach (var info in lrControlApplication.DeviceBrowser.InputDevices)
+                    Log.Information("\tDevice: {@Info}", info);
 
-            Log.Information("Available input devices:");
-            foreach (var info in lrControlApplication.DeviceBrowser.InputDevices)
-                Log.Information("\tDevice: {@Info}", info);
+                Log.Information("Available output devices:");
+                foreach (var info in lrControlApplication.DeviceBrowser.OutputDevices)
+                    Log.Information("\tDevice: {@Info}", info);
 
-            Log.Information("Available output devices:");
-            foreach (var info in lrControlApplication.DeviceBrowser.OutputDevices)
-                Log.Information("\tDevice: {@Info}", info);
-
-            System.Console.WriteLine("Press any key to quit...");
-            System.Console.ReadLine();
-
-            lrControlApplication.Dispose();
+                System.Console.WriteLine("Press any key to quit...");
+                System.Console.ReadLine();
+            }
         }
 
         private static void InitializeLogging()
