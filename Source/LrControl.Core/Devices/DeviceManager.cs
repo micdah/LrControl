@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using LrControl.Api.Common;
@@ -10,8 +11,6 @@ using RtMidi.Core.Messages;
 
 namespace LrControl.Core.Devices
 {   
-    internal delegate void ControllerAddedHandler(Controller controller);
-
     public interface IDeviceManager
     {
         /// <summary>
@@ -40,13 +39,13 @@ namespace LrControl.Core.Devices
     internal class DeviceManager : IDeviceManager
     {
         private readonly ISettings _settings;
-        private readonly Dictionary<ControllerKey, Controller> _controllers;
+        private readonly ConcurrentDictionary<ControllerKey, Controller> _controllers;
         private IMidiInputDevice _inputDevice;
         private IMidiOutputDevice _outputDevice;
 
         public DeviceManager(ISettings settings)
         {
-            _controllers = new Dictionary<ControllerKey, Controller>();
+            _controllers = new ConcurrentDictionary<ControllerKey, Controller>();
             _settings = settings;
         }
         
@@ -60,7 +59,7 @@ namespace LrControl.Core.Devices
             ? new OutputDeviceInfo(_outputDevice)
             : null;
 
-        public event ControllerAddedHandler ControllerAdded;
+        internal event EventHandler<Controller> ControllerAdded;
 
         public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
         {
@@ -114,7 +113,7 @@ namespace LrControl.Core.Devices
             }
         }
                
-        internal void Clear()
+        internal void ClearControllers()
         {
             _controllers.Clear();
         }
@@ -122,7 +121,7 @@ namespace LrControl.Core.Devices
         internal void SetConfiguration(IEnumerable<ControllerConfiguration> controllerConfiguration)
         {
             // Clear existing controllers
-            Clear();
+            ClearControllers();
 
             // Load configuration controllers from configuration
             foreach (var conf in controllerConfiguration)
@@ -145,10 +144,9 @@ namespace LrControl.Core.Devices
             return _controllers.Values.Select(x => new ControllerConfiguration(x)).ToList();
         }
 
-        // TODO Figure out way to not have this as a public method, but injected into Controller somehow
-        internal void OnDeviceOutput(Controller controller, int controllerValue)
+        internal void OnControllerUpdate(Controller controller, int controllerValue)
         {
-            if (OutputDevice == null) return;
+            if (_outputDevice == null) return;
 
             switch (controller.MessageType)
             {
@@ -167,32 +165,26 @@ namespace LrControl.Core.Devices
         private void InputDeviceOnControlChange(IMidiInputDevice sender, in ControlChangeMessage message)
         {
             var key = new ControllerKey(ControllerMessageType.ControlChange, message.Channel, message.Control);
-            UpdateControllerValue(key, message.Value);
+            SetControllerValue(key, message.Value);
         }
 
         private void InputDeviceOnNrpn(IMidiInputDevice sender, in NrpnMessage message)
         {
             var key = new ControllerKey(ControllerMessageType.Nrpn, message.Channel, message.Parameter);
-            UpdateControllerValue(key, message.Value);
+            SetControllerValue(key, message.Value);
         }
 
-        private void UpdateControllerValue(ControllerKey key, int value)
+        private void SetControllerValue(ControllerKey key, int value)
         {
-            // Get controller or create new if not previously seen
-            if (!_controllers.TryGetValue(key, out var controller))
+            _controllers.GetOrAdd(key, _ =>
             {
-                _controllers[key] = controller = new Controller(this, key.ControllerMessageType, ControllerType.Encoder,
+                var controller = new Controller(this, key.ControllerMessageType, ControllerType.Encoder,
                     key.Channel, key.ControlNumber, new Range(value, value));
 
-                OnControllerAdded(controller);
-            }
+                ControllerAdded?.Invoke(this, controller);
 
-            controller.OnDeviceInput(value);
-        }
-
-        private void OnControllerAdded(Controller controller)
-        {
-            ControllerAdded?.Invoke(controller);
+                return controller;
+            }).UpdateValue(value);
         }
     }
 }

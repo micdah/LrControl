@@ -30,20 +30,9 @@ namespace LrControl.Core.Devices
         public Range Range { get; }
         public int LastValue { get; private set; }
 
-        public event ControllerValueChangedHandler ControllerValueChanged;
+        public event ControllerValueChangedHandler ValueChanged;
 
-        internal void SetControllerValue(int controllerValue)
-        {
-            _deviceManager.OnDeviceOutput(this, controllerValue);
-        }
-
-        internal void Reset()
-        {
-            if (Range != null)
-                SetControllerValue((int) Range.Minimum);
-        }
-
-        internal void OnDeviceInput(int value)
+        internal void UpdateValue(int value)
         {
             if (value < Range)
             {
@@ -55,7 +44,18 @@ namespace LrControl.Core.Devices
             }
 
             LastValue = value;
-            ControllerValueChanged?.Invoke(value);
+            ValueChanged?.Invoke(value);
+        }
+
+        internal void UpdateController(int controllerValue)
+        {
+            _deviceManager.OnControllerUpdate(this, controllerValue);
+        }
+
+        internal void Reset()
+        {
+            if (Range != null)
+                UpdateController((int) Range.Minimum);
         }
 
         internal bool IsController(ControllerConfigurationKey controllerKey)

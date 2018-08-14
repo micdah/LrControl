@@ -145,7 +145,7 @@ namespace LrControl.Core.Mapping
             }
         }
 
-        private void DeviceManagerOnControllerAdded(Controller controller)
+        private void DeviceManagerOnControllerAdded(object sender, Controller controller)
         {
             // Add new controller to each function group, within each module
             foreach (var module in Modules)

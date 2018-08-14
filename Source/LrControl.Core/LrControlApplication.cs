@@ -102,7 +102,7 @@ namespace LrControl.Core
 
         public void Reset()
         {
-            _deviceManager.Clear();
+            _deviceManager.ClearControllers();
             _functionGroupManager.Reset();
         }
 

@@ -7,13 +7,13 @@ namespace LrControl.Core.Functions
 {
     internal abstract class Function : IFunction
     {
-        protected readonly ISettings Settings;
-        private bool _dispoed;
+        private readonly ISettings _settings;
+        private bool _disposed;
         private Action _onRequestUpdateControllerValue;
 
         protected Function(ISettings settings, LrApi api, string displayName, string key)
         {
-            Settings = settings;
+            _settings = settings;
             Api = api;
             DisplayName = displayName;
             Key = key;
@@ -27,7 +27,7 @@ namespace LrControl.Core.Functions
         
         public virtual bool UpdateControllerValue(out int controllerValue, Range controllerRange)
         {
-            controllerValue = default(int);
+            controllerValue = default;
             return false;
         }
 
@@ -38,10 +38,10 @@ namespace LrControl.Core.Functions
 
         public void Dispose()
         {
-            if (_dispoed) return;
+            if (_disposed) return;
 
             Disposing();
-            _dispoed = true;
+            _disposed = true;
         }
 
         protected void RequestUpdateControllerValue()
@@ -51,7 +51,7 @@ namespace LrControl.Core.Functions
 
         protected void ShowHud(string message)
         {
-            if (Settings.ShowHudMessages)
+            if (_settings.ShowHudMessages)
                 Api.LrDialogs.ShowBezel(message, 0.25);
         }
 

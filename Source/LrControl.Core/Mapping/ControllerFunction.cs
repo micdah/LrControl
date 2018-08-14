@@ -12,7 +12,7 @@ namespace LrControl.Core.Mapping
         internal ControllerFunction(Controller controller)
         {
             Controller = controller;
-            Controller.ControllerValueChanged += OnControllerValueChanged;
+            Controller.ValueChanged += OnControllerValueChanged;
         }
 
         public Controller Controller { get; private set; }
@@ -68,7 +68,7 @@ namespace LrControl.Core.Mapping
         {
             if (Controller != null)
             {
-                Controller.ControllerValueChanged -= OnControllerValueChanged;
+                Controller.ValueChanged -= OnControllerValueChanged;
                 Controller = null;
             }
 
@@ -82,7 +82,7 @@ namespace LrControl.Core.Mapping
 
             if (_function.UpdateControllerValue(out var controllerValue, Controller.Range))
             {
-                Controller.SetControllerValue(controllerValue);
+                Controller.UpdateController(controllerValue);
             }
         }
 
