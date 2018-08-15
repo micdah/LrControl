@@ -56,6 +56,16 @@ namespace LrControl.Api.Communication.Sockets
 
         private bool Receive(out string message, byte stopByte, CancellationToken cancellationToken, Action stop)
         {
+            void StopAndReconnect()
+            {
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    Log.Debug("Error occurred, trying to reconnect");
+                    stop();
+                    Reconnect();
+                }
+            }
+            
             if (!IsOpen)
                 throw new InvalidOperationException("Canont receive when not open");
 
@@ -100,7 +110,7 @@ namespace LrControl.Api.Communication.Sockets
             }
             catch (SocketException e) when (e.SocketErrorCode == SocketError.TimedOut)
             {
-                Log.Debug(e, "Socket timouet");
+                Log.Verbose(e, "Socket timeout");
             }
             catch (SocketException e) when (e.SocketErrorCode == SocketError.ConnectionRefused)
             {
@@ -109,17 +119,11 @@ namespace LrControl.Api.Communication.Sockets
             catch (SocketException e)
             {
                 Log.Error(e, "Exception while receiving message");
+                StopAndReconnect();
             }
             finally
             {
                 _stopwatch.Stop();
-            }
-
-            if (!cancellationToken.IsCancellationRequested)
-            {
-                Log.Debug("Error occurred, trying to reconnect");
-                stop();
-                Reconnect();
             }
 
             message = null;
