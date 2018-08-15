@@ -94,7 +94,7 @@ local function encodeResponse(results)
         return "ack"
     end
 
-    local result = nil 
+    local result
     for i = 1, #results do
         local encodedValue = encodeValue(results[i])
     

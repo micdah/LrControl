@@ -31,7 +31,10 @@ local function hasChanged(parameter)
     local currentValue = LrDevelopController.getValue(parameter)
     local cacheValue = cache[parameter]
     
-    if cacheValue == nil or (type(currentValue) == "number" and math.abs(currentValue-cacheValue) >= 0.01) or (type(currentValue) ~= "number" and currentValue ~= cacheValue) then
+    if (cacheValue == nil and currentValue ~= nil) or 
+            (type(currentValue) == "number" and math.abs(currentValue-cacheValue) >= 0.01) or 
+            (type(currentValue) ~= "number" and currentValue ~= cacheValue) 
+    then
         registerValue(parameter, currentValue)
         return true
     else

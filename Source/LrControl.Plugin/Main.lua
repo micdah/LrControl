@@ -19,7 +19,6 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 
 ------------------------------------------------------------------------------]]
 local LrTasks                  = import 'LrTasks'
-local LrDialogs                = import 'LrDialogs'
 local LrFunctionContext        = import 'LrFunctionContext'
 local LrSocket                 = import 'LrSocket'
 local LrApplicationView        = import 'LrApplicationView'
@@ -66,7 +65,7 @@ local function main(context)
                     socket:reconnect()
                 end
             end,
-            onClosed = function(socket)
+            onClosed = function(_)
 				Log.Debug("SendSocket: Closed")
             end
         }
@@ -80,7 +79,7 @@ local function main(context)
         plugin			= _PLUGIN,
         port			= Options.MessageReceivePort,
         mode			= 'receive',
-        onMessage		= function (socket, message)
+        onMessage		= function (_, message)
 			Log.Tracef("ReceiveSocket: Received message '%s'", message)
             local status, result = pcall(CommandInterpreter.InterpretCommand, Modules,message)
             if status then
@@ -113,16 +112,14 @@ local function main(context)
     
     local function adjustmentChanged() 
         -- Determine which parameters have changed
-        local changed = ""
+        local changedParams = {}
         for _,param in pairs(ChangeObserverParameters.Parameters) do
             if ChangeObserverParameters.HasChanged(param) then
-                if string.len(changed) > 0 then 
-                    changed = changed..","
-                end
-                changed = changed..param
+                table.insert(changedParams, param)
             end
         end
         
+        local changed = table.concat(changedParams, ",")
         if string.len(changed) > 0 then
 			Log.Tracef("Adjustments changed, sending update '%s'", changed)
             Sockets.SendSocket:send("Changed:" .. changed .. "\n")
@@ -146,14 +143,14 @@ local function main(context)
 
     
     -- Enter main waiting loop
-    local lastModule = nil
+    local lastModule
     local observerAdded = false
     
     while (LrControl.Running) do
         -- Chcek if module has changed
         local currentModule = LrApplicationView.getCurrentModuleName()
         if lastModule ~= currentModule then
-			Log.Debug("Module changed from %s to %s", lastModule, currentModule)
+			Log.Debugf("Module changed from %s to %s", lastModule, currentModule)
             moduleChanged(currentModule)
             lastModule = currentModule
         end
