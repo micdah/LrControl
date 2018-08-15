@@ -11,6 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Core", "LrControl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Console", "LrControl.Console\LrControl.Console.csproj", "{AFCD0C58-E6C9-4088-B151-2154861E4FA4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7AFDBE3-813C-498B-AFB8-716B3DE24DD8}"
+ProjectSection(SolutionItems) = preProject
+	build.sh = build.sh
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

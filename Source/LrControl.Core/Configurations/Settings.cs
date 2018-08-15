@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using LrControl.Core.Devices;
@@ -18,7 +19,7 @@ namespace LrControl.Core.Configurations
 
     public class Settings : ISettings
     {
-        private const string SettingsFile = @"..\Settings\Settings.xml";
+        private static readonly string SettingsFile = Path.Combine("..", "Settings", "Settings.xml");
 
         private string _lastUsedInputDevice;
         private string _lastUsedOutputDevice;

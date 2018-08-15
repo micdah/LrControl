@@ -11,10 +11,10 @@
     <OutputPath>..\..\Build\Release\LrControl.lrplugin\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <!-- ChangeObserverParameters -->
     <None Update="About.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <!-- ChangeObserverParameters -->
     <None Update="ChangeObserverParameters.lua">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

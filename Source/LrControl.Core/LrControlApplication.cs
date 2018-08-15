@@ -20,8 +20,8 @@ namespace LrControl.Core
         IDeviceBrowser DeviceBrowser { get; }
         IDeviceManager DeviceManager { get; }
 
-        void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile);
-        void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile);
+        void SaveConfiguration(string file = null);
+        void LoadConfiguration(string file = null);
         void Reset();
         string GetSettingsFolder();
         void UpdateConnectionStatus();
@@ -76,7 +76,7 @@ namespace LrControl.Core
         public IDeviceBrowser DeviceBrowser => _deviceBrowser;
         public IDeviceManager DeviceManager => _deviceManager;
 
-        public void SaveConfiguration(string file = MappingConfiguration.ConfigurationsFile)
+        public void SaveConfiguration(string file = null)
         {
             var conf = new MappingConfiguration
             {
@@ -84,12 +84,12 @@ namespace LrControl.Core
                 Modules = FunctionGroupManager.GetConfiguration()
             };
 
-            MappingConfiguration.Save(conf, file);
+            MappingConfiguration.Save(conf, file ?? MappingConfiguration.ConfigurationsFile);
         }
 
-        public void LoadConfiguration(string file = MappingConfiguration.ConfigurationsFile)
+        public void LoadConfiguration(string file = null)
         {
-            var conf = MappingConfiguration.Load(file);
+            var conf = MappingConfiguration.Load(file ?? MappingConfiguration.ConfigurationsFile);
             if (conf == null) return;
 
             _deviceManager.SetConfiguration(conf.Controllers);

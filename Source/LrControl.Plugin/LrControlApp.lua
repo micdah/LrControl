@@ -20,17 +20,28 @@ along with LrControl.  If not, see <http://www.gnu.org/licenses/>.
 ------------------------------------------------------------------------------]]
 local LrShell	        = import 'LrShell'
 local LrPathUtils       = import 'LrPathUtils'
+local LrTasks			= import 'LrTasks'
 local Log               = require 'Logger'
 
-local appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.ui.exe'))
+local appPath
 local debug = false
 
+if (WIN_ENV) then
+	appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('win', 'LrControl.Console.exe'))
+else
+	appPath = LrPathUtils.child(_PLUGIN.path, LrPathUtils.child('osx', 'LrControl.Console'))
+end
 
 return {
     Start = function() 
 		Log.Info("Starting LrControl application")
 		if not debug then
-			LrShell.openFilesInApp ({""}, appPath)
+			--LrShell.openFilesInApp ({""}, appPath)
+			LrTasks.startAsyncTask(function()
+				Log.Debugf("Executing '%s'", appPath)
+				local exitCode = LrTasks.execute(appPath)
+				Log.Debugf("LrControl application exited: %s", exitCode)
+			end)
 		end
     end,
     Stop = function(progressFunction) 
@@ -38,19 +49,19 @@ return {
 		
 		if progressFunction == nil then
             progressFunction = function(progress,message)end
-        end
-
-        -- Stop main thread
-		progressFunction(0.00, "Stopping LrControl application")
-        LrControl.Running = false
-        Sockets.AutoReconnect = false
+		end
 
 		-- Close LrControl application
 		Log.Info("Shutting down control application")
-		progressFunction(0.25, "Closing LrControl application")
+		progressFunction(0.00, "Closing LrControl application")
 		if not debug then
-			LrShell.openFilesInApp({"/shutdown"}, appPath)
+			LrShell.openFilesInApp({"/Terminate"}, appPath)
 		end
+
+        -- Stop main thread
+		progressFunction(0.25, "Stopping LrControl application")
+        LrControl.Running = false
+        Sockets.AutoReconnect = false
 
 		progressFunction(0.50, "Closing connections...")
 
