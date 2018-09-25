@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Plugin", "LrControl.Plugin\LrControl.Plugin.csproj", "{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.LrPlugin", "LrControl.LrPlugin\LrControl.LrPlugin.csproj", "{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Api", "LrControl.Api\LrControl.Api.csproj", "{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.LrPlugin.Api", "LrControl.LrPlugin.Api\LrControl.LrPlugin.Api.csproj", "{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Core", "LrControl.Core\LrControl.Core.csproj", "{F2E03799-9ABC-4A52-B702-25F226E4AA98}"
 EndProject
@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 ProjectSection(SolutionItems) = preProject
 	build.sh = build.sh
 EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{2A71CAF2-319E-4CA5-8710-0BDBF5F51C18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LrPlugin", "LrPlugin", "{9C2EAA5E-752D-4EE3-A402-7696DC8F0E58}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +48,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4E9DB943-07DB-4EB0-90A6-8E9612AF6937}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AFCD0C58-E6C9-4088-B151-2154861E4FA4} = {2A71CAF2-319E-4CA5-8710-0BDBF5F51C18}
+		{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F} = {9C2EAA5E-752D-4EE3-A402-7696DC8F0E58}
+		{F2948233-7CA5-41B8-84EC-0DD3C8D3176F} = {9C2EAA5E-752D-4EE3-A402-7696DC8F0E58}
 	EndGlobalSection
 EndGlobal

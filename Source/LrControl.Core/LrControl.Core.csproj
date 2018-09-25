@@ -9,6 +9,6 @@
     <PackageReference Include="Serilog" Version="2.7.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LrControl.Api\LrControl.Api.csproj" />
+    <ProjectReference Include="..\LrControl.LrPlugin.Api\LrControl.LrPlugin.Api.csproj" />
   </ItemGroup>
 </Project>

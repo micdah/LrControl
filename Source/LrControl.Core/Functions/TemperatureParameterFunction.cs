@@ -44,7 +44,7 @@ namespace LrControl.Core.Functions
             return (int)controllerValue;
         }
 
-        protected override double CalculateParamterValue(int controllerValue, Range controllerRange)
+        protected override double CalculateParameterValue(int controllerValue, Range controllerRange)
         {
             return controllerValue < (controllerRange.Maximum - controllerRange.Minimum)*ControllerRangeSplit
                 ? (int) _parameterRangeLow.FromRange(_controllerRangeLow, controllerValue)

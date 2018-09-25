@@ -1,4 +1,3 @@
-using System;
 using LrControl.Api;
 using LrControl.Api.Common;
 using LrControl.Api.Modules.LrDevelopController;
@@ -28,7 +27,7 @@ namespace LrControl.Core.Functions
         {
             if (!UpdateRange(controllerRange)) return;
 
-            var parameterValue = CalculateParamterValue(controllerValue, controllerRange);
+            var parameterValue = CalculateParameterValue(controllerValue, controllerRange);
             switch (Parameter)
             {
                 case IParameter<int> intParameter:
@@ -53,7 +52,7 @@ namespace LrControl.Core.Functions
             }
         }
 
-        protected virtual double CalculateParamterValue(int controllerValue, Range controllerRange)
+        protected virtual double CalculateParameterValue(int controllerValue, Range controllerRange)
         {
             return ParameterRange.FromRange(controllerRange, controllerValue);
         }
