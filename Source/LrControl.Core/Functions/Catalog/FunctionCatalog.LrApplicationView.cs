@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using LrControl.Api;
-using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 
 namespace LrControl.Core.Functions.Catalog
 {

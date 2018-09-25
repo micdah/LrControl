@@ -1,6 +1,6 @@
-using LrControl.Api;
-using LrControl.Api.Modules.LrDevelopController;
 using LrControl.Core.Configurations;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions.Factories
 {

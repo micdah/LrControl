@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using LrControl.Api;
-using LrControl.Api.Modules.LrSelection;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Modules.LrSelection;
 
 namespace LrControl.Core.Functions.Catalog
 {

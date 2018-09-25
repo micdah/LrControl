@@ -1,8 +1,8 @@
 using System;
-using LrControl.Api;
-using LrControl.Api.Modules.LrDevelopController;
-using LrControl.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Core.Configurations;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using Serilog;
 
 namespace LrControl.Core.Functions.Factories

@@ -1,5 +1,5 @@
-﻿using LrControl.Api;
-using LrControl.Core.Configurations;
+﻿using LrControl.Core.Configurations;
+using LrControl.LrPlugin.Api;
 
 namespace LrControl.Core.Functions.Factories
 {

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using LrControl.Api;
-using LrControl.Api.Common;
-using LrControl.Api.Modules.LrDevelopController;
-using LrControl.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
-using Panel = LrControl.Api.Modules.LrDevelopController.Panel;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
+using Panel = LrControl.LrPlugin.Api.Modules.LrDevelopController.Panel;
 
 namespace LrControl.Core.Functions.Catalog
 {

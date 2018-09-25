@@ -2,10 +2,10 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using LrControl.Api.Common;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
 using LrControl.Core.Midi;
+using LrControl.LrPlugin.Api.Common;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Messages;
 

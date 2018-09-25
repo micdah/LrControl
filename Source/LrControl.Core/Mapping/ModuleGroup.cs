@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LrControl.Api.Modules.LrApplicationView;
 using LrControl.Core.Devices;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using Serilog;
 
 namespace LrControl.Core.Mapping

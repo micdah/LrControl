@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using LrControl.Api;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
+using LrControl.LrPlugin.Api;
 
 namespace LrControl.Core.Functions.Catalog
 {

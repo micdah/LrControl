@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using LrControl.Api;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
+using LrControl.LrPlugin.Api;
 
 namespace LrControl.Core.Functions.Catalog
 {

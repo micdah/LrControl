@@ -1,6 +1,6 @@
-﻿using LrControl.Api.Common;
-using LrControl.Core.Configurations;
+﻿using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
+using LrControl.LrPlugin.Api.Common;
 using RtMidi.Core.Enums;
 
 namespace LrControl.Core.Devices

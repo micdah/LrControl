@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using LrControl.Api;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Mapping;
 using LrControl.Core.Util;
+using LrControl.LrPlugin.Api;
 using Serilog;
 
 namespace LrControl.Core

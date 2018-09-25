@@ -1,7 +1,7 @@
-﻿using LrControl.Api;
-using LrControl.Api.Common;
-using LrControl.Api.Modules.LrApplicationView;
-using LrControl.Core.Configurations;
+﻿using LrControl.Core.Configurations;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 
 namespace LrControl.Core.Functions
 {

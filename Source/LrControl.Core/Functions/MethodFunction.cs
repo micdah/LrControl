@@ -1,7 +1,7 @@
 using System;
-using LrControl.Api;
-using LrControl.Api.Common;
 using LrControl.Core.Configurations;
+using LrControl.LrPlugin.Api;
+using LrControl.LrPlugin.Api.Common;
 
 namespace LrControl.Core.Functions
 {

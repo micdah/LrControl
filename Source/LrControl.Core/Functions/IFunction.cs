@@ -1,5 +1,5 @@
 using System;
-using LrControl.Api.Common;
+using LrControl.LrPlugin.Api.Common;
 
 namespace LrControl.Core.Functions
 {
