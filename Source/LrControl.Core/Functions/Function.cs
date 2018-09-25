@@ -2,6 +2,7 @@ using System;
 using LrControl.Core.Configurations;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions
 {
@@ -44,7 +45,7 @@ namespace LrControl.Core.Functions
             _disposed = true;
         }
 
-        protected void RequestUpdateControllerValue()
+        protected void RequestUpdateControllerValue(IParameter parameter)
         {
             _onRequestUpdateControllerValue?.Invoke();
         }

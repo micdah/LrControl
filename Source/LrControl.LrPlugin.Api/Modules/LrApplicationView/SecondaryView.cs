@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrApplicationView
 {
-    public class SecondaryView : ClassEnum<string, SecondaryView>
+    public class SecondaryView : Enumeration<SecondaryView,string>
     {
         public static readonly SecondaryView Loupe       = new SecondaryView("loupe", "Loupe");
         public static readonly SecondaryView LiveLoupe   = new SecondaryView("live_loupe", "Live Loupe");

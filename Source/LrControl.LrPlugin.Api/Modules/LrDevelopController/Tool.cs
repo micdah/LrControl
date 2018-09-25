@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class Tool : ClassEnum<string, Tool>
+    public class Tool : Enumeration<Tool,string>
     {
         public static readonly Tool Loupe               = new Tool("loupe", "Loupe");
         public static readonly Tool Crop                = new Tool("crop", "Crop");

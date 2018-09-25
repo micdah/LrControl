@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Communication;
@@ -89,15 +90,16 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
             return Invoke(out value, nameof(GetValue), param);
         }
 
-        public bool GetValue<TEnum, TValue>(out TEnum value, IParameter<ClassEnum<TValue, TEnum>> param)
-            where TEnum : ClassEnum<TValue, TEnum>
+        public bool GetValue<TEnum,TValue>(out TEnum value, IEnumerationParameter<TValue> param)
+            where TEnum : IEnumeration<TValue>
+            where TValue : IComparable 
         {
             if (Invoke(out TValue result, nameof(GetValue), param))
             {
-                value = ClassEnum<TValue, TEnum>.GetEnumForValue(result);
+                value = Enumeration<TEnum,TValue>.GetEnumForValue(result);
                 return true;
             }
-            value = null;
+            value = default;
             return false;
         }
 
@@ -201,10 +203,10 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
             return Invoke(nameof(SetValue), param, value);
         }
 
-        public bool SetValue<TEnum, TValue>(IParameter<TEnum> param, ClassEnum<TValue, TEnum> enumClass)
-            where TEnum : ClassEnum<TValue, TEnum>
+        public bool SetValue<TValue>(IEnumerationParameter<TValue> param, IEnumeration<TValue> value) 
+            where TValue : IComparable
         {
-            return Invoke(nameof(SetValue), param, enumClass);
+            return Invoke(nameof(SetValue), param, value);
         }
 
         public bool StartTracking(IParameter param)
@@ -217,7 +219,7 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
             return Invoke(nameof(StopTracking));
         }
 
-        public void OnParameterChanged(string parameterNames)
+        public void OnParametersChanged(string parameterNames)
         {
             foreach (var parameterName in parameterNames.Split(','))
             {
@@ -225,7 +227,7 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 
                 if (_parameterChangedHandlers.TryGetValue(parameter, out var handler))
                 {
-                    handler();
+                    handler(parameter);
                 }
             }
         }

@@ -32,8 +32,8 @@ namespace LrControl.LrPlugin.Api
             _lrUndo = new LrUndo(new MessageProtocol<LrUndo>(_pluginClient));
 
             _pluginClient.Connection += PluginClientOnConnection;
-            _pluginClient.ChangeMessage += name => _lrDevelopController.OnParameterChanged(name);
-            _pluginClient.ModuleMessage += name => _lrApplicationView.OnModuleChanged(name);
+            _pluginClient.ChangeMessage += parameterNames => _lrDevelopController.OnParametersChanged(parameterNames);
+            _pluginClient.ModuleMessage += moduleName => _lrApplicationView.OnModuleChanged(moduleName);
             
             _pluginClient.Open();
         }

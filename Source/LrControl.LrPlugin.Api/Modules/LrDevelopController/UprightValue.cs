@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class UprightValue : ClassEnum<int,UprightValue>
+    public class UprightValue : Enumeration<UprightValue,int>
     {
         public static readonly UprightValue Off      = new UprightValue(0, "Off");
         public static readonly UprightValue Auto     = new UprightValue(1, "Auto");

@@ -5,20 +5,16 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters
 {
     public abstract class ParameterGroup
     {
-        private ReadOnlyCollection<IParameter> _allParameters;
+        private readonly ReadOnlyCollection<IParameter> _allParameters;
 
-        protected ParameterGroup(string name)
+        protected ParameterGroup(string name, params IParameter[] parameters)
         {
             Name = name;
+            _allParameters = new ReadOnlyCollection<IParameter>(parameters);
         }
 
         public string Name { get; }
 
-        public IList<IParameter> AllParameters => _allParameters;
-
-        protected void AddParameters(params IParameter[] parameters)
-        {
-            _allParameters = new ReadOnlyCollection<IParameter>(parameters);
-        }
+        public IReadOnlyCollection<IParameter> AllParameters => _allParameters;
     }
 }

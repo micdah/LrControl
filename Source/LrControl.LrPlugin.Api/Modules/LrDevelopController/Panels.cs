@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class Panel : ClassEnum<string,Panel>
+    public class Panel : Enumeration<Panel,string>
     {
         public static readonly Panel Basic                     = new Panel("adjustPanel", "Basic");
         public static readonly Panel ToneCurve                 = new Panel("tonePanel", "Tone Curve");

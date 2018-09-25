@@ -2,7 +2,7 @@ using LrControl.LrPlugin.Api.Common;
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class WhiteBalanceValue : ClassEnum<string,WhiteBalanceValue>
+    public class WhiteBalanceValue : Enumeration<WhiteBalanceValue,string>
     {
         public static readonly WhiteBalanceValue AsShot      = new WhiteBalanceValue("As Shot");
         public static readonly WhiteBalanceValue Auto        = new WhiteBalanceValue("Auto");

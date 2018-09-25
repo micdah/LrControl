@@ -16,8 +16,9 @@ namespace LrControl.Core.Functions
 
         private Range _parameterRangeLow;
 
-        public TemperatureParameterFunction(ISettings settings, LrApi api, string displayName, IParameter<double> parameter, string key)
-            : base(settings, api, displayName, parameter, key)
+        public TemperatureParameterFunction(ISettings settings, LrApi api, string displayName, string key,
+            IParameter<double> parameter)
+            : base(settings, api, displayName, key, parameter)
         {
         }
 

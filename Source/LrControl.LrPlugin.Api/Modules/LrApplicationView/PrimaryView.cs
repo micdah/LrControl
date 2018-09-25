@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrApplicationView
 {
-    public class PrimaryView : ClassEnum<string, PrimaryView>
+    public class PrimaryView : Enumeration<PrimaryView, string>
     {
         public static readonly PrimaryView Loupe                        = new PrimaryView("loupe", "Loupe");
         public static readonly PrimaryView Grid                         =new PrimaryView("grid", "Grid");

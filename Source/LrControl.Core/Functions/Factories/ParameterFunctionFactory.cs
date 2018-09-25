@@ -1,5 +1,6 @@
 using System;
 using LrControl.Core.Configurations;
+using LrControl.Core.Util;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
@@ -14,24 +15,29 @@ namespace LrControl.Core.Functions.Factories
 
         public ParameterFunctionFactory(ISettings settings, LrApi api, IParameter parameter) : base(settings, api)
         {
+            if (!parameter.GetType().ImplementsInterface(typeof(IParameter<>)))
+                throw new ArgumentException($"Unsupported parameter type {parameter.GetType()}");
+            
             _parameter = parameter;
+            DisplayName = $"Change {parameter.DisplayName}";
+            Key = $"ParameterFunction:{parameter.Name}";
         }
 
-        public override string DisplayName => $"Change {_parameter.DisplayName}";
-        public override string Key => $"ParameterFunction:{_parameter.Name}";
+        public override string DisplayName { get; }
+        public override string Key { get; }
 
         protected override IFunction CreateFunction(ISettings settings, LrApi api)
         {
             switch (_parameter)
             {
-                case IParameter<double> temperatureParameter when ReferenceEquals(temperatureParameter, Parameters.AdjustPanelParameters.Temperature):
-                    return new TemperatureParameterFunction(settings, api, DisplayName, temperatureParameter, Key);
+                case IParameter<double> temperatureParameter when ReferenceEquals(temperatureParameter, AdjustPanelParameter.Temperature):
+                    return new TemperatureParameterFunction(settings, api, DisplayName, Key, temperatureParameter);
                 case IParameter<int> intParameter:
-                    return new ParameterFunction<int>(settings, api, DisplayName, intParameter, Key);
+                    return new ParameterFunction<int>(settings, api, DisplayName, Key, intParameter);
                 case IParameter<double> doubleParameter:
-                    return new ParameterFunction<double>(settings, api, DisplayName, doubleParameter, Key);
+                    return new ParameterFunction<double>(settings, api, DisplayName, Key, doubleParameter);
                 case IParameter<bool> boolParameter:
-                    return new ParameterFunction<bool>(settings, api, DisplayName, boolParameter, Key);
+                    return new ToggleParameterFunction(settings, api, DisplayName, Key, boolParameter);
                 default:
                 {
                     Log.Error("Unsupported Parameter {Parameter}", _parameter);

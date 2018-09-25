@@ -1,9 +1,10 @@
-﻿using LrControl.LrPlugin.Api.Common;
+﻿using System;
+using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Common.Attributes;
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public delegate void ParameterChangedHandler();
+    public delegate void ParameterChangedHandler(IParameter parameter);
 
     [LuaNativeModule("LrDevelopController")]
     public interface ILrDevelopController
@@ -90,8 +91,9 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
         /// <param name="value"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        bool GetValue<TEnum, TValue>(out TEnum value, IParameter<ClassEnum<TValue,TEnum>> param)
-            where TEnum : ClassEnum<TValue, TEnum>;
+        bool GetValue<TEnum,TValue>(out TEnum value, IEnumerationParameter<TValue> param)
+            where TEnum : IEnumeration<TValue>
+            where TValue : IComparable;
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.
@@ -259,8 +261,7 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
         /// </summary>
         /// <param name="param"></param>
         /// <param name="value"></param>
-        bool SetValue<TEnum, TValue>(IParameter<TEnum> param, ClassEnum<TValue,TEnum> value)
-            where TEnum : ClassEnum<TValue,TEnum>;
+        bool SetValue<TValue>(IEnumerationParameter<TValue> param, IEnumeration<TValue> value) where TValue : IComparable;
 
         /// <summary>
         ///     Temporarily puts the Develop module into its tracking state, causing faster, lower-quailty redraw and preventing

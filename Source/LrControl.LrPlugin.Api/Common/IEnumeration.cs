@@ -1,6 +1,9 @@
+using System;
+
 namespace LrControl.LrPlugin.Api.Common
 {
-    public interface IClassEnum<out TValue>
+    public interface IEnumeration<out TValue> : IComparable
+        where TValue : IComparable
     {
         string Name { get; }
         TValue Value { get; }

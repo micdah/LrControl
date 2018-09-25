@@ -7,7 +7,7 @@ using Serilog;
 
 namespace LrControl.LrPlugin.Api.Communication
 {
-    internal delegate void ChangeMessageHandler(string parameterName);
+    internal delegate void ChangeMessageHandler(string parameterNames);
     internal delegate void ModuleMessageHandler(string moduleName);
     
     internal class PluginClient : IDisposable

@@ -120,16 +120,16 @@ namespace LrControl.LrPlugin.Api.Communication
                         case IParameter parameter:
                             AppendTypedArgument(builder, parameter.Name);
                             break;
-                        case IClassEnum<string> stringClassEnum:
+                        case IEnumeration<string> stringClassEnum:
                             AppendTypedArgument(builder, stringClassEnum.Value);
                             break;
-                        case IClassEnum<int> intClassEnum:
+                        case IEnumeration<int> intClassEnum:
                             AppendTypedArgument(builder, intClassEnum.Value);
                             break;
-                        case IClassEnum<double> doubleClassEnum:
+                        case IEnumeration<double> doubleClassEnum:
                             AppendTypedArgument(builder, doubleClassEnum.Value);
                             break;
-                        case IClassEnum<bool> boolClassEnum:
+                        case IEnumeration<bool> boolClassEnum:
                             AppendTypedArgument(builder, boolClassEnum.Value);
                             break;
                         default:
@@ -150,24 +150,44 @@ namespace LrControl.LrPlugin.Api.Communication
                     builder.Append("L");
                     break;
                 case string @string:
-                    builder.Append("S");
-                    builder.Append(@string);
+                    AppendTypedArgument(builder, @string);
                     break;
                 case int @int:
-                    builder.Append("N");
-                    builder.Append(@int.ToString(CultureInfo.InvariantCulture));
+                    AppendTypedArgument(builder, @int);
                     break;
                 case double @double:
-                    builder.Append("N");
-                    builder.Append(@double.ToString(CultureInfo.InvariantCulture));
+                    AppendTypedArgument(builder, @double);
                     break;
                 case bool @bool:
-                    builder.Append("B");
-                    builder.Append(@bool ? 1 : 0);
+                    AppendTypedArgument(builder, @bool);
                     break;
                 default:
                     throw new ArgumentException($"Unsupported argument type {arg.GetType().Name}", nameof(arg));
             }
+        }
+
+        private static void AppendTypedArgument(StringBuilder builder, string @string)
+        {
+            builder.Append("S");
+            builder.Append(@string);
+        }
+
+        private static void AppendTypedArgument(StringBuilder builder, int @int)
+        {
+            builder.Append("N");
+            builder.Append(@int.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private static void AppendTypedArgument(StringBuilder builder, double @double)
+        {
+            builder.Append("N");
+            builder.Append(@double.ToString(CultureInfo.InvariantCulture));
+        }
+
+        private static void AppendTypedArgument(StringBuilder builder, bool @bool)
+        {
+            builder.Append("B");
+            builder.Append(@bool ? 1 : 0);
         }
 
         private static bool SplitResponse(string response, int expectedValues, out String[] values)

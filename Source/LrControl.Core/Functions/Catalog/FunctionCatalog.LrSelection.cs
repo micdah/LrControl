@@ -73,7 +73,7 @@ namespace LrControl.Core.Functions.Catalog
 
         private static IEnumerable<MethodFunctionFactory> CreateExtendSelection(ISettings settings, LrApi api)
         {
-            foreach (var direction in Direction.AllEnums)
+            foreach (var direction in Direction.GetAll())
             {
                 for (var i = 1; i < 5; i++)
                 {
@@ -88,7 +88,7 @@ namespace LrControl.Core.Functions.Catalog
 
         private static IEnumerable<MethodFunctionFactory> CreateSetColorLabel(ISettings settings, LrApi api)
         {
-            foreach (var label in ColorLabel.AllEnums)
+            foreach (var label in ColorLabel.GetAll())
             {
                 yield return
                     new MethodFunctionFactory(settings, api, $"Set color label {label.Name}", $"SetColorLabel{label.Value}",

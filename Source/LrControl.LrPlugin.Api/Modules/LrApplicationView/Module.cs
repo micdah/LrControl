@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrApplicationView
 {
-    public class Module : ClassEnum<string, Module>
+    public class Module : Enumeration<Module, string>
     {
         public static readonly Module Library   = new Module("library", "Library");
         public static readonly Module Develop   = new Module("develop", "Develop");

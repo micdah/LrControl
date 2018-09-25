@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDialogs
 {
-    public class ConfirmResult : ClassEnum<string, ConfirmResult>
+    public class ConfirmResult : Enumeration<ConfirmResult,string>
     {
         public static readonly ConfirmResult Ok     = new ConfirmResult("ok", "Ok");
         public static readonly ConfirmResult Cancel = new ConfirmResult("cancel", "Cancel");

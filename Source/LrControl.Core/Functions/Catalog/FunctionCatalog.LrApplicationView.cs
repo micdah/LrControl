@@ -38,21 +38,21 @@ namespace LrControl.Core.Functions.Catalog
 
         private static IEnumerable<MethodFunctionFactory> CreateSwitchToModule(ISettings settings, LrApi api)
         {
-            return Module.AllEnums.Select(module =>
+            return Module.GetAll().Select(module =>
                 new MethodFunctionFactory(settings, api, $"Switch to {module.Name}", $"SwitchToModule{module.Value}",
                     a => a.LrApplicationView.SwitchToModule(module)));
         }
 
         private static IEnumerable<MethodFunctionFactory> CreateShowView(ISettings settings, LrApi api)
         {
-            return PrimaryView.AllEnums.Select(view =>
+            return PrimaryView.GetAll().Select(view =>
                 new MethodFunctionFactory(settings, api, $"Change view to {view.Name}", $"ShowView{view.Value}",
                     a => a.LrApplicationView.ShowView(view)));
         }
 
         private static IEnumerable<MethodFunctionFactory> CreateShowSecondaryView(ISettings settings, LrApi api)
         {
-            return SecondaryView.AllEnums.Select(view =>
+            return SecondaryView.GetAll().Select(view =>
                 new MethodFunctionFactory(settings, api, $"Change secondary monitor to {view.Name}", $"ShowSecondaryView{view.Value}",
                     a => a.LrApplicationView.ShowSecondaryView(view)));
         }

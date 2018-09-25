@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class PostCropVignetteStyle : ClassEnum<int,PostCropVignetteStyle>
+    public class PostCropVignetteStyle : Enumeration<PostCropVignetteStyle,int>
     {
         public static readonly PostCropVignetteStyle HighlightPriority = new PostCropVignetteStyle(1,"Highlight Priority");
         public static readonly PostCropVignetteStyle ColorPriority     = new PostCropVignetteStyle(2,"Color Priority");

@@ -10,7 +10,7 @@ namespace LrControl.Core.Functions
         protected readonly IParameter<T> Parameter;
         protected Range ParameterRange;
         
-        public ParameterFunction(ISettings settings, LrApi api, string displayName, IParameter<T> parameter, string key)
+        public ParameterFunction(ISettings settings, LrApi api, string displayName, string key, IParameter<T> parameter)
             : base(settings, api, displayName, key)
         {
             Parameter = parameter;
@@ -42,13 +42,6 @@ namespace LrControl.Core.Functions
 
                     ShowHud($"{doubleParameter.DisplayName}: {parameterValue:F2}");
                     break;
-
-                case IParameter<bool> boolParameter:
-                    var enabled = controllerValue == (int)controllerRange.Maximum;
-                    Api.LrDevelopController.SetValue(boolParameter, enabled);
-
-                    ShowHud($"{boolParameter.DisplayName}: {(enabled ? "Enabled" : "Disabled")}");
-                    break;
             }
         }
 
@@ -61,7 +54,7 @@ namespace LrControl.Core.Functions
         {
             if (!UpdateRange(controllerRange))
             {
-                controllerValue = default(int);
+                controllerValue = default;
                 return false;
             }
 
@@ -83,12 +76,6 @@ namespace LrControl.Core.Functions
                     if (Api.LrDevelopController.GetValue(out var doubleValue, doubleParameter))
                     {
                         return (int)controllerRange.FromRange(ParameterRange, doubleValue);
-                    }
-                    break;
-                case IParameter<bool> boolParameter:
-                    if (Api.LrDevelopController.GetValue(out var boolValue, boolParameter))
-                    {
-                        return (int)(boolValue ? controllerRange.Maximum : controllerRange.Minimum);
                     }
                     break;
             }

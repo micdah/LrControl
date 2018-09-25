@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrSelection
 {
-    public class Flag : ClassEnum<int, Flag>
+    public class Flag : Enumeration<Flag,int>
     {
         public static readonly Flag None = new Flag(0, "None");
         public static readonly Flag Pick = new Flag(1, "Pick");

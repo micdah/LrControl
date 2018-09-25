@@ -2,7 +2,7 @@ using LrControl.LrPlugin.Api.Common;
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class ProfileValue : ClassEnum<string,ProfileValue>
+    public class ProfileValue : Enumeration<ProfileValue,string>
     {
         public static readonly ProfileValue AdobeStandard   = new ProfileValue("Adobe Standard");
         public static readonly ProfileValue CameraFaithful  = new ProfileValue("Camera Faithful");

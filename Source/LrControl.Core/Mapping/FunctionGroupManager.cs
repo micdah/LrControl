@@ -60,7 +60,7 @@ namespace LrControl.Core.Mapping
                 }
             });
 
-            foreach (var panel in Panel.AllEnums)
+            foreach (var panel in Panel.GetAll())
             {
                 group.AddFunctionGroup(new FunctionGroup(api, panel)
                 {

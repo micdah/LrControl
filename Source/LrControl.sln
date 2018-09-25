@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{2A71
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LrPlugin", "LrPlugin", "{9C2EAA5E-752D-4EE3-A402-7696DC8F0E58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl\LrControl.csproj", "{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{AFCD0C58-E6C9-4088-B151-2154861E4FA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFCD0C58-E6C9-4088-B151-2154861E4FA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFCD0C58-E6C9-4088-B151-2154861E4FA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

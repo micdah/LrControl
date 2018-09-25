@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrSelection
 {
-    public class ColorLabel : ClassEnum<string, ColorLabel>
+    public class ColorLabel : Enumeration<ColorLabel,string>
     {
         public static readonly ColorLabel Red    = new ColorLabel("red", "Red");
         public static readonly ColorLabel Yellow = new ColorLabel("yellow", "Yellow");

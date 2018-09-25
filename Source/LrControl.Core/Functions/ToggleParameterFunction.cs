@@ -9,7 +9,8 @@ namespace LrControl.Core.Functions
     {
         private readonly IParameter<bool> _parameter;
 
-        public ToggleParameterFunction(ISettings settings, LrApi api, string displayName, IParameter<bool> parameter, string key) : base(settings, api, displayName, key)
+        public ToggleParameterFunction(ISettings settings, LrApi api, string displayName, string key,
+            IParameter<bool> parameter) : base(settings, api, displayName, key)
         {
             _parameter = parameter;
         }

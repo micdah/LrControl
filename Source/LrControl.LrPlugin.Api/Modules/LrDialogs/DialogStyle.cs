@@ -2,7 +2,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDialogs
 {
-    public class DialogStyle : ClassEnum<string, DialogStyle>
+    public class DialogStyle : Enumeration<DialogStyle,string>
     {
         public static readonly DialogStyle Info     = new DialogStyle("info", "Info");
         public static readonly DialogStyle Warning  = new DialogStyle("warning", "Warning");

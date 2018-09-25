@@ -4,7 +4,7 @@
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    public class ProcessVersion : ClassEnum<string, ProcessVersion>
+    public class ProcessVersion : Enumeration<ProcessVersion,string>
     {
         public static readonly ProcessVersion PV2003 = new ProcessVersion("2003");
         public static readonly ProcessVersion PV2010 = new ProcessVersion("2010");

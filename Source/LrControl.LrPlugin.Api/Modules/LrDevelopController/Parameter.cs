@@ -1,6 +1,7 @@
 ﻿namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
     internal class Parameter<T> : IParameter<T>
+        where T : struct
     {
         public Parameter(string name, string displayName)
         {

@@ -2,25 +2,25 @@
 {
     public class EnablePanelParameter : ParameterGroup
     {
-        public readonly IParameter<bool> ToneCurve                        = new Parameter<bool>("EnableToneCurve", "Enable Tone Curve");
-        public readonly IParameter<bool> ColorAdjustments                 = new Parameter<bool>("EnableColorAdjustments", "Enable Color Adjustments");
-        public readonly IParameter<bool> SplitToning                      = new Parameter<bool>("EnableSplitToning", "Enable Split Toning");
-        public readonly IParameter<bool> Detail                           = new Parameter<bool>("EnableDetail", "Enable Detail");
-        public readonly IParameter<bool> LensCorrections                  = new Parameter<bool>("EnableLensCorrections", "Enable Lens Corrections");
-        public readonly IParameter<bool> Effects                          = new Parameter<bool>("EnableEffects", "Enable Effects");
-        public readonly IParameter<bool> Calibration                      = new Parameter<bool>("EnableCalibration", "Enable Camera Calibration");
-        public readonly IParameter<bool> Retouch                          = new Parameter<bool>("EnableRetouch", "Enable Spot Removal");
-        public readonly IParameter<bool> RedEye                           = new Parameter<bool>("EnableRedEye", "Enable Red Eye");
-        public readonly IParameter<bool> GradientBasedCorrections         = new Parameter<bool>("EnableGradientBasedCorrections", "Enable Graduated Filter");
-        public readonly IParameter<bool> CircularGradientBasedCorrections = new Parameter<bool>("EnableCircularGradientBasedCorrections", "Enable Radial Filter");
-        public readonly IParameter<bool> PaintBasedCorrections            = new Parameter<bool>("EnablePaintBasedCorrections", "Enable Adjustment Brush");
-        public readonly IParameter<bool> GrayscaleMix                     = new Parameter<bool>("EnableGrayscaleMix", "Enable Black & White Mix");
+        public static readonly IParameter<bool> ToneCurve                        = new Parameter<bool>("EnableToneCurve", "Enable Tone Curve");
+        public static readonly IParameter<bool> ColorAdjustments                 = new Parameter<bool>("EnableColorAdjustments", "Enable Color Adjustments");
+        public static readonly IParameter<bool> SplitToning                      = new Parameter<bool>("EnableSplitToning", "Enable Split Toning");
+        public static readonly IParameter<bool> Detail                           = new Parameter<bool>("EnableDetail", "Enable Detail");
+        public static readonly IParameter<bool> LensCorrections                  = new Parameter<bool>("EnableLensCorrections", "Enable Lens Corrections");
+        public static readonly IParameter<bool> Effects                          = new Parameter<bool>("EnableEffects", "Enable Effects");
+        public static readonly IParameter<bool> Calibration                      = new Parameter<bool>("EnableCalibration", "Enable Camera Calibration");
+        public static readonly IParameter<bool> Retouch                          = new Parameter<bool>("EnableRetouch", "Enable Spot Removal");
+        public static readonly IParameter<bool> RedEye                           = new Parameter<bool>("EnableRedEye", "Enable Red Eye");
+        public static readonly IParameter<bool> GradientBasedCorrections         = new Parameter<bool>("EnableGradientBasedCorrections", "Enable Graduated Filter");
+        public static readonly IParameter<bool> CircularGradientBasedCorrections = new Parameter<bool>("EnableCircularGradientBasedCorrections", "Enable Radial Filter");
+        public static readonly IParameter<bool> PaintBasedCorrections            = new Parameter<bool>("EnablePaintBasedCorrections", "Enable Adjustment Brush");
+        public static readonly IParameter<bool> GrayscaleMix                     = new Parameter<bool>("EnableGrayscaleMix", "Enable Black & White Mix");
 
-        internal EnablePanelParameter() : base("Toggle panels")
+        internal EnablePanelParameter() : base("Toggle panels",
+            ToneCurve, ColorAdjustments, SplitToning, Detail, LensCorrections, Effects, Calibration,
+            Retouch, RedEye, GradientBasedCorrections, CircularGradientBasedCorrections, PaintBasedCorrections,
+            GrayscaleMix)
         {
-            AddParameters(ToneCurve, ColorAdjustments, SplitToning, Detail, LensCorrections, Effects, Calibration,
-                Retouch, RedEye, GradientBasedCorrections, CircularGradientBasedCorrections, PaintBasedCorrections,
-                GrayscaleMix);
         }
     }
 }
