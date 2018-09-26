@@ -14,6 +14,11 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
     {
     }
 
+    public interface IClosedParameter<out T> : IParameter<T>
+    {
+        IEnumerable<T> ValidValues { get; }
+    }
+
     public interface IEnumerationParameter<out TValue> : IParameter 
         where TValue : IComparable
     {

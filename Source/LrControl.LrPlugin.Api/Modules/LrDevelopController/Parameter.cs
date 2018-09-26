@@ -1,7 +1,9 @@
-﻿namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    internal class Parameter<T> : IParameter<T>
-        where T : struct
+    public class Parameter<T> : IParameter<T>
     {
         public Parameter(string name, string displayName)
         {
@@ -29,5 +31,17 @@
         {
             return Name?.GetHashCode() ?? 0;
         }
+    }
+
+    public class ClosedParameter<T> : Parameter<T>, IClosedParameter<T>
+    {
+        private readonly List<T> _validValues;
+        
+        public ClosedParameter(string name, string displayName, IEnumerable<T> validValues) : base(name, displayName)
+        {
+            _validValues = validValues.ToList();
+        }
+
+        public IEnumerable<T> ValidValues => _validValues;
     }
 }

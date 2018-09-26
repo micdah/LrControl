@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace LrControl.LrPlugin.Api.Common
 {
-    public abstract class Enumeration<TEnum,TValue> : IEnumeration<TValue>
+    public abstract class Enumeration<TEnum, TValue> : IEnumeration<TValue>
         where TEnum : IEnumeration<TValue>
-        where TValue : IComparable 
+        where TValue : IComparable
     {
         private static readonly Lazy<List<TEnum>> AllEnumsCache = new Lazy<List<TEnum>>(() =>
         {
-            var fields = typeof (TEnum).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
+            var fields = typeof(TEnum).GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
             return fields.Select(info => info.GetValue(null)).OfType<TEnum>().ToList();
         });
 
@@ -22,6 +22,7 @@ namespace LrControl.LrPlugin.Api.Common
         }
 
         public string Name { get; }
+
         public TValue Value { get; }
 
         public override string ToString() => Name;
@@ -32,7 +33,7 @@ namespace LrControl.LrPlugin.Api.Common
         }
 
         public static ICollection<TEnum> GetAll() => AllEnumsCache.Value;
-        
+
         public int CompareTo(object other)
         {
             return Value.CompareTo(((TEnum) other).Value);
