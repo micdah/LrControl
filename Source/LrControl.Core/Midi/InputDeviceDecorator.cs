@@ -50,6 +50,7 @@ namespace LrControl.Core.Midi
             _inputDevice.ChannelPressure += InputDeviceOnChannelPressure;
             _inputDevice.PitchBend += InputDeviceOnPitchBend;
             _inputDevice.Nrpn += InputDeviceOnNrpn;
+            _inputDevice.SysEx += InputDeviceOnSysEx;
         }
 
         public int UpdateInterval
@@ -195,6 +196,11 @@ namespace LrControl.Core.Midi
             OnMessageHandler(in msg, (in NrpnMessage message) => new NrpnMessageHolder(in message));
         }
         
+        private void InputDeviceOnSysEx(IMidiInputDevice sender, in SysExMessage msg)
+        {
+            OnMessageHandler(in msg, (in SysExMessage message) => new SysExMessageHolder(in message));
+        }
+        
         private void OnMessageHandler<TMessage>(in TMessage msg, MessageHolderFactory<TMessage> factory)
             where TMessage : struct
         {
@@ -263,6 +269,7 @@ namespace LrControl.Core.Midi
         public event ChannelPressureMessageHandler ChannelPressure;
         public event PitchBendMessageHandler PitchBend;
         public event NrpnMessageHandler Nrpn;
+        public event SysExMessageHandler SysEx;
 
         #endregion
 
@@ -306,6 +313,11 @@ namespace LrControl.Core.Midi
         public void OnNrpn(in NrpnMessage msg)
         {
             Nrpn?.Invoke(this, in msg);
+        }
+
+        public void OnSysEx(in SysExMessage msg)
+        {
+            SysEx?.Invoke(this, in msg);
         }
 
         #endregion

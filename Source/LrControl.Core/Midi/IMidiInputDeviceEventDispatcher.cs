@@ -12,5 +12,6 @@ namespace LrControl.Core.Midi
         void OnChannelPressure(in ChannelPressureMessage msg);
         void OnPitchBend(in PitchBendMessage msg);
         void OnNrpn(in NrpnMessage msg);
+        void OnSysEx(in SysExMessage msg);
     }
 }
