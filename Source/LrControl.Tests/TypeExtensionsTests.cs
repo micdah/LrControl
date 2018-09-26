@@ -81,6 +81,12 @@ namespace LrControl.Tests
         }
 
         [Fact]
+        public void List_IsTypeOf_Enumerable()
+        {
+            Assert.True(typeof(List<string>).IsTypeOf(typeof(IEnumerable<object>)));
+        }
+
+        [Fact]
         public void Base_IsTypeOf_All_Base_And_Inherited_Types_Including_Generics()
         {
             Assert.True(typeof(Base).IsTypeOf(typeof(Base)), "Base <= Base");
