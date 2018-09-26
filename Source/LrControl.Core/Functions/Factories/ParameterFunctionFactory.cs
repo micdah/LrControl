@@ -15,7 +15,7 @@ namespace LrControl.Core.Functions.Factories
 
         public ParameterFunctionFactory(ISettings settings, LrApi api, IParameter parameter) : base(settings, api)
         {
-            if (!parameter.GetType().ImplementsInterface(typeof(IParameter<>)))
+            if (!parameter.GetType().IsTypeOf(typeof(IParameter<>)))
                 throw new ArgumentException($"Unsupported parameter type {parameter.GetType()}");
             
             _parameter = parameter;

@@ -10,7 +10,7 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
         string DisplayName { get; }
     }
 
-    public interface IParameter<T> : IParameter
+    public interface IParameter<out T> : IParameter
     {
     }
 

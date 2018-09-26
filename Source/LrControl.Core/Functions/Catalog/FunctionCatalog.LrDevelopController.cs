@@ -70,7 +70,7 @@ namespace LrControl.Core.Functions.Catalog
 
             // Change parameter
             factories.AddRange(parameters
-                .Where(p => p.GetType().ImplementsInterface(typeof(IParameter<>)))
+                .Where(p => p.GetType().IsTypeOf(typeof(IParameter<>)))
                 .Select(p => new ParameterFunctionFactory(settings, api, p)));
 
             // Change enum parameter
@@ -121,7 +121,7 @@ namespace LrControl.Core.Functions.Catalog
 
             foreach (var param in parameters)
             {
-                if (!param.GetType().ImplementsInterface(typeof(IEnumerationParameter<>)))
+                if (!param.GetType().IsTypeOf(typeof(IEnumerationParameter<>)))
                     continue;
 
                 switch (param)

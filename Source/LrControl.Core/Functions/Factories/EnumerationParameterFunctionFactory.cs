@@ -16,7 +16,7 @@ namespace LrControl.Core.Functions.Factories
         public EnumerationParameterFunctionFactory(ISettings settings, LrApi api, 
             IEnumerationParameter<TValue> parameter, IEnumeration<TValue> value) : base(settings, api)
         {
-            if (!parameter.GetType().ImplementsInterface(typeof(IEnumerationParameter<>)))
+            if (!parameter.GetType().IsTypeOf(typeof(IEnumerationParameter<>)))
                 throw new ArgumentException($"Unsupported parameter type {parameter.GetType()}");
             
             _parameter = parameter;

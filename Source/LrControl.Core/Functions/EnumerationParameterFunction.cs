@@ -22,7 +22,7 @@ namespace LrControl.Core.Functions
         public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
             if (controllerValue != (int) controllerRange.Maximum) return;
-
+            
             Api.LrDevelopController.SetValue<T>(_parameter, _value);
         }
     }
