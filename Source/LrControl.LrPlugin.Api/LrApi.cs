@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using LrControl.LrPlugin.Api.Communication;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrControl;
@@ -6,6 +7,9 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDialogs;
 using LrControl.LrPlugin.Api.Modules.LrSelection;
 using LrControl.LrPlugin.Api.Modules.LrUndo;
+
+[assembly:InternalsVisibleTo("LrControl.Tests")]
+[assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace LrControl.LrPlugin.Api
 {
@@ -24,12 +28,12 @@ namespace LrControl.LrPlugin.Api
         public LrApi(int sendPort = 52008, int receivePort = 52009)
         {
             _pluginClient = new PluginClient(sendPort, receivePort);
-            _lrControl = new Modules.LrControl.LrControl(new MessageProtocol<Modules.LrControl.LrControl>(_pluginClient));
-            _lrDevelopController = new LrDevelopController(new MessageProtocol<LrDevelopController>(_pluginClient));
-            _lrApplicationView = new LrApplicationView(new MessageProtocol<LrApplicationView>(_pluginClient));
-            _lrDialogs = new LrDialogs(new MessageProtocol<LrDialogs>(_pluginClient));
-            _lrSelection = new LrSelection(new MessageProtocol<LrSelection>(_pluginClient));
-            _lrUndo = new LrUndo(new MessageProtocol<LrUndo>(_pluginClient));
+            _lrControl = new Modules.LrControl.LrControl(new MessageProtocol(_pluginClient, nameof(Modules.LrControl.LrControl)));
+            _lrDevelopController = new LrDevelopController(new MessageProtocol(_pluginClient, nameof(LrDevelopController)));
+            _lrApplicationView = new LrApplicationView(new MessageProtocol(_pluginClient, nameof(LrApplicationView)));
+            _lrDialogs = new LrDialogs(new MessageProtocol(_pluginClient, nameof(LrDialogs)));
+            _lrSelection = new LrSelection(new MessageProtocol(_pluginClient, nameof(LrSelection)));
+            _lrUndo = new LrUndo(new MessageProtocol(_pluginClient, nameof(LrUndo)));
 
             _pluginClient.Connection += PluginClientOnConnection;
             _pluginClient.ChangeMessage += parameterNames => _lrDevelopController.OnParametersChanged(parameterNames);

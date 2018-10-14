@@ -2,11 +2,11 @@
 
 namespace LrControl.LrPlugin.Api.Common
 {
-    internal abstract class ModuleBase<TModule>
+    internal abstract class ModuleBase
     {
-        private readonly MessageProtocol<TModule> _messageProtocol;
+        private readonly MessageProtocol _messageProtocol;
 
-        protected ModuleBase(MessageProtocol<TModule> messageProtocol)
+        protected ModuleBase(MessageProtocol messageProtocol)
         {
             _messageProtocol = messageProtocol;
         }

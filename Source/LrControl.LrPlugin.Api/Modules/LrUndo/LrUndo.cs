@@ -3,9 +3,9 @@ using LrControl.LrPlugin.Api.Communication;
 
 namespace LrControl.LrPlugin.Api.Modules.LrUndo
 {
-    internal class LrUndo : ModuleBase<LrUndo>, ILrUndo
+    internal class LrUndo : ModuleBase, ILrUndo
     {
-        public LrUndo(MessageProtocol<LrUndo> messageProtocol) : base(messageProtocol)
+        public LrUndo(MessageProtocol messageProtocol) : base(messageProtocol)
         {
         }
 

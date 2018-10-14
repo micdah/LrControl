@@ -8,12 +8,12 @@ using LrControl.LrPlugin.Api.Communication;
 
 namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
 {
-    internal class LrDevelopController : ModuleBase<LrDevelopController>, ILrDevelopController
+    internal class LrDevelopController : ModuleBase, ILrDevelopController
     {
         private readonly ConcurrentDictionary<IParameter, ParameterChangedHandler> _parameterChangedHandlers;
         private readonly Dictionary<string, IParameter> _parameterLookup;
 
-        public LrDevelopController(MessageProtocol<LrDevelopController> messageProtocol) : base(messageProtocol)
+        public LrDevelopController(MessageProtocol messageProtocol) : base(messageProtocol)
         {
             _parameterLookup = new Dictionary<string, IParameter>();
             foreach (var parameter in Parameters.Parameters.AllParameters)

@@ -3,9 +3,9 @@ using LrControl.LrPlugin.Api.Communication;
 
 namespace LrControl.LrPlugin.Api.Modules.LrDialogs
 {
-    internal class LrDialogs : ModuleBase<LrDialogs>, ILrDialogs
+    internal class LrDialogs : ModuleBase, ILrDialogs
     {
-        public LrDialogs(MessageProtocol<LrDialogs> messageProtocol) : base(messageProtocol)
+        public LrDialogs(MessageProtocol messageProtocol) : base(messageProtocol)
         {
         }
 

@@ -10,7 +10,7 @@ namespace LrControl.LrPlugin.Api.Communication
     internal delegate void ChangeMessageHandler(string parameterNames);
     internal delegate void ModuleMessageHandler(string moduleName);
     
-    internal class PluginClient : IDisposable
+    internal class PluginClient : IPluginClient
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<PluginClient>();
         private const string HostName = "localhost";

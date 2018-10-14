@@ -7,19 +7,19 @@ using Serilog;
 
 namespace LrControl.LrPlugin.Api.Communication
 {
-    internal class MessageProtocol<TModule>
+    internal class MessageProtocol
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext(typeof(MessageProtocol<TModule>));
+        private static readonly ILogger Log = Serilog.Log.ForContext(typeof(MessageProtocol));
 
         private const char RecordSeparator = '\u001E';
 
         private readonly string _moduleName;
-        private readonly PluginClient _pluginClient;
+        private readonly IPluginClient _pluginClient;
 
-        public MessageProtocol(PluginClient pluginClient)
+        public MessageProtocol(IPluginClient pluginClient, string moduleName)
         {
             _pluginClient = pluginClient;
-            _moduleName = typeof (TModule).Name;
+            _moduleName = moduleName;
         }
 
         public bool Invoke(string method, params object[] args)
@@ -82,6 +82,9 @@ namespace LrControl.LrPlugin.Api.Communication
 
         private bool SendMessage(out string response, string method, params object[] args)
         {
+            if (string.IsNullOrEmpty(method))
+                throw new ArgumentException("Must not be null or empty", nameof(method));
+            
             var lowerFirstMethod = char.ToLowerInvariant(method[0]) + method.Substring(1);
             var message = FormatMessage(_moduleName, lowerFirstMethod, args);
 
@@ -240,7 +243,7 @@ namespace LrControl.LrPlugin.Api.Communication
                     break;
             }
 
-            Log.Warning("Unable to decude value '{ValueString}' denoted by {TypeArg} to {Name}", valueString, typeArg, typeof(TExpectedType).Name);
+            Log.Warning("Unable to decode value '{ValueString}' denoted by {TypeArg} to {Name}", valueString, typeArg, typeof(TExpectedType).Name);
 
             value = default(TExpectedType);
             return false;

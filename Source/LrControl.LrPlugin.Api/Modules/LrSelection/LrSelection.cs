@@ -3,9 +3,9 @@ using LrControl.LrPlugin.Api.Communication;
 
 namespace LrControl.LrPlugin.Api.Modules.LrSelection
 {
-    internal class LrSelection : ModuleBase<LrSelection>, ILrSelection
+    internal class LrSelection : ModuleBase, ILrSelection
     {
-        public LrSelection(MessageProtocol<LrSelection> messageProtocol) : base(messageProtocol)
+        public LrSelection(MessageProtocol messageProtocol) : base(messageProtocol)
         {
         }
 

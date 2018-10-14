@@ -3,11 +3,16 @@ using LrControl.Core.Util;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using Xunit;
+using Xunit.Abstractions;
 
-namespace LrControl.Tests
+namespace LrControl.Tests.LrPlugin.Api
 {
-    public class EnumerationTests
+    public class EnumerationTests : TestSuite
     {
+        public EnumerationTests(ITestOutputHelper output) : base(output)
+        {
+        }
+        
         [Fact]
         public void Should_Return_All_Enumeration_Values_Statically()
         {

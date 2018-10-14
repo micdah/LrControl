@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using LrControl.Core.Util;
 using Xunit;
+using Xunit.Abstractions;
 
-namespace LrControl.Tests
+namespace LrControl.Tests.Core.Util
 {
-    public class TypeExtensionsTests
-    {       
+    public class TypeExtensionsTests : TestSuite
+    {
+        public TypeExtensionsTests(ITestOutputHelper output) : base(output)
+        {
+        }
+
         [Fact]
         public void List_IsTypeOf_List()
         {
