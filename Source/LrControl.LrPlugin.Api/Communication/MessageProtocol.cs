@@ -245,28 +245,28 @@ namespace LrControl.LrPlugin.Api.Communication
 
             Log.Warning("Unable to decode value '{ValueString}' denoted by {TypeArg} to {Name}", valueString, typeArg, typeof(TExpectedType).Name);
 
-            value = default(TExpectedType);
+            value = default;
             return false;
         }
 
         private static bool False<T1>(out T1 t1)
         {
-            t1 = default(T1);
+            t1 = default;
             return false;
         }
 
         private static bool False<T1, T2>(out T1 t1, out T2 t2)
         {
-            t1 = default(T1);
-            t2 = default(T2);
+            t1 = default;
+            t2 = default;
             return false;
         }
 
         private static bool False<T1, T2, T3>(out T1 t1, out T2 t2, out T3 t3)
         {
-            t1 = default(T1);
-            t2 = default(T2);
-            t3 = default(T3);
+            t1 = default;
+            t2 = default;
+            t3 = default;
             return false;
         }
     }
