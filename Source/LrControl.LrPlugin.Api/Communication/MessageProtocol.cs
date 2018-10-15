@@ -75,7 +75,7 @@ namespace LrControl.LrPlugin.Api.Communication
             bool result = true;
             result &= DecodeTypedString(results[0], out result1);
             result &= DecodeTypedString(results[1], out result2);
-            result &= DecodeTypedString(results[2v], out result3);
+            result &= DecodeTypedString(results[2], out result3);
 
             return result;
         }
