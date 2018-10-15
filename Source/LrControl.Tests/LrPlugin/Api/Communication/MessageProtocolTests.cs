@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using LrControl.LrPlugin.Api.Common;
@@ -346,7 +345,7 @@ namespace LrControl.Tests.LrPlugin.Api.Communication
         {
             // Setup
             var ret = true;
-            SetupSendMessage($"{BooleanPrefix}{(ret ? 1 : 0)}");
+            SetupSendMessage($"{BooleanPrefix}{1}");
 
             // Test
             Assert.True(_sut.Invoke(out bool response, "Method"));
