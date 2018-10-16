@@ -6,22 +6,22 @@ namespace LrControl.Core.Functions.Factories
 {
     internal class EnablePanelFunctionFactory : FunctionFactory
     {
-        private readonly IParameter<bool> _enablePanelParameter;
-        private readonly Panel _panel;
+        public IParameter<bool> EnablePanelParameter { get; }
+        public Panel Panel { get; }
 
         public EnablePanelFunctionFactory(ISettings settings, ILrApi api, Panel panel,
             IParameter<bool> enablePanelParameter) : base(settings, api)
         {
-            _enablePanelParameter = enablePanelParameter;
-            _panel = panel;
+            EnablePanelParameter = enablePanelParameter;
+            Panel = panel;
         }
 
-        public override string DisplayName => $"Switch to panel {_panel.Name} (or toggle on/off)";
-        public override string Key => $"EnablePanelFunction:{_panel.Name}";
+        public override string DisplayName => $"Switch to panel {Panel.Name} (or toggle on/off)";
+        public override string Key => $"EnablePanelFunction:{Panel.Name}";
 
         protected override IFunction CreateFunction(ISettings settings, ILrApi api)
         {
-            return new EnablePanelFunction(settings, api, DisplayName, _panel, _enablePanelParameter, Key);
+            return new EnablePanelFunction(settings, api, DisplayName, Panel, EnablePanelParameter, Key);
         }
     }
 }

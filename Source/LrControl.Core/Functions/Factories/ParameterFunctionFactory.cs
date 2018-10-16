@@ -11,14 +11,14 @@ namespace LrControl.Core.Functions.Factories
     internal class ParameterFunctionFactory : FunctionFactory
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ParameterFunctionFactory>();
-        private readonly IParameter _parameter;
+        public IParameter Parameter { get; }
 
         public ParameterFunctionFactory(ISettings settings, ILrApi api, IParameter parameter) : base(settings, api)
         {
             if (!parameter.GetType().IsTypeOf(typeof(IParameter<>)))
                 throw new ArgumentException($"Unsupported parameter type {parameter.GetType()}");
             
-            _parameter = parameter;
+            Parameter = parameter;
             DisplayName = $"Change {parameter.DisplayName}";
             Key = $"ParameterFunction:{parameter.Name}";
         }
@@ -28,7 +28,7 @@ namespace LrControl.Core.Functions.Factories
 
         protected override IFunction CreateFunction(ISettings settings, ILrApi api)
         {
-            switch (_parameter)
+            switch (Parameter)
             {
                 case IParameter<double> temperatureParameter when ReferenceEquals(temperatureParameter, AdjustPanelParameter.Temperature):
                     return new TemperatureParameterFunction(settings, api, DisplayName, Key, temperatureParameter);
@@ -40,7 +40,7 @@ namespace LrControl.Core.Functions.Factories
                     return new ToggleParameterFunction(settings, api, DisplayName, Key, boolParameter);
                 default:
                 {
-                    Log.Error("Unsupported Parameter {Parameter}", _parameter);
+                    Log.Error("Unsupported Parameter {Parameter}", Parameter);
                     throw new ArgumentException("Unsupported parameter type");
                 }
             }

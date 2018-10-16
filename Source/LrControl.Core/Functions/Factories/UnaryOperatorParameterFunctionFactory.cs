@@ -7,14 +7,14 @@ namespace LrControl.Core.Functions.Factories
 {
     internal class UnaryOperatorParameterFunctionFactory : FunctionFactory
     {
-        private readonly IParameter _parameter;
-        private readonly UnaryOperation _operation;
+        public IParameter Parameter { get; }
+        public UnaryOperation Operation { get; }
 
         public UnaryOperatorParameterFunctionFactory(ISettings settings, ILrApi api, IParameter parameter,
             UnaryOperation operation) : base(settings, api)
         {
-            _parameter = parameter;
-            _operation = operation;
+            Parameter = parameter;
+            Operation = operation;
             switch (operation)
             {
                 case UnaryOperation.Increment:
@@ -34,6 +34,6 @@ namespace LrControl.Core.Functions.Factories
         public override string Key { get; }
 
         protected override IFunction CreateFunction(ISettings settings, ILrApi api)
-            => new UnaryOperatorParameterFunction(settings, api, DisplayName, Key, _parameter, _operation);
+            => new UnaryOperatorParameterFunction(settings, api, DisplayName, Key, Parameter, Operation);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
 using LrControl.LrPlugin.Api;
@@ -67,7 +66,7 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = "Selection",
                 Key = "LrSelection",
-                Functions = new ObservableCollection<IFunctionFactory>(functions)
+                Functions = new List<IFunctionFactory>(functions)
             };
         }
 

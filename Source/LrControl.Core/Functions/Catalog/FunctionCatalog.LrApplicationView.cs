@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
@@ -32,7 +31,7 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = "View",
                 Key = "LrApplicationView",
-                Functions = new ObservableCollection<IFunctionFactory>(functions),
+                Functions = new List<IFunctionFactory>(functions),
             };
         }
 

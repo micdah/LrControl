@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
@@ -56,11 +55,11 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = "Develop",
                 Key = "LrDevelop",
-                Functions = new ObservableCollection<IFunctionFactory>(functions)
+                Functions = new List<IFunctionFactory>(functions)
             };
         }
 
-        private static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IParameter<bool> enablePanelParameter, IReadOnlyCollection<IParameter> parameters)
+        internal static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IParameter<bool> enablePanelParameter, IReadOnlyCollection<IParameter> parameters)
         {
             var factories = new List<IFunctionFactory>();
             factories.AddRange(new []
@@ -92,7 +91,7 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = $"Develop {panel.Name}",
                 Key = $"LrDevelop{panel.Value}",
-                Functions = new ObservableCollection<IFunctionFactory>(factories)
+                Functions = new List<IFunctionFactory>(factories)
             };
         }
 
@@ -158,7 +157,7 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = "Develop Crop",
                 Key = "LrDevelopCrop",
-                Functions = new ObservableCollection<IFunctionFactory>(functions)
+                Functions = new List<IFunctionFactory>(functions)
             };
         }
 
@@ -187,7 +186,7 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = "Develop Localized",
                 Key = "LrDevelopLocalized",
-                Functions = new ObservableCollection<IFunctionFactory>(functions)
+                Functions = new List<IFunctionFactory>(functions)
             };
         }
     }

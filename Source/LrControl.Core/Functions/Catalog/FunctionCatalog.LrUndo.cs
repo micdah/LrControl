@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
 using LrControl.LrPlugin.Api;
@@ -13,7 +13,7 @@ namespace LrControl.Core.Functions.Catalog
             {
                 DisplayName = "Undo",
                 Key = "LrUndo",
-                Functions = new ObservableCollection<IFunctionFactory>(new[]
+                Functions = new List<IFunctionFactory>(new[]
                 {
                     new MethodFunctionFactory(settings, api, "Undo", "Undo", a =>
                     {
