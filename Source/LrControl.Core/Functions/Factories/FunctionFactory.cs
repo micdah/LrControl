@@ -6,9 +6,9 @@ namespace LrControl.Core.Functions.Factories
     internal abstract class FunctionFactory : IFunctionFactory
     {
         private readonly ISettings _settings;
-        private readonly LrApi _api;
+        private readonly ILrApi _api;
         
-        protected FunctionFactory(ISettings settings, LrApi api)
+        protected FunctionFactory(ISettings settings, ILrApi api)
         {
             _settings = settings;
             _api = api;
@@ -23,6 +23,6 @@ namespace LrControl.Core.Functions.Factories
 
         public abstract string Key { get; }
 
-        protected abstract IFunction CreateFunction(ISettings settings, LrApi api);
+        protected abstract IFunction CreateFunction(ISettings settings, ILrApi api);
     }
 }

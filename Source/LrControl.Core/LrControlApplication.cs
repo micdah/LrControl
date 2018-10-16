@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
@@ -8,6 +9,9 @@ using LrControl.Core.Mapping;
 using LrControl.Core.Util;
 using LrControl.LrPlugin.Api;
 using Serilog;
+
+[assembly:InternalsVisibleTo("LrControl.Tests")]
+[assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
 
 namespace LrControl.Core
 {

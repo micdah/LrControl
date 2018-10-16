@@ -10,7 +10,7 @@ namespace LrControl.Core.Functions.Catalog
 {
     internal partial class FunctionCatalog
     {
-        private static IFunctionCatalogGroup CreateViewGroup(ISettings settings, LrApi api)
+        private static IFunctionCatalogGroup CreateViewGroup(ISettings settings, ILrApi api)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(CreateSwitchToModule(settings, api));
@@ -36,21 +36,21 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        private static IEnumerable<MethodFunctionFactory> CreateSwitchToModule(ISettings settings, LrApi api)
+        private static IEnumerable<MethodFunctionFactory> CreateSwitchToModule(ISettings settings, ILrApi api)
         {
             return Module.GetAll().Select(module =>
                 new MethodFunctionFactory(settings, api, $"Switch to {module.Name}", $"SwitchToModule{module.Value}",
                     a => a.LrApplicationView.SwitchToModule(module)));
         }
 
-        private static IEnumerable<MethodFunctionFactory> CreateShowView(ISettings settings, LrApi api)
+        private static IEnumerable<MethodFunctionFactory> CreateShowView(ISettings settings, ILrApi api)
         {
             return PrimaryView.GetAll().Select(view =>
                 new MethodFunctionFactory(settings, api, $"Change view to {view.Name}", $"ShowView{view.Value}",
                     a => a.LrApplicationView.ShowView(view)));
         }
 
-        private static IEnumerable<MethodFunctionFactory> CreateShowSecondaryView(ISettings settings, LrApi api)
+        private static IEnumerable<MethodFunctionFactory> CreateShowSecondaryView(ISettings settings, ILrApi api)
         {
             return SecondaryView.GetAll().Select(view =>
                 new MethodFunctionFactory(settings, api, $"Change secondary monitor to {view.Name}", $"ShowSecondaryView{view.Value}",

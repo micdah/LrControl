@@ -10,7 +10,7 @@ namespace LrControl.Core.Functions
         protected readonly IParameter<T> Parameter;
         protected Range ParameterRange;
         
-        public ParameterFunction(ISettings settings, LrApi api, string displayName, string key, IParameter<T> parameter)
+        public ParameterFunction(ISettings settings, ILrApi api, string displayName, string key, IParameter<T> parameter)
             : base(settings, api, displayName, key)
         {
             Parameter = parameter;

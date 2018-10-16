@@ -12,7 +12,7 @@ namespace LrControl.Core.Functions
         private bool _disposed;
         private Action _onRequestUpdateControllerValue;
 
-        protected Function(ISettings settings, LrApi api, string displayName, string key)
+        protected Function(ISettings settings, ILrApi api, string displayName, string key)
         {
             _settings = settings;
             Api = api;
@@ -20,7 +20,7 @@ namespace LrControl.Core.Functions
             Key = key;
         }
 
-        protected LrApi Api { get; }
+        protected ILrApi Api { get; }
         public string Key { get; }
         public string DisplayName { get; }
 

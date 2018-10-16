@@ -10,7 +10,7 @@ namespace LrControl.Core.Functions.Factories
         private readonly IParameter _parameter;
         private readonly UnaryOperation _operation;
 
-        public UnaryOperatorParameterFunctionFactory(ISettings settings, LrApi api, IParameter parameter,
+        public UnaryOperatorParameterFunctionFactory(ISettings settings, ILrApi api, IParameter parameter,
             UnaryOperation operation) : base(settings, api)
         {
             _parameter = parameter;
@@ -33,7 +33,7 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName { get; }
         public override string Key { get; }
 
-        protected override IFunction CreateFunction(ISettings settings, LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, ILrApi api)
             => new UnaryOperatorParameterFunction(settings, api, DisplayName, Key, _parameter, _operation);
     }
 }

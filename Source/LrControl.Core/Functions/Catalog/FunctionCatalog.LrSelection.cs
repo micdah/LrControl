@@ -9,7 +9,7 @@ namespace LrControl.Core.Functions.Catalog
 {
     internal partial class FunctionCatalog
     {
-        private static IFunctionCatalogGroup CreateSelectionGroup(ISettings settings, LrApi api)
+        private static IFunctionCatalogGroup CreateSelectionGroup(ISettings settings, ILrApi api)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
@@ -71,7 +71,7 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        private static IEnumerable<MethodFunctionFactory> CreateExtendSelection(ISettings settings, LrApi api)
+        private static IEnumerable<MethodFunctionFactory> CreateExtendSelection(ISettings settings, ILrApi api)
         {
             foreach (var direction in Direction.GetAll())
             {
@@ -86,7 +86,7 @@ namespace LrControl.Core.Functions.Catalog
             }
         }
 
-        private static IEnumerable<MethodFunctionFactory> CreateSetColorLabel(ISettings settings, LrApi api)
+        private static IEnumerable<MethodFunctionFactory> CreateSetColorLabel(ISettings settings, ILrApi api)
         {
             foreach (var label in ColorLabel.GetAll())
             {
@@ -96,7 +96,7 @@ namespace LrControl.Core.Functions.Catalog
             }
         }
 
-        private static IEnumerable<MethodFunctionFactory> CreateSetRating(ISettings settings, LrApi api)
+        private static IEnumerable<MethodFunctionFactory> CreateSetRating(ISettings settings, ILrApi api)
         {
             for (var i = 0; i <= 5; i++)
             {

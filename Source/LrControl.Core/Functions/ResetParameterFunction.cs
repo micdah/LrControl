@@ -9,7 +9,7 @@ namespace LrControl.Core.Functions
     {
         private readonly IParameter _parameter;
 
-        public ResetParameterFunction(ISettings settings, LrApi api, string displayName, string key,
+        public ResetParameterFunction(ISettings settings, ILrApi api, string displayName, string key,
             IParameter parameter) : base(settings, api, displayName, key)
         {
             _parameter = parameter;

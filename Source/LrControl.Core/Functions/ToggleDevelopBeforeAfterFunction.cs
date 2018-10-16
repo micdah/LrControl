@@ -9,7 +9,8 @@ namespace LrControl.Core.Functions
     {
         private bool _toggled;
 
-        public ToggleDevelopBeforeAfterFunction(ISettings settings, LrApi api, string displayName, string key) : base(settings, api, displayName, key)
+        public ToggleDevelopBeforeAfterFunction(ISettings settings, ILrApi api, string displayName, string key) : base(
+            settings, api, displayName, key)
         {
         }
 

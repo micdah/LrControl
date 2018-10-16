@@ -8,7 +8,7 @@ namespace LrControl.Core.Functions.Factories
     {
         private readonly IParameter _parameter;
 
-        public ResetParameterFunctionFactory(ISettings settings, LrApi api, IParameter parameter) : base(settings, api)
+        public ResetParameterFunctionFactory(ISettings settings, ILrApi api, IParameter parameter) : base(settings, api)
         {
             _parameter = parameter;
             DisplayName = $"Reset {parameter.DisplayName} to default";
@@ -18,7 +18,7 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName { get; }
         public override string Key { get; }
 
-        protected override IFunction CreateFunction(ISettings settings, LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, ILrApi api)
             => new ResetParameterFunction(settings, api, DisplayName, Key, _parameter);
     }
 }

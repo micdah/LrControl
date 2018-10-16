@@ -15,7 +15,7 @@ namespace LrControl.LrPlugin.Api
 {
     public delegate void ConnectionStatusHandler(bool connected, string apiVersion);
 
-    public class LrApi : IDisposable
+    public class LrApi : ILrApi
     {
         private readonly LrApplicationView _lrApplicationView;
         private readonly Modules.LrControl.LrControl _lrControl;

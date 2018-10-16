@@ -10,7 +10,7 @@ namespace LrControl.Core.Functions
         private readonly IParameter _parameter;
         private readonly UnaryOperation _operation;
 
-        public UnaryOperatorParameterFunction(ISettings settings, LrApi api, string displayName, string key,
+        public UnaryOperatorParameterFunction(ISettings settings, ILrApi api, string displayName, string key,
             IParameter parameter, UnaryOperation operation) : base(settings, api, displayName, key)
         {
             _parameter = parameter;

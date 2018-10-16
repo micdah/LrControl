@@ -7,7 +7,7 @@ namespace LrControl.Core.Functions.Catalog
 {
     internal partial class FunctionCatalog
     {
-        private static IFunctionCatalogGroup CreateUndoGroup(ISettings settings, LrApi api)
+        private static IFunctionCatalogGroup CreateUndoGroup(ISettings settings, ILrApi api)
         {
             return new FunctionCatalogGroup
             {

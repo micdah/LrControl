@@ -13,7 +13,7 @@ namespace LrControl.Core.Functions.Factories
         private readonly IEnumerationParameter<TValue> _parameter;
         private readonly IEnumeration<TValue> _value;
 
-        public EnumerationParameterFunctionFactory(ISettings settings, LrApi api, 
+        public EnumerationParameterFunctionFactory(ISettings settings, ILrApi api, 
             IEnumerationParameter<TValue> parameter, IEnumeration<TValue> value) : base(settings, api)
         {
             if (!parameter.GetType().IsTypeOf(typeof(IEnumerationParameter<>)))
@@ -29,7 +29,7 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName { get; }
         public override string Key { get; }
         
-        protected override IFunction CreateFunction(ISettings settings, LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, ILrApi api)
         {
             return new EnumerationParameterFunction<TValue>(settings, api, DisplayName, Key, _parameter, _value);
         }

@@ -8,13 +8,14 @@ namespace LrControl.Core.Functions
 {
     internal class EnablePanelFunction : Function
     {
-        private readonly IParameter<bool> _enablePanelParamter;
+        private readonly IParameter<bool> _enablePanelParameter;
         private readonly Panel _panel;
 
-        public EnablePanelFunction(ISettings settings, LrApi api, string displayName, Panel panel, IParameter<bool> enablePanelParameter, string key) : base(settings, api, displayName, key)
+        public EnablePanelFunction(ISettings settings, ILrApi api, string displayName, Panel panel,
+            IParameter<bool> enablePanelParameter, string key) : base(settings, api, displayName, key)
         {
             _panel = panel;
-            _enablePanelParamter = enablePanelParameter;
+            _enablePanelParameter = enablePanelParameter;
         }
 
         public override void ControllerValueChanged(int controllerValue, Range controllerRange)
@@ -32,11 +33,11 @@ namespace LrControl.Core.Functions
                 }
                 else
                 {
-                    if (_enablePanelParamter == null) return;
+                    if (_enablePanelParameter == null) return;
 
-                    if (Api.LrDevelopController.GetValue(out var enabled, _enablePanelParamter))
+                    if (Api.LrDevelopController.GetValue(out var enabled, _enablePanelParameter))
                     {
-                        Api.LrDevelopController.SetValue(_enablePanelParamter, !enabled);
+                        Api.LrDevelopController.SetValue(_enablePanelParameter, !enabled);
 
                         ShowHud($"{(!enabled ? "Enabled" : "Disabled")} panel: {functionGroup.Panel.Name}");
                     }

@@ -13,7 +13,7 @@ namespace LrControl.Core.Functions.Factories
         private static readonly ILogger Log = Serilog.Log.ForContext<ParameterFunctionFactory>();
         private readonly IParameter _parameter;
 
-        public ParameterFunctionFactory(ISettings settings, LrApi api, IParameter parameter) : base(settings, api)
+        public ParameterFunctionFactory(ISettings settings, ILrApi api, IParameter parameter) : base(settings, api)
         {
             if (!parameter.GetType().IsTypeOf(typeof(IParameter<>)))
                 throw new ArgumentException($"Unsupported parameter type {parameter.GetType()}");
@@ -26,7 +26,7 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName { get; }
         public override string Key { get; }
 
-        protected override IFunction CreateFunction(ISettings settings, LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, ILrApi api)
         {
             switch (_parameter)
             {

@@ -14,7 +14,7 @@ namespace LrControl.Core.Functions.Catalog
 {
     internal partial class FunctionCatalog
     {
-        private static IEnumerable<IFunctionCatalogGroup> CreateDevelopGroups(ISettings settings, LrApi api)
+        private static IEnumerable<IFunctionCatalogGroup> CreateDevelopGroups(ISettings settings, ILrApi api)
         {
             var groups = new List<IFunctionCatalogGroup>();
             groups.Add(CreateDevelopGroup(settings, api));
@@ -32,7 +32,7 @@ namespace LrControl.Core.Functions.Catalog
             return groups;
         }
 
-        private static IFunctionCatalogGroup CreateDevelopGroup(ISettings settings, LrApi api)
+        internal static IFunctionCatalogGroup CreateDevelopGroup(ISettings settings, ILrApi api)
         {
             var functions = new List<IFunctionFactory>();
             functions.AddRange(new []
@@ -60,7 +60,7 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        private static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, LrApi api, Panel panel, IParameter<bool> enablePanelParameter, IReadOnlyCollection<IParameter> parameters)
+        private static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IParameter<bool> enablePanelParameter, IReadOnlyCollection<IParameter> parameters)
         {
             var factories = new List<IFunctionFactory>();
             factories.AddRange(new []
@@ -96,7 +96,7 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        private static IEnumerable<IFunctionFactory> CreateFunctionsForEnumParameter(ISettings settings, LrApi api, IEnumerable<IParameter> parameters)
+        private static IEnumerable<IFunctionFactory> CreateFunctionsForEnumParameter(ISettings settings, ILrApi api, IEnumerable<IParameter> parameters)
         {
             var enumFunctions = new List<IFunctionFactory>();
 
@@ -133,7 +133,7 @@ namespace LrControl.Core.Functions.Catalog
             return enumFunctions;
         }
 
-        private static IFunctionCatalogGroup CreateDevelopCropGroup(ISettings settings, LrApi api)
+        private static IFunctionCatalogGroup CreateDevelopCropGroup(ISettings settings, ILrApi api)
         {
             var functions = new List<IFunctionFactory>();
             
@@ -162,7 +162,7 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        private static IFunctionCatalogGroup CreateDevelopLocalizedGroup(ISettings settings, LrApi api)
+        private static IFunctionCatalogGroup CreateDevelopLocalizedGroup(ISettings settings, ILrApi api)
         {
             var functions = new List<IFunctionFactory>();
 

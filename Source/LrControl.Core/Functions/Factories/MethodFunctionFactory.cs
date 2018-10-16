@@ -6,10 +6,10 @@ namespace LrControl.Core.Functions.Factories
 {
     internal class MethodFunctionFactory : FunctionFactory
     {
-        private readonly Action<LrApi> _method;
+        private readonly Action<ILrApi> _method;
 
-        public MethodFunctionFactory(ISettings settings, LrApi api, string displayName, string key,
-            Action<LrApi> method) : base(settings, api)
+        public MethodFunctionFactory(ISettings settings, ILrApi api, string displayName, string key,
+            Action<ILrApi> method) : base(settings, api)
         {
             _method = method;
             DisplayName = displayName;
@@ -19,7 +19,7 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName { get; }
         public override string Key { get; }
 
-        protected override IFunction CreateFunction(ISettings settings, LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, ILrApi api)
             => new MethodFunction(settings, api, DisplayName, _method, DisplayName, Key);
     }
 }

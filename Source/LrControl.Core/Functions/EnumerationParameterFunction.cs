@@ -12,7 +12,7 @@ namespace LrControl.Core.Functions
         private readonly IEnumerationParameter<T> _parameter;
         private readonly IEnumeration<T> _value;
 
-        public EnumerationParameterFunction(ISettings settings, LrApi api, string displayName, string key, 
+        public EnumerationParameterFunction(ISettings settings, ILrApi api, string displayName, string key, 
             IEnumerationParameter<T> parameter, IEnumeration<T> value) : base(settings, api, displayName, key)
         {
             _parameter = parameter;
@@ -23,7 +23,7 @@ namespace LrControl.Core.Functions
         {
             if (!controllerRange.IsMaximum(controllerValue)) return;
             
-            Api.LrDevelopController.SetValue<T>(_parameter, _value);
+            Api.LrDevelopController.SetValue(_parameter, _value);
         }
     }
 }

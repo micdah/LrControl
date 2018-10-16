@@ -7,10 +7,10 @@ namespace LrControl.Core.Functions
 {
     internal class MethodFunction : Function
     {
-        private readonly Action<LrApi> _method;
+        private readonly Action<ILrApi> _method;
         private readonly string _displayText;
 
-        public MethodFunction(ISettings settings, LrApi api, string displayName, Action<LrApi> method,
+        public MethodFunction(ISettings settings, ILrApi api, string displayName, Action<ILrApi> method,
             string displayText, string key) : base(settings, api, displayName, key)
         {
             _method = method;

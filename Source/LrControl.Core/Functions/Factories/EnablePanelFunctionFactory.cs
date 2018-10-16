@@ -9,7 +9,7 @@ namespace LrControl.Core.Functions.Factories
         private readonly IParameter<bool> _enablePanelParameter;
         private readonly Panel _panel;
 
-        public EnablePanelFunctionFactory(ISettings settings, LrApi api, Panel panel,
+        public EnablePanelFunctionFactory(ISettings settings, ILrApi api, Panel panel,
             IParameter<bool> enablePanelParameter) : base(settings, api)
         {
             _enablePanelParameter = enablePanelParameter;
@@ -19,7 +19,7 @@ namespace LrControl.Core.Functions.Factories
         public override string DisplayName => $"Switch to panel {_panel.Name} (or toggle on/off)";
         public override string Key => $"EnablePanelFunction:{_panel.Name}";
 
-        protected override IFunction CreateFunction(ISettings settings, LrApi api)
+        protected override IFunction CreateFunction(ISettings settings, ILrApi api)
         {
             return new EnablePanelFunction(settings, api, DisplayName, _panel, _enablePanelParameter, Key);
         }

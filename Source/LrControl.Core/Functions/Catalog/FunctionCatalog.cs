@@ -22,12 +22,12 @@ namespace LrControl.Core.Functions.Catalog
                 .FirstOrDefault(f => f.Key == functionKey);
         }
 
-        public static IFunctionCatalog CreateCatalog(ISettings settings, LrApi api)
+        public static IFunctionCatalog CreateCatalog(ISettings settings, ILrApi api)
         {
             return new FunctionCatalog(CreateGroups(settings, api));
         }
 
-        private static IEnumerable<IFunctionCatalogGroup> CreateGroups(ISettings settings, LrApi api)
+        private static IEnumerable<IFunctionCatalogGroup> CreateGroups(ISettings settings, ILrApi api)
         {
             var groups = new List<IFunctionCatalogGroup>
             {
