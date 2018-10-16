@@ -26,7 +26,7 @@ namespace LrControl.Core.Functions
         /// Update controller value, based on function
         /// </summary>
         /// <param name="controllerValue">Controller value to set</param>
-        /// <param name="controllerRange">Range of controller vlaue</param>
+        /// <param name="controllerRange">Range of controller value</param>
         /// <returns>True if function has a value to assign the controller value, false otherwise</returns>
         bool UpdateControllerValue(out int controllerValue, Range controllerRange);
 

@@ -77,26 +77,15 @@ namespace LrControl.Core.Functions.Catalog
             factories.AddRange(CreateFunctionsForEnumParameter(settings, api, parameters));
 
             // Reset parameter
-            foreach (var param in parameters)
-            {
-                factories.Add(new MethodFunctionFactory(settings, api, $"Reset {param.DisplayName} to default", $"ResetToDefault{param.Name}",
-                    a =>
-                    {
-                        a.LrDevelopController.StopTracking();
-                        a.LrDevelopController.ResetToDefault(param);
-                    }));
-            }
+            factories.AddRange(parameters.Select(param => new ResetParameterFunctionFactory(settings, api, param)));
 
             // Increment / Decrement
             foreach (var param in parameters)
             {
-                if (param is IParameter<int> || param is IParameter<double>)
-                {
-                    factories.Add(new MethodFunctionFactory(settings, api, $"Increment {param.DisplayName}", $"Increment{param.Name}", 
-                        a => a.LrDevelopController.Increment(param)));
-                    factories.Add(new MethodFunctionFactory(settings, api, $"Decrement {param.DisplayName}", $"Decrement{param.Name}",
-                        a => a.LrDevelopController.Decrement(param)));
-                }
+                if (!(param is IParameter<int>) && !(param is IParameter<double>)) continue;
+                
+                factories.Add(new UnaryOperatorParameterFunctionFactory(settings, api, param, UnaryOperation.Increment));
+                factories.Add(new UnaryOperatorParameterFunctionFactory(settings, api, param, UnaryOperation.Decrement));
             }
 
             return new FunctionCatalogGroup

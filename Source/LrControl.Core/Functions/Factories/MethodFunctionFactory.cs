@@ -20,8 +20,6 @@ namespace LrControl.Core.Functions.Factories
         public override string Key { get; }
 
         protected override IFunction CreateFunction(ISettings settings, LrApi api)
-        {
-            return new MethodFunction(settings, api, DisplayName, _method, DisplayName, Key);
-        }
+            => new MethodFunction(settings, api, DisplayName, _method, DisplayName, Key);
     }
 }

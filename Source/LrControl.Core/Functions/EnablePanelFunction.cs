@@ -19,7 +19,7 @@ namespace LrControl.Core.Functions
 
         public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (controllerValue != (int) controllerRange.Maximum) return;
+            if (!controllerRange.IsMaximum(controllerValue)) return;
 
             var functionGroup = FunctionGroup.GetFunctionGroupFor(_panel);
             if (functionGroup != null)

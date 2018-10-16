@@ -4,6 +4,8 @@ namespace LrControl.LrPlugin.Api.Common
 {
     public class Range
     {
+        private const double ComparisonTolerance = 0.01d;
+        
         public Range(double minimum, double maximum)
         {
             if (maximum < minimum) throw new ArgumentException("Maximum must be larger than minimum", nameof(maximum));
@@ -22,6 +24,16 @@ namespace LrControl.LrPlugin.Api.Common
         public bool IsWithin(double value)
         {
             return value <= Maximum && value >= Minimum;
+        }
+
+        public bool IsMaximum(double value)
+        {
+            return Math.Abs(Maximum - value) < ComparisonTolerance;
+        }
+
+        public bool IsMinimum(double value)
+        {
+            return Math.Abs(Minimum - value) < ComparisonTolerance;
         }
 
         public double FromRange(Range range, double value)

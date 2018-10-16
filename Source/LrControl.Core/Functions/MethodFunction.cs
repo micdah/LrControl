@@ -10,7 +10,8 @@ namespace LrControl.Core.Functions
         private readonly Action<LrApi> _method;
         private readonly string _displayText;
 
-        public MethodFunction(ISettings settings, LrApi api, string displayName, Action<LrApi> method, string displayText, string key) : base(settings, api, displayName, key)
+        public MethodFunction(ISettings settings, LrApi api, string displayName, Action<LrApi> method,
+            string displayText, string key) : base(settings, api, displayName, key)
         {
             _method = method;
             _displayText = displayText;
@@ -18,7 +19,7 @@ namespace LrControl.Core.Functions
 
         public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
-            if (controllerValue != (int) controllerRange.Maximum) return;
+            if (!controllerRange.IsMaximum(controllerValue)) return;
 
             _method(Api);
             ShowHud(_displayText);
