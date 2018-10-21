@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7AFDBE3-813C-498B-AFB8-716B3DE24DD8}"
 ProjectSection(SolutionItems) = preProject
 	build.sh = build.sh
+	.gitignore = .gitignore
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{2A71CAF2-319E-4CA5-8710-0BDBF5F51C18}"
