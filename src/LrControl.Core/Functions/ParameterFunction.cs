@@ -8,7 +8,6 @@ namespace LrControl.Core.Functions
 {
     internal class ParameterFunction : Function
     {
-        protected readonly IParameter Parameter;
         protected Range ParameterRange;
         
         public ParameterFunction(ISettings settings, ILrApi api, string displayName, string key, IParameter parameter)
@@ -18,14 +17,9 @@ namespace LrControl.Core.Functions
                 throw new ArgumentException("Unsupported parameter type", nameof(parameter));
             
             Parameter = parameter;
-
-            api.LrDevelopController.AddParameterChangedListener(parameter, RequestUpdateControllerValue);
         }
-
-        protected override void Disposing()
-        {
-            Api.LrDevelopController.RemoveParameterChangedListener(Parameter, RequestUpdateControllerValue);
-        }
+        
+        public IParameter Parameter { get; }
 
         public override void ControllerValueChanged(int controllerValue, Range controllerRange)
         {
@@ -49,12 +43,7 @@ namespace LrControl.Core.Functions
             }
         }
 
-        protected virtual double CalculateParameterValue(int controllerValue, Range controllerRange)
-        {
-            return ParameterRange.FromRange(controllerRange, controllerValue);
-        }
-
-        public override bool UpdateControllerValue(out int controllerValue, Range controllerRange)
+        public bool TryGetControllerValue(out int controllerValue, Range controllerRange)
         {
             if (!UpdateRange(controllerRange))
             {
@@ -64,6 +53,11 @@ namespace LrControl.Core.Functions
 
             controllerValue = CalculateControllerValue(controllerRange);
             return true;
+        }
+
+        protected virtual double CalculateParameterValue(int controllerValue, Range controllerRange)
+        {
+            return ParameterRange.FromRange(controllerRange, controllerValue);
         }
 
         protected virtual int CalculateControllerValue(Range controllerRange)

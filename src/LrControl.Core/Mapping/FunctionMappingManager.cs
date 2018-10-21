@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
@@ -9,66 +10,71 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Mapping
 {
-    public class FunctionGroupManager
+    public class FunctionMappingManager : IDisposable
     {
+        private bool _disposed;
+        private readonly ILrApi _lrApi;
         private readonly IFunctionCatalog _functionCatalog;
         private readonly DeviceManager _deviceManager;
         private readonly List<ModuleGroup> _modules;
 
-        private FunctionGroupManager(IFunctionCatalog functionCatalog, DeviceManager deviceManager, List<ModuleGroup> modules)
+        private FunctionMappingManager(ILrApi lrApi, IFunctionCatalog functionCatalog, DeviceManager deviceManager, List<ModuleGroup> modules)
         {
+            _lrApi = lrApi;
             _functionCatalog = functionCatalog;
             _deviceManager = deviceManager;
             _deviceManager.ControllerAdded += DeviceManagerOnControllerAdded;
             _modules = modules;
+            
+            _lrApi.LrDevelopController.ParameterChanged += LrDevelopControllerOnParameterChanged;
         }
-
+        
         public IEnumerable<ModuleGroup> Modules => _modules;
 
-        internal static FunctionGroupManager DefaultGroups(LrApi api, IFunctionCatalog functionCatalog, DeviceManager deviceManager)
+        internal static FunctionMappingManager Create(ILrApi api, IFunctionCatalog functionCatalog, DeviceManager deviceManager)
         {
-            return new FunctionGroupManager(functionCatalog, deviceManager, new List<ModuleGroup>
+            ModuleGroup CreateModuleWithGlobal(Module module)
             {
-                CreateModuleWithGlobal(api, Module.Library),
-                CreateDevelopModule(api),
-                CreateModuleWithGlobal(api, Module.Map),
-                CreateModuleWithGlobal(api, Module.Book),
-                CreateModuleWithGlobal(api, Module.Slideshow),
-                CreateModuleWithGlobal(api, Module.Print),
-                CreateModuleWithGlobal(api, Module.Web)
-            });
-        }
-
-        private static ModuleGroup CreateModuleWithGlobal(LrApi api, Module module)
-        {
-            return new ModuleGroup(module, new List<FunctionGroup>
-            {
-                new FunctionGroup(api)
+                return new ModuleGroup(module, new List<ControllerFunctionGroup>
                 {
-                    Key = $"{module.Value}:Global"
-                }
-            });
-        }
-
-        private static ModuleGroup CreateDevelopModule(LrApi api)
-        {
-            var group = new ModuleGroup(Module.Develop, new List<FunctionGroup>
-            {
-                new FunctionGroup(api)
-                {
-                    Key = $"{Module.Develop.Value}:Global"
-                }
-            });
-
-            foreach (var panel in Panel.GetAll())
-            {
-                group.AddFunctionGroup(new FunctionGroup(api, panel)
-                {
-                    Key = $"{Module.Develop.Value}:{panel.Value}"
+                    new ControllerFunctionGroup(api)
+                    {
+                        Key = $"{module.Value}:Global"
+                    }
                 });
             }
+            
+            ModuleGroup CreateDevelopModule()
+            {
+                var group = new ModuleGroup(Module.Develop, new List<ControllerFunctionGroup>
+                {
+                    new ControllerFunctionGroup(api)
+                    {
+                        Key = $"{Module.Develop.Value}:Global"
+                    }
+                });
 
-            return group;
+                foreach (var panel in Panel.GetAll())
+                {
+                    group.AddControllerFunctionGroup(new ControllerFunctionGroup(api, panel)
+                    {
+                        Key = $"{Module.Develop.Value}:{panel.Value}"
+                    });
+                }
+
+                return group;
+            }
+            
+            return new FunctionMappingManager(api, functionCatalog, deviceManager, new List<ModuleGroup>
+            {
+                CreateModuleWithGlobal(Module.Library),
+                CreateDevelopModule(),
+                CreateModuleWithGlobal(Module.Map),
+                CreateModuleWithGlobal(Module.Book),
+                CreateModuleWithGlobal(Module.Slideshow),
+                CreateModuleWithGlobal(Module.Print),
+                CreateModuleWithGlobal(Module.Web)
+            });
         }
 
         internal void Load(IEnumerable<ModuleConfiguration> moduleConfigurations)
@@ -84,7 +90,7 @@ namespace LrControl.Core.Mapping
                 foreach (var functionGroupConfiguration in moduleConfiguration.FunctionGroups)
                 {
                     // Find matching function group
-                    var functionGroup = module.FunctionGroups.SingleOrDefault(g => g.Key == functionGroupConfiguration.Key);
+                    var functionGroup = module.ControllerFunctionGroups.SingleOrDefault(g => g.Key == functionGroupConfiguration.Key);
                     if (functionGroup == null) continue;
 
                     foreach (var controllerFunctionConfiguration in functionGroupConfiguration.ControllerFunctions)
@@ -110,7 +116,7 @@ namespace LrControl.Core.Mapping
         {
             foreach (var module in Modules)
             {
-                foreach (var group in module.FunctionGroups)
+                foreach (var group in module.ControllerFunctionGroups)
                 {
                     group.ClearControllerFunctions();
 
@@ -130,16 +136,16 @@ namespace LrControl.Core.Mapping
         internal void EnableModule(Module module)
         {
             // First disable all other module groups
-            foreach (var moduleGroup in Modules.Where(g => g.Module != module))
+            foreach (var moduleGroup in Modules.Where(g => !Equals(g.Module, module)))
             {
-                if (moduleGroup.Module != module)
+                if (!Equals(moduleGroup.Module, module))
                 {
                     moduleGroup.Disable();
                 }
             }
 
             // Now enable module group
-            foreach (var moduleGroup in Modules.Where(g => g.Module == module))
+            foreach (var moduleGroup in Modules.Where(g => Equals(g.Module, module)))
             {
                 moduleGroup.Enable();
             }
@@ -150,11 +156,33 @@ namespace LrControl.Core.Mapping
             // Add new controller to each function group, within each module
             foreach (var module in Modules)
             {
-                foreach (var group in module.FunctionGroups)
+                foreach (var group in module.ControllerFunctionGroups)
                 {
                     group.AddControllerFunction(new ControllerFunction(controller));
                 }
             }
+        }
+        
+        private void LrDevelopControllerOnParameterChanged(IParameter parameter)
+        {
+            foreach (var moduleGroup in Modules)
+            {
+                foreach (var controllerFunctionGroup in moduleGroup.ControllerFunctionGroups)
+                {
+                    foreach (var controllerFunction in controllerFunctionGroup.ControllerFunctions)
+                    {
+                        controllerFunction.UpdateController(parameter);
+                    }
+                }
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_disposed) return;
+            
+            _lrApi.LrDevelopController.ParameterChanged -= LrDevelopControllerOnParameterChanged;
+            _disposed = true;
         }
     }
 }

@@ -6,14 +6,14 @@ using Serilog;
 
 namespace LrControl.Core.Mapping
 {
-    public class FunctionGroup
+    public class ControllerFunctionGroup
     {
-        private static readonly ILogger Log = Serilog.Log.ForContext<FunctionGroup>();
-        private static readonly List<FunctionGroup> AllFunctionGroups = new List<FunctionGroup>();
-        private readonly LrApi _api;
+        private static readonly ILogger Log = Serilog.Log.ForContext<ControllerFunctionGroup>();
+        private static readonly List<ControllerFunctionGroup> AllFunctionGroups = new List<ControllerFunctionGroup>();
+        private readonly ILrApi _api;
         private readonly List<ControllerFunction> _controllerFunctions;
 
-        internal FunctionGroup(LrApi api, Panel panel = null)
+        internal ControllerFunctionGroup(ILrApi api, Panel panel = null)
         {
             _api = api;
             IsGlobal = panel == null;
@@ -35,8 +35,9 @@ namespace LrControl.Core.Mapping
 
         public bool Enabled { get; private set; }
 
-        internal static FunctionGroup GetFunctionGroupFor(Panel panel)
+        internal static ControllerFunctionGroup GetFunctionGroupFor(Panel panel)
         {
+            // ReSharper disable once PossibleUnintendedReferenceComparison
             return AllFunctionGroups.FirstOrDefault(group => group.Panel == panel);
         }
 

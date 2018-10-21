@@ -9,22 +9,22 @@ namespace LrControl.Core.Mapping
     public class ModuleGroup
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ModuleGroup>();
-        private readonly List<FunctionGroup> _lastEnabledFunctionGroups = new List<FunctionGroup>();
-        private readonly List<FunctionGroup> _functionGroups;
+        private readonly List<ControllerFunctionGroup> _lastEnabledFunctionGroups = new List<ControllerFunctionGroup>();
+        private readonly List<ControllerFunctionGroup> _controllerFunctionGroups;
 
-        internal ModuleGroup(Module module, List<FunctionGroup> functionGroups)
+        internal ModuleGroup(Module module, List<ControllerFunctionGroup> controllerFunctionGroups)
         {
             Module = module;
-            _functionGroups = functionGroups;
+            _controllerFunctionGroups = controllerFunctionGroups;
         }
 
         public Module Module { get; }
-        public IEnumerable<FunctionGroup> FunctionGroups => _functionGroups;
+        public IEnumerable<ControllerFunctionGroup> ControllerFunctionGroups => _controllerFunctionGroups;
         public bool Enabled { get; private set; }
 
-        internal void AddFunctionGroup(FunctionGroup functionGroup)
+        internal void AddControllerFunctionGroup(ControllerFunctionGroup controllerFunctionGroup)
         {
-            _functionGroups.Add(functionGroup);
+            _controllerFunctionGroups.Add(controllerFunctionGroup);
         }
 
         internal void Enable()
@@ -36,7 +36,7 @@ namespace LrControl.Core.Mapping
             }
 
             // Enable all global groups
-            foreach (var globalGroup in FunctionGroups.Where(globalGroup => globalGroup.IsGlobal))
+            foreach (var globalGroup in ControllerFunctionGroups.Where(globalGroup => globalGroup.IsGlobal))
             {
                 globalGroup.Enable();
             }
@@ -52,7 +52,7 @@ namespace LrControl.Core.Mapping
             if (!Enabled) return;
 
             _lastEnabledFunctionGroups.Clear();
-            foreach (var group in FunctionGroups)
+            foreach (var group in ControllerFunctionGroups)
             {
                 if (group.Enabled && !group.IsGlobal)
                 {
@@ -71,14 +71,14 @@ namespace LrControl.Core.Mapping
         {
             if (inGlobalGroup)
             {
-                return FunctionGroups
+                return ControllerFunctionGroups
                     .Where(g => !g.IsGlobal)
                     .All(functionGroup => !functionGroup.ControllerFunctions
                         .Any(x => x.Controller == controller && x.Function != null));
             }
 
             // Otherwise
-            return FunctionGroups
+            return ControllerFunctionGroups
                 .Where(g => g.IsGlobal)
                 .All(functionGroup => !functionGroup.ControllerFunctions
                     .Any(x => x.Controller == controller && x.Function != null));
@@ -86,15 +86,15 @@ namespace LrControl.Core.Mapping
 
         public void RecalculateControllerFunctionState()
         {
-            var globalFunctions = FunctionGroups.Where(g => g.IsGlobal)
+            var globalFunctions = ControllerFunctionGroups.Where(g => g.IsGlobal)
                 .SelectMany(g => g.ControllerFunctions)
                 .Where(cf => cf.Function != null).ToList();
 
-            var nonGlobalFunctions = FunctionGroups.Where(g => !g.IsGlobal)
+            var nonGlobalFunctions = ControllerFunctionGroups.Where(g => !g.IsGlobal)
                 .SelectMany(g => g.ControllerFunctions)
                 .Where(cf => cf.Function != null).ToList();
 
-            foreach (var functionGroup in FunctionGroups)
+            foreach (var functionGroup in ControllerFunctionGroups)
             {
                 foreach (var controllerFunction in functionGroup.ControllerFunctions)
                 {

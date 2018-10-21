@@ -22,7 +22,7 @@ namespace LrControl.Core.Functions
         {
             if (!controllerRange.IsMaximum(controllerValue)) return;
 
-            var functionGroup = FunctionGroup.GetFunctionGroupFor(_panel);
+            var functionGroup = ControllerFunctionGroup.GetFunctionGroupFor(_panel);
             if (functionGroup != null)
             {
                 if (!functionGroup.Enabled)

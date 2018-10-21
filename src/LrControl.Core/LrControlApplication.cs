@@ -19,7 +19,7 @@ namespace LrControl.Core
     {
         event ConnectionStatusHandler ConnectionStatus;
         ISettings Settings { get; }
-        FunctionGroupManager FunctionGroupManager { get; }
+        FunctionMappingManager FunctionMappingManager { get; }
         IFunctionCatalog FunctionCatalog { get; }
         IDeviceBrowser DeviceBrowser { get; }
         IDeviceManager DeviceManager { get; }
@@ -39,7 +39,7 @@ namespace LrControl.Core
         private readonly IFunctionCatalog _functionCatalog;
         private readonly DeviceBrowser _deviceBrowser;
         private readonly DeviceManager _deviceManager;
-        private readonly FunctionGroupManager _functionGroupManager;
+        private readonly FunctionMappingManager _functionMappingManager;
 
         public static ILrControlApplication Create()
         {
@@ -53,10 +53,10 @@ namespace LrControl.Core
             _functionCatalog = Functions.Catalog.FunctionCatalog.CreateCatalog(_settings, _lrApi);
             _deviceBrowser = new DeviceBrowser();
             _deviceManager = new DeviceManager(_settings);
-            _functionGroupManager = FunctionGroupManager.DefaultGroups(_lrApi, _functionCatalog, _deviceManager);
+            _functionMappingManager = FunctionMappingManager.Create(_lrApi, _functionCatalog, _deviceManager);
 
             // Hookup module listener
-            _lrApi.LrApplicationView.ModuleChanged += _functionGroupManager.EnableModule;
+            _lrApi.LrApplicationView.ModuleChanged += _functionMappingManager.EnableModule;
             _lrApi.ConnectionStatus += (connected, version) => ConnectionStatus?.Invoke(connected, version);
 
             // Restore previously selected input/output devices
@@ -75,7 +75,7 @@ namespace LrControl.Core
         public event ConnectionStatusHandler ConnectionStatus;
 
         public ISettings Settings => _settings;
-        public FunctionGroupManager FunctionGroupManager => _functionGroupManager;
+        public FunctionMappingManager FunctionMappingManager => _functionMappingManager;
         public IFunctionCatalog FunctionCatalog => _functionCatalog;
         public IDeviceBrowser DeviceBrowser => _deviceBrowser;
         public IDeviceManager DeviceManager => _deviceManager;
@@ -85,7 +85,7 @@ namespace LrControl.Core
             var conf = new MappingConfiguration
             {
                 Controllers = _deviceManager.GetConfiguration(),
-                Modules = FunctionGroupManager.GetConfiguration()
+                Modules = FunctionMappingManager.GetConfiguration()
             };
 
             MappingConfiguration.Save(conf, file ?? MappingConfiguration.ConfigurationsFile);
@@ -97,17 +97,17 @@ namespace LrControl.Core
             if (conf == null) return;
 
             _deviceManager.SetConfiguration(conf.Controllers);
-            FunctionGroupManager.Load(conf.Modules);
+            FunctionMappingManager.Load(conf.Modules);
 
             // Enable current module group
             if (_lrApi.LrApplicationView.GetCurrentModuleName(out var currentModule))
-                FunctionGroupManager.EnableModule(currentModule);
+                FunctionMappingManager.EnableModule(currentModule);
         }
 
         public void Reset()
         {
             _deviceManager.ClearControllers();
-            _functionGroupManager.Reset();
+            _functionMappingManager.Reset();
         }
 
         public string GetSettingsFolder()
@@ -135,6 +135,9 @@ namespace LrControl.Core
 
             Log.Information("Saving settings");
             _settings.Save();
+
+            Log.Debug("Disposing {Name}", nameof(FunctionMappingManager));
+            _functionMappingManager.Dispose();
 
             Log.Information("Closing API");
             _lrApi.Dispose();

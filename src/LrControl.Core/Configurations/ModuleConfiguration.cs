@@ -15,7 +15,7 @@ namespace LrControl.Core.Configurations
         public ModuleConfiguration(ModuleGroup moduleGroup)
         {
             ModuleName = moduleGroup.Module.Value;
-            FunctionGroups = moduleGroup.FunctionGroups
+            FunctionGroups = moduleGroup.ControllerFunctionGroups
                 .Select(x => new FunctionGroupConfiguration(x))
                 .ToList();
         }

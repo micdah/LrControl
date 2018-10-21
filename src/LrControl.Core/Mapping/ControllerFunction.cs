@@ -2,12 +2,13 @@
 using LrControl.Core.Devices;
 using LrControl.Core.Devices.Enums;
 using LrControl.Core.Functions;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Mapping
 {
     public class ControllerFunction : IDisposable
     {
-        private IFunction _function;
+        private bool _enabled;
 
         internal ControllerFunction(Controller controller)
         {
@@ -16,35 +17,12 @@ namespace LrControl.Core.Mapping
         }
 
         public Controller Controller { get; private set; }
-
-        public IFunction Function
-        {
-            get => _function;
-            set
-            {
-                if (_function != null)
-                {
-                    _function.OnRequestUpdateControllerValue = null;
-                }
-
-                _function = value;
-
-                if (_function != null)
-                {
-                    _function.OnRequestUpdateControllerValue = OnRequestUpdateControllerValue;
-                }
-            }
-        }
-
+        public IFunction Function { get; set; }
         public bool Assignable { get; internal set; }
-
-        private bool Enabled { get; set; }
-
-        public bool HasFunction => Function != null;
 
         internal void Enable(bool resetIfUnmapped)
         {
-            if(_function == null && resetIfUnmapped)
+            if(Function == null && resetIfUnmapped)
             {
                 if (Controller.ControllerType == ControllerType.Encoder ||
                     Controller.ControllerType == ControllerType.Fader)
@@ -53,15 +31,28 @@ namespace LrControl.Core.Mapping
                 }
             }
 
-            Enabled = true;
+            _enabled = true;
 
             // Check if function has a value to initialize controller with
-            OnRequestUpdateControllerValue();
+            UpdateController();
         }
 
         internal void Disable()
         {
-            Enabled = false;
+            _enabled = false;
+        }
+
+        internal void UpdateController(IParameter parameter = null)
+        {
+            if (!_enabled) return;
+            if (Function == null) return;
+            if (!(Function is ParameterFunction parameterFunction)) return;
+            if (parameter != null && !parameter.Equals(parameterFunction.Parameter)) return;
+
+            if (parameterFunction.TryGetControllerValue(out var controllerValue, Controller.Range))
+            {
+                Controller.UpdateController(controllerValue);
+            }
         }
 
         public void Dispose()
@@ -72,25 +63,14 @@ namespace LrControl.Core.Mapping
                 Controller = null;
             }
 
-            _function = null;
-        }
-
-        private void OnRequestUpdateControllerValue()
-        {
-            if (!Enabled) return;
-            if (_function == null) return;
-
-            if (_function.UpdateControllerValue(out var controllerValue, Controller.Range))
-            {
-                Controller.UpdateController(controllerValue);
-            }
+            Function = null;
         }
 
         private void OnControllerValueChanged(int controllerValue)
         {
-            if (!Enabled) return;
+            if (!_enabled) return;
 
-            _function?.ControllerValueChanged(controllerValue, Controller.Range);
+            Function?.ControllerValueChanged(controllerValue, Controller.Range);
         }
     }
 }

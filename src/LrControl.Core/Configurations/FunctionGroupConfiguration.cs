@@ -12,10 +12,10 @@ namespace LrControl.Core.Configurations
         {
         }
 
-        public FunctionGroupConfiguration(FunctionGroup functionGroup)
+        public FunctionGroupConfiguration(ControllerFunctionGroup controllerFunctionGroup)
         {
-            Key = functionGroup.Key;
-            ControllerFunctions = functionGroup.ControllerFunctions
+            Key = controllerFunctionGroup.Key;
+            ControllerFunctions = controllerFunctionGroup.ControllerFunctions
                 .Select(x => new ControllerFunctionConfiguration(x))
                 .ToList();
         }
