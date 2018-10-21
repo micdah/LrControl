@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.LrPlugin", "LrControl.LrPlugin\LrControl.LrPlugin.csproj", "{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.LrPlugin", "src\LrControl.LrPlugin\LrControl.LrPlugin.csproj", "{5E5DD1DF-4E81-459D-B8F7-690D78AEB31F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.LrPlugin.Api", "LrControl.LrPlugin.Api\LrControl.LrPlugin.Api.csproj", "{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.LrPlugin.Api", "src\LrControl.LrPlugin.Api\LrControl.LrPlugin.Api.csproj", "{F2948233-7CA5-41B8-84EC-0DD3C8D3176F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Core", "LrControl.Core\LrControl.Core.csproj", "{F2E03799-9ABC-4A52-B702-25F226E4AA98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LrControl.Core", "src\LrControl.Core\LrControl.Core.csproj", "{F2E03799-9ABC-4A52-B702-25F226E4AA98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Console", "LrControl.Console\LrControl.Console.csproj", "{AFCD0C58-E6C9-4088-B151-2154861E4FA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Console", "src\LrControl.Console\LrControl.Console.csproj", "{AFCD0C58-E6C9-4088-B151-2154861E4FA4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7AFDBE3-813C-498B-AFB8-716B3DE24DD8}"
 ProjectSection(SolutionItems) = preProject
@@ -20,9 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{2A71
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LrPlugin", "LrPlugin", "{9C2EAA5E-752D-4EE3-A402-7696DC8F0E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "LrControl\LrControl.csproj", "{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl", "src\LrControl\LrControl.csproj", "{F90E2B71-A137-4FBA-8B86-3233CA5A9BCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Tests", "LrControl.Tests\LrControl.Tests.csproj", "{6CB748CD-B670-4270-A271-7A840E9318D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LrControl.Tests", "src\LrControl.Tests\LrControl.Tests.csproj", "{6CB748CD-B670-4270-A271-7A840E9318D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
