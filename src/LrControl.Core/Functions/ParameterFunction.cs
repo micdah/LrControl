@@ -1,3 +1,4 @@
+using System;
 using LrControl.Core.Configurations;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
@@ -5,14 +6,17 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions
 {
-    internal class ParameterFunction<T> : Function
+    internal class ParameterFunction : Function
     {
-        protected readonly IParameter<T> Parameter;
+        protected readonly IParameter Parameter;
         protected Range ParameterRange;
         
-        public ParameterFunction(ISettings settings, ILrApi api, string displayName, string key, IParameter<T> parameter)
+        public ParameterFunction(ISettings settings, ILrApi api, string displayName, string key, IParameter parameter)
             : base(settings, api, displayName, key)
         {
+            if (!(parameter is IParameter<int>) && !(parameter is IParameter<double>))
+                throw new ArgumentException("Unsupported parameter type", nameof(parameter));
+            
             Parameter = parameter;
 
             api.LrDevelopController.AddParameterChangedListener(parameter, RequestUpdateControllerValue);

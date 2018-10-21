@@ -33,9 +33,9 @@ namespace LrControl.Core.Functions.Factories
                 case IParameter<double> temperatureParameter when ReferenceEquals(temperatureParameter, AdjustPanelParameter.Temperature):
                     return new TemperatureParameterFunction(settings, api, DisplayName, Key, temperatureParameter);
                 case IParameter<int> intParameter:
-                    return new ParameterFunction<int>(settings, api, DisplayName, Key, intParameter);
+                    return new ParameterFunction(settings, api, DisplayName, Key, intParameter);
                 case IParameter<double> doubleParameter:
-                    return new ParameterFunction<double>(settings, api, DisplayName, Key, doubleParameter);
+                    return new ParameterFunction(settings, api, DisplayName, Key, doubleParameter);
                 case IParameter<bool> boolParameter:
                     return new ToggleParameterFunction(settings, api, DisplayName, Key, boolParameter);
                 default:

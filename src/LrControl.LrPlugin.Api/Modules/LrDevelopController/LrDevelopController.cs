@@ -38,6 +38,8 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
                 (p, parameterChanged) => parameterChanged - handler);
         }
 
+        public event ParameterChangedHandler ParameterChanged;
+
         public bool Decrement(IParameter param)
         {
             return Invoke(nameof(Decrement), param);
@@ -223,8 +225,13 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
         {
             foreach (var parameterName in parameterNames.Split(','))
             {
+                // Lookup IParameter based on unique name
                 if (!_parameterLookup.TryGetValue(parameterName, out var parameter)) return;
 
+                // Invoke unfiltered parameter change listeners
+                ParameterChanged?.Invoke(parameter);
+                
+                // Invoke filtered parameter change listeners
                 if (_parameterChangedHandlers.TryGetValue(parameter, out var handler))
                 {
                     handler(parameter);

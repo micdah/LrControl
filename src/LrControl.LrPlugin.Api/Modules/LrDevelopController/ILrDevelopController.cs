@@ -9,8 +9,24 @@ namespace LrControl.LrPlugin.Api.Modules.LrDevelopController
     [LuaNativeModule("LrDevelopController")]
     public interface ILrDevelopController
     {
+        /// <summary>
+        /// Add parameter change listener, which is only invoked when <paramref name="parameter"/> changes
+        /// </summary>
+        /// <param name="parameter">Parameter to listen for</param>
+        /// <param name="handler">Handler to invoke on change</param>
         void AddParameterChangedListener(IParameter parameter, ParameterChangedHandler handler);
+        
+        /// <summary>
+        /// Remove parameter change listener
+        /// </summary>
+        /// <param name="parameter">Parameter listened for</param>
+        /// <param name="handler">Handler to remove</param>
         void RemoveParameterChangedListener(IParameter parameter, ParameterChangedHandler handler);
+
+        /// <summary>
+        /// Invoked whenever any parameter changes
+        /// </summary>
+        event ParameterChangedHandler ParameterChanged;
 
         /// <summary>
         ///     Increments the value of a Develop adjustment.
