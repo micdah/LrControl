@@ -15,9 +15,9 @@ namespace LrControl.Core.Functions
             _parameter = parameter;
         }
 
-        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
+        public override void Apply(int value, Range range)
         {
-            if (!controllerRange.IsMaximum(controllerValue)) return;
+            if (!range.IsMaximum(value)) return;
 
             if (Api.LrDevelopController.GetValue(out var enabled, _parameter))
             {

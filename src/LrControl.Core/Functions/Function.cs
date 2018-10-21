@@ -20,7 +20,7 @@ namespace LrControl.Core.Functions
         public string Key { get; }
         public string DisplayName { get; }
 
-        public abstract void ControllerValueChanged(int controllerValue, Range controllerRange);
+        public abstract void Apply(int value, Range range);
 
         protected void ShowHud(string message)
         {

@@ -17,9 +17,9 @@ namespace LrControl.Core.Functions
             _operation = operation;
         }
 
-        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
+        public override void Apply(int value, Range range)
         {
-            if (!controllerRange.IsMaximum(controllerValue)) return;
+            if (!range.IsMaximum(value)) return;
 
             switch (_operation)
             {

@@ -21,11 +21,11 @@ namespace LrControl.Core.Functions
         
         public IParameter Parameter { get; }
 
-        public override void ControllerValueChanged(int controllerValue, Range controllerRange)
+        public override void Apply(int value, Range range)
         {
-            if (!UpdateRange(controllerRange)) return;
+            if (!UpdateRange(range)) return;
 
-            var parameterValue = CalculateParameterValue(controllerValue, controllerRange);
+            var parameterValue = CalculateParameterValue(value, range);
             switch (Parameter)
             {
                 case IParameter<int> intParameter:

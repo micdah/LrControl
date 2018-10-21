@@ -16,10 +16,10 @@ namespace LrControl.Core.Functions
         string DisplayName { get; }
 
         /// <summary>
-        /// Controller value has changed, apply function
+        /// Apply function using <paramref name="value"/> which is bounded to <paramref name="range"/>
         /// </summary>
-        /// <param name="controllerValue">Controller value</param>
-        /// <param name="controllerRange">Range of controller value</param>
-        void ControllerValueChanged(int controllerValue, Range controllerRange);
+        /// <param name="value">Value to use when applying function</param>
+        /// <param name="range">Range value must be bounded to</param>
+        void Apply(int value, Range range);
     }
 }
