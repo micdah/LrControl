@@ -9,31 +9,17 @@ namespace LrControl.Core.Functions.Catalog
     {
         private static IFunctionCatalogGroup CreateUndoGroup(ISettings settings, ILrApi api)
         {
+            IEnumerable<IFunctionFactory> CreateFactories()
+            {
+                yield return new UndoRedoFunctionFactory(settings, api, UndoRedoFunction.Operation.Undo);
+                yield return new UndoRedoFunctionFactory(settings, api, UndoRedoFunction.Operation.Redo);
+            }
+            
             return new FunctionCatalogGroup
             {
                 DisplayName = "Undo",
                 Key = "LrUndo",
-                Functions = new List<IFunctionFactory>(new[]
-                {
-                    new MethodFunctionFactory(settings, api, "Undo", "Undo", a =>
-                    {
-                        api.LrUndo.CanUndo(out var canUndo);
-                        if (canUndo)
-                        {
-                            api.LrDevelopController.StopTracking();
-                            api.LrUndo.Undo();
-                        }
-                    }),
-                    new MethodFunctionFactory(settings, api, "Redo", "Redo", a =>
-                    {
-                        api.LrUndo.CanRedo(out var canRedo);
-                        if (canRedo)
-                        {
-                            api.LrDevelopController.StopTracking();
-                            api.LrUndo.Redo();
-                        }
-                    }), 
-                })
+                Functions = new List<IFunctionFactory>(CreateFactories())
             };
         }
     }
