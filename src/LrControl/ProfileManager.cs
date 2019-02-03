@@ -6,6 +6,7 @@ using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.Profiles;
 
 namespace LrControl
 {
@@ -33,17 +34,43 @@ namespace LrControl
 
         public void AssignFunction(Module module, ControllerId controllerId, IFunction function)
         {
+            if (module == null)
+                throw new ArgumentNullException(nameof(module));
+            if (function == null)
+                throw new ArgumentNullException(nameof(function));
+            
             ActiveModuleProfile.AssignFunction(controllerId, function);
         }
 
         public void AssignDevelopFunction(Panel panel, ControllerId controllerId, IFunction function)
         {
+            if (panel == null)
+                throw new ArgumentNullException(nameof(panel));
+            if (function == null)
+                throw new ArgumentNullException(nameof(function));
+            
             _developModuleProfile.AssignFunction(panel, controllerId, function);
+        }
+
+        public void ClearFunction(Module module, ControllerId controllerId)
+        {
+            if (module == null)
+                throw new ArgumentNullException(nameof(module));
+
+            ActiveModuleProfile.ClearFunction(controllerId);
+        }
+
+        public void ClearDevelopFunction(Panel panel, ControllerId controllerId)
+        {
+            if (panel == null)
+                throw new ArgumentNullException(nameof(panel));
+
+            _developModuleProfile.ClearFunction(panel, controllerId);
         }
 
         public void OnControllerInput(ControllerId controllerId, Range range, int value)
         {
-            ActiveModuleProfile.OnControllerInput(controllerId, range, value);
+            ActiveModuleProfile.OnControllerInput(controllerId, value, range);
         }
 
         private IModuleProfile ActiveModuleProfile => 
@@ -53,58 +80,12 @@ namespace LrControl
 
         private void OnModuleChanged(Module module)
         {
-            if (module == null)
-                throw new ArgumentNullException(nameof(module));
-            
             _activeModule = module;
         }
 
         public void Dispose()
         {
             _lrApi.LrApplicationView.ModuleChanged -= OnModuleChanged;
-        }
-    }
-
-    public interface IModuleProfile
-    {
-        Module Module { get; }
-
-        void AssignFunction(ControllerId controllerId, IFunction function);
-
-        void OnControllerInput(ControllerId controllerId, Range range, int value);
-    }
-
-    public class ModuleProfile : IModuleProfile
-    {
-        public Module Module { get; }
-
-        public ModuleProfile(Module module)
-        {
-            Module = module;
-        }
-
-        public void AssignFunction(ControllerId controllerId, IFunction function)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class DevelopModuleProfile : IModuleProfile
-    {
-        public Module Module => Module.Develop;
-
-        public DevelopModuleProfile()
-        {
-        }
-
-        public void AssignFunction(ControllerId controllerId, IFunction function)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AssignFunction(Panel panel, ControllerId controllerId, IFunction function)
-        {
-            throw new NotImplementedException();
         }
     }
 }
