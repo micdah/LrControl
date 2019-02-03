@@ -10,5 +10,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LrControl.LrPlugin.Api\LrControl.LrPlugin.Api.csproj" />
+    <ProjectReference Include="..\LrControl\LrControl.csproj" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace LrControl.LrPlugin.Api.Common
 {
-    public abstract class Enumeration<TEnum, TValue> : IEnumeration<TValue>
+    public abstract class Enumeration<TEnum, TValue> : IEnumeration<TValue>, IEquatable<Enumeration<TEnum, TValue>>
         where TEnum : IEnumeration<TValue>
         where TValue : IComparable
     {
@@ -39,16 +39,35 @@ namespace LrControl.LrPlugin.Api.Common
             return Value.CompareTo(((TEnum) other).Value);
         }
 
+        public static bool operator ==(Enumeration<TEnum, TValue> some, Enumeration<TEnum, TValue> other)
+        {
+            if (ReferenceEquals(some, null))
+                return ReferenceEquals(other, null);
+
+            if (ReferenceEquals(other, null))
+                return false;
+
+            return some.Equals(other);
+        }
+
+        public static bool operator !=(Enumeration<TEnum, TValue> some, Enumeration<TEnum, TValue> other)
+        {
+            return !(some == other);
+        }
+        
+        public bool Equals(Enumeration<TEnum, TValue> other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+        }
+
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Enumeration<TEnum, TValue>) obj);
-        }
-
-        private bool Equals(IEnumeration<TValue> other)
-        {
-            return EqualityComparer<TValue>.Default.Equals(Value, other.Value);
+            if (obj.GetType() != GetType()) return false;
+            return Equals((Enumeration<TEnum, TValue>) obj);
         }
 
         public override int GetHashCode()

@@ -1,4 +1,6 @@
-﻿namespace LrControl.Core.Functions.Factories
+﻿using LrControl.Functions;
+
+namespace LrControl.Core.Functions.Factories
 {
     public interface IFunctionFactory
     {
