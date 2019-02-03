@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using LrControl.Configurations;
 using LrControl.Core.Configurations;
 using LrControl.Core.Functions;
 using LrControl.Core.Functions.Catalog;

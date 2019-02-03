@@ -1,4 +1,5 @@
 using System;
+using LrControl.Configurations;
 using LrControl.Core.Configurations;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api;

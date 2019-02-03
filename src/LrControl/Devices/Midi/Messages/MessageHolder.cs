@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace LrControl.Core.Midi.Messages
+namespace LrControl.Devices.Midi.Messages
 {
     internal abstract class MessageHolder
     {

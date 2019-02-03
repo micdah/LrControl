@@ -1,3 +1,4 @@
+using LrControl.Configurations;
 using LrControl.Core.Configurations;
 using LrControl.Core.Mapping;
 using LrControl.LrPlugin.Api;

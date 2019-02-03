@@ -2,21 +2,12 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
+using LrControl.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Util;
 
 namespace LrControl.Core.Configurations
 {
-    public interface ISettings : INotifyPropertyChanged
-    {
-        bool ShowHudMessages { get; set; }
-        bool StartMinimized { get; set; }
-        bool SaveConfigurationOnExit { get; set; }
-        int ParameterUpdateFrequency { get; set; }
-        string LastUsedInputDevice { get; }
-        string LastUsedOutputDevice { get; }
-    }
-
     public class Settings : ISettings
     {
         private static readonly string SettingsFile = Path.Combine("..", "Settings", "Settings.xml");

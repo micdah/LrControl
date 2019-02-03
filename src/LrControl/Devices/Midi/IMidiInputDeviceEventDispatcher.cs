@@ -1,6 +1,6 @@
 using RtMidi.Core.Messages;
 
-namespace LrControl.Core.Midi
+namespace LrControl.Devices.Midi
 {
     internal interface IMidiInputDeviceEventDispatcher
     {

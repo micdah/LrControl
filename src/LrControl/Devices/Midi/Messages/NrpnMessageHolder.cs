@@ -1,6 +1,6 @@
 using RtMidi.Core.Messages;
 
-namespace LrControl.Core.Midi.Messages
+namespace LrControl.Devices.Midi.Messages
 {
     internal class NrpnMessageHolder : MessageHolder<NrpnMessage>
     {

@@ -3,16 +3,16 @@ using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
-using LrControl.Core.Configurations;
-using LrControl.Core.Midi.Messages;
+using LrControl.Configurations;
+using LrControl.Devices.Midi.Messages;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Nrpn;
 using RtMidi.Core.Messages;
 using Serilog;
 
-namespace LrControl.Core.Midi
+namespace LrControl.Devices.Midi
 {
-    internal class InputDeviceDecorator : IMidiInputDevice, IMidiInputDeviceEventDispatcher
+    public class InputDeviceDecorator : IMidiInputDevice, IMidiInputDeviceEventDispatcher
     {
         private delegate MessageHolder<TMessage> MessageHolderFactory<TMessage>(in TMessage msg)
             where TMessage : struct;

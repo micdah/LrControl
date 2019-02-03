@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using LrControl.Configurations;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Functions.Catalog;
