@@ -1,25 +1,24 @@
-﻿using System;
-using RtMidi.Core.Devices;
+﻿using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Infos;
 
-namespace LrControl.Core.Devices
+namespace LrControl.Devices
 {
     public class InputDeviceInfo
     {
         private readonly IMidiInputDevice _midiInputDevice;
         private readonly IMidiInputDeviceInfo _midiInputDeviceInfo;
         
-        internal InputDeviceInfo(IMidiInputDeviceInfo midiInputDeviceInfo)
+        public InputDeviceInfo(IMidiInputDeviceInfo midiInputDeviceInfo)
         {
             _midiInputDeviceInfo = midiInputDeviceInfo;
         }
 
-        internal InputDeviceInfo(IMidiInputDevice midiInputDevice)
+        public InputDeviceInfo(IMidiInputDevice midiInputDevice)
         {
             _midiInputDevice = midiInputDevice;
         }
 
-        internal IMidiInputDevice CreateDevice()
+        public IMidiInputDevice CreateDevice()
         {
             return _midiInputDevice ?? _midiInputDeviceInfo.CreateDevice();
         }

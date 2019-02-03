@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using LrControl.Configurations;
 using LrControl.Core.Devices;
 using LrControl.Core.Util;
+using LrControl.Devices;
 
 namespace LrControl.Core.Configurations
 {

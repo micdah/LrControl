@@ -5,6 +5,7 @@ using System.Linq;
 using LrControl.Configurations;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices.Enums;
+using LrControl.Devices;
 using LrControl.Devices.Midi;
 using LrControl.LrPlugin.Api.Common;
 using RtMidi.Core.Devices;

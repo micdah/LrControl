@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
-    internal class DevelopModuleProfile : ModuleProfile
+    public class DevelopModuleProfile : ModuleProfile
     {
         private Dictionary<(Panel, ControllerId), IFunction> _panelFunctions =
             new Dictionary<(Panel, ControllerId), IFunction>();

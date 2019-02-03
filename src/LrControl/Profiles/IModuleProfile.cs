@@ -5,7 +5,7 @@ using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 
 namespace LrControl.Profiles
 {
-    internal interface IModuleProfile
+    public interface IModuleProfile
     {
         Module Module { get; }
 
