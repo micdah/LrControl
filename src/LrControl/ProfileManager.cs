@@ -49,7 +49,7 @@ namespace LrControl
             ActiveModuleProfile.AssignFunction(controllerId, function);
         }
 
-        public void AssignDevelopFunction(Panel panel, ControllerId controllerId, IFunction function)
+        public void AssignPanelFunction(Panel panel, ControllerId controllerId, IFunction function)
         {
             if (panel == null)
                 throw new ArgumentNullException(nameof(panel));
@@ -67,7 +67,7 @@ namespace LrControl
             ActiveModuleProfile.ClearFunction(controllerId);
         }
 
-        public void ClearDevelopFunction(Panel panel, ControllerId controllerId)
+        public void ClearPanelFunction(Panel panel, ControllerId controllerId)
         {
             if (panel == null)
                 throw new ArgumentNullException(nameof(panel));
