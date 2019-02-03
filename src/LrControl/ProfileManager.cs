@@ -15,7 +15,6 @@ namespace LrControl
         private readonly ILrApi _lrApi;
         private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
         private readonly DevelopModuleProfile _developModuleProfile;
-        private Module _activeModule = Module.Web;
         
         public ProfileManager(ILrApi lrApi)
         {
@@ -30,6 +29,14 @@ namespace LrControl
             _developModuleProfile = new DevelopModuleProfile();
             
             lrApi.LrApplicationView.ModuleChanged += OnModuleChanged;
+        }
+
+        public Module ActiveModule { get; set; } = Module.Web;
+
+        public Panel ActivePanel
+        {
+            get => _developModuleProfile.ActivePanel;
+            set => _developModuleProfile.ActivePanel = value;
         }
 
         public void AssignFunction(Module module, ControllerId controllerId, IFunction function)
@@ -74,13 +81,13 @@ namespace LrControl
         }
 
         private IModuleProfile ActiveModuleProfile => 
-            _activeModule == Module.Develop 
+            ActiveModule == Module.Develop 
                 ? _developModuleProfile 
-                : _moduleProfiles[_activeModule];
+                : _moduleProfiles[ActiveModule];
 
         private void OnModuleChanged(Module module)
         {
-            _activeModule = module;
+            ActiveModule = module;
         }
 
         public void Dispose()

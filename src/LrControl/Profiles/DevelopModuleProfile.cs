@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
@@ -9,7 +9,11 @@ namespace LrControl.Profiles
 {
     internal class DevelopModuleProfile : ModuleProfile
     {
+        private Dictionary<(Panel, ControllerId), IFunction> _panelFunctions =
+            new Dictionary<(Panel, ControllerId), IFunction>();
+        
         public override Module Module => Module.Develop;
+        public Panel ActivePanel { get; set; }
 
         public DevelopModuleProfile() : base(Module.Develop)
         {
@@ -17,17 +21,25 @@ namespace LrControl.Profiles
 
         public void AssignFunction(Panel panel, ControllerId controllerId, IFunction function)
         {
-            throw new NotImplementedException();
+            _panelFunctions[(panel, controllerId)] = function;
         }
 
         public void ClearFunction(Panel panel, ControllerId controllerId)
         {
-            
+            _panelFunctions.Remove((panel, controllerId));
         }
 
         public override void OnControllerInput(ControllerId controllerId, int value, Range range)
         {
-            throw new NotImplementedException();
+            if (ActivePanel != null &&
+                _panelFunctions.TryGetValue((ActivePanel, controllerId), out var function))
+            {
+                function.Apply(value, range);
+            }
+            else
+            {
+                base.OnControllerInput(controllerId, value, range);
+            }
         }
     }
 }
