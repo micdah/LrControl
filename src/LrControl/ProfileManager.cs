@@ -8,14 +8,14 @@ namespace LrControl
 {
     public class ProfileManager : IDisposable
     {
-        private readonly LrApi _lrApi;
+        private readonly ILrApi _lrApi;
         private readonly Dictionary<Module, Profile> _moduleProfiles;
         private readonly Dictionary<Panel, Profile> _panelProfiles;
 
         private Profile _activeModuleProfile;
         private Profile _activePanelProfile;
         
-        public ProfileManager(LrApi lrApi)
+        public ProfileManager(ILrApi lrApi)
         {
             _lrApi = lrApi;
             _moduleProfiles = new Dictionary<Module, Profile>();
