@@ -9,7 +9,7 @@ namespace LrControl.Profiles
 {
     public class DevelopModuleProfile : ModuleProfile
     {
-        private Dictionary<(Panel, ControllerId), IFunction> _panelFunctions =
+        private readonly Dictionary<(Panel, ControllerId), IFunction> _panelFunctions =
             new Dictionary<(Panel, ControllerId), IFunction>();
         
         public override Module Module => Module.Develop;
