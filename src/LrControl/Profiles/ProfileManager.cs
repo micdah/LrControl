@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using LrControl.Devices;
 using LrControl.Functions;
-using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
-    public interface IProfileManager : IDisposable
+    public interface IProfileManager
     {
         Module ActiveModule { get; set; }
         Panel ActivePanel { get; set; }
@@ -17,19 +16,17 @@ namespace LrControl.Profiles
         void AssignPanelFunction(Panel panel, in ControllerId controllerId, IFunction function);
         void ClearFunction(Module module, in ControllerId controllerId);
         void ClearPanelFunction(Panel panel, in ControllerId controllerId);
+        void OnModuleChanged(Module module);
         void OnControllerInput(in ControllerId controllerId, Range range, int value);
     }
 
     public class ProfileManager : IProfileManager
     {
-        private readonly ILrApi _lrApi;
         private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
         private readonly DevelopModuleProfile _developModuleProfile;
         
-        public ProfileManager(ILrApi lrApi)
+        public ProfileManager()
         {
-            _lrApi = lrApi;
-
             // Initialize module profiles
             foreach (var module in Module.GetAll())
             {
@@ -37,11 +34,9 @@ namespace LrControl.Profiles
                     _moduleProfiles[module] = new ModuleProfile(module);
             }
             _developModuleProfile = new DevelopModuleProfile();
-            
-            lrApi.LrApplicationView.ModuleChanged += OnModuleChanged;
         }
 
-        public Module ActiveModule { get; set; } = Module.Web;
+        public Module ActiveModule { get; set; } = Module.Library;
 
         public Panel ActivePanel
         {
@@ -55,8 +50,8 @@ namespace LrControl.Profiles
                 throw new ArgumentNullException(nameof(module));
             if (function == null)
                 throw new ArgumentNullException(nameof(function));
-            
-            ActiveModuleProfile.AssignFunction(controllerId, function);
+
+            GetProfileForModule(module).AssignFunction(controllerId, function);
         }
 
         public void AssignPanelFunction(Panel panel, in ControllerId controllerId, IFunction function)
@@ -74,7 +69,7 @@ namespace LrControl.Profiles
             if (module == null)
                 throw new ArgumentNullException(nameof(module));
 
-            ActiveModuleProfile.ClearFunction(controllerId);
+            GetProfileForModule(module).ClearFunction(controllerId);
         }
 
         public void ClearPanelFunction(Panel panel, in ControllerId controllerId)
@@ -85,24 +80,19 @@ namespace LrControl.Profiles
             _developModuleProfile.ClearFunction(panel, controllerId);
         }
 
-        public void OnControllerInput(in ControllerId controllerId, Range range, int value)
-        {
-            ActiveModuleProfile.OnControllerInput(controllerId, value, range);
-        }
-
-        private IModuleProfile ActiveModuleProfile => 
-            ActiveModule == Module.Develop 
-                ? _developModuleProfile 
-                : _moduleProfiles[ActiveModule];
-
-        private void OnModuleChanged(Module module)
+        public void OnModuleChanged(Module module)
         {
             ActiveModule = module;
         }
 
-        public void Dispose()
+        public void OnControllerInput(in ControllerId controllerId, Range range, int value)
         {
-            _lrApi.LrApplicationView.ModuleChanged -= OnModuleChanged;
+            GetProfileForModule(ActiveModule).OnControllerInput(controllerId, value, range);
         }
+
+        private IModuleProfile GetProfileForModule(Module module)
+            => module == Module.Develop
+                ? _developModuleProfile
+                : _moduleProfiles[module];
     }
 }

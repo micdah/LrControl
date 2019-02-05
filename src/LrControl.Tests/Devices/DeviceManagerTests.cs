@@ -109,5 +109,25 @@ namespace LrControl.Tests.Devices
             Assert.NotNull(info);
             Assert.Equal(msg1.Value, info.LastValue);
         }
+
+        [Fact]
+        public void Clear_Should_Clear_All_Tracked_Controller_Infos()
+        {
+            // Setup
+            var msg = new NrpnMessage(Channel.Channel1, 12, 24);
+            var id = new ControllerId(msg);
+
+            // Test
+            Assert.Null(_deviceManager.ControllerInfos.SingleOrDefault(x => x.ControllerId == id));
+            
+            _inputDevice.OnNrpn(msg);
+            Assert.True(_controllerInput.TryTake(out _, Wait));
+            Assert.NotNull(_deviceManager.ControllerInfos.SingleOrDefault(x => x.ControllerId == id));
+
+            _deviceManager.Clear();
+            Assert.Null(_deviceManager.ControllerInfos.SingleOrDefault(x => x.ControllerId == id));
+        }
+        
+        // TODO Test output device related methods
     }
 }
