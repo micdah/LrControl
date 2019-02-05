@@ -9,8 +9,8 @@ namespace LrControl.Profiles
     {
         Module Module { get; }
 
-        void AssignFunction(ControllerId controllerId, IFunction function);
-        void ClearFunction(ControllerId controllerId);
-        void OnControllerInput(ControllerId controllerId, int value, Range range);
+        void AssignFunction(in ControllerId controllerId, IFunction function);
+        void ClearFunction(in ControllerId controllerId);
+        void OnControllerInput(in ControllerId controllerId, int value, Range range);
     }
 }

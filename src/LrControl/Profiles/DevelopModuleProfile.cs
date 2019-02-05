@@ -19,17 +19,17 @@ namespace LrControl.Profiles
         {
         }
 
-        public void AssignFunction(Panel panel, ControllerId controllerId, IFunction function)
+        public void AssignFunction(Panel panel, in ControllerId controllerId, IFunction function)
         {
             _panelFunctions[(panel, controllerId)] = function;
         }
 
-        public void ClearFunction(Panel panel, ControllerId controllerId)
+        public void ClearFunction(Panel panel, in ControllerId controllerId)
         {
             _panelFunctions.Remove((panel, controllerId));
         }
 
-        public override void OnControllerInput(ControllerId controllerId, int value, Range range)
+        public override void OnControllerInput(in ControllerId controllerId, int value, Range range)
         {
             if (ActivePanel != null &&
                 _panelFunctions.TryGetValue((ActivePanel, controllerId), out var function))

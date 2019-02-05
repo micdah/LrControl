@@ -17,17 +17,17 @@ namespace LrControl.Profiles
             Module = module;
         }
 
-        public void AssignFunction(ControllerId controllerId, IFunction function)
+        public void AssignFunction(in ControllerId controllerId, IFunction function)
         {
             _functions[controllerId] = function;
         }
 
-        public void ClearFunction(ControllerId controllerId)
+        public void ClearFunction(in ControllerId controllerId)
         {
             _functions.Remove(controllerId);
         }
 
-        public virtual void OnControllerInput(ControllerId controllerId, int value, Range range)
+        public virtual void OnControllerInput(in ControllerId controllerId, int value, Range range)
         {
             if (_functions.TryGetValue(controllerId, out var function))
             {

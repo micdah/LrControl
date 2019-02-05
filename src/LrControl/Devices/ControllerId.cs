@@ -60,12 +60,12 @@ namespace LrControl.Devices
         public Channel Channel { get; }
         public int Parameter { get; }
 
-        public static bool operator ==(ControllerId some, ControllerId other)
+        public static bool operator ==(in ControllerId some, in ControllerId other)
         {
             return some.Equals(other);
         }
 
-        public static bool operator !=(ControllerId some, ControllerId other)
+        public static bool operator !=(in ControllerId some, in ControllerId other)
         {
             return !some.Equals(other);
         }

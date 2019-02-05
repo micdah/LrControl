@@ -39,7 +39,7 @@ namespace LrControl
             set => _developModuleProfile.ActivePanel = value;
         }
 
-        public void AssignFunction(Module module, ControllerId controllerId, IFunction function)
+        public void AssignFunction(Module module, in ControllerId controllerId, IFunction function)
         {
             if (module == null)
                 throw new ArgumentNullException(nameof(module));
@@ -49,7 +49,7 @@ namespace LrControl
             ActiveModuleProfile.AssignFunction(controllerId, function);
         }
 
-        public void AssignPanelFunction(Panel panel, ControllerId controllerId, IFunction function)
+        public void AssignPanelFunction(Panel panel, in ControllerId controllerId, IFunction function)
         {
             if (panel == null)
                 throw new ArgumentNullException(nameof(panel));
@@ -59,7 +59,7 @@ namespace LrControl
             _developModuleProfile.AssignFunction(panel, controllerId, function);
         }
 
-        public void ClearFunction(Module module, ControllerId controllerId)
+        public void ClearFunction(Module module, in ControllerId controllerId)
         {
             if (module == null)
                 throw new ArgumentNullException(nameof(module));
@@ -67,7 +67,7 @@ namespace LrControl
             ActiveModuleProfile.ClearFunction(controllerId);
         }
 
-        public void ClearPanelFunction(Panel panel, ControllerId controllerId)
+        public void ClearPanelFunction(Panel panel, in ControllerId controllerId)
         {
             if (panel == null)
                 throw new ArgumentNullException(nameof(panel));
@@ -75,7 +75,7 @@ namespace LrControl
             _developModuleProfile.ClearFunction(panel, controllerId);
         }
 
-        public void OnControllerInput(ControllerId controllerId, Range range, int value)
+        public void OnControllerInput(in ControllerId controllerId, Range range, int value)
         {
             ActiveModuleProfile.OnControllerInput(controllerId, value, range);
         }

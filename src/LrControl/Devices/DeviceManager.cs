@@ -100,7 +100,7 @@ namespace LrControl.Devices
             _controllers.Clear();
         }
 
-        private void OnInput(ControllerId controllerId, int value)
+        private void OnInput(in ControllerId controllerId, int value)
         {
             _controllers.GetOrAdd(controllerId,
                     id => new Controller(id, new Range(value, value), _profileManager))

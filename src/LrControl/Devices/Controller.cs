@@ -9,7 +9,7 @@ namespace LrControl.Devices
         public Range Range { get; }
         public int LastValue { get; private set; }
 
-        public Controller(ControllerId controllerId, Range initialRange, ProfileManager profileManager)
+        public Controller(in ControllerId controllerId, Range initialRange, ProfileManager profileManager)
         {
             _profileManager = profileManager;
             ControllerId = controllerId;
