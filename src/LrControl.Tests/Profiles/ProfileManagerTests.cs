@@ -86,6 +86,23 @@ namespace LrControl.Tests.Profiles
         }
 
         [Fact]
+        public void Should_Clear_Function()
+        {
+            // Setup
+            var function = new TestFunction();
+            _profileManager.AssignFunction(DefaultModule, _id, function);
+
+            // Test
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.Equal(1, function.ApplyCount);
+
+            _profileManager.ClearFunction(DefaultModule, _id);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.Equal(1, function.ApplyCount);
+
+        }
+
+        [Fact]
         public void Should_Clear_Module_Function()
         {
             // Setup
@@ -154,6 +171,49 @@ namespace LrControl.Tests.Profiles
 
             Assert.Equal(1, basicFunction.ApplyCount);
             Assert.Equal(1, detailFunction.ApplyCount);
+        }
+
+        [Fact]
+        public void Should_Clear_Panel_Function_When_Set_To_Null()
+        {
+            // Setup
+            var function = new TestFunction();
+            _profileManager.AssignPanelFunction(Panel.Basic, _id, function);
+            _profileManager.OnModuleChanged(Module.Develop);
+            _profileManager.OnPanelChanged(Panel.Basic);
+
+            // Test
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.Equal(1, function.ApplyCount);
+
+            _profileManager.ClearPanelFunction(Panel.Basic, _id);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.Equal(1, function.ApplyCount);
+        }
+
+        [Fact]
+        public void Should_Apply_Develop_Module_Function_Unless_Panel_Function_Also_Defined()
+        {
+            // Setup
+            var moduleFunction = new TestFunction();
+            var panelFunction = new TestFunction();
+
+            _profileManager.AssignFunction(Module.Develop, _id, moduleFunction);
+            _profileManager.AssignPanelFunction(Panel.ToneCurve, _id, panelFunction);
+            
+            _profileManager.OnModuleChanged(Module.Develop);
+            _profileManager.OnPanelChanged(Panel.Basic);
+
+            // Should apply module function as no panel function defined
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.Equal(1, moduleFunction.ApplyCount);
+            Assert.Equal(0, panelFunction.ApplyCount);
+            
+            // Should apply panel function, as panel function defined
+            _profileManager.OnPanelChanged(Panel.ToneCurve);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.Equal(1, moduleFunction.ApplyCount);
+            Assert.Equal(1, panelFunction.ApplyCount);
         }
     }
 }

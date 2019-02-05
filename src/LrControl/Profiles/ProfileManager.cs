@@ -10,8 +10,8 @@ namespace LrControl.Profiles
 {
     public interface IProfileManager
     {
-        Module ActiveModule { get; set; }
-        Panel ActivePanel { get; set; }
+        Module ActiveModule { get; }
+        Panel ActivePanel { get; }
         void AssignFunction(Module module, in ControllerId controllerId, IFunction function);
         void AssignPanelFunction(Panel panel, in ControllerId controllerId, IFunction function);
         void ClearFunction(Module module, in ControllerId controllerId);
@@ -37,12 +37,12 @@ namespace LrControl.Profiles
             _developModuleProfile = new DevelopModuleProfile();
         }
 
-        public Module ActiveModule { get; set; } = Module.Library;
+        public Module ActiveModule { get; private set; } = Module.Library;
 
         public Panel ActivePanel
         {
             get => _developModuleProfile.ActivePanel;
-            set => _developModuleProfile.ActivePanel = value;
+            private set => _developModuleProfile.ActivePanel = value;
         }
 
         public void AssignFunction(Module module, in ControllerId controllerId, IFunction function)
@@ -88,7 +88,7 @@ namespace LrControl.Profiles
 
         public void OnPanelChanged(Panel panel)
         {
-            throw new NotImplementedException();
+            ActivePanel = panel;
         }
 
         public void OnControllerInput(in ControllerId controllerId, Range range, int value)
