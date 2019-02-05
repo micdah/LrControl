@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using LrControl.Configurations;
 using LrControl.Devices.Midi;
 using LrControl.LrPlugin.Api.Common;
+using LrControl.Profiles;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Messages;
 

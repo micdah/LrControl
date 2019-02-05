@@ -6,9 +6,8 @@ using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
-using LrControl.Profiles;
 
-namespace LrControl
+namespace LrControl.Profiles
 {
     public class ProfileManager : IDisposable
     {

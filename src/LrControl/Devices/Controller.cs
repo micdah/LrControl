@@ -1,4 +1,5 @@
 using LrControl.LrPlugin.Api.Common;
+using LrControl.Profiles;
 
 namespace LrControl.Devices
 {
