@@ -1,6 +1,7 @@
 using LrControl.Devices;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.Profiles;
 using RtMidi.Core.Enums;
 using RtMidi.Core.Messages;
@@ -41,9 +42,9 @@ namespace LrControl.Tests.Profiles
         {
             // Setup
             var function = new TestFunction();
+            _profileManager.AssignFunction(DefaultModule, _id, function);
             
             // Test
-            _profileManager.AssignFunction(DefaultModule, _id, function);
             _profileManager.OnControllerInput(_id, _range, _msg.Value);
 
             // Verify
@@ -58,8 +59,7 @@ namespace LrControl.Tests.Profiles
             // Setup
             var webFunction = new TestFunction();
             var libraryFunction = new TestFunction();
-
-            // Test
+            
             _profileManager.AssignFunction(Module.Web, _id, webFunction);
             _profileManager.AssignFunction(DefaultModule, _id, libraryFunction);
             
@@ -99,6 +99,61 @@ namespace LrControl.Tests.Profiles
             _profileManager.ClearFunction(DefaultModule, _id);
             _profileManager.OnControllerInput(_id, _range, _msg.Value);
             Assert.Equal(1, function.ApplyCount);
+        }
+
+        [Fact]
+        public void Should_Only_Apply_Panel_Function_When_Develop_Module_Is_Active()
+        {
+            // Setup
+            var function = new TestFunction();
+            _profileManager.AssignPanelFunction(Panel.Basic, _id, function);
+
+            // Test
+            _profileManager.OnPanelChanged(Panel.Basic);
+            Assert.Equal(Panel.Basic, _profileManager.ActivePanel);
+
+            // Should not apply function because Develop module is not active
+            Assert.NotEqual(Module.Develop, _profileManager.ActiveModule);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.False(function.Applied);
+            
+            // Should be applied once Develop module is active
+            _profileManager.OnModuleChanged(Module.Develop);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+            Assert.True(function.Applied);
+        }
+
+        [Fact]
+        public void Should_Only_Apply_Function_For_Active_Panel()
+        {
+            // Setup
+            var basicFunction = new TestFunction();
+            var detailFunction = new TestFunction();
+
+            _profileManager.AssignPanelFunction(Panel.Basic, _id, basicFunction);
+            _profileManager.AssignPanelFunction(Panel.Detail, _id, detailFunction);
+            _profileManager.OnModuleChanged(Module.Develop);
+
+            // Should not invoke any function
+            _profileManager.OnPanelChanged(Panel.Effects);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+
+            Assert.Equal(0, basicFunction.ApplyCount);
+            Assert.Equal(0, detailFunction.ApplyCount);
+            
+            // Should only invoke basic panel function
+            _profileManager.OnPanelChanged(Panel.Basic);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+
+            Assert.Equal(1, basicFunction.ApplyCount);
+            Assert.Equal(0, detailFunction.ApplyCount);
+            
+            // Should only invoke detail panel function
+            _profileManager.OnPanelChanged(Panel.Detail);
+            _profileManager.OnControllerInput(_id, _range, _msg.Value);
+
+            Assert.Equal(1, basicFunction.ApplyCount);
+            Assert.Equal(1, detailFunction.ApplyCount);
         }
     }
 }

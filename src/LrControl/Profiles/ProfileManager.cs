@@ -17,6 +17,7 @@ namespace LrControl.Profiles
         void ClearFunction(Module module, in ControllerId controllerId);
         void ClearPanelFunction(Panel panel, in ControllerId controllerId);
         void OnModuleChanged(Module module);
+        void OnPanelChanged(Panel panel);
         void OnControllerInput(in ControllerId controllerId, Range range, int value);
     }
 
@@ -83,6 +84,11 @@ namespace LrControl.Profiles
         public void OnModuleChanged(Module module)
         {
             ActiveModule = module;
+        }
+
+        public void OnPanelChanged(Panel panel)
+        {
+            throw new NotImplementedException();
         }
 
         public void OnControllerInput(in ControllerId controllerId, Range range, int value)
