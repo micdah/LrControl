@@ -1,37 +1,50 @@
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using LrControl.Configurations;
 using LrControl.Devices.Midi;
 using LrControl.LrPlugin.Api.Common;
-using LrControl.Profiles;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Messages;
 
 namespace LrControl.Devices
 {
-    public class DeviceManager
+    public delegate void ControllerInputHandler(in ControllerId controllerId, Range range, int value);
+    
+    public interface IDeviceManager
+    {
+        IInputDeviceInfo InputDevice { get; }
+        IOutputDeviceInfo OutputDevice { get; }
+        IEnumerable<ControllerInfo> ControllerInfos { get; }
+        event ControllerInputHandler ControllerInput;
+        void SetInputDevice(IInputDeviceInfo inputDeviceInfo);
+        void SetOutputDevice(IOutputDeviceInfo outputDeviceInfo);
+        void Clear();   
+    }
+
+    public class DeviceManager : IDeviceManager
     {
         private readonly ISettings _settings;
-        private readonly ProfileManager _profileManager;
-        private readonly ConcurrentDictionary<ControllerId, Controller> _controllers =
-            new ConcurrentDictionary<ControllerId, Controller>();
+        private readonly ConcurrentDictionary<ControllerId, ControllerInfo> _controllers =
+            new ConcurrentDictionary<ControllerId, ControllerInfo>();
         private IMidiInputDevice _inputDevice;
         private IMidiOutputDevice _outputDevice;
         
-        public InputDeviceInfo InputDevice => _inputDevice != null
+        public IInputDeviceInfo InputDevice => _inputDevice != null
             ? new InputDeviceInfo(_inputDevice)
             : null;
 
-        public OutputDeviceInfo OutputDevice => _outputDevice != null
+        public IOutputDeviceInfo OutputDevice => _outputDevice != null
             ? new OutputDeviceInfo(_outputDevice)
             : null;
 
-        public DeviceManager(ISettings settings, ProfileManager profileManager)
+        public IEnumerable<ControllerInfo> ControllerInfos => _controllers.Values;
+
+        public DeviceManager(ISettings settings)
         {
             _settings = settings;
-            _profileManager = profileManager;
         }
         
-        public void SetInputDevice(InputDeviceInfo inputDeviceInfo)
+        public void SetInputDevice(IInputDeviceInfo inputDeviceInfo)
         {
             if (_inputDevice != null)
             {
@@ -73,7 +86,7 @@ namespace LrControl.Devices
             }
         }
 
-        public void SetOutputDevice(OutputDeviceInfo outputDeviceInfo)
+        public void SetOutputDevice(IOutputDeviceInfo outputDeviceInfo)
         {
             if (_outputDevice != null)
             {
@@ -101,11 +114,16 @@ namespace LrControl.Devices
             _controllers.Clear();
         }
 
+        public event ControllerInputHandler ControllerInput;
+
         private void OnInput(in ControllerId controllerId, int value)
         {
-            _controllers.GetOrAdd(controllerId,
-                    id => new Controller(id, new Range(value, value), _profileManager))
-                .OnControllerInput(value);
+            // Update controller info
+            var info = _controllers.GetOrAdd(controllerId, id => new ControllerInfo(id, new Range(value, value)));
+            info.Update(value);
+            
+            // Trigger input event
+            ControllerInput?.Invoke(in controllerId, info.Range, value);
         }
         
         private void InputDeviceOnNoteOff(IMidiInputDevice sender, in NoteOffMessage msg)

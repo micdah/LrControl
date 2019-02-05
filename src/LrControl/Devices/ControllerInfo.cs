@@ -1,23 +1,20 @@
 using LrControl.LrPlugin.Api.Common;
-using LrControl.Profiles;
 
 namespace LrControl.Devices
 {
-    public class Controller
+    public class ControllerInfo
     {
-        private readonly ProfileManager _profileManager;
         public ControllerId ControllerId { get; }
         public Range Range { get; }
         public int LastValue { get; private set; }
 
-        public Controller(in ControllerId controllerId, Range initialRange, ProfileManager profileManager)
+        public ControllerInfo(in ControllerId controllerId, Range initialRange)
         {
-            _profileManager = profileManager;
             ControllerId = controllerId;
             Range = initialRange;
         }
 
-        public void OnControllerInput(int value)
+        public void Update(int value)
         {
             // Update range based on value
             if (value < Range)
@@ -26,8 +23,6 @@ namespace LrControl.Devices
                 Range.Maximum = value;
 
             LastValue = value;
-            
-            _profileManager.OnControllerInput(ControllerId, Range, value);
         }
     }
 }

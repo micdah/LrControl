@@ -3,7 +3,13 @@ using RtMidi.Core.Devices.Infos;
 
 namespace LrControl.Devices
 {
-    public class OutputDeviceInfo
+    public interface IOutputDeviceInfo
+    {
+        IMidiOutputDevice CreateDevice();
+        string Name { get; }
+    }
+
+    public class OutputDeviceInfo : IOutputDeviceInfo
     {
         private readonly IMidiOutputDevice _midiOutputDevice;
         private readonly IMidiOutputDeviceInfo _midiOutputDeviceInfo;

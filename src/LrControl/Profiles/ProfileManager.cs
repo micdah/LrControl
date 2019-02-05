@@ -9,7 +9,18 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
-    public class ProfileManager : IDisposable
+    public interface IProfileManager : IDisposable
+    {
+        Module ActiveModule { get; set; }
+        Panel ActivePanel { get; set; }
+        void AssignFunction(Module module, in ControllerId controllerId, IFunction function);
+        void AssignPanelFunction(Panel panel, in ControllerId controllerId, IFunction function);
+        void ClearFunction(Module module, in ControllerId controllerId);
+        void ClearPanelFunction(Panel panel, in ControllerId controllerId);
+        void OnControllerInput(in ControllerId controllerId, Range range, int value);
+    }
+
+    public class ProfileManager : IProfileManager
     {
         private readonly ILrApi _lrApi;
         private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
