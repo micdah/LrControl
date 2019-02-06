@@ -21,26 +21,33 @@ namespace LrControl.Tests.Profiles
     public class ProfileManagerTests : TestSuite
     {
         private static readonly Module DefaultModule = Module.Library;
-        private readonly Range _range = new Range(0, 255);
+
+        private static readonly ControllerInfo Info1 = new ControllerInfo(
+            new ControllerId(MessageType.Nrpn, Channel.Channel1, 1),
+            new Range(0, 128));
+
+        private static readonly ControllerInfo Info2 = new ControllerInfo(
+            new ControllerId(MessageType.Nrpn, Channel.Channel1, 2),
+            new Range(0, 128));
+        
         private readonly ManualResetEvent _receivedEvent = new ManualResetEvent(false);
-        private readonly ControllerId _id;
         private readonly TestMidiInputDevice _inputDevice;
+        private readonly TestMidiOutputDevice _outputDevice;
         private readonly IProfileManager _profileManager;
-        private int _value = 0;
+        
+        private int _value;
 
         public ProfileManagerTests(ITestOutputHelper output) : base(output)
         {
-            _id = new ControllerId(MessageType.Nrpn, Channel.Channel1, 12);
-
             // Create test device manager
             var settings = new Mock<ISettings>();
-            var deviceManager = new DeviceManager(settings.Object, new[]
-            {
-                new ControllerInfo(_id, _range),
-            });
+            var deviceManager = new DeviceManager(settings.Object, new[] { Info1, Info2 });
+            
             _inputDevice = new TestMidiInputDevice("Test Input Device");
-            var inputDeviceInfo = new TestInputDeviceInfo(_inputDevice);
-            deviceManager.SetInputDevice(inputDeviceInfo);
+            deviceManager.SetInputDevice(new TestInputDeviceInfo(_inputDevice));
+
+            _outputDevice = new TestMidiOutputDevice("Test Output Device");
+            deviceManager.SetOutputDevice(new TestOutputDeviceInfo(_outputDevice));
             
             // Create test profile manager
             _profileManager = new ProfileManager(deviceManager);
@@ -82,14 +89,14 @@ namespace LrControl.Tests.Profiles
         {
             // Setup
             var function = new TestFunction();
-            _profileManager.AssignFunction(DefaultModule, _id, function);
+            _profileManager.AssignFunction(DefaultModule, Info1.ControllerId, function);
 
             // Test
-            OnControllerInput(_id, _value);
+            OnControllerInput(Info1.ControllerId, _value);
 
             // Verify
             Assert.Equal(1, function.ApplyCount);
-            Assert.Equal(_range, function.LastRange);
+            Assert.Equal(Info1.Range, function.LastRange);
             Assert.Equal(_value, function.LastValue);
         }
 
@@ -100,26 +107,26 @@ namespace LrControl.Tests.Profiles
             var webFunction = new TestFunction();
             var libraryFunction = new TestFunction();
 
-            _profileManager.AssignFunction(Module.Web, _id, webFunction);
-            _profileManager.AssignFunction(DefaultModule, _id, libraryFunction);
+            _profileManager.AssignFunction(Module.Web, Info1.ControllerId, webFunction);
+            _profileManager.AssignFunction(DefaultModule, Info1.ControllerId, libraryFunction);
 
             // Should not invoke any function
             _profileManager.OnModuleChanged(Module.Map);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
 
             Assert.Equal(0, webFunction.ApplyCount);
             Assert.Equal(0, libraryFunction.ApplyCount);
 
             // Should only invoke web function when Web module active
             _profileManager.OnModuleChanged(Module.Web);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
 
             Assert.Equal(1, webFunction.ApplyCount);
             Assert.Equal(0, libraryFunction.ApplyCount);
 
             // Should only invoke library function when Library module active
             _profileManager.OnModuleChanged(Module.Library);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
 
             Assert.Equal(1, webFunction.ApplyCount);
             Assert.Equal(1, libraryFunction.ApplyCount);
@@ -130,14 +137,14 @@ namespace LrControl.Tests.Profiles
         {
             // Setup
             var function = new TestFunction();
-            _profileManager.AssignFunction(DefaultModule, _id, function);
+            _profileManager.AssignFunction(DefaultModule, Info1.ControllerId, function);
 
             // Test
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, function.ApplyCount);
 
-            _profileManager.ClearFunction(DefaultModule, _id);
-            OnControllerInput(_id, _value++);
+            _profileManager.ClearFunction(DefaultModule, Info1.ControllerId);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, function.ApplyCount);
         }
 
@@ -148,12 +155,12 @@ namespace LrControl.Tests.Profiles
             var function = new TestFunction();
 
             // Test
-            _profileManager.AssignFunction(DefaultModule, _id, function);
-            OnControllerInput(_id, _value++);
+            _profileManager.AssignFunction(DefaultModule, Info1.ControllerId, function);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, function.ApplyCount);
 
-            _profileManager.ClearFunction(DefaultModule, _id);
-            OnControllerInput(_id, _value++);
+            _profileManager.ClearFunction(DefaultModule, Info1.ControllerId);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, function.ApplyCount);
         }
 
@@ -162,7 +169,7 @@ namespace LrControl.Tests.Profiles
         {
             // Setup
             var function = new TestFunction();
-            _profileManager.AssignPanelFunction(Panel.Basic, _id, function);
+            _profileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, function);
 
             // Test
             _profileManager.OnPanelChanged(Panel.Basic);
@@ -170,12 +177,12 @@ namespace LrControl.Tests.Profiles
 
             // Should not apply function because Develop module is not active
             Assert.NotEqual(Module.Develop, _profileManager.ActiveModule);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.False(function.Applied);
 
             // Should be applied once Develop module is active
             _profileManager.OnModuleChanged(Module.Develop);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.True(function.Applied);
         }
 
@@ -186,27 +193,27 @@ namespace LrControl.Tests.Profiles
             var basicFunction = new TestFunction();
             var detailFunction = new TestFunction();
 
-            _profileManager.AssignPanelFunction(Panel.Basic, _id, basicFunction);
-            _profileManager.AssignPanelFunction(Panel.Detail, _id, detailFunction);
+            _profileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, basicFunction);
+            _profileManager.AssignPanelFunction(Panel.Detail, Info1.ControllerId, detailFunction);
             _profileManager.OnModuleChanged(Module.Develop);
 
             // Should not invoke any function
             _profileManager.OnPanelChanged(Panel.Effects);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
 
             Assert.Equal(0, basicFunction.ApplyCount);
             Assert.Equal(0, detailFunction.ApplyCount);
 
             // Should only invoke basic panel function
             _profileManager.OnPanelChanged(Panel.Basic);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
 
             Assert.Equal(1, basicFunction.ApplyCount);
             Assert.Equal(0, detailFunction.ApplyCount);
 
             // Should only invoke detail panel function
             _profileManager.OnPanelChanged(Panel.Detail);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
 
             Assert.Equal(1, basicFunction.ApplyCount);
             Assert.Equal(1, detailFunction.ApplyCount);
@@ -217,16 +224,16 @@ namespace LrControl.Tests.Profiles
         {
             // Setup
             var function = new TestFunction();
-            _profileManager.AssignPanelFunction(Panel.Basic, _id, function);
+            _profileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, function);
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
 
             // Test
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, function.ApplyCount);
 
-            _profileManager.ClearPanelFunction(Panel.Basic, _id);
-            OnControllerInput(_id, _value++);
+            _profileManager.ClearPanelFunction(Panel.Basic, Info1.ControllerId);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, function.ApplyCount);
         }
 
@@ -237,20 +244,20 @@ namespace LrControl.Tests.Profiles
             var moduleFunction = new TestFunction();
             var panelFunction = new TestFunction();
 
-            _profileManager.AssignFunction(Module.Develop, _id, moduleFunction);
-            _profileManager.AssignPanelFunction(Panel.ToneCurve, _id, panelFunction);
+            _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, moduleFunction);
+            _profileManager.AssignPanelFunction(Panel.ToneCurve, Info1.ControllerId, panelFunction);
 
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
 
             // Should apply module function as no panel function defined
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, moduleFunction.ApplyCount);
             Assert.Equal(0, panelFunction.ApplyCount);
 
             // Should apply panel function, as panel function defined
             _profileManager.OnPanelChanged(Panel.ToneCurve);
-            OnControllerInput(_id, _value++);
+            OnControllerInput(Info1.ControllerId, _value++);
             Assert.Equal(1, moduleFunction.ApplyCount);
             Assert.Equal(1, panelFunction.ApplyCount);
         }
@@ -271,12 +278,12 @@ namespace LrControl.Tests.Profiles
 
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
-            _profileManager.AssignFunction(Module.Develop, _id, function);
+            _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, function);
 
             Assert.Equal(Panel.Basic, _profileManager.ActivePanel);
 
             // Test
-            OnControllerInput(_id, (int) _range.Maximum);
+            OnControllerInput(Info1.ControllerId, (int) Info1.Range.Maximum);
 
             // Verify
             Assert.Equal(Panel.ToneCurve, _profileManager.ActivePanel);
