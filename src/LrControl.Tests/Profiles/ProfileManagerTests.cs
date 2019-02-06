@@ -45,7 +45,7 @@ namespace LrControl.Tests.Profiles
             // Create test profile manager
             _profileManager = new ProfileManager(deviceManager);
             
-            deviceManager.ControllerInput += (in ControllerId id, Range range, int value) =>
+            deviceManager.Input += (in ControllerId id, Range range, int value) =>
             {
                 Log.Debug("ControllerInput: {@Id}, {@Range}, {Value}", id, range, value);
                 _receivedEvent.Set();

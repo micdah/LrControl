@@ -20,21 +20,27 @@ namespace LrControl.Tests.Devices
             new BlockingCollection<(ControllerId ControllerId, Range Range, int Value)>();
 
         private readonly TestMidiInputDevice _inputDevice;
+        private readonly TestMidiOutputDevice _outputDevice;
         private readonly IDeviceManager _deviceManager;
 
         public DeviceManagerTests(ITestOutputHelper output) : base(output)
         {
             var settings = new Mock<ISettings>();
-            _inputDevice = new TestMidiInputDevice("Test Input Device");
-            var inputDeviceInfo = new TestInputDeviceInfo(_inputDevice);
+            
+            // Create device manager
             _deviceManager = new DeviceManager(settings.Object);
-
-            _deviceManager.ControllerInput += (in ControllerId id, Range range, int value) =>
+            _deviceManager.Input += (in ControllerId id, Range range, int value) =>
             {
                 _controllerInput.Add((id, range, value));
             };
 
-            _deviceManager.SetInputDevice(inputDeviceInfo);
+            // Set input device
+            _inputDevice = new TestMidiInputDevice("Test Input Device");
+            _deviceManager.SetInputDevice(new TestInputDeviceInfo(_inputDevice));
+            
+            // Set output device
+            _outputDevice = new TestMidiOutputDevice("Test Output Device");
+            _deviceManager.SetOutputDevice(new TestOutputDeviceInfo(_outputDevice));
         }
 
         [Fact]
@@ -128,7 +134,17 @@ namespace LrControl.Tests.Devices
             _deviceManager.Clear();
             Assert.Null(_deviceManager.ControllerInfos.SingleOrDefault(x => x.ControllerId == id));
         }
-        
-        // TODO Test output device related methods
+
+        [Fact]
+        public void Should_Set_Output()
+        {
+            // Setup
+            
+
+            // Test
+
+            // Verify
+
+        }
     }
 }

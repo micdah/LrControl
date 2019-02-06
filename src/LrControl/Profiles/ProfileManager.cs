@@ -38,7 +38,7 @@ namespace LrControl.Profiles
             }
             _developModuleProfile = new DevelopModuleProfile();
             
-            _deviceManager.ControllerInput += OnControllerInput;
+            _deviceManager.Input += OnInput;
         }
 
         public Module ActiveModule { get; private set; } = Module.Library;
@@ -97,10 +97,10 @@ namespace LrControl.Profiles
 
         public void Dispose()
         {
-            _deviceManager.ControllerInput -= OnControllerInput;
+            _deviceManager.Input -= OnInput;
         }
 
-        private void OnControllerInput(in ControllerId controllerId, Range range, int value)
+        private void OnInput(in ControllerId controllerId, Range range, int value)
         {
             GetProfileForModule(ActiveModule).ApplyFunction(controllerId, value, range, ActiveModule, ActivePanel);
         }

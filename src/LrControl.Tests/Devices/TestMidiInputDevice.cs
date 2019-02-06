@@ -14,9 +14,7 @@ namespace LrControl.Tests.Devices
         public bool Open() => IsOpen = true;
         public void Close() => IsOpen = false;
         public void SetNrpnMode(NrpnMode mode) => NrpnMode = mode;
-        public void Dispose()
-        {
-        }
+        public void Dispose() => Close();
 
         public event NoteOffMessageHandler NoteOff;
         public event NoteOnMessageHandler NoteOn;

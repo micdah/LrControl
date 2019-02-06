@@ -8,17 +8,18 @@ using RtMidi.Core.Messages;
 
 namespace LrControl.Devices
 {
-    public delegate void ControllerInputHandler(in ControllerId controllerId, Range range, int value);
+    public delegate void InputHandler(in ControllerId controllerId, Range range, int value);
     
     public interface IDeviceManager
     {
         IInputDeviceInfo InputDevice { get; }
         IOutputDeviceInfo OutputDevice { get; }
         IEnumerable<ControllerInfo> ControllerInfos { get; }
-        event ControllerInputHandler ControllerInput;
+        event InputHandler Input;
         void SetInputDevice(IInputDeviceInfo inputDeviceInfo);
         void SetOutputDevice(IOutputDeviceInfo outputDeviceInfo);
-        void Clear();   
+        void OnOutput(in ControllerId controllerId, int value);
+        void Clear();
     }
 
     public class DeviceManager : IDeviceManager
@@ -117,12 +118,17 @@ namespace LrControl.Devices
             }
         }
 
+        public void OnOutput(in ControllerId controllerId, int value)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Clear()
         {
             _controllers.Clear();
         }
 
-        public event ControllerInputHandler ControllerInput;
+        public event InputHandler Input;
 
         private void OnInput(in ControllerId controllerId, int value)
         {
@@ -131,7 +137,7 @@ namespace LrControl.Devices
             info.Update(value);
             
             // Trigger input event
-            ControllerInput?.Invoke(in controllerId, info.Range, value);
+            Input?.Invoke(in controllerId, info.Range, value);
         }
         
         private void InputDeviceOnNoteOff(IMidiInputDevice sender, in NoteOffMessage msg)
