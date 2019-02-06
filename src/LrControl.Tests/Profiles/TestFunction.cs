@@ -1,6 +1,8 @@
 using System;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Tests.Profiles
 {
@@ -19,7 +21,7 @@ namespace LrControl.Tests.Profiles
         public int LastValue { get; private set; }
         public Range LastRange { get; private set; }
 
-        public void Apply(int value, Range range)
+        public void Apply(int value, Range range, Module activeModule, Panel activePanel)
         {
             ApplyCount++;
             LastValue = value;

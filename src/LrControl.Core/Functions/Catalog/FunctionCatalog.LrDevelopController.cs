@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
 using LrControl.Core.Util;
 using LrControl.LrPlugin.Api;
@@ -16,14 +15,14 @@ namespace LrControl.Core.Functions.Catalog
         private static IEnumerable<IFunctionCatalogGroup> CreateDevelopGroups(ISettings settings, ILrApi api)
         {
             yield return CreateDevelopGroup(settings, api);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.Basic, null, Parameters.AdjustPanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.ToneCurve, EnablePanelParameter.ToneCurve, Parameters.TonePanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.ColorAdjustment, EnablePanelParameter.ColorAdjustments, Parameters.MixerPanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.SplitToning, EnablePanelParameter.SplitToning, Parameters.SplitToningPanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.Detail, EnablePanelParameter.Detail, Parameters.DetailPanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.LensCorrections, EnablePanelParameter.LensCorrections, Parameters.LensCorrectionsPanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.Effects, EnablePanelParameter.Effects, Parameters.EffectsPanelParameters.AllParameters);
-            yield return CreateDevelopPanelGroup(settings, api, Panel.CameraCalibration, EnablePanelParameter.Calibration, Parameters.CalibratePanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.Basic, Parameters.AdjustPanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.ToneCurve, Parameters.TonePanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.ColorAdjustment, Parameters.MixerPanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.SplitToning, Parameters.SplitToningPanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.Detail, Parameters.DetailPanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.LensCorrections, Parameters.LensCorrectionsPanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.Effects, Parameters.EffectsPanelParameters.AllParameters);
+            yield return CreateDevelopPanelGroup(settings, api, Panel.CameraCalibration, Parameters.CalibratePanelParameters.AllParameters);
             yield return CreateDevelopCropGroup(settings, api);
             yield return CreateDevelopLocalizedGroup(settings, api);
         }
@@ -58,11 +57,11 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        internal static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IParameter<bool> enablePanelParameter, IReadOnlyCollection<IParameter> parameters)
+        internal static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IReadOnlyCollection<IParameter> parameters)
         {
             IEnumerable<IFunctionFactory> CreateFactories()
             {
-                yield return new EnablePanelFunctionFactory(settings, api, panel, enablePanelParameter);
+                yield return new RevealOrTogglePanelFunctionFactory(settings, api, panel);
                 
                 // Change parameter
                 foreach (var parameter in parameters.Where(p => p.GetType().IsTypeOf(typeof(IParameter<>))))

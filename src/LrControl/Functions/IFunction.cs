@@ -1,4 +1,6 @@
 using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
@@ -19,6 +21,8 @@ namespace LrControl.Functions
         /// </summary>
         /// <param name="value">Value to use when applying function</param>
         /// <param name="range">Range value must be bounded to</param>
-        void Apply(int value, Range range);
+        /// <param name="activeModule">Currently active module</param>
+        /// <param name="activePanel">Currently active panel (if any)</param>
+        void Apply(int value, Range range, Module activeModule, Panel activePanel);
     }
 }

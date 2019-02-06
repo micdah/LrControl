@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
 using LrControl.Core.Functions;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Functions.Factories;
@@ -41,7 +40,7 @@ namespace LrControl.Tests.Core.Functions
             };
 
             // Test
-            _group = FunctionCatalog.CreateDevelopPanelGroup(Settings, Api, _panel, EnablePanelParameter, _parameters);
+            _group = FunctionCatalog.CreateDevelopPanelGroup(Settings, Api, _panel, _parameters);
         }
 
         private ISettings Settings => _settingsMock.Object;
@@ -52,10 +51,9 @@ namespace LrControl.Tests.Core.Functions
         {
             // Verify
             var factory = _group.Functions
-                .OfType<EnablePanelFunctionFactory>()
+                .OfType<RevealOrTogglePanelFunctionFactory>()
                 .SingleOrDefault();
             Assert.NotNull(factory);
-            Assert.Equal(EnablePanelParameter, factory.EnablePanelParameter);
             Assert.Equal(_panel, factory.Panel);
         }
 
@@ -132,9 +130,6 @@ namespace LrControl.Tests.Core.Functions
         }
         
         // TODO Enumeration parameters
-
-        private static readonly IParameter<bool> EnablePanelParameter =
-            new Parameter<bool>("EnableTestPanel", "Enable test panel");
 
         private static readonly IParameter<int> IntParameter =
             new Parameter<int>("IntParameter", "Int parameter");

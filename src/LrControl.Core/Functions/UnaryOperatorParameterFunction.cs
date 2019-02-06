@@ -1,7 +1,9 @@
 using LrControl.Configurations;
 using LrControl.Core.Configurations;
+using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions
@@ -18,7 +20,7 @@ namespace LrControl.Core.Functions
             _operation = operation;
         }
 
-        public override void Apply(int value, Range range)
+        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
         {
             if (!range.IsMaximum(value)) return;
 

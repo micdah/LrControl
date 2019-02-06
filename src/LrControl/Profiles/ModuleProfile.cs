@@ -3,6 +3,7 @@ using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
@@ -27,11 +28,11 @@ namespace LrControl.Profiles
             _functions.Remove(controllerId);
         }
 
-        public virtual void OnControllerInput(in ControllerId controllerId, int value, Range range)
+        public virtual void Apply(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
         {
             if (_functions.TryGetValue(controllerId, out var function))
             {
-                function.Apply(value, range);
+                function.Apply(value, range, activeModule, activePanel);
             }
         }
     }

@@ -93,7 +93,7 @@ namespace LrControl.Profiles
 
         public void OnControllerInput(in ControllerId controllerId, Range range, int value)
         {
-            GetProfileForModule(ActiveModule).OnControllerInput(controllerId, value, range);
+            GetProfileForModule(ActiveModule).Apply(controllerId, value, range, ActiveModule, ActivePanel);
         }
 
         private IModuleProfile GetProfileForModule(Module module)

@@ -1,12 +1,12 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
+using LrControl.LrPlugin.Api.Modules.LrApplicationView;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal abstract class Function : IFunction
+    public abstract class Function : IFunction
     {
         private readonly ISettings _settings;
 
@@ -22,7 +22,7 @@ namespace LrControl.Core.Functions
         public string Key { get; }
         public string DisplayName { get; }
 
-        public abstract void Apply(int value, Range range);
+        public abstract void Apply(int value, Range range, Module activeModule, Panel activePanel);
 
         protected void ShowHud(string message)
         {

@@ -2,6 +2,7 @@ using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
@@ -11,6 +12,6 @@ namespace LrControl.Profiles
 
         void AssignFunction(in ControllerId controllerId, IFunction function);
         void ClearFunction(in ControllerId controllerId);
-        void OnControllerInput(in ControllerId controllerId, int value, Range range);
+        void Apply(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel);
     }
 }

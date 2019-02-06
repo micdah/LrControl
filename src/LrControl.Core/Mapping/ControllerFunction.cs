@@ -71,7 +71,7 @@ namespace LrControl.Core.Mapping
         {
             if (!_enabled) return;
 
-            Function?.Apply(controllerValue, Controller.Range);
+            Function?.Apply(controllerValue, Controller.Range, null, null);
         }
     }
 }
