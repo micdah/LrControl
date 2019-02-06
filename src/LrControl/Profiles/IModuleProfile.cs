@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
@@ -14,5 +15,6 @@ namespace LrControl.Profiles
         void ClearFunction(in ControllerId controllerId);
         void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel);
         bool HasFunction(in ControllerId controllerId);
+        IDictionary<ControllerId, ParameterFunction> GetParameterFunctions(IParameter parameter);
     }
 }

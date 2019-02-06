@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
@@ -38,6 +39,21 @@ namespace LrControl.Profiles
 
         public virtual bool HasFunction(in ControllerId controllerId)
             => _functions.ContainsKey(controllerId);
+
+        public virtual IDictionary<ControllerId, ParameterFunction> GetParameterFunctions(IParameter parameter)
+        {
+            var result = new Dictionary<ControllerId, ParameterFunction>();
+            foreach (var entry in _functions)
+            {
+                if (entry.Value is ParameterFunction parameterFunction &&
+                    ReferenceEquals(parameterFunction.Parameter, parameter))
+                {
+                    result[entry.Key] = parameterFunction;
+                }
+            }
+
+            return result;
+        }
 
         protected virtual bool TryGetFunction(in ControllerId controllerId, out IFunction function)
             => _functions.TryGetValue(controllerId, out function);

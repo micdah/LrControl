@@ -1,14 +1,13 @@
 using System;
 using LrControl.Configurations;
-using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class ParameterFunction : Function
+    public class ParameterFunction : Function
     {
         protected Range ParameterRange;
         

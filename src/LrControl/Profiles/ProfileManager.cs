@@ -18,6 +18,7 @@ namespace LrControl.Profiles
         void ClearPanelFunction(Panel panel, in ControllerId controllerId);
         void OnModuleChanged(Module module);
         void OnPanelChanged(Panel panel);
+        void OnParameterChanged(IParameter parameter);
     }
 
     public class ProfileManager : IProfileManager
@@ -97,6 +98,19 @@ namespace LrControl.Profiles
             ActivePanel = panel;
             
             ResetControllersWithoutFunction();
+        }
+
+        public void OnParameterChanged(IParameter parameter)
+        {
+            var activeProfile = GetProfileForModule(ActiveModule);
+            foreach (var entry in activeProfile.GetParameterFunctions(parameter))
+            {
+                if (_deviceManager.TryGetInfo(entry.Key, out var info) && 
+                    entry.Value.TryGetControllerValue(out var value, info.Range))
+                {
+                    _deviceManager.OnOutput(entry.Key, value);
+                }
+            }
         }
 
         public void Dispose()

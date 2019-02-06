@@ -1,12 +1,11 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class TemperatureParameterFunction : ParameterFunction
+    public class TemperatureParameterFunction : ParameterFunction
     {
         private const double ParameterRangeSplit = 12000.0/48000.0;
         private const double ControllerRangeSplit = 85.0/100.0;

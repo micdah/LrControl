@@ -22,6 +22,7 @@ namespace LrControl.Devices
         void SetOutputDevice(IOutputDeviceInfo outputDeviceInfo);
         void OnOutput(in ControllerId controllerId, int value);
         void Clear();
+        bool TryGetInfo(in ControllerId controllerId, out ControllerInfo controllerInfo);
     }
 
     public class DeviceManager : IDeviceManager
@@ -160,6 +161,11 @@ namespace LrControl.Devices
         public void Clear()
         {
             _controllers.Clear();
+        }
+
+        public bool TryGetInfo(in ControllerId controllerId, out ControllerInfo controllerInfo)
+        {
+            return _controllers.TryGetValue(controllerId, out controllerInfo);
         }
 
         public event InputHandler Input;
