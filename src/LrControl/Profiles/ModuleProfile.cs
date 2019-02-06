@@ -30,13 +30,16 @@ namespace LrControl.Profiles
 
         public virtual void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (TryGetFunction(controllerId, activeModule, activePanel, out var function))
+            if (TryGetFunction(controllerId, out var function))
             {
                 function.Apply(value, range, activeModule, activePanel);
             }
         }
 
-        protected virtual bool TryGetFunction(in ControllerId controllerId, Module activeModule, Panel activePanel, out IFunction function)
+        public virtual bool HasFunction(in ControllerId controllerId)
+            => _functions.ContainsKey(controllerId);
+
+        protected virtual bool TryGetFunction(in ControllerId controllerId, out IFunction function)
             => _functions.TryGetValue(controllerId, out function);
     }
 }

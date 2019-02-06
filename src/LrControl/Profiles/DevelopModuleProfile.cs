@@ -31,7 +31,7 @@ namespace LrControl.Profiles
 
         public override void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (TryGetFunction(in controllerId, activeModule, activePanel, out var function))
+            if (TryGetFunction(in controllerId, out var function))
             {
                 function.Apply(value, range, activeModule, activePanel);
                 
@@ -43,11 +43,15 @@ namespace LrControl.Profiles
             }
         }
 
-        protected override bool TryGetFunction(in ControllerId controllerId, Module activeModule, Panel activePanel, out IFunction function)
+        public override bool HasFunction(in ControllerId controllerId)
+            => (ActivePanel != null && _panelFunctions.ContainsKey((ActivePanel, controllerId))) ||
+               base.HasFunction(in controllerId);
+
+        protected override bool TryGetFunction(in ControllerId controllerId, out IFunction function)
         {
-            if (activePanel != null && _panelFunctions.TryGetValue((activePanel, controllerId), out function))
+            if (ActivePanel != null && _panelFunctions.TryGetValue((ActivePanel, controllerId), out function))
                 return true;
-            return base.TryGetFunction(in controllerId, activeModule, activePanel, out function);
+            return base.TryGetFunction(in controllerId, out function);
         }
     }
 }

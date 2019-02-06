@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using LrControl.Configurations;
 using LrControl.Devices;
@@ -29,29 +30,29 @@ namespace LrControl.Tests.Profiles
         private static readonly ControllerInfo Info2 = new ControllerInfo(
             new ControllerId(MessageType.Nrpn, Channel.Channel1, 2),
             new Range(0, 128));
-        
+
         private readonly ManualResetEvent _receivedEvent = new ManualResetEvent(false);
         private readonly TestMidiInputDevice _inputDevice;
         private readonly TestMidiOutputDevice _outputDevice;
         private readonly IProfileManager _profileManager;
-        
+
         private int _value;
 
         public ProfileManagerTests(ITestOutputHelper output) : base(output)
         {
             // Create test device manager
             var settings = new Mock<ISettings>();
-            var deviceManager = new DeviceManager(settings.Object, new[] { Info1, Info2 });
-            
+            var deviceManager = new DeviceManager(settings.Object, new[] {Info1, Info2});
+
             _inputDevice = new TestMidiInputDevice("Test Input Device");
             deviceManager.SetInputDevice(new TestInputDeviceInfo(_inputDevice));
 
             _outputDevice = new TestMidiOutputDevice("Test Output Device");
             deviceManager.SetOutputDevice(new TestOutputDeviceInfo(_outputDevice));
-            
+
             // Create test profile manager
             _profileManager = new ProfileManager(deviceManager);
-            
+
             deviceManager.Input += (in ControllerId id, Range range, int value) =>
             {
                 Log.Debug("ControllerInput: {@Id}, {@Range}, {Value}", id, range, value);
@@ -62,7 +63,7 @@ namespace LrControl.Tests.Profiles
         private void OnControllerInput(in ControllerId controllerId, int value)
         {
             _receivedEvent.Reset();
-            
+
             var msg = new NrpnMessage(controllerId.Channel, controllerId.Parameter, value);
             Log.Debug("Sending message {@Message}", msg);
             _inputDevice.OnNrpn(msg);
@@ -287,6 +288,57 @@ namespace LrControl.Tests.Profiles
 
             // Verify
             Assert.Equal(Panel.ToneCurve, _profileManager.ActivePanel);
+        }
+
+        [Fact]
+        public void Should_Set_Controllers_Without_Functions_To_Minimum_Range_Value_When_Changing_Module()
+        {
+            // Setup
+            var function = new TestFunction();
+            _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, function);
+            _profileManager.ClearFunction(Module.Develop, Info2.ControllerId);
+
+            // Test
+            _profileManager.OnModuleChanged(Module.Develop);
+
+            // Verify
+            Assert.True(_outputDevice.Messages.TryTake(out var msg));
+            Assert.True(msg is NrpnMessage);
+
+            var nrpn = (NrpnMessage) msg;
+            Assert.Equal(Info2.ControllerId.Channel, nrpn.Channel);
+            Assert.Equal(Info2.ControllerId.Parameter, nrpn.Parameter);
+            Assert.Equal(Info2.Range.Minimum, nrpn.Value);
+
+            Assert.False(_outputDevice.Messages.Any());
+        }
+
+        [Fact]
+        public void Should_Set_Controllers_Without_Functions_To_Minimum_Range_Value_When_Chaning_Panel()
+        {
+            // Setup
+            var function = new TestFunction();
+            _profileManager.AssignPanelFunction(Panel.ToneCurve, Info1.ControllerId, function);
+            _profileManager.ClearPanelFunction(Panel.ToneCurve, Info2.ControllerId);
+
+            // Test
+            _profileManager.OnModuleChanged(Module.Develop);
+            while (_outputDevice.Messages.TryTake(out _))
+            {
+            }
+
+            _profileManager.OnPanelChanged(Panel.ToneCurve);
+
+            // Verify
+            Assert.True(_outputDevice.Messages.TryTake(out var msg));
+            Assert.True(msg is NrpnMessage);
+
+            var nrpn = (NrpnMessage) msg;
+            Assert.Equal(Info2.ControllerId.Channel, nrpn.Channel);
+            Assert.Equal(Info2.ControllerId.Parameter, nrpn.Parameter);
+            Assert.Equal(Info2.Range.Minimum, nrpn.Value);
+
+            Assert.False(_outputDevice.Messages.Any());
         }
     }
 }

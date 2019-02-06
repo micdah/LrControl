@@ -88,16 +88,32 @@ namespace LrControl.Profiles
         public void OnModuleChanged(Module module)
         {
             ActiveModule = module;
+
+            ResetControllersWithoutFunction();
         }
 
         public void OnPanelChanged(Panel panel)
         {
             ActivePanel = panel;
+            
+            ResetControllersWithoutFunction();
         }
 
         public void Dispose()
         {
             _deviceManager.Input -= OnInput;
+        }
+
+        private void ResetControllersWithoutFunction()
+        {
+            var activeProfile = GetProfileForModule(ActiveModule);
+            foreach (var info in _deviceManager.ControllerInfos)
+            {
+                if (!activeProfile.HasFunction(info.ControllerId))
+                {
+                    _deviceManager.OnOutput(info.ControllerId, (int) info.Range.Minimum);
+                }
+            }
         }
 
         private void OnInput(in ControllerId controllerId, Range range, int value)
