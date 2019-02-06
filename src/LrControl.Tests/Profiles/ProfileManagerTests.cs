@@ -36,8 +36,12 @@ namespace LrControl.Tests.Profiles
         private readonly TestMidiInputDevice _inputDevice;
         private readonly TestMidiOutputDevice _outputDevice;
         private readonly IProfileManager _profileManager;
+        private readonly Mock<ILrDevelopController> _lrDevelopController;
+        private readonly Mock<ILrApi> _lrApi;
 
         private int _value;
+        private readonly Mock<ISettings> _settings;
+
 
         public ProfileManagerTests(ITestOutputHelper output) : base(output)
         {
@@ -59,6 +63,19 @@ namespace LrControl.Tests.Profiles
                 Log.Debug("ControllerInput: {@Id}, {@Range}, {Value}", id, range, value);
                 _receivedEvent.Set();
             };
+            
+            // Mock ILrDevelopController
+            _lrDevelopController = new Mock<ILrDevelopController>();
+            
+            // Mock ILrApi
+            _lrApi = new Mock<ILrApi>();
+            
+            _lrApi
+                .Setup(m => m.LrDevelopController)
+                .Returns(_lrDevelopController.Object);
+            
+            // Mock ISettings
+            _settings = new Mock<ISettings>();
         }
 
         private void OnControllerInput(in ControllerId controllerId, int value)
@@ -72,6 +89,23 @@ namespace LrControl.Tests.Profiles
             Log.Debug("Waiting until message has been received...");
             if (!_receivedEvent.WaitOne(TimeSpan.FromSeconds(1)))
                 throw new Exception("Message not received as expected");
+        }
+
+        private void ClearOutputMessages()
+        {
+            Log.Debug("Clearing output device message buffer");
+            
+            while (_outputDevice.Messages.TryTake(out var msg))
+            {
+                Log.Debug("Throwing away message: {@Message}", msg);
+            }
+        }
+
+        private T TakeOutput<T>()
+        {
+            Assert.True(_outputDevice.Messages.TryTake(out var msg));
+            Assert.True(msg is T);
+            return (T) msg;
         }
 
         [Fact]
@@ -268,15 +302,8 @@ namespace LrControl.Tests.Profiles
         public void Should_Set_Active_Panel_After_Applying_RevealOrTogglePanelFunction()
         {
             // Setup
-            var settings = new Mock<ISettings>();
-            var lrDevelopController = new Mock<ILrDevelopController>();
-            var lrApi = new Mock<ILrApi>();
-            lrApi
-                .Setup(m => m.LrDevelopController)
-                .Returns(lrDevelopController.Object);
-
             var function = new RevealOrTogglePanelFunction(
-                settings.Object, lrApi.Object, "Test", "Test", Panel.ToneCurve);
+                _settings.Object, _lrApi.Object, "Test", "Test", Panel.ToneCurve);
 
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
@@ -303,10 +330,7 @@ namespace LrControl.Tests.Profiles
             _profileManager.OnModuleChanged(Module.Develop);
 
             // Verify
-            Assert.True(_outputDevice.Messages.TryTake(out var msg));
-            Assert.True(msg is NrpnMessage);
-
-            var nrpn = (NrpnMessage) msg;
+            var nrpn = TakeOutput<NrpnMessage>();
             Assert.Equal(Info2.ControllerId.Channel, nrpn.Channel);
             Assert.Equal(Info2.ControllerId.Parameter, nrpn.Parameter);
             Assert.Equal(Info2.Range.Minimum, nrpn.Value);
@@ -324,17 +348,12 @@ namespace LrControl.Tests.Profiles
 
             // Test
             _profileManager.OnModuleChanged(Module.Develop);
-            while (_outputDevice.Messages.TryTake(out _))
-            {
-            }
+            ClearOutputMessages();
 
             _profileManager.OnPanelChanged(Panel.ToneCurve);
 
             // Verify
-            Assert.True(_outputDevice.Messages.TryTake(out var msg));
-            Assert.True(msg is NrpnMessage);
-
-            var nrpn = (NrpnMessage) msg;
+            var nrpn = TakeOutput<NrpnMessage>();
             Assert.Equal(Info2.ControllerId.Channel, nrpn.Channel);
             Assert.Equal(Info2.ControllerId.Parameter, nrpn.Parameter);
             Assert.Equal(Info2.Range.Minimum, nrpn.Value);
@@ -346,44 +365,30 @@ namespace LrControl.Tests.Profiles
         public void Should_Set_Controller_When_Parameter_Changes_And_ParameterChangeFunction_Is_Assigned_Module()
         {
             // Setup
-            var settings = new Mock<ISettings>();
             var parameter = AdjustPanelParameter.Exposure;
             var parameterRange = new Range(0, 255);
             var parameterValue = 255.0d;
             
-            var lrDevelopController = new Mock<ILrDevelopController>();
-            
-            lrDevelopController
+            _lrDevelopController
                 .Setup(m => m.GetRange(out parameterRange, parameter))
                 .Returns(true);
 
-            lrDevelopController
+            _lrDevelopController
                 .Setup(m => m.GetValue(out parameterValue, parameter))
                 .Returns(true);
             
-            var lrApi = new Mock<ILrApi>();
-            lrApi
-                .Setup(m => m.LrDevelopController)
-                .Returns(lrDevelopController.Object);
-            
-            var function = new ParameterFunction(settings.Object, lrApi.Object, "Test", "Test", parameter);
+            var function = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", parameter);
             
             _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, function);
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
-
-            while (_outputDevice.Messages.TryTake(out _))
-            {
-            }
+            ClearOutputMessages();
 
             // Test
             _profileManager.OnParameterChanged(parameter);
 
             // Verify
-            Assert.True(_outputDevice.Messages.TryTake(out var msg));
-            Assert.True(msg is NrpnMessage);
-
-            var nrpn = (NrpnMessage) msg;
+            var nrpn = TakeOutput<NrpnMessage>();
             Assert.Equal((int)Info1.Range.Maximum, nrpn.Value);
         }
 
@@ -391,44 +396,30 @@ namespace LrControl.Tests.Profiles
         public void Should_Set_Controller_When_Parameter_Changes_And_ParameterChangeFunction_Is_Assigned_Panel()
         {
             // Setup
-            var settings = new Mock<ISettings>();
             var parameter = AdjustPanelParameter.Exposure;
             var parameterRange = new Range(0, 255);
             var parameterValue = 255.0d;
             
-            var lrDevelopController = new Mock<ILrDevelopController>();
-            
-            lrDevelopController
+            _lrDevelopController
                 .Setup(m => m.GetRange(out parameterRange, parameter))
                 .Returns(true);
 
-            lrDevelopController
+            _lrDevelopController
                 .Setup(m => m.GetValue(out parameterValue, parameter))
                 .Returns(true);
             
-            var lrApi = new Mock<ILrApi>();
-            lrApi
-                .Setup(m => m.LrDevelopController)
-                .Returns(lrDevelopController.Object);
-            
-            var function = new ParameterFunction(settings.Object, lrApi.Object, "Test", "Test", parameter);
+            var function = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", parameter);
 
             _profileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, function);
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
-
-            while (_outputDevice.Messages.TryTake(out _))
-            {
-            }
+            ClearOutputMessages();
 
             // Test
             _profileManager.OnParameterChanged(parameter);
 
             // Verify
-            Assert.True(_outputDevice.Messages.TryTake(out var msg));
-            Assert.True(msg is NrpnMessage);
-
-            var nrpn = (NrpnMessage) msg;
+            var nrpn = TakeOutput<NrpnMessage>();
             Assert.Equal((int)Info1.Range.Maximum, nrpn.Value);
         }
 
@@ -436,51 +427,49 @@ namespace LrControl.Tests.Profiles
         public void Should_Set_Controller_When_Parameter_Changes_But_Only_For_Panel()
         {
             // Setup
-            var settings = new Mock<ISettings>();
             var parameter = AdjustPanelParameter.Exposure;
             var parameterRange = new Range(0, 255);
             var parameterValue = 255.0d;
             var moduleParameter = AdjustPanelParameter.Tint;
-            
-            var lrDevelopController = new Mock<ILrDevelopController>();
-            
-            lrDevelopController
+
+            _lrDevelopController
                 .Setup(m => m.GetRange(out parameterRange, parameter))
                 .Returns(true);
 
-            lrDevelopController
+            _lrDevelopController
                 .Setup(m => m.GetValue(out parameterValue, parameter))
                 .Returns(true);
-            
-            var lrApi = new Mock<ILrApi>();
-            lrApi
-                .Setup(m => m.LrDevelopController)
-                .Returns(lrDevelopController.Object);
 
-            var function = new ParameterFunction(settings.Object, lrApi.Object, "Test", "Test", parameter);
-            var moduleFunction = new ParameterFunction(settings.Object, lrApi.Object, "Test", "Test", moduleParameter);
+            var function = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", parameter);
+            var moduleFunction = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", moduleParameter);
 
             _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, moduleFunction);
             _profileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, function);
             _profileManager.OnModuleChanged(Module.Develop);
             _profileManager.OnPanelChanged(Panel.Basic);
-
-            while (_outputDevice.Messages.TryTake(out _))
-            {
-            }
+            ClearOutputMessages();
 
             // Test
             _profileManager.OnParameterChanged(parameter);
             _profileManager.OnParameterChanged(moduleParameter);
 
             // Verify
-            Assert.True(_outputDevice.Messages.TryTake(out var msg));
-            Assert.True(msg is NrpnMessage);
-
-            var nrpn = (NrpnMessage) msg;
+            var nrpn = TakeOutput<NrpnMessage>();
             Assert.Equal((int)Info1.Range.Maximum, nrpn.Value);
 
             Assert.False(_outputDevice.Messages.Any());
+        }
+
+        [Fact]
+        public void Should_Update_Controller_From_Assigned_ParameterFunction_For_Module()
+        {
+            // Setup
+            
+
+            // Test
+
+            // Verify
+
         }
     }
 }
