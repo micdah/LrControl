@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
