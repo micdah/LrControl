@@ -12,6 +12,6 @@ namespace LrControl.Profiles
 
         void AssignFunction(in ControllerId controllerId, IFunction function);
         void ClearFunction(in ControllerId controllerId);
-        void Apply(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel);
+        void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel);
     }
 }

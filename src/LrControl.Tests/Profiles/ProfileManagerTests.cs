@@ -1,11 +1,15 @@
+using LrControl.Configurations;
 using LrControl.Devices;
-using LrControl.LrPlugin.Api.Common;
+using LrControl.Functions;
+using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.Profiles;
+using Moq;
 using RtMidi.Core.Enums;
 using RtMidi.Core.Messages;
 using Xunit;
+using Range = LrControl.LrPlugin.Api.Common.Range;
 
 namespace LrControl.Tests.Profiles
 {
@@ -214,6 +218,33 @@ namespace LrControl.Tests.Profiles
             _profileManager.OnControllerInput(_id, _range, _msg.Value);
             Assert.Equal(1, moduleFunction.ApplyCount);
             Assert.Equal(1, panelFunction.ApplyCount);
+        }
+
+        [Fact]
+        public void Should_Set_Active_Panel_After_Applying_RevealOrTogglePanelFunction()
+        {
+            // Setup
+            var settings = new Mock<ISettings>();
+            var lrDevelopController = new Mock<ILrDevelopController>();
+            var lrApi = new Mock<ILrApi>();
+            lrApi
+                .Setup(m => m.LrDevelopController)
+                .Returns(lrDevelopController.Object);
+            
+            var function = new RevealOrTogglePanelFunction(
+                settings.Object, lrApi.Object, "Test", "Test", Panel.ToneCurve);
+
+            _profileManager.OnModuleChanged(Module.Develop);
+            _profileManager.OnPanelChanged(Panel.Basic);
+            _profileManager.AssignFunction(Module.Develop, _id, function);
+
+            Assert.Equal(Panel.Basic, _profileManager.ActivePanel);
+
+            // Test
+            _profileManager.OnControllerInput(_id, _range, (int) _range.Maximum);
+
+            // Verify
+            Assert.Equal(Panel.ToneCurve, _profileManager.ActivePanel);
         }
     }
 }

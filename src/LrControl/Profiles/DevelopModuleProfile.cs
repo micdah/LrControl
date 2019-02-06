@@ -29,17 +29,25 @@ namespace LrControl.Profiles
             _panelFunctions.Remove((panel, controllerId));
         }
 
-        public override void Apply(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
+        public override void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (ActivePanel != null &&
-                _panelFunctions.TryGetValue((ActivePanel, controllerId), out var function))
+            if (TryGetFunction(in controllerId, activeModule, activePanel, out var function))
             {
                 function.Apply(value, range, activeModule, activePanel);
+                
+                // Reveal panel function?
+                if (function is RevealOrTogglePanelFunction panelFunction)
+                {
+                    ActivePanel = panelFunction.Panel;
+                }
             }
-            else
-            {
-                base.Apply(controllerId, value, range, activeModule, activePanel);
-            }
+        }
+
+        protected override bool TryGetFunction(in ControllerId controllerId, Module activeModule, Panel activePanel, out IFunction function)
+        {
+            if (activePanel != null && _panelFunctions.TryGetValue((activePanel, controllerId), out function))
+                return true;
+            return base.TryGetFunction(in controllerId, activeModule, activePanel, out function);
         }
     }
 }

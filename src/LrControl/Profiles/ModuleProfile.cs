@@ -28,12 +28,15 @@ namespace LrControl.Profiles
             _functions.Remove(controllerId);
         }
 
-        public virtual void Apply(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
+        public virtual void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (_functions.TryGetValue(controllerId, out var function))
+            if (TryGetFunction(controllerId, activeModule, activePanel, out var function))
             {
                 function.Apply(value, range, activeModule, activePanel);
             }
         }
+
+        protected virtual bool TryGetFunction(in ControllerId controllerId, Module activeModule, Panel activePanel, out IFunction function)
+            => _functions.TryGetValue(controllerId, out function);
     }
 }

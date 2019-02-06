@@ -27,6 +27,8 @@ namespace LrControl.Functions
                 {Panel.CameraCalibration, EnablePanelParameter.Calibration}
             };
 
+        public Panel Panel => _panel;
+
         public RevealOrTogglePanelFunction(ISettings settings, ILrApi api, string displayName, string key, Panel panel)
             : base(settings, api, displayName, key)
         {
