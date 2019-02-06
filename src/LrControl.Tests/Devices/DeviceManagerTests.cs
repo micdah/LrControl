@@ -136,15 +136,58 @@ namespace LrControl.Tests.Devices
         }
 
         [Fact]
-        public void Should_Set_Output()
+        public void Should_Send_Message_On_Output()
         {
-            // Setup
+            const int param = 12;
+            const int value = 42;
+            const Channel channel = Channel.Channel1;
             
+            T Test<T>(MessageType messageType)
+            {
+                var controllerId = new ControllerId(messageType, channel, param);
+                _deviceManager.OnOutput(controllerId, value);
 
-            // Test
+                Assert.True(_outputDevice.Messages.TryTake(out var msg));
+                Assert.True(msg is T);
+                return (T) msg;
+            }
 
-            // Verify
+            var noteOff = Test<NoteOffMessage>(MessageType.NoteOff);
+            Assert.Equal(channel, noteOff.Channel);
+            Assert.Equal(param, (int)noteOff.Key);
+            Assert.Equal(value, noteOff.Velocity);
 
+            var noteOn = Test<NoteOnMessage>(MessageType.NoteOn);
+            Assert.Equal(channel, noteOn.Channel);
+            Assert.Equal(param, (int) noteOn.Key);
+            Assert.Equal(value, noteOn.Velocity);
+
+            var poly = Test<PolyphonicKeyPressureMessage>(MessageType.PolyphonicKeyPressure);
+            Assert.Equal(channel, poly.Channel);
+            Assert.Equal(param, (int) poly.Key);
+            Assert.Equal(value, poly.Pressure);
+
+            var controlChange = Test<ControlChangeMessage>(MessageType.ControlChange);
+            Assert.Equal(channel, controlChange.Channel);
+            Assert.Equal(param, controlChange.Control);
+            Assert.Equal(value, controlChange.Value);
+
+            var programChange = Test<ProgramChangeMessage>(MessageType.ProgramChange);
+            Assert.Equal(channel, programChange.Channel);
+            Assert.Equal(value, programChange.Program);
+
+            var channelPressure = Test<ChannelPressureMessage>(MessageType.ChannelPressure);
+            Assert.Equal(channel, channelPressure.Channel);
+            Assert.Equal(value, channelPressure.Pressure);
+
+            var pitchBend = Test<PitchBendMessage>(MessageType.PitchBend);
+            Assert.Equal(channel, pitchBend.Channel);
+            Assert.Equal(value, pitchBend.Value);
+
+            var nrpn = Test<NrpnMessage>(MessageType.Nrpn);
+            Assert.Equal(channel, nrpn.Channel);
+            Assert.Equal(param, nrpn.Parameter);
+            Assert.Equal(value, nrpn.Value);
         }
     }
 }

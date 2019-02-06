@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using LrControl.Configurations;
 using LrControl.Devices.Midi;
 using LrControl.LrPlugin.Api.Common;
 using RtMidi.Core.Devices;
+using RtMidi.Core.Enums;
 using RtMidi.Core.Messages;
 
 namespace LrControl.Devices
@@ -120,7 +122,39 @@ namespace LrControl.Devices
 
         public void OnOutput(in ControllerId controllerId, int value)
         {
-            throw new System.NotImplementedException();
+            if (_outputDevice == null) return;
+            var channel = controllerId.Channel;
+            var parameter = controllerId.Parameter;
+
+            switch (controllerId.MessageType)
+            {
+                case MessageType.NoteOff:
+                    _outputDevice.Send(new NoteOffMessage(channel, (Key) parameter, value));
+                    break;
+                case MessageType.NoteOn:
+                    _outputDevice.Send(new NoteOnMessage(channel, (Key) parameter, value));
+                    break;
+                case MessageType.PolyphonicKeyPressure:
+                    _outputDevice.Send(new PolyphonicKeyPressureMessage(channel, (Key) parameter, value));
+                    break;
+                case MessageType.ControlChange:
+                    _outputDevice.Send(new ControlChangeMessage(channel, parameter, value));
+                    break;
+                case MessageType.ProgramChange:
+                    _outputDevice.Send(new ProgramChangeMessage(channel, value));
+                    break;
+                case MessageType.ChannelPressure:
+                    _outputDevice.Send(new ChannelPressureMessage(channel, value));
+                    break;
+                case MessageType.PitchBend:
+                    _outputDevice.Send(new PitchBendMessage(channel, value));
+                    break;
+                case MessageType.Nrpn:
+                    _outputDevice.Send(new NrpnMessage(channel, parameter, value));
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown MessageType {controllerId.MessageType}");
+            }
         }
 
         public void Clear()

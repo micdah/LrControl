@@ -14,17 +14,17 @@ namespace LrControl.Tests.Devices
         public bool Open() => IsOpen = true;
         public void Close() => IsOpen = false;
         public void Dispose() => Close();
-        public bool Send(in NoteOffMessage msg) => Send(msg);
-        public bool Send(in NoteOnMessage msg) => Send(msg);
-        public bool Send(in PolyphonicKeyPressureMessage msg) => Send(msg);
-        public bool Send(in ControlChangeMessage msg) => Send(msg);
-        public bool Send(in ProgramChangeMessage msg) => Send(msg);
-        public bool Send(in ChannelPressureMessage msg)  => Send(msg);
-        public bool Send(in PitchBendMessage msg) => Send(msg);
-        public bool Send(in NrpnMessage msg) => Send(msg);
-        public bool Send(in SysExMessage msg) => Send(msg);
+        public bool Send(in NoteOffMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in NoteOnMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in PolyphonicKeyPressureMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in ControlChangeMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in ProgramChangeMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in ChannelPressureMessage msg)  => SaveAndReturnTrue(msg);
+        public bool Send(in PitchBendMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in NrpnMessage msg) => SaveAndReturnTrue(msg);
+        public bool Send(in SysExMessage msg) => SaveAndReturnTrue(msg);
 
-        private bool Send(object msg)
+        private bool SaveAndReturnTrue(object msg)
         {
             Messages.Add(msg);
             return true;

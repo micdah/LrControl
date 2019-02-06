@@ -20,7 +20,7 @@ namespace LrControl.Devices
         }
 
         public ControllerId(in PolyphonicKeyPressureMessage msg)
-            : this(MessageType.PolyphonicKeyPressure, msg.Channel, 0)
+            : this(MessageType.PolyphonicKeyPressure, msg.Channel, (int) msg.Key)
         {
         }
 
