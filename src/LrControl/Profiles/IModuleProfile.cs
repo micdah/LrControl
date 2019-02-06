@@ -15,6 +15,7 @@ namespace LrControl.Profiles
         void ClearFunction(in ControllerId controllerId);
         void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel);
         bool HasFunction(in ControllerId controllerId);
-        IEnumerable<(ControllerId, ParameterFunction)> GetParameterFunctions(IParameter parameter);
+        bool TryGetParameterFunction(in ControllerId controllerId, out ParameterFunction parameterFunction);
+        IEnumerable<(ControllerId, ParameterFunction)> GetFunctionsForParameter(IParameter parameter);
     }
 }

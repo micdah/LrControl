@@ -26,19 +26,20 @@ namespace LrControl.Profiles
         private readonly IDeviceManager _deviceManager;
         private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
         private readonly DevelopModuleProfile _developModuleProfile;
-        
+
         public ProfileManager(IDeviceManager deviceManager)
         {
             _deviceManager = deviceManager;
-            
+
             // Initialize module profiles
             foreach (var module in Module.GetAll())
             {
                 if (module != Module.Develop)
                     _moduleProfiles[module] = new ModuleProfile(module);
             }
+
             _developModuleProfile = new DevelopModuleProfile();
-            
+
             _deviceManager.Input += OnInput;
         }
 
@@ -66,7 +67,7 @@ namespace LrControl.Profiles
                 throw new ArgumentNullException(nameof(panel));
             if (function == null)
                 throw new ArgumentNullException(nameof(function));
-            
+
             _developModuleProfile.AssignFunction(panel, controllerId, function);
         }
 
@@ -90,22 +91,22 @@ namespace LrControl.Profiles
         {
             ActiveModule = module;
 
-            ResetControllersWithoutFunction();
+            UpdateOutputDevice();
         }
 
         public void OnPanelChanged(Panel panel)
         {
             ActivePanel = panel;
-            
-            ResetControllersWithoutFunction();
+
+            UpdateOutputDevice();
         }
 
         public void OnParameterChanged(IParameter parameter)
         {
             var activeProfile = GetProfileForModule(ActiveModule);
-            foreach (var (controllerId, parameterFunction) in activeProfile.GetParameterFunctions(parameter))
+            foreach (var (controllerId, parameterFunction) in activeProfile.GetFunctionsForParameter(parameter))
             {
-                if (_deviceManager.TryGetInfo(controllerId, out var info) && 
+                if (_deviceManager.TryGetInfo(controllerId, out var info) &&
                     parameterFunction.TryGetControllerValue(out var value, info.Range))
                 {
                     _deviceManager.OnOutput(controllerId, value);
@@ -118,7 +119,7 @@ namespace LrControl.Profiles
             _deviceManager.Input -= OnInput;
         }
 
-        private void ResetControllersWithoutFunction()
+        private void UpdateOutputDevice()
         {
             var activeProfile = GetProfileForModule(ActiveModule);
             foreach (var info in _deviceManager.ControllerInfos)
@@ -126,6 +127,11 @@ namespace LrControl.Profiles
                 if (!activeProfile.HasFunction(info.ControllerId))
                 {
                     _deviceManager.OnOutput(info.ControllerId, (int) info.Range.Minimum);
+                }
+                else if (activeProfile.TryGetParameterFunction(info.ControllerId, out var parameterFunction) &&
+                         parameterFunction.TryGetControllerValue(out var value, info.Range))
+                {
+                    _deviceManager.OnOutput(info.ControllerId, value);
                 }
             }
         }

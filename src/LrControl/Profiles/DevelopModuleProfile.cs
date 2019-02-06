@@ -56,22 +56,38 @@ namespace LrControl.Profiles
         }
 
         public override bool HasFunction(in ControllerId controllerId)
-            => (ActivePanel != null &&
-                _panelFunctions.TryGetValue(ActivePanel, out var dict) &&
-                dict.ContainsKey(controllerId)) ||
-               base.HasFunction(in controllerId);
-
-        public override IEnumerable<(ControllerId, ParameterFunction)> GetParameterFunctions(IParameter parameter)
         {
-            if (!_panelFunctions.TryGetValue(ActivePanel, out var activePanelFunction))
+            return (ActivePanel != null &&
+                    _panelFunctions.TryGetValue(ActivePanel, out var dict) &&
+                    dict.ContainsKey(controllerId)) ||
+                   base.HasFunction(in controllerId);
+        }
+
+        public override bool TryGetParameterFunction(in ControllerId controllerId, out ParameterFunction parameterFunction)
+        {
+            if (ActivePanel != null &&
+                _panelFunctions.TryGetValue(ActivePanel, out var activePanelFunctions) &&
+                activePanelFunctions.TryGetValue(controllerId, out var function))
             {
-                foreach (var entry in base.GetParameterFunctions(parameter))
+                parameterFunction = function as ParameterFunction;
+                return parameterFunction != null;
+            }
+
+            return base.TryGetParameterFunction(in controllerId, out parameterFunction);
+        }
+
+        public override IEnumerable<(ControllerId, ParameterFunction)> GetFunctionsForParameter(IParameter parameter)
+        {
+            if (ActivePanel == null ||
+                !_panelFunctions.TryGetValue(ActivePanel, out var activePanelFunctions))
+            {
+                foreach (var entry in base.GetFunctionsForParameter(parameter))
                     yield return entry;
             }
             else
             {
                 // Active panel functions
-                foreach (var entry in activePanelFunction)
+                foreach (var entry in activePanelFunctions)
                 {
                     if (entry.Value is ParameterFunction parameterFunction &&
                         ReferenceEquals(parameterFunction.Parameter, parameter))
@@ -83,7 +99,7 @@ namespace LrControl.Profiles
                 // Module functions
                 foreach (var entry in Functions)
                 {
-                    if (!activePanelFunction.ContainsKey(entry.Key) &&
+                    if (!activePanelFunctions.ContainsKey(entry.Key) &&
                         entry.Value is ParameterFunction parameterFunction &&
                         ReferenceEquals(parameterFunction.Parameter, parameter))
                     {
@@ -96,8 +112,8 @@ namespace LrControl.Profiles
         protected override bool TryGetFunction(in ControllerId controllerId, out IFunction function)
         {
             if (ActivePanel != null && 
-                _panelFunctions.TryGetValue(ActivePanel, out var dict) &&
-                dict.TryGetValue(controllerId, out function))
+                _panelFunctions.TryGetValue(ActivePanel, out var activePanelFunctions) &&
+                activePanelFunctions.TryGetValue(controllerId, out function))
                 return true;
             
             return base.TryGetFunction(in controllerId, out function);

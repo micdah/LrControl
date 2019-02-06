@@ -427,11 +427,11 @@ namespace LrControl.Tests.Profiles
         public void Should_Set_Controller_When_Parameter_Changes_But_Only_For_Panel()
         {
             // Setup
+            var moduleParameter = AdjustPanelParameter.Tint;
             var parameter = AdjustPanelParameter.Exposure;
             var parameterRange = new Range(0, 255);
             var parameterValue = 255.0d;
-            var moduleParameter = AdjustPanelParameter.Tint;
-
+            
             _lrDevelopController
                 .Setup(m => m.GetRange(out parameterRange, parameter))
                 .Returns(true);
@@ -464,12 +464,101 @@ namespace LrControl.Tests.Profiles
         public void Should_Update_Controller_From_Assigned_ParameterFunction_For_Module()
         {
             // Setup
-            
+            var parameter = AdjustPanelParameter.Exposure;
+            var parameterRange = new Range(0, 255);
+            var parameterValue = 255.0d;
+
+            _lrDevelopController
+                .Setup(m => m.GetRange(out parameterRange, parameter))
+                .Returns(true);
+
+            _lrDevelopController
+                .Setup(m => m.GetValue(out parameterValue, parameter))
+                .Returns(true);
+
+            var function = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", parameter);
+
+            _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, function);
+            _profileManager.AssignFunction(Module.Develop, Info2.ControllerId, new TestFunction());
 
             // Test
+            _profileManager.OnModuleChanged(Module.Develop);
 
             // Verify
+            var nrpn = TakeOutput<NrpnMessage>();
+            Assert.Equal((int) Info1.Range.Maximum, nrpn.Value);
 
+            Assert.False(_outputDevice.Messages.Any());
+        }
+
+        [Fact]
+        public void Should_Update_Controller_From_Assigned_ParameterFunction_For_Panel()
+        {
+            // Setup
+            var parameter = AdjustPanelParameter.Exposure;
+            var parameterRange = new Range(0, 255);
+            var parameterValue = 255.0d;
+
+            _lrDevelopController
+                .Setup(m => m.GetRange(out parameterRange, parameter))
+                .Returns(true);
+
+            _lrDevelopController
+                .Setup(m => m.GetValue(out parameterValue, parameter))
+                .Returns(true);
+
+            var function = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", parameter);
+
+            _profileManager.AssignPanelFunction(Panel.ToneCurve, Info1.ControllerId, function);
+            _profileManager.AssignFunction(Module.Develop, Info2.ControllerId, new TestFunction());
+            _profileManager.OnModuleChanged(Module.Develop);
+            ClearOutputMessages();
+
+            // Test
+            _profileManager.OnPanelChanged(Panel.ToneCurve);
+
+            // Verify
+            var nrpn = TakeOutput<NrpnMessage>();
+            Assert.Equal((int) Info1.Range.Maximum, nrpn.Value);
+
+            Assert.False(_outputDevice.Messages.Any());
+        }
+        
+        [Fact]
+        public void Should_Update_Controller_From_Assigned_ParameterFunction_For_Panel_Before_Module()
+        {
+            // Setup
+            var moduleParameter = AdjustPanelParameter.Tint;
+            var parameter = AdjustPanelParameter.Exposure;
+            var parameterRange = new Range(0, 255);
+            var parameterValue = 255.0d;
+
+            _lrDevelopController
+                .Setup(m => m.GetRange(out parameterRange, parameter))
+                .Returns(true);
+
+            _lrDevelopController
+                .Setup(m => m.GetValue(out parameterValue, parameter))
+                .Returns(true);
+
+            var moduleFunction =
+                new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", moduleParameter);
+            var function = new ParameterFunction(_settings.Object, _lrApi.Object, "Test", "Test", parameter);
+
+            _profileManager.AssignPanelFunction(Panel.ToneCurve, Info1.ControllerId, function);
+            _profileManager.AssignFunction(Module.Develop, Info1.ControllerId, moduleFunction);
+            _profileManager.AssignFunction(Module.Develop, Info2.ControllerId, new TestFunction());
+            _profileManager.OnModuleChanged(Module.Develop);
+            ClearOutputMessages();
+
+            // Test
+            _profileManager.OnPanelChanged(Panel.ToneCurve);
+
+            // Verify
+            var nrpn = TakeOutput<NrpnMessage>();
+            Assert.Equal((int) Info1.Range.Maximum, nrpn.Value);
+
+            Assert.False(_outputDevice.Messages.Any());
         }
     }
 }

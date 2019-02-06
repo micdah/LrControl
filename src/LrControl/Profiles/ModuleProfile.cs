@@ -37,9 +37,23 @@ namespace LrControl.Profiles
         }
 
         public virtual bool HasFunction(in ControllerId controllerId)
-            => Functions.ContainsKey(controllerId);
+        {
+            return Functions.ContainsKey(controllerId);
+        }
 
-        public virtual IEnumerable<(ControllerId, ParameterFunction)> GetParameterFunctions(IParameter parameter)
+        public virtual bool TryGetParameterFunction(in ControllerId controllerId, out ParameterFunction parameterFunction)
+        {
+            if (Functions.TryGetValue(controllerId, out var function))
+            {
+                parameterFunction = function as ParameterFunction;
+                return parameterFunction != null;
+            }
+
+            parameterFunction = null;
+            return false;
+        }
+
+        public virtual IEnumerable<(ControllerId, ParameterFunction)> GetFunctionsForParameter(IParameter parameter)
         {
             foreach (var entry in Functions)
             {
