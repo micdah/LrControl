@@ -43,6 +43,14 @@ namespace LrControl.Devices
         {
             _settings = settings;
         }
+
+        public DeviceManager(ISettings settings, IEnumerable<ControllerInfo> controllerInfos) : this(settings)
+        {
+            foreach (var info in controllerInfos)
+            {
+                _controllers[info.ControllerId] = info;
+            }
+        }
         
         public void SetInputDevice(IInputDeviceInfo inputDeviceInfo)
         {

@@ -6,11 +6,12 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using Moq;
 using Xunit;
+using Xunit.Abstractions;
 using Range = LrControl.LrPlugin.Api.Common.Range;
 
 namespace LrControl.Tests.Functions
 {
-    public class RevealOrTogglePanelFunctionTests
+    public class RevealOrTogglePanelFunctionTests : TestSuite
     {
         private readonly Range _range = new Range(0, 255);
         private readonly Module _module = Module.Develop;
@@ -18,7 +19,7 @@ namespace LrControl.Tests.Functions
         private readonly Mock<ILrApi> _lrApi = new Mock<ILrApi>();
         private readonly Mock<ILrDevelopController> _lrDevelopController = new Mock<ILrDevelopController>();
 
-        public RevealOrTogglePanelFunctionTests()
+        public RevealOrTogglePanelFunctionTests(ITestOutputHelper output) : base(output)
         {
             _lrApi
                 .Setup(m => m.LrDevelopController)

@@ -1,5 +1,4 @@
 using Serilog;
-using Serilog.Events;
 using Xunit.Abstractions;
 
 namespace LrControl.Tests
@@ -8,9 +7,9 @@ namespace LrControl.Tests
     {
         protected TestSuite(ITestOutputHelper output)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
-                .WriteTo.TestOutput(output, LogEventLevel.Verbose)
+                .WriteTo.TestOutput(output)
                 .CreateLogger();
         }
     }

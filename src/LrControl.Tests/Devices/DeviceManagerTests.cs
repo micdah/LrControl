@@ -7,11 +7,12 @@ using Moq;
 using RtMidi.Core.Enums;
 using RtMidi.Core.Messages;
 using Xunit;
+using Xunit.Abstractions;
 using Range = LrControl.LrPlugin.Api.Common.Range;
 
 namespace LrControl.Tests.Devices
 {
-    public class DeviceManagerTests
+    public class DeviceManagerTests : TestSuite
     {
         private static readonly TimeSpan Wait = TimeSpan.FromSeconds(1);
 
@@ -21,7 +22,7 @@ namespace LrControl.Tests.Devices
         private readonly TestMidiInputDevice _inputDevice;
         private readonly IDeviceManager _deviceManager;
 
-        public DeviceManagerTests()
+        public DeviceManagerTests(ITestOutputHelper output) : base(output)
         {
             var settings = new Mock<ISettings>();
             _inputDevice = new TestMidiInputDevice("Test Input Device");

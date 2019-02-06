@@ -8,7 +8,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
-    public interface IProfileManager
+    public interface IProfileManager : IDisposable
     {
         Module ActiveModule { get; }
         Panel ActivePanel { get; }
@@ -18,16 +18,18 @@ namespace LrControl.Profiles
         void ClearPanelFunction(Panel panel, in ControllerId controllerId);
         void OnModuleChanged(Module module);
         void OnPanelChanged(Panel panel);
-        void OnControllerInput(in ControllerId controllerId, Range range, int value);
     }
 
     public class ProfileManager : IProfileManager
     {
+        private readonly IDeviceManager _deviceManager;
         private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
         private readonly DevelopModuleProfile _developModuleProfile;
         
-        public ProfileManager()
+        public ProfileManager(IDeviceManager deviceManager)
         {
+            _deviceManager = deviceManager;
+            
             // Initialize module profiles
             foreach (var module in Module.GetAll())
             {
@@ -35,6 +37,8 @@ namespace LrControl.Profiles
                     _moduleProfiles[module] = new ModuleProfile(module);
             }
             _developModuleProfile = new DevelopModuleProfile();
+            
+            _deviceManager.ControllerInput += OnControllerInput;
         }
 
         public Module ActiveModule { get; private set; } = Module.Library;
@@ -91,7 +95,12 @@ namespace LrControl.Profiles
             ActivePanel = panel;
         }
 
-        public void OnControllerInput(in ControllerId controllerId, Range range, int value)
+        public void Dispose()
+        {
+            _deviceManager.ControllerInput -= OnControllerInput;
+        }
+
+        private void OnControllerInput(in ControllerId controllerId, Range range, int value)
         {
             GetProfileForModule(ActiveModule).ApplyFunction(controllerId, value, range, ActiveModule, ActivePanel);
         }
