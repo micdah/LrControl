@@ -9,7 +9,7 @@ namespace LrControl.Profiles
 {
     public class ModuleProfile : IModuleProfile
     {
-        private readonly Dictionary<ControllerId, IFunction> _functions = new Dictionary<ControllerId, IFunction>();
+        protected readonly Dictionary<ControllerId, IFunction> Functions = new Dictionary<ControllerId, IFunction>();
     
         public virtual Module Module { get; }
 
@@ -20,12 +20,12 @@ namespace LrControl.Profiles
 
         public void AssignFunction(in ControllerId controllerId, IFunction function)
         {
-            _functions[controllerId] = function;
+            Functions[controllerId] = function;
         }
 
         public void ClearFunction(in ControllerId controllerId)
         {
-            _functions.Remove(controllerId);
+            Functions.Remove(controllerId);
         }
 
         public virtual void ApplyFunction(in ControllerId controllerId, int value, Range range, Module activeModule, Panel activePanel)
@@ -37,24 +37,21 @@ namespace LrControl.Profiles
         }
 
         public virtual bool HasFunction(in ControllerId controllerId)
-            => _functions.ContainsKey(controllerId);
+            => Functions.ContainsKey(controllerId);
 
-        public virtual IDictionary<ControllerId, ParameterFunction> GetParameterFunctions(IParameter parameter)
+        public virtual IEnumerable<(ControllerId, ParameterFunction)> GetParameterFunctions(IParameter parameter)
         {
-            var result = new Dictionary<ControllerId, ParameterFunction>();
-            foreach (var entry in _functions)
+            foreach (var entry in Functions)
             {
                 if (entry.Value is ParameterFunction parameterFunction &&
                     ReferenceEquals(parameterFunction.Parameter, parameter))
                 {
-                    result[entry.Key] = parameterFunction;
+                    yield return (entry.Key, parameterFunction);
                 }
             }
-
-            return result;
         }
 
         protected virtual bool TryGetFunction(in ControllerId controllerId, out IFunction function)
-            => _functions.TryGetValue(controllerId, out function);
+            => Functions.TryGetValue(controllerId, out function);
     }
 }

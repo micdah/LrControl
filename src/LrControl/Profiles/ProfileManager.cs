@@ -103,12 +103,12 @@ namespace LrControl.Profiles
         public void OnParameterChanged(IParameter parameter)
         {
             var activeProfile = GetProfileForModule(ActiveModule);
-            foreach (var entry in activeProfile.GetParameterFunctions(parameter))
+            foreach (var (controllerId, parameterFunction) in activeProfile.GetParameterFunctions(parameter))
             {
-                if (_deviceManager.TryGetInfo(entry.Key, out var info) && 
-                    entry.Value.TryGetControllerValue(out var value, info.Range))
+                if (_deviceManager.TryGetInfo(controllerId, out var info) && 
+                    parameterFunction.TryGetControllerValue(out var value, info.Range))
                 {
-                    _deviceManager.OnOutput(entry.Key, value);
+                    _deviceManager.OnOutput(controllerId, value);
                 }
             }
         }

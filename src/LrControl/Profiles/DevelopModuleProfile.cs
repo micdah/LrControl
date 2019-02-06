@@ -61,26 +61,36 @@ namespace LrControl.Profiles
                 dict.ContainsKey(controllerId)) ||
                base.HasFunction(in controllerId);
 
-        public override IDictionary<ControllerId, ParameterFunction> GetParameterFunctions(IParameter parameter)
+        public override IEnumerable<(ControllerId, ParameterFunction)> GetParameterFunctions(IParameter parameter)
         {
-            var result = base.GetParameterFunctions(parameter);
-            if (_panelFunctions.TryGetValue(ActivePanel, out var dict))
+            if (!_panelFunctions.TryGetValue(ActivePanel, out var activePanelFunction))
             {
-                foreach (var entry in dict)
+                foreach (var entry in base.GetParameterFunctions(parameter))
+                    yield return entry;
+            }
+            else
+            {
+                // Active panel functions
+                foreach (var entry in activePanelFunction)
                 {
                     if (entry.Value is ParameterFunction parameterFunction &&
-                        ReferenceEquals(parameter, parameterFunction.Parameter))
+                        ReferenceEquals(parameterFunction.Parameter, parameter))
                     {
-                        result[entry.Key] = parameterFunction;
+                        yield return (entry.Key, parameterFunction);
                     }
-                    else
+                }
+
+                // Module functions
+                foreach (var entry in Functions)
+                {
+                    if (!activePanelFunction.ContainsKey(entry.Key) &&
+                        entry.Value is ParameterFunction parameterFunction &&
+                        ReferenceEquals(parameterFunction.Parameter, parameter))
                     {
-                        result.Remove(entry.Key);
+                        yield return (entry.Key, parameterFunction);
                     }
                 }
             }
-
-            return result;
         }
 
         protected override bool TryGetFunction(in ControllerId controllerId, out IFunction function)
