@@ -2,7 +2,7 @@ using RtMidi.Core.Messages;
 
 namespace LrControl.Devices.Midi
 {
-    internal interface IMidiInputDeviceEventDispatcher
+    internal interface IMidiEventDispatcher
     {
         void OnNoteOff(in NoteOffMessage msg);
         void OnNoteOn(in NoteOnMessage msg);

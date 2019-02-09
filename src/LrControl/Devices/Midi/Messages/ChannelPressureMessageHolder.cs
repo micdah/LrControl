@@ -14,7 +14,7 @@ namespace LrControl.Devices.Midi.Messages
                    || LastSent.Pressure != Message.Pressure;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in ChannelPressureMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in ChannelPressureMessage msg)
         {
             dispatcher.OnChannelPressure(in msg);
         }

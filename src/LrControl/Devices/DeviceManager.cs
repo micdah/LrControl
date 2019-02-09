@@ -28,8 +28,7 @@ namespace LrControl.Devices
     public class DeviceManager : IDeviceManager
     {
         private readonly ISettings _settings;
-        private readonly ConcurrentDictionary<ControllerId, ControllerInfo> _controllers =
-            new ConcurrentDictionary<ControllerId, ControllerInfo>();
+        private readonly ConcurrentDictionary<ControllerId, ControllerInfo> _controllers;
         private IMidiInputDevice _inputDevice;
         private IMidiOutputDevice _outputDevice;
         
@@ -42,10 +41,13 @@ namespace LrControl.Devices
             : null;
 
         public IEnumerable<ControllerInfo> ControllerInfos => _controllers.Values;
+        
+        public event InputHandler Input;
 
         public DeviceManager(ISettings settings)
         {
             _settings = settings;
+            _controllers = new ConcurrentDictionary<ControllerId, ControllerInfo>();
         }
 
         public DeviceManager(ISettings settings, IEnumerable<ControllerInfo> controllerInfos) : this(settings)
@@ -167,8 +169,6 @@ namespace LrControl.Devices
         {
             return _controllers.TryGetValue(controllerId, out controllerInfo);
         }
-
-        public event InputHandler Input;
 
         private void OnInput(in ControllerId controllerId, int value)
         {

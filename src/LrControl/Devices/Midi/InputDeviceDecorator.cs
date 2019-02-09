@@ -12,7 +12,7 @@ using Serilog;
 
 namespace LrControl.Devices.Midi
 {
-    public class InputDeviceDecorator : IMidiInputDevice, IMidiInputDeviceEventDispatcher
+    public class InputDeviceDecorator : IMidiInputDevice, IMidiEventDispatcher
     {
         private delegate MessageHolder<TMessage> MessageHolderFactory<TMessage>(in TMessage msg)
             where TMessage : struct;

@@ -13,7 +13,7 @@ namespace LrControl.Devices.Midi.Messages
             return LastSentTimestamp != MessageTimestamp;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in SysExMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in SysExMessage msg)
         {
             dispatcher.OnSysEx(in msg);
         }

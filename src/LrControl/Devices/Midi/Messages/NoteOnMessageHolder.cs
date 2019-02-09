@@ -15,7 +15,7 @@ namespace LrControl.Devices.Midi.Messages
                    || LastSent.Velocity != Message.Velocity;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in NoteOnMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in NoteOnMessage msg)
         {
             dispatcher.OnNoteOn(in msg);
         }

@@ -14,7 +14,7 @@ namespace LrControl.Devices.Midi.Messages
                    || LastSent.Value != Message.Value;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in PitchBendMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in PitchBendMessage msg)
         {
             dispatcher.OnPitchBend(in msg);
         }

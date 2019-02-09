@@ -15,7 +15,7 @@ namespace LrControl.Devices.Midi.Messages
                    || LastSent.Pressure != Message.Pressure;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in PolyphonicKeyPressureMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in PolyphonicKeyPressureMessage msg)
         {
             dispatcher.OnPolyphonicKeyPressure(in msg);
         }

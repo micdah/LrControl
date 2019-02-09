@@ -14,7 +14,7 @@ namespace LrControl.Devices.Midi.Messages
                    || LastSent.Program != Message.Program;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in ProgramChangeMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in ProgramChangeMessage msg)
         {
             dispatcher.OnProgramChange(in msg);
         }

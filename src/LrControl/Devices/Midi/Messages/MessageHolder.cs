@@ -8,7 +8,7 @@ namespace LrControl.Devices.Midi.Messages
         public long MessageTimestamp { get; protected set; }
         public long LastSentTimestamp { get; protected set; }
         
-        public abstract void SendMessage(IMidiInputDeviceEventDispatcher dispatcher);
+        public abstract void SendMessage(IMidiEventDispatcher dispatcher);
 
         protected abstract bool CalculateHasChanged();
     }
@@ -26,7 +26,7 @@ namespace LrControl.Devices.Midi.Messages
         protected ref readonly T Message => ref _message;
         protected ref readonly T LastSent => ref _lastSent;
 
-        public override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher)
+        public override void SendMessage(IMidiEventDispatcher dispatcher)
         {
             ref readonly var msg = ref _message;
             SendMessage(dispatcher, in msg);
@@ -41,6 +41,6 @@ namespace LrControl.Devices.Midi.Messages
             _message = msg;
         }
 
-        protected abstract void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in T msg);
+        protected abstract void SendMessage(IMidiEventDispatcher dispatcher, in T msg);
     }
 }

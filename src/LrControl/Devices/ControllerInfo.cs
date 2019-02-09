@@ -22,6 +22,7 @@ namespace LrControl.Devices
             else if (value > Range)
                 Range.Maximum = value;
 
+            // Save last seen value
             LastValue = value;
         }
     }

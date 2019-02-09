@@ -15,7 +15,7 @@ namespace LrControl.Devices.Midi.Messages
                    || LastSent.Value != Message.Value;
         }
 
-        protected override void SendMessage(IMidiInputDeviceEventDispatcher dispatcher, in NrpnMessage msg)
+        protected override void SendMessage(IMidiEventDispatcher dispatcher, in NrpnMessage msg)
         {
             dispatcher.OnNrpn(in msg);
         }
