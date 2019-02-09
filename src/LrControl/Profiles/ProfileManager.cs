@@ -126,11 +126,21 @@ namespace LrControl.Profiles
             {
                 if (!activeProfile.HasFunction(info.ControllerId))
                 {
+                    /*
+                     * If active profile has no function associated with `ControllerId`, we reset the device to it's
+                     * minimum value
+                     */
                     _deviceManager.OnOutput(info.ControllerId, (int) info.Range.Minimum);
                 }
-                else if (activeProfile.TryGetParameterFunction(info.ControllerId, out var parameterFunction) &&
+                else if (activeProfile.TryGetFunction(info.ControllerId, out var function) &&
+                         function is ParameterFunction parameterFunction &&
                          parameterFunction.TryGetControllerValue(out var value, info.Range))
                 {
+                    /*
+                     * If active profile has a `ParameterFunction` associated with it, and we can get the current value
+                     * for the parameter, we set the device to the value (adapted to the controller range, based on
+                     * the parameter range)
+                     */
                     _deviceManager.OnOutput(info.ControllerId, value);
                 }
             }

@@ -41,17 +41,8 @@ namespace LrControl.Profiles
             return Functions.ContainsKey(controllerId);
         }
 
-        public virtual bool TryGetParameterFunction(in ControllerId controllerId, out ParameterFunction parameterFunction)
-        {
-            if (Functions.TryGetValue(controllerId, out var function))
-            {
-                parameterFunction = function as ParameterFunction;
-                return parameterFunction != null;
-            }
-
-            parameterFunction = null;
-            return false;
-        }
+        public virtual bool TryGetFunction(in ControllerId controllerId, out IFunction function)
+            => Functions.TryGetValue(controllerId, out function);
 
         public virtual IEnumerable<(ControllerId, ParameterFunction)> GetFunctionsForParameter(IParameter parameter)
         {
@@ -64,8 +55,5 @@ namespace LrControl.Profiles
                 }
             }
         }
-
-        protected virtual bool TryGetFunction(in ControllerId controllerId, out IFunction function)
-            => Functions.TryGetValue(controllerId, out function);
     }
 }

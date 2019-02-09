@@ -63,17 +63,14 @@ namespace LrControl.Profiles
                    base.HasFunction(in controllerId);
         }
 
-        public override bool TryGetParameterFunction(in ControllerId controllerId, out ParameterFunction parameterFunction)
+        public override bool TryGetFunction(in ControllerId controllerId, out IFunction function)
         {
-            if (ActivePanel != null &&
+            if (ActivePanel != null && 
                 _panelFunctions.TryGetValue(ActivePanel, out var activePanelFunctions) &&
-                activePanelFunctions.TryGetValue(controllerId, out var function))
-            {
-                parameterFunction = function as ParameterFunction;
-                return parameterFunction != null;
-            }
-
-            return base.TryGetParameterFunction(in controllerId, out parameterFunction);
+                activePanelFunctions.TryGetValue(controllerId, out function))
+                return true;
+            
+            return base.TryGetFunction(in controllerId, out function);
         }
 
         public override IEnumerable<(ControllerId, ParameterFunction)> GetFunctionsForParameter(IParameter parameter)
@@ -107,16 +104,6 @@ namespace LrControl.Profiles
                     }
                 }
             }
-        }
-
-        protected override bool TryGetFunction(in ControllerId controllerId, out IFunction function)
-        {
-            if (ActivePanel != null && 
-                _panelFunctions.TryGetValue(ActivePanel, out var activePanelFunctions) &&
-                activePanelFunctions.TryGetValue(controllerId, out function))
-                return true;
-            
-            return base.TryGetFunction(in controllerId, out function);
         }
     }
 }
