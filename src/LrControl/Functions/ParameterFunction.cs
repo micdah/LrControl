@@ -56,6 +56,11 @@ namespace LrControl.Functions
             return true;
         }
 
+        protected virtual bool UpdateRange(Range controllerRange)
+        {
+            return ParameterRange != null || Api.LrDevelopController.GetRange(out ParameterRange, Parameter);
+        }
+
         protected virtual double CalculateParameterValue(int controllerValue, Range controllerRange)
         {
             return ParameterRange.FromRange(controllerRange, controllerValue);
@@ -79,11 +84,6 @@ namespace LrControl.Functions
                     break;
             }
             return 0;
-        }
-
-        protected virtual bool UpdateRange(Range controllerRange)
-        {
-            return ParameterRange != null || Api.LrDevelopController.GetRange(out ParameterRange, Parameter);
         }
     }
 }
