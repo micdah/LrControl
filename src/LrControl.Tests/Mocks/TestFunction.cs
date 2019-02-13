@@ -4,7 +4,7 @@ using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Tests.Profiles
+namespace LrControl.Tests.Mocks
 {
     public class TestFunction : IFunction
     {

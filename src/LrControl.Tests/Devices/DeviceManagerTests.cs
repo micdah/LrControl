@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Linq;
 using LrControl.Configurations;
 using LrControl.Devices;
+using LrControl.Tests.Mocks;
 using Moq;
 using RtMidi.Core.Enums;
 using RtMidi.Core.Messages;

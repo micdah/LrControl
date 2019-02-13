@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using RtMidi.Core.Devices;
 using RtMidi.Core.Messages;
 
-namespace LrControl.Tests.Devices
+namespace LrControl.Tests.Mocks
 {
     public class TestMidiOutputDevice : IMidiOutputDevice
     {

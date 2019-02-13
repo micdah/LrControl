@@ -6,8 +6,8 @@ using LrControl.Core.Functions;
 using LrControl.Core.Functions.Catalog;
 using LrControl.Core.Functions.Factories;
 using LrControl.LrPlugin.Api;
-using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.Tests.Mocks;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
@@ -144,16 +144,6 @@ namespace LrControl.Tests.Core.Functions
             new Parameter<string>("StringParameter", "String parameter");
 
         private static readonly IEnumerationParameter<string> EnumerationParameter =
-            EnumerationParameter<string>.Create<TestEnumeration>("TestParameter", "Test parameter");
-
-        class TestEnumeration : Enumeration<TestEnumeration, string>
-        {
-            public static readonly TestEnumeration Value1 = new TestEnumeration("Value1", "Value 1");
-            public static readonly TestEnumeration Value2 = new TestEnumeration("Value2", "Value 2");
-
-            private TestEnumeration(string value, string name) : base(value, name)
-            {
-            }
-        }
+            EnumerationParameter<string>.Create<TestStringEnumeration>("TestParameter", "Test parameter");
     }
 }

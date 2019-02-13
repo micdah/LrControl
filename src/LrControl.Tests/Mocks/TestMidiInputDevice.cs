@@ -2,7 +2,7 @@ using RtMidi.Core.Devices;
 using RtMidi.Core.Devices.Nrpn;
 using RtMidi.Core.Messages;
 
-namespace LrControl.Tests.Devices
+namespace LrControl.Tests.Mocks
 {
     public class TestMidiInputDevice : IMidiInputDevice
     {

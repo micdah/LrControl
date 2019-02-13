@@ -10,6 +10,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Profiles;
 using LrControl.Tests.Devices;
+using LrControl.Tests.Mocks;
 using Moq;
 using RtMidi.Core.Enums;
 using RtMidi.Core.Messages;

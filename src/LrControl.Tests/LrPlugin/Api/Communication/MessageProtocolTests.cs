@@ -1,9 +1,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Communication;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.Tests.Mocks;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
@@ -33,6 +33,20 @@ namespace LrControl.Tests.LrPlugin.Api.Communication
                 .Returns(true);
             
             _sut = new MessageProtocol(_pluginClientMock.Object, "TestModule");
+        }
+        
+        private void SetupSendMessage(string response = "ack", bool returns = true)
+        {
+            _pluginClientMock
+                .Setup(m => m.SendMessage(It.IsAny<string>(), out response))
+                .Returns(returns);
+        }
+
+        private void VerifySendMessage(string message)
+        {
+            string response = string.Empty;
+            _pluginClientMock
+                .Verify(m => m.SendMessage(It.Is<string>(x => x == message), out response), Times.Once());
         }
 
         [Fact]
@@ -404,30 +418,5 @@ namespace LrControl.Tests.LrPlugin.Api.Communication
             Assert.Equal(ret2, response2);
             Assert.Equal(ret3, response3);
         }
-        
-        #region Helpers
-        
-        private void SetupSendMessage(string response = "ack", bool returns = true)
-        {
-            _pluginClientMock
-                .Setup(m => m.SendMessage(It.IsAny<string>(), out response))
-                .Returns(returns);
-        }
-
-        private void VerifySendMessage(string message)
-        {
-            string response = string.Empty;
-            _pluginClientMock
-                .Verify(m => m.SendMessage(It.Is<string>(x => x == message), out response), Times.Once());
-        }
-
-        class TestEnumeration<T> : Enumeration<TestEnumeration<T>, T> where T : IComparable
-        {
-            public TestEnumeration(T value, string name) : base(value, name)
-            {
-            }
-        }
-        
-        #endregion
     }
 }
