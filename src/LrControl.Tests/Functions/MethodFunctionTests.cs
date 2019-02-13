@@ -1,5 +1,6 @@
 using LrControl.Functions;
 using LrControl.Tests.Devices;
+using LrControl.Tests.Mocks;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
