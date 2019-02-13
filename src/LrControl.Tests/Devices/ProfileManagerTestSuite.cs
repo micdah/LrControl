@@ -42,6 +42,7 @@ namespace LrControl.Tests.Devices
         
         protected readonly IProfileManager ProfileManager;
         protected readonly Mock<ILrDevelopController> LrDevelopController;
+        protected readonly Mock<ILrApplicationView> LrApplicationView;
         protected readonly Mock<ILrApi> LrApi;
         protected readonly Mock<ISettings> Settings;
         protected int Value;
@@ -70,12 +71,19 @@ namespace LrControl.Tests.Devices
             // Mock ILrDevelopController
             LrDevelopController = new Mock<ILrDevelopController>();
             
+            // Mock LrApplicationView
+            LrApplicationView = new Mock<ILrApplicationView>();
+            
             // Mock ILrApi
             LrApi = new Mock<ILrApi>();
             
             LrApi
                 .Setup(m => m.LrDevelopController)
                 .Returns(LrDevelopController.Object);
+
+            LrApi
+                .Setup(m => m.LrApplicationView)
+                .Returns(LrApplicationView.Object);
             
             // Mock ISettings
             Settings = new Mock<ISettings>();

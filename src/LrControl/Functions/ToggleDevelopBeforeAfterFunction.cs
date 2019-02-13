@@ -1,14 +1,12 @@
-﻿using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
+using LrControl.Configurations;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class ToggleDevelopBeforeAfterFunction : Function
+    public class ToggleDevelopBeforeAfterFunction : Function
     {
         private bool _toggled;
 
