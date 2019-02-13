@@ -1,5 +1,4 @@
 using LrControl.LrPlugin.Api.Common;
-using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Tests.Mocks
 {
@@ -11,14 +10,5 @@ namespace LrControl.Tests.Mocks
         private TestStringEnumeration(string value, string name) : base(value, name)
         {
         }
-    }
-
-    public static class TestParameter
-    {
-        public static readonly IParameter<int> IntegerParameter = 
-            new Parameter<int>("IntegerParameter", "Integer parameter");
-        
-        public static readonly IParameter<double> DoubleParameter =
-            new Parameter<double>("DoubleParameter", "Double parameter");
     }
 }
