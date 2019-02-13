@@ -1,53 +1,52 @@
 using System;
-using LrControl.Configurations;
 using LrControl.Functions;
-using LrControl.LrPlugin.Api;
-using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.Tests.Devices;
+using LrControl.Tests.Mocks;
 using Moq;
+using RtMidi.Core.Messages;
 using Xunit;
 using Xunit.Abstractions;
 using Range = LrControl.LrPlugin.Api.Common.Range;
 
 namespace LrControl.Tests.Functions
 {
-    public class ParameterFunctionTests : TestSuite
+    public class ParameterFunctionTests : ProfileManagerTestSuite
     {
-        private static readonly IParameter<int> IntegerParameter =
-            new Parameter<int>("IntegerParameter", "Integer parameter");
-
-        private static readonly IParameter<double> DoubleParameter =
-            new Parameter<double>("DoubleParameter", "Double parameter");
-        
-        private readonly Mock<ISettings> _settings;
-        private readonly Mock<ILrApi> _lrApi;
-        private readonly Mock<ILrDevelopController> _lrDevelopController;
+        private ParameterFunction _function;
 
         public ParameterFunctionTests(ITestOutputHelper output) : base(output)
         {
-            _settings = new Mock<ISettings>();
-            
-            _lrDevelopController = new Mock<ILrDevelopController>();
-            
-            _lrApi = new Mock<ILrApi>();
-            _lrApi
-                .Setup(m => m.LrDevelopController)
-                .Returns(_lrDevelopController.Object);
         }
 
         private ParameterFunction Create(IParameter parameter)
             => new ParameterFunction(
-                _settings.Object,
-                _lrApi.Object,
+                Settings.Object,
+                LrApi.Object,
                 "Test Function",
                 "TestFunction",
                 parameter);
 
+        private void Setup<T>(IParameter<T> parameter, Range parameterRange, bool setupRange = true)
+        {
+            _function = Create(parameter);
+            ProfileManager.AssignFunction(DefaultModule, Info1.ControllerId, _function);
+
+            if (setupRange)
+            {
+                var expectedParameterRange = parameterRange;
+                LrDevelopController
+                    .Setup(m => m.GetRange(out expectedParameterRange, parameter))
+                    .Returns(true)
+                    .Verifiable($"Should get range for parameter {parameter}");
+            }
+        }
+
         [Fact]
         public void Should_Only_Work_With_Double_And_Int_Parameters()
         {
-            Assert.NotNull(Create(IntegerParameter));
-            Assert.NotNull(Create(DoubleParameter));
+            Assert.NotNull(Create(TestParameter.IntegerParameter));
+            Assert.NotNull(Create(TestParameter.DoubleParameter));
             Assert.Throws<ArgumentException>(() =>
             {
                 Create(new Parameter<string>("StringParameter", "String parameter"));
@@ -58,42 +57,94 @@ namespace LrControl.Tests.Functions
         public void Should_Update_Parameter_Range_Before_Applying()
         {
             // Setup
-            var func = Create(IntegerParameter);
-
-            var parameterRange = new Range(0, 255);
-            _lrDevelopController
-                .Setup(m => m.GetRange(out parameterRange, IntegerParameter))
-                .Returns(true)
-                .Verifiable("Should get range for parameter before applying");
+            Setup(TestParameter.IntegerParameter, new Range(0, 256));
 
             // Test
-            func.Apply(0, new Range(0, 128), Module.Develop, null);
+            ControllerInput(Info1.ControllerId, Value++);
 
             // Verify
-            _lrDevelopController.Verify();
+            LrDevelopController.Verify();
         }
 
         [Fact]
         public void Should_Set_Integer_Parameter_Based_On_Parameter_Range()
         {
             // Setup
-            var func = Create(IntegerParameter);
-
-            var parameterRange = new Range(0, 256);
-            _lrDevelopController
-                .Setup(m => m.GetRange(out parameterRange, IntegerParameter))
-                .Returns(true);
+            Setup(TestParameter.IntegerParameter, new Range(0, 256));
+            var value = (int)(Info1.Range.Maximum - Info1.Range.Minimum) / 2;
             
-            _lrDevelopController
-                .Setup(m => m.SetValue(IntegerParameter, 128))
+            LrDevelopController
+                .Setup(m => m.SetValue(TestParameter.IntegerParameter, 128))
                 .Returns(true)
                 .Verifiable("Should set parameter value to 128");
 
             // Test
-            func.Apply(50, new Range(0, 100), Module.Develop, null);
+            ControllerInput(Info1.ControllerId, value);
 
             // Verify
-            _lrDevelopController.Verify();
+            LrDevelopController.Verify();
+        }
+
+        [Fact]
+        public void Should_Set_Double_Parameter_Based_On_Parameter_Range()
+        {
+            // Setup
+            Setup(TestParameter.DoubleParameter, new Range(0, 256));
+            var value = (int)(Info1.Range.Maximum - Info1.Range.Minimum) / 2;
+
+            LrDevelopController
+                .Setup(m => m.SetValue(TestParameter.DoubleParameter, 128.0d))
+                .Returns(true)
+                .Verifiable("Should set parameter to value 128.0");
+
+            // Test
+            ControllerInput(Info1.ControllerId, value);
+
+            // Verify
+            LrDevelopController.Verify();
+        }
+
+        [Fact]
+        public void Should_Fail_To_Get_Controller_Value_If_Cannot_Get_Parameter_Range()
+        {
+            // Setup
+            Setup(TestParameter.IntegerParameter, new Range(0, 256), false);
+
+            var range = new Range(0, 100);
+            LrDevelopController
+                .Setup(m => m.GetRange(out range, TestParameter.IntegerParameter))
+                .Returns(false)
+                .Verifiable();
+
+            // Test
+            ProfileManager.OnParameterChanged(TestParameter.IntegerParameter);
+
+            // Verify
+            LrDevelopController.Verify();
+            AssertNoMoreOutput();
+        }
+
+        [Fact]
+        public void Should_Get_Controller_Value()
+        {
+            // Setup
+            Setup(TestParameter.IntegerParameter, new Range(0, 256));
+            var controllerValue = (int) (Info1.Range.Maximum - Info1.Range.Minimum) / 2;
+
+            var parameterValue = 128;
+            LrDevelopController
+                .Setup(m => m.GetValue(out parameterValue, TestParameter.IntegerParameter))
+                .Returns(true)
+                .Verifiable();
+
+            // Test
+            ProfileManager.OnParameterChanged(TestParameter.IntegerParameter);
+
+            // Verify
+            LrDevelopController.Verify();
+            
+            var msg = TakeOutput<NrpnMessage>();
+            Assert.Equal(controllerValue, msg.Value);
         }
     }
 }

@@ -258,7 +258,7 @@ namespace LrControl.Tests.Profiles
 
             // Test
             ProfileManager.OnModuleChanged(Module.Develop);
-            ClearOutputMessages();
+            ClearOutput();
 
             ProfileManager.OnPanelChanged(Panel.ToneCurve);
 
@@ -292,7 +292,7 @@ namespace LrControl.Tests.Profiles
             ProfileManager.AssignFunction(Module.Develop, Info1.ControllerId, function);
             ProfileManager.OnModuleChanged(Module.Develop);
             ProfileManager.OnPanelChanged(Panel.Basic);
-            ClearOutputMessages();
+            ClearOutput();
 
             // Test
             ProfileManager.OnParameterChanged(parameter);
@@ -323,7 +323,7 @@ namespace LrControl.Tests.Profiles
             ProfileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, function);
             ProfileManager.OnModuleChanged(Module.Develop);
             ProfileManager.OnPanelChanged(Panel.Basic);
-            ClearOutputMessages();
+            ClearOutput();
 
             // Test
             ProfileManager.OnParameterChanged(parameter);
@@ -357,7 +357,7 @@ namespace LrControl.Tests.Profiles
             ProfileManager.AssignPanelFunction(Panel.Basic, Info1.ControllerId, function);
             ProfileManager.OnModuleChanged(Module.Develop);
             ProfileManager.OnPanelChanged(Panel.Basic);
-            ClearOutputMessages();
+            ClearOutput();
 
             // Test
             ProfileManager.OnParameterChanged(parameter);
@@ -422,7 +422,7 @@ namespace LrControl.Tests.Profiles
             ProfileManager.AssignPanelFunction(Panel.ToneCurve, Info1.ControllerId, function);
             ProfileManager.AssignFunction(Module.Develop, Info2.ControllerId, new TestFunction());
             ProfileManager.OnModuleChanged(Module.Develop);
-            ClearOutputMessages();
+            ClearOutput();
 
             // Test
             ProfileManager.OnPanelChanged(Panel.ToneCurve);
@@ -459,7 +459,7 @@ namespace LrControl.Tests.Profiles
             ProfileManager.AssignFunction(Module.Develop, Info1.ControllerId, moduleFunction);
             ProfileManager.AssignFunction(Module.Develop, Info2.ControllerId, new TestFunction());
             ProfileManager.OnModuleChanged(Module.Develop);
-            ClearOutputMessages();
+            ClearOutput();
 
             // Test
             ProfileManager.OnPanelChanged(Panel.ToneCurve);

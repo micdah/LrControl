@@ -149,16 +149,6 @@ namespace LrControl.Tests.Devices
             throw new Exception("Message not received as expected");
         }
 
-        protected void ClearOutputMessages()
-        {
-            Log.Debug("Clearing output device message buffer");
-            
-            while (_outputDevice.Messages.TryTake(out var msg))
-            {
-                Log.Debug("Throwing away message: {@Message}", msg);
-            }
-        }
-
         protected T TakeOutput<T>()
         {
             Assert.True(_outputDevice.Messages.TryTake(out var msg));
@@ -166,6 +156,16 @@ namespace LrControl.Tests.Devices
             
             Assert.True(msg is T);
             return (T) msg;
+        }
+
+        protected void ClearOutput()
+        {
+            Log.Debug("Clearing output device message buffer");
+            
+            while (_outputDevice.Messages.TryTake(out var msg))
+            {
+                Log.Debug("Throwing away message: {@Message}", msg);
+            }
         }
 
         protected void AssertNoMoreOutput()
