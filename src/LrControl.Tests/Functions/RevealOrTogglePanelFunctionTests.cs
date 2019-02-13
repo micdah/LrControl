@@ -1,7 +1,4 @@
-using LrControl.Configurations;
-using LrControl.Devices;
 using LrControl.Functions;
-using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
@@ -9,7 +6,6 @@ using LrControl.Tests.Devices;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
-using Range = LrControl.LrPlugin.Api.Common.Range;
 
 namespace LrControl.Tests.Functions
 {

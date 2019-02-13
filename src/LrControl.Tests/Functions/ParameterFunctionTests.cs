@@ -3,7 +3,6 @@ using LrControl.Functions;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.Tests.Devices;
 using LrControl.Tests.Mocks;
-using RtMidi.Core.Messages;
 using Xunit;
 using Xunit.Abstractions;
 using Range = LrControl.LrPlugin.Api.Common.Range;
