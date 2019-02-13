@@ -1,6 +1,5 @@
 using System;
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 
@@ -22,6 +21,6 @@ namespace LrControl.Core.Functions.Factories
         public override string Key { get; }
 
         protected override IFunction CreateFunction(ISettings settings, ILrApi api)
-            => new MethodFunction(settings, api, DisplayName, _method, DisplayName, Key);
+            => new MethodFunction(settings, api, DisplayName, Key, _method, DisplayName);
     }
 }
