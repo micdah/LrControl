@@ -93,5 +93,10 @@ namespace LrControl.Devices
                 return hashCode;
             }
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(MessageType)}: {MessageType}, {nameof(Channel)}: {Channel}, {nameof(Parameter)}: {Parameter}";
+        }
     }
 }

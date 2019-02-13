@@ -1,9 +1,11 @@
 using LrControl.Configurations;
+using LrControl.Devices;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
+using LrControl.Tests.Devices;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
@@ -11,40 +13,45 @@ using Range = LrControl.LrPlugin.Api.Common.Range;
 
 namespace LrControl.Tests.Functions
 {
-    public class RevealOrTogglePanelFunctionTests : TestSuite
+    public class RevealOrTogglePanelFunctionTests : ProfileManagerTestSuite
     {
-        private readonly Range _range = new Range(0, 255);
-        private readonly Module _module = Module.Develop;
-        private readonly Mock<ISettings> _settings = new Mock<ISettings>();
-        private readonly Mock<ILrApi> _lrApi = new Mock<ILrApi>();
-        private readonly Mock<ILrDevelopController> _lrDevelopController = new Mock<ILrDevelopController>();
-
         public RevealOrTogglePanelFunctionTests(ITestOutputHelper output) : base(output)
         {
-            _lrApi
-                .Setup(m => m.LrDevelopController)
-                .Returns(_lrDevelopController.Object);
+            ProfileManager.OnModuleChanged(Module.Develop);
+            ClearOutput();
+            
+            LrDevelopController
+                .Setup(m => m.RevealPanel(It.IsAny<Panel>()))
+                .Returns(true);
         }
 
         private IFunction Create(Panel panel)
             => new RevealOrTogglePanelFunction(
-                _settings.Object,
-                _lrApi.Object,
+                Settings.Object,
+                LrApi.Object,
                 "Test Function",
                 "TestFunction",
                 panel);
+
+        private void Setup(Panel panel)
+        {
+            var function = Create(panel);
+            ProfileManager.AssignFunction(Module.Develop, Id1, function);
+        }
 
         [Fact]
         public void Should_Reveal_Panel_When_Panel_Is_Not_Currently_Active()
         {
             // Setup
-            var func = Create(Panel.Detail);
+            Setup(Panel.Detail);
+            ProfileManager.OnPanelChanged(Panel.ToneCurve);
+                
 
             // Test
-            func.Apply((int)_range.Maximum, _range, _module, Panel.ToneCurve);
+            ControllerInput(Id1, Range1.Maximum);
 
             // Verify
-            _lrDevelopController
+            LrDevelopController
                 .Verify(m => m.RevealPanel(Panel.Detail), Times.Once);
         }
 
@@ -52,27 +59,31 @@ namespace LrControl.Tests.Functions
         public void Should_Only_Apply_When_Value_Is_Maximum_Of_Range()
         {
             // Setup
-            var func = Create(Panel.Detail);
+            Setup(Panel.Detail);
+            ProfileManager.OnPanelChanged(Panel.ToneCurve);
 
             // Test
-            func.Apply((int) _range.Maximum - 1, _range, _module, Panel.ToneCurve);
+            ControllerInput(Id1, Range1.Maximum - 0.1d);
 
             // Verify
-            _lrDevelopController.VerifyNoOtherCalls();
+            LrDevelopController.VerifyNoOtherCalls();
         }
 
         [Fact]
         public void Should_Always_Reveal_Basic_Panel_Regardless_Of_Active_Panel()
         {
             // Setup
-            var func = Create(Panel.Basic);
+            Setup(Panel.Basic);
 
             // Test
-            func.Apply((int) _range.Maximum, _range, _module, Panel.ToneCurve);
-            func.Apply((int) _range.Maximum, _range, _module, Panel.Basic);
+            ProfileManager.OnPanelChanged(Panel.ToneCurve);
+            ControllerInput(Id1, Range1.Maximum, Range1.Minimum);
+
+            ProfileManager.OnPanelChanged(Panel.Basic);
+            ControllerInput(Id1, Range1.Maximum, Range1.Minimum);
 
             // Verify
-            _lrDevelopController
+            LrDevelopController
                 .Verify(m => m.RevealPanel(Panel.Basic), Times.Exactly(2));
         }
 
@@ -80,18 +91,20 @@ namespace LrControl.Tests.Functions
         public void Should_Disable_Panel_When_Panel_Is_Active_And_Currently_Enabled()
         {
             // Setup
-            var func = Create(Panel.Detail);
-
-            bool enabled = true;
-            _lrDevelopController
+            Setup(Panel.Detail);
+            
+            var enabled = true;
+            LrDevelopController
                 .Setup(m => m.GetValue(out enabled, EnablePanelParameter.Detail))
                 .Returns(true);
+            
+            ProfileManager.OnPanelChanged(Panel.Detail);
 
             // Test
-            func.Apply((int)_range.Maximum, _range, _module, Panel.Detail);
+            ControllerInput(Id1, Range1.Maximum);
 
             // Verify
-            _lrDevelopController
+            LrDevelopController
                 .Verify(m => m.SetValue(EnablePanelParameter.Detail, false), Times.Once);
         }
 
@@ -99,18 +112,20 @@ namespace LrControl.Tests.Functions
         public void Should_Enable_Panel_When_Panel_Is_Active_And_Currently_Disabled()
         {
             // Setup
-            var func = Create(Panel.Detail);
+            Setup(Panel.Detail);
 
-            bool enabled = false;
-            _lrDevelopController
+            var enabled = false;
+            LrDevelopController
                 .Setup(m => m.GetValue(out enabled, EnablePanelParameter.Detail))
                 .Returns(true);
 
+            ProfileManager.OnPanelChanged(Panel.Detail);
+
             // Test
-            func.Apply((int)_range.Maximum, _range, _module, Panel.Detail);
+            ControllerInput(Id1, Range1.Maximum);
 
             // Verify
-            _lrDevelopController
+            LrDevelopController
                 .Verify(m => m.SetValue(EnablePanelParameter.Detail, true), Times.Once);
         }
     }

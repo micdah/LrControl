@@ -5,6 +5,7 @@ using LrControl.Functions;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using Serilog;
 
 namespace LrControl.Profiles
 {
@@ -23,6 +24,7 @@ namespace LrControl.Profiles
 
     public class ProfileManager : IProfileManager
     {
+        private static readonly ILogger Log = Serilog.Log.ForContext<ProfileManager>();
         private readonly IDeviceManager _deviceManager;
         private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
         private readonly DevelopModuleProfile _developModuleProfile;
@@ -89,6 +91,8 @@ namespace LrControl.Profiles
 
         public void OnModuleChanged(Module module)
         {
+            Log.Debug("OnModuleChanged: {Module}", module);
+            
             ActiveModule = module;
 
             UpdateOutputDevice();
@@ -96,6 +100,8 @@ namespace LrControl.Profiles
 
         public void OnPanelChanged(Panel panel)
         {
+            Log.Debug("OnPanelChanged: {Panel}", panel);
+            
             ActivePanel = panel;
 
             UpdateOutputDevice();
@@ -103,12 +109,16 @@ namespace LrControl.Profiles
 
         public void OnParameterChanged(IParameter parameter)
         {
+            Log.Debug("OnParameterChanged: {Parameter}", parameter);
+            
             var activeProfile = GetProfileForModule(ActiveModule);
             foreach (var (controllerId, parameterFunction) in activeProfile.GetFunctionsForParameter(parameter))
             {
                 if (_deviceManager.TryGetInfo(controllerId, out var info) &&
                     parameterFunction.TryGetControllerValue(out var value, info.Range))
                 {
+                    Log.Debug("Updating output device: {Id} = {Value}", controllerId, value);
+                    
                     _deviceManager.OnOutput(controllerId, value);
                 }
             }
@@ -130,7 +140,9 @@ namespace LrControl.Profiles
                      * If active profile has no function associated with `ControllerId`, we reset the device to it's
                      * minimum value
                      */
-                    _deviceManager.OnOutput(info.ControllerId, (int) info.Range.Minimum);
+                    var value = (int) info.Range.Minimum;
+                    Log.Debug("Resetting output device: {Id} = {Value}", info.ControllerId, value);
+                    _deviceManager.OnOutput(info.ControllerId, value);
                 }
                 else if (activeProfile.TryGetFunction(info.ControllerId, out var function) &&
                          function is ParameterFunction parameterFunction &&
@@ -141,6 +153,7 @@ namespace LrControl.Profiles
                      * for the parameter, we set the device to the value (adapted to the controller range, based on
                      * the parameter range)
                      */
+                    Log.Debug("Updating output device: {Id} = {Value}", info.ControllerId, value);
                     _deviceManager.OnOutput(info.ControllerId, value);
                 }
             }

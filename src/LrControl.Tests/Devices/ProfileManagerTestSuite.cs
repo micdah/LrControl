@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using LrControl.Configurations;
 using LrControl.Devices;
@@ -19,15 +20,25 @@ namespace LrControl.Tests.Devices
 {
     public class ProfileManagerTestSuite : TestSuite
     {
+        private static readonly TimeSpan ReceivedTimeout = TimeSpan.FromSeconds(1);
+        private readonly ManualResetEventSlim _receivedEvent = new ManualResetEventSlim(false);
+        private readonly TestMidiInputDevice _inputDevice;
+        private readonly TestMidiOutputDevice _outputDevice;
+        
         protected static readonly Module DefaultModule = Module.Library;
-
+        
         protected static readonly ControllerInfo Info1 = new ControllerInfo(
             new ControllerId(MessageType.Nrpn, Channel.Channel1, 1),
             new Range(0, 128));
-
+        
         protected static readonly ControllerInfo Info2 = new ControllerInfo(
             new ControllerId(MessageType.Nrpn, Channel.Channel1, 2),
             new Range(0, 128));
+        
+        protected static ControllerId Id1 => Info1.ControllerId;
+        protected static ControllerId Id2 => Info2.ControllerId;
+        protected static Range Range1 => Info1.Range;
+        protected static Range Range2 => Info2.Range;
         
         protected readonly IProfileManager ProfileManager;
         protected readonly Mock<ILrDevelopController> LrDevelopController;
@@ -35,11 +46,6 @@ namespace LrControl.Tests.Devices
         protected readonly Mock<ISettings> Settings;
         protected int Value;
         
-        private readonly ManualResetEvent _receivedEvent = new ManualResetEvent(false);
-        private readonly TestMidiInputDevice _inputDevice;
-        private readonly TestMidiOutputDevice _outputDevice;
-        private static readonly TimeSpan ReceivedTimeout = TimeSpan.FromSeconds(1);
-
         protected ProfileManagerTestSuite(ITestOutputHelper output) : base(output)
         {
             // Create test device manager
@@ -75,87 +81,35 @@ namespace LrControl.Tests.Devices
             Settings = new Mock<ISettings>();
         }
 
-        protected void ControllerInput(in ControllerId controllerId, int value, MessageType messageType = MessageType.Nrpn)
+        protected void ControllerInput(in ControllerId controllerId, params double[] values)
+            => ControllerInput(in controllerId, values?.Select(x => (int) x).ToArray());
+
+        protected void ControllerInput(in ControllerId controllerId, params int[] values)
         {
-            _receivedEvent.Reset();
-
-            switch (messageType)
+            foreach (var value in values)
             {
-                case MessageType.Nrpn:
-                {
-                    var msg = new NrpnMessage(controllerId.Channel, controllerId.Parameter, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnNrpn(msg);
-                    break;
-                }
-                case MessageType.NoteOn:
-                {
-                    var msg = new NoteOnMessage(controllerId.Channel, (Key) controllerId.Parameter, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnNoteOn(msg);
-                    break;
-                }
-                case MessageType.NoteOff:
-                {
-                    var msg = new NoteOffMessage(controllerId.Channel, (Key) controllerId.Parameter, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnNoteOff(msg);
-                    break;
-                }
-                case MessageType.PitchBend:
-                {
-                    var msg = new PitchBendMessage(controllerId.Channel, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnPitchBend(msg);
-                    break;
-                }
-                case MessageType.ControlChange:
-                {
-                    var msg = new ControlChangeMessage(controllerId.Channel, controllerId.Parameter, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnControlChange(msg);
-                    break;
-                }
-                case MessageType.ProgramChange:
-                {
-                    var msg = new ProgramChangeMessage(controllerId.Channel, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnProgramChange(msg);
-                    break;
-                }
-                case MessageType.ChannelPressure:
-                {
-                    var msg = new ChannelPressureMessage(controllerId.Channel, value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnChannelPressure(msg);
-                    break;
-                }
-                case MessageType.PolyphonicKeyPressure:
-                {
-                    var msg = new PolyphonicKeyPressureMessage(controllerId.Channel, (Key) controllerId.Parameter,
-                        value);
-                    Log.Debug("Sending message {@Message}", msg);
-                    _inputDevice.OnPolyphonicKeyPressure(msg);
-                    break;
-                }
-                default:
-                    throw new Exception($"Unknown {nameof(MessageType)} {messageType}");
-            }
+                _receivedEvent.Reset();
+                
+                var msg = new NrpnMessage(controllerId.Channel, controllerId.Parameter, value);
+                Log.Debug("Sending message {@Message}", msg);
+                _inputDevice.OnNrpn(msg);
 
-            Log.Debug("Waiting until message has been received...");
-            if (_receivedEvent.WaitOne(ReceivedTimeout)) return;
-            
-            Log.Warning("Failed to receive message within {Timeout}", ReceivedTimeout);    
-            throw new Exception("Message not received as expected");
+                Log.Debug("Waiting until message has been received...");
+                if (!_receivedEvent.Wait(ReceivedTimeout))
+                {
+                    Log.Warning("Failed to receive message within {Timeout}", ReceivedTimeout);
+                    throw new Exception("Message not received as expected");
+                }
+            }
         }
 
-        protected T TakeOutput<T>()
+        protected NrpnMessage TakeOutput()
         {
             Assert.True(_outputDevice.Messages.TryTake(out var msg));
             Log.Debug("Took output: {@Message}", msg);
             
-            Assert.True(msg is T);
-            return (T) msg;
+            Assert.True(msg is NrpnMessage);
+            return (NrpnMessage) msg;
         }
 
         protected void ClearOutput()

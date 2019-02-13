@@ -3,7 +3,6 @@ using LrControl.Functions;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.Tests.Devices;
 using LrControl.Tests.Mocks;
-using Moq;
 using RtMidi.Core.Messages;
 using Xunit;
 using Xunit.Abstractions;
@@ -30,7 +29,7 @@ namespace LrControl.Tests.Functions
         private void Setup<T>(IParameter<T> parameter, Range parameterRange, bool setupRange = true)
         {
             _function = Create(parameter);
-            ProfileManager.AssignFunction(DefaultModule, Info1.ControllerId, _function);
+            ProfileManager.AssignFunction(DefaultModule, Id1, _function);
 
             if (setupRange)
             {
@@ -60,7 +59,7 @@ namespace LrControl.Tests.Functions
             Setup(TestParameter.IntegerParameter, new Range(0, 256));
 
             // Test
-            ControllerInput(Info1.ControllerId, Value++);
+            ControllerInput(Id1, Value++);
 
             // Verify
             LrDevelopController.Verify();
@@ -71,7 +70,7 @@ namespace LrControl.Tests.Functions
         {
             // Setup
             Setup(TestParameter.IntegerParameter, new Range(0, 256));
-            var value = (int)(Info1.Range.Maximum - Info1.Range.Minimum) / 2;
+            var value = (int)(Range1.Maximum - Range1.Minimum) / 2;
             
             LrDevelopController
                 .Setup(m => m.SetValue(TestParameter.IntegerParameter, 128))
@@ -79,7 +78,7 @@ namespace LrControl.Tests.Functions
                 .Verifiable("Should set parameter value to 128");
 
             // Test
-            ControllerInput(Info1.ControllerId, value);
+            ControllerInput(Id1, value);
 
             // Verify
             LrDevelopController.Verify();
@@ -90,7 +89,7 @@ namespace LrControl.Tests.Functions
         {
             // Setup
             Setup(TestParameter.DoubleParameter, new Range(0, 256));
-            var value = (int)(Info1.Range.Maximum - Info1.Range.Minimum) / 2;
+            var value = (int)(Range1.Maximum - Range1.Minimum) / 2;
 
             LrDevelopController
                 .Setup(m => m.SetValue(TestParameter.DoubleParameter, 128.0d))
@@ -98,7 +97,7 @@ namespace LrControl.Tests.Functions
                 .Verifiable("Should set parameter to value 128.0");
 
             // Test
-            ControllerInput(Info1.ControllerId, value);
+            ControllerInput(Id1, value);
 
             // Verify
             LrDevelopController.Verify();
@@ -129,7 +128,7 @@ namespace LrControl.Tests.Functions
         {
             // Setup
             Setup(TestParameter.IntegerParameter, new Range(0, 256));
-            var controllerValue = (int) (Info1.Range.Maximum - Info1.Range.Minimum) / 2;
+            var controllerValue = (int) (Range1.Maximum - Range1.Minimum) / 2;
 
             var parameterValue = 128;
             LrDevelopController
@@ -143,7 +142,7 @@ namespace LrControl.Tests.Functions
             // Verify
             LrDevelopController.Verify();
             
-            var msg = TakeOutput<NrpnMessage>();
+            var msg = TakeOutput();
             Assert.Equal(controllerValue, msg.Value);
         }
     }

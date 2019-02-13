@@ -41,6 +41,8 @@ namespace LrControl.Functions
 
             if (activePanel != _panel || _panel == Panel.Basic)
             {
+                Log.Debug("Revealing panel {Panel}", _panel);
+                
                 // Reveal panel
                 Api.LrDevelopController.RevealPanel(_panel);
 
@@ -52,6 +54,7 @@ namespace LrControl.Functions
                 var enablePanelParameter = EnablePanelParameters[_panel];
                 if (Api.LrDevelopController.GetValue(out var enabled, enablePanelParameter))
                 {
+                    Log.Debug("Toggling panel {Panel} = {Enabled}", _panel, !enabled);
                     Api.LrDevelopController.SetValue(enablePanelParameter, !enabled);
                 }
                 else Log.Error("Unable to determine if Panel {Panel} is enabled or not", _panel.Name);
