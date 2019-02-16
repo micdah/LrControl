@@ -1,12 +1,10 @@
 using LrControl.Configurations;
-using LrControl.Functions;
-using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal class ResetParameterFunctionFactory : FunctionFactory
+    public class ResetParameterFunctionFactory : FunctionFactory
     {
         public IParameter Parameter { get; }
 
