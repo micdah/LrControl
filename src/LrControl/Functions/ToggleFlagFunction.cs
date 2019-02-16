@@ -9,12 +9,12 @@ namespace LrControl.Functions
 {
     public class ToggleFlagFunction : Function
     {
-        private readonly Flag _flag;
+        public Flag Flag { get; }
 
         public ToggleFlagFunction(ISettings settings, ILrApi api, string displayName, string key, Flag flag) 
             : base(settings, api, displayName, key)
         {
-            _flag = flag;
+            Flag = flag;
         }
 
         public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
@@ -23,13 +23,13 @@ namespace LrControl.Functions
             
             if (!Api.LrSelection.GetFlag(out var flag)) return;
 
-            if (_flag.Equals(flag))
+            if (Flag.Equals(flag))
             {
                 Api.LrSelection.RemoveFlag();
             }
             else
             {
-                if (_flag.Equals(Flag.Pick))
+                if (Flag.Equals(Flag.Pick))
                 {
                     Api.LrSelection.FlagAsPick();
                 } else

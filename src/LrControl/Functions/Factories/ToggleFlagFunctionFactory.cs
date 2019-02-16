@@ -1,13 +1,11 @@
 using LrControl.Configurations;
-using LrControl.Functions;
-using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrSelection;
 using Serilog;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal class ToggleFlagFunctionFactory : FunctionFactory
+    public class ToggleFlagFunctionFactory : FunctionFactory
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ToggleFlagFunctionFactory>();
         public Flag Flag { get; }
