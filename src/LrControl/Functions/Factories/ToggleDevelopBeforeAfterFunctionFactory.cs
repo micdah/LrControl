@@ -1,11 +1,9 @@
-﻿using LrControl.Configurations;
-using LrControl.Functions;
-using LrControl.Functions.Factories;
+using LrControl.Configurations;
 using LrControl.LrPlugin.Api;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal class ToggleDevelopBeforeAfterFunctionFactory : FunctionFactory
+    public class ToggleDevelopBeforeAfterFunctionFactory : FunctionFactory
     {
         public ToggleDevelopBeforeAfterFunctionFactory(ISettings settings, ILrApi api) : base(settings, api)
         {
