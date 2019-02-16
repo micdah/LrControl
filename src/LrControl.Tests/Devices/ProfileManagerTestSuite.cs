@@ -6,6 +6,7 @@ using LrControl.Devices;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.LrPlugin.Api.Modules.LrSelection;
 using LrControl.Profiles;
 using LrControl.Tests.Mocks;
 using Moq;
@@ -43,6 +44,7 @@ namespace LrControl.Tests.Devices
         protected readonly IProfileManager ProfileManager;
         protected readonly Mock<ILrDevelopController> LrDevelopController;
         protected readonly Mock<ILrApplicationView> LrApplicationView;
+        protected readonly Mock<ILrSelection> LrSelection;
         protected readonly Mock<ILrApi> LrApi;
         protected readonly Mock<ISettings> Settings;
         protected int Value;
@@ -74,6 +76,9 @@ namespace LrControl.Tests.Devices
             // Mock LrApplicationView
             LrApplicationView = new Mock<ILrApplicationView>();
             
+            // Mock ILrSelection
+            LrSelection = new Mock<ILrSelection>();
+            
             // Mock ILrApi
             LrApi = new Mock<ILrApi>();
             
@@ -84,6 +89,10 @@ namespace LrControl.Tests.Devices
             LrApi
                 .Setup(m => m.LrApplicationView)
                 .Returns(LrApplicationView.Object);
+
+            LrApi
+                .Setup(m => m.LrSelection)
+                .Returns(LrSelection.Object);
             
             // Mock ISettings
             Settings = new Mock<ISettings>();

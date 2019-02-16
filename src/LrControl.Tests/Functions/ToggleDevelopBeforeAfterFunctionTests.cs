@@ -9,8 +9,15 @@ namespace LrControl.Tests.Functions
 {
     public class ToggleDevelopBeforeAfterFunctionTests : ProfileManagerTestSuite
     {
+        private readonly ToggleDevelopBeforeAfterFunction _function;
+
         public ToggleDevelopBeforeAfterFunctionTests(ITestOutputHelper output) : base(output)
         {
+            _function = new ToggleDevelopBeforeAfterFunction(
+                Settings.Object,
+                LrApi.Object,
+                "Test Function",
+                "TestFunction");
         }
 
         private void Verify(int timesBefore, int timesAfter)
@@ -24,13 +31,7 @@ namespace LrControl.Tests.Functions
         public void Should_Toggle_Before_After_View_When_Applied()
         {
             // Setup
-            var function = new ToggleDevelopBeforeAfterFunction(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction");
-
-            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+            ProfileManager.AssignFunction(DefaultModule, Id1, _function);
 
             Verify(0, 0);
 
@@ -41,7 +42,7 @@ namespace LrControl.Tests.Functions
             // Should toggle to after
             ControllerInput(Id1, Range1.Maximum, Range1.Minimum);
             Verify(1, 1);
-            
+
             // Should toggle back to before
             ControllerInput(Id1, Range1.Maximum, Range1.Minimum);
             Verify(2, 1);
@@ -51,19 +52,13 @@ namespace LrControl.Tests.Functions
         public void Should_Only_Apply_When_Controller_Is_At_Maximum_Value()
         {
             // Setup
-            var function = new ToggleDevelopBeforeAfterFunction(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction");
-
-            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+            ProfileManager.AssignFunction(DefaultModule, Id1, _function);
 
             Verify(0, 0);
 
             // Test
             ControllerInput(Id1, Range1.Maximum - 0.1d);
-            
+
             // Verify
             Verify(0, 0);
         }

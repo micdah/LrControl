@@ -1,15 +1,13 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrSelection;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class ToggleFlagFunction : Function
+    public class ToggleFlagFunction : Function
     {
         private readonly Flag _flag;
 
