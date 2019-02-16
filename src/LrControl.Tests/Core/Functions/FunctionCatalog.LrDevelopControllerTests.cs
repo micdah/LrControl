@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using LrControl.Configurations;
 using LrControl.Core.Functions.Catalog;
-using LrControl.Core.Functions.Factories;
 using LrControl.Enums;
 using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;

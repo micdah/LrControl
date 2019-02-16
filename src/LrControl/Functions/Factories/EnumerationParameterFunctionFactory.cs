@@ -1,12 +1,10 @@
 using System;
 using LrControl.Configurations;
-using LrControl.Functions;
-using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
     public class EnumerationParameterFunctionFactory<TValue> : FunctionFactory 
         where TValue : IComparable
