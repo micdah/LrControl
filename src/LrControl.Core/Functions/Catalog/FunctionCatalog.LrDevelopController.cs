@@ -2,11 +2,12 @@
 using System.Linq;
 using LrControl.Configurations;
 using LrControl.Core.Functions.Factories;
-using LrControl.Core.Util;
 using LrControl.Enums;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
+using LrControl.Utils;
 
 namespace LrControl.Core.Functions.Catalog
 {

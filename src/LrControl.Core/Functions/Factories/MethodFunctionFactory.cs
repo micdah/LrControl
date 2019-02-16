@@ -1,6 +1,7 @@
 using System;
 using LrControl.Configurations;
 using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 
 namespace LrControl.Core.Functions.Factories

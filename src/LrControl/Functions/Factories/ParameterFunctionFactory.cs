@@ -1,16 +1,14 @@
 using System;
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Core.Util;
-using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
+using LrControl.Utils;
 using Serilog;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal class ParameterFunctionFactory : FunctionFactory
+    public class ParameterFunctionFactory : FunctionFactory
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ParameterFunctionFactory>();
         public IParameter Parameter { get; }

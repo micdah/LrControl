@@ -1,5 +1,6 @@
 using LrControl.Configurations;
 using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 

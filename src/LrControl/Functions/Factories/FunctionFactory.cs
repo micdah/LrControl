@@ -1,11 +1,9 @@
-﻿using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
+using LrControl.Configurations;
 using LrControl.LrPlugin.Api;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal abstract class FunctionFactory : IFunctionFactory
+    public abstract class FunctionFactory : IFunctionFactory
     {
         private readonly ISettings _settings;
         private readonly ILrApi _api;

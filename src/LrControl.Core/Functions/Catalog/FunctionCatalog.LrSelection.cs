@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrSelection;
 

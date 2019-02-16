@@ -1,8 +1,7 @@
-using System.Linq;
-using LrControl.Core.Util;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.Tests.Mocks;
+using LrControl.Utils;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -63,19 +62,6 @@ namespace LrControl.Tests.LrPlugin.Api
                     Assert.True(false, "Should have matched as a IParameter<IEnumeration<int>>");
                     break;
             }
-        }
-
-        [Fact]
-        public void Closed_Parameters_Should_List_Available_Values_Only()
-        {
-            IClosedParameter<IEnumeration<int>> param = new ClosedParameter<TestIntegerEnumeration>(
-                "EnumerationTest", "Enumeration test", TestIntegerEnumeration.GetAll());
-
-            var enums = param.ValidValues.ToList();
-            
-            Assert.Equal(2, enums.Count);
-            Assert.Contains(enums, e => TestIntegerEnumeration.Value1.Equals(e));
-            Assert.Contains(enums, e => TestIntegerEnumeration.Value2.Equals(e));
         }
     }
 }

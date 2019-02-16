@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LrControl.Core.Functions.Factories;
+using LrControl.Functions.Factories;
 
 namespace LrControl.Core.Functions.Catalog
 {

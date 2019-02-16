@@ -8,23 +8,23 @@ namespace LrControl.Functions
 {
     public class ToggleParameterFunction : Function
     {
-        private readonly IParameter<bool> _parameter;
+        public IParameter<bool> Parameter { get; }
 
         public ToggleParameterFunction(ISettings settings, ILrApi api, string displayName, string key,
             IParameter<bool> parameter) : base(settings, api, displayName, key)
         {
-            _parameter = parameter;
+            Parameter = parameter;
         }
 
         public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
         {
             if (!range.IsMaximum(value)) return;
 
-            if (Api.LrDevelopController.GetValue(out var enabled, _parameter))
+            if (Api.LrDevelopController.GetValue(out var enabled, Parameter))
             {
-                Api.LrDevelopController.SetValue(_parameter, !enabled);
+                Api.LrDevelopController.SetValue(Parameter, !enabled);
 
-                ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {_parameter.DisplayName}");
+                ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {Parameter.DisplayName}");
             }
         }
     }

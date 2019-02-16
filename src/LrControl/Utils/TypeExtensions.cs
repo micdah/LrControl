@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LrControl.Core.Util
+namespace LrControl.Utils
 {
     public static class TypeExtensions
     {
         /// <summary>
-        /// Checks if <paramref name="@type"/> is a type of <paramref name="typeOf"/> of implements it as an interface
+        /// Checks if <paramref name="type"/> is a type of <paramref name="typeOf"/> of implements it as an interface
         /// </summary>
         /// <remarks>
         /// Also works for generic type, i.e. <c>typeof(List&lt;string&gt;).IsTypeOf(typeof(IList&lt;&gt;))</c> is true

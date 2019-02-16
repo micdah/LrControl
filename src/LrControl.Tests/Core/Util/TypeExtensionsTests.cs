@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LrControl.Core.Util;
+using LrControl.Utils;
 using Xunit;
 using Xunit.Abstractions;
 
