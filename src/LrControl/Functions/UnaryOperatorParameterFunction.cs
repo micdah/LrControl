@@ -9,29 +9,29 @@ namespace LrControl.Functions
 {
     public class UnaryOperatorParameterFunction : Function
     {
-        private readonly IParameter _parameter;
-        private readonly UnaryOperation _operation;
+        public IParameter Parameter { get; }
+        public UnaryOperation Operation { get; }
 
         public UnaryOperatorParameterFunction(ISettings settings, ILrApi api, string displayName, string key,
             IParameter parameter, UnaryOperation operation) : base(settings, api, displayName, key)
         {
-            _parameter = parameter;
-            _operation = operation;
+            Parameter = parameter;
+            Operation = operation;
         }
 
         public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
         {
             if (!range.IsMaximum(value)) return;
 
-            switch (_operation)
+            switch (Operation)
             {
                 case UnaryOperation.Increment:
-                    Api.LrDevelopController.Increment(_parameter);
-                    ShowHud($"Incremented {_parameter.DisplayName}");
+                    Api.LrDevelopController.Increment(Parameter);
+                    ShowHud($"Incremented {Parameter.DisplayName}");
                     break;
                 case UnaryOperation.Decrement:
-                    Api.LrDevelopController.Decrement(_parameter);
-                    ShowHud($"Decremented {_parameter.DisplayName}");
+                    Api.LrDevelopController.Decrement(Parameter);
+                    ShowHud($"Decremented {Parameter.DisplayName}");
                     break;
             }
         }

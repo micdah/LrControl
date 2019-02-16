@@ -1,14 +1,12 @@
 using System;
 using LrControl.Configurations;
 using LrControl.Enums;
-using LrControl.Functions;
-using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal class UnaryOperatorParameterFunctionFactory : FunctionFactory
+    public class UnaryOperatorParameterFunctionFactory : FunctionFactory
     {
         public IParameter Parameter { get; }
         public UnaryOperation Operation { get; }
