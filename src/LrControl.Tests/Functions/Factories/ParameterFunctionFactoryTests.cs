@@ -1,22 +1,23 @@
 using System;
+using LrControl.Configurations;
 using LrControl.Functions;
 using LrControl.Functions.Factories;
+using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
-using LrControl.Tests.Devices;
 using LrControl.Tests.Mocks;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace LrControl.Tests.Functions.Factories
 {
-    public class ParameterFunctionFactoryTests : ProfileManagerTestSuite
+    public class ParameterFunctionFactoryTests : FunctionFactoryTestSuite<ParameterFunctionFactory, IParameter>
     {
         public ParameterFunctionFactoryTests(ITestOutputHelper output) : base(output)
         {
         }
 
-        public static readonly IParameter[] Parameters = {
+        private static readonly IParameter[] Parameters = {
             TestParameter.IntegerParameter,
             TestParameter.DoubleParameter
         };
@@ -29,15 +30,8 @@ namespace LrControl.Tests.Functions.Factories
                     TestParameter.StringEnumerationParameter));
         }
 
-        protected (ParameterFunctionFactory Factory, IFunction Function) Create(IParameter parameter)
-        {
-            var factory = new ParameterFunctionFactory(Settings.Object, LrApi.Object, parameter);
-            var function = factory.CreateFunction();
-            Assert.NotNull(function);
-            Assert.Equal(factory.DisplayName, function.DisplayName);
-            Assert.Equal(function.Key, factory.Key);
-            return (factory, function);
-        }
+        protected override ParameterFunctionFactory CreateFactory(ISettings settings, ILrApi lrApi, IParameter arg)
+            => new ParameterFunctionFactory(settings, lrApi, arg);
 
         [Fact]
         public void Should_Create_TemperatureParameterFunction()
