@@ -1,5 +1,5 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
+using LrControl.Enums;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 
@@ -7,9 +7,9 @@ namespace LrControl.Core.Functions.Factories
 {
     internal class UndoRedoFunctionFactory : FunctionFactory
     {
-        public UndoRedoFunction.Operation Operation { get; }
+        public Operation Operation { get; }
 
-        public UndoRedoFunctionFactory(ISettings settings, ILrApi api, UndoRedoFunction.Operation operation) 
+        public UndoRedoFunctionFactory(ISettings settings, ILrApi api, Operation operation) 
             : base(settings, api)
         {
             Operation = operation;

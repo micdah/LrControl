@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
 using LrControl.Core.Functions.Factories;
+using LrControl.Enums;
 using LrControl.LrPlugin.Api;
 
 namespace LrControl.Core.Functions.Catalog
@@ -12,8 +12,8 @@ namespace LrControl.Core.Functions.Catalog
         {
             IEnumerable<IFunctionFactory> CreateFactories()
             {
-                yield return new UndoRedoFunctionFactory(settings, api, UndoRedoFunction.Operation.Undo);
-                yield return new UndoRedoFunctionFactory(settings, api, UndoRedoFunction.Operation.Redo);
+                yield return new UndoRedoFunctionFactory(settings, api, Operation.Undo);
+                yield return new UndoRedoFunctionFactory(settings, api, Operation.Redo);
             }
             
             return new FunctionCatalogGroup

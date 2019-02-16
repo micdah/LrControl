@@ -1,14 +1,13 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
+using LrControl.Enums;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class UndoRedoFunction : Function
+    public class UndoRedoFunction : Function
     {
         private readonly Operation _operation;
 
@@ -39,12 +38,6 @@ namespace LrControl.Core.Functions
                     }
                     break;
             }
-        }
-
-        public enum Operation
-        {
-            Undo,
-            Redo
         }
     }
 }

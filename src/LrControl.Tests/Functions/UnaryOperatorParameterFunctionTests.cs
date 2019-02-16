@@ -57,4 +57,71 @@ namespace LrControl.Tests.Functions
             LrApi.Verify(_ => _.LrDevelopController, Times.Never());
         }
     }
+
+    public class UndoRedoFunctionTests : ProfileManagerTestSuite
+    {
+        public UndoRedoFunctionTests(ITestOutputHelper output) : base(output)
+        {
+        }
+
+        private UndoRedoFunction Create(Operation operation) =>
+            new UndoRedoFunction(Settings.Object, LrApi.Object, "Test Function", "TestFunction",
+                operation);
+
+        [Theory]
+        [InlineData(Operation.Undo)]
+        [InlineData(Operation.Redo)]
+        public void Should_Apply_Operation_If_Can(Operation operation)
+        {
+            // Setup
+            var function = Create(operation);
+            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+
+            var can = true;
+            if (operation == Operation.Undo)
+            {
+                LrUndo.Setup(_ => _.CanUndo(out can)).Returns(true).Verifiable();
+                LrUndo.Setup(_ => _.Undo()).Returns(true).Verifiable();
+            }
+            else
+            {
+                LrUndo.Setup(_ => _.CanRedo(out can)).Returns(true).Verifiable();
+                LrUndo.Setup(_ => _.Redo()).Returns(true).Verifiable();
+            }
+
+            LrDevelopController.Setup(_ => _.StopTracking()).Returns(true).Verifiable();
+
+            // Test
+            ControllerInput(Id1, Range1.Maximum);
+
+            // Verify
+            LrUndo.Verify();
+            LrDevelopController.Verify();
+        }
+
+        [Theory]
+        [InlineData(Operation.Undo)]
+        [InlineData(Operation.Redo)]
+        public void Should_Not_Apply_Operation_If_Cannot(Operation operation)
+        {
+            // Setup
+            var function = Create(operation);
+            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+
+            var can = false;
+            if (operation == Operation.Undo)
+                LrUndo.Setup(_ => _.CanUndo(out can)).Returns(true).Verifiable();
+            else
+                LrUndo.Setup(_ => _.CanRedo(out can)).Returns(true).Verifiable();
+            
+            // Test
+            ControllerInput(Id1, Range1.Maximum);
+
+            // Verify
+            if (operation == Operation.Undo)
+                LrUndo.Verify(_ => _.Undo(), Times.Never);
+            else
+                LrUndo.Verify(_ => _.Redo(), Times.Never);
+        }
+    }
 }
