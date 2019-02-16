@@ -24,12 +24,11 @@ namespace LrControl.Tests.Functions.Factories
         [Fact]
         public void Should_Create_EnumerationParameterFunction()
         {
-            var (_, function) = Create(TestParameter.IntegerEnumerationParameter, TestIntegerEnumeration.Value1);
-            var enumParamFunc = function as EnumerationParameterFunction<int>;
-            Assert.NotNull(enumParamFunc);
+            var (_, function) = Create<EnumerationParameterFunction<int>>(
+                TestParameter.IntegerEnumerationParameter, TestIntegerEnumeration.Value1);
 
-            Assert.Equal(TestParameter.IntegerEnumerationParameter, enumParamFunc.Parameter);
-            Assert.Equal(TestIntegerEnumeration.Value1, enumParamFunc.Value);
+            Assert.Equal(TestParameter.IntegerEnumerationParameter, function.Parameter);
+            Assert.Equal(TestIntegerEnumeration.Value1, function.Value);
         }
     }
 }

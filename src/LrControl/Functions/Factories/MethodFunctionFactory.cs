@@ -1,12 +1,10 @@
 using System;
 using LrControl.Configurations;
-using LrControl.Functions;
-using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 
-namespace LrControl.Core.Functions.Factories
+namespace LrControl.Functions.Factories
 {
-    internal class MethodFunctionFactory : FunctionFactory
+    public class MethodFunctionFactory : FunctionFactory
     {
         private readonly Action<ILrApi> _method;
 

@@ -37,8 +37,7 @@ namespace LrControl.Tests.Functions.Factories
         [Fact]
         public void Should_Create_TemperatureParameterFunction()
         {
-            var (_, function) = Create(AdjustPanelParameter.Temperature);
-            Assert.IsAssignableFrom<TemperatureParameterFunction>(function);
+            Create<TemperatureParameterFunction>(AdjustPanelParameter.Temperature);
         }
 
         [Theory]
@@ -47,19 +46,17 @@ namespace LrControl.Tests.Functions.Factories
         public void Should_Create_ParameterFunction(int parameterIndex)
         {
             var parameter = Parameters[parameterIndex];
-            var (_, function) = Create(parameter);
-            var parameterFunction = function as ParameterFunction;
-            Assert.NotNull(parameterFunction);
-            Assert.Equal(parameter, parameterFunction.Parameter);
+            var (_, function) = Create<ParameterFunction>(parameter);
+            Assert.NotNull(function);
+            Assert.Equal(parameter, function.Parameter);
         }
 
         [Fact]
         public void Should_Create_ToggleParameterFunction()
         {
-            var (_, function) = Create(TestParameter.BooleanParameter);
-            var toggleParameterFunction = function as ToggleParameterFunction;
-            Assert.NotNull(toggleParameterFunction);
-            Assert.Equal(TestParameter.BooleanParameter, toggleParameterFunction.Parameter);
+            var (_, function) = Create<ToggleParameterFunction>(TestParameter.BooleanParameter);
+            Assert.NotNull(function);
+            Assert.Equal(TestParameter.BooleanParameter, function.Parameter);
         }
     }
 }

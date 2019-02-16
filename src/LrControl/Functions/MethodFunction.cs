@@ -9,13 +9,13 @@ namespace LrControl.Functions
 {
     public class MethodFunction : Function
     {
-        private readonly Action<ILrApi> _method;
+        public Action<ILrApi> Method { get; }
         private readonly string _displayText;
 
         public MethodFunction(ISettings settings, ILrApi api, string displayName, string key, Action<ILrApi> method,
             string displayText) : base(settings, api, displayName, key)
         {
-            _method = method;
+            Method = method;
             _displayText = displayText;
         }
 
@@ -23,7 +23,7 @@ namespace LrControl.Functions
         {
             if (!range.IsMaximum(value)) return;
 
-            _method(Api);
+            Method(Api);
             ShowHud(_displayText);
         }
     }
