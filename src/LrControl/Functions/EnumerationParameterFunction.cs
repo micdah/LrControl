@@ -10,21 +10,21 @@ namespace LrControl.Functions
     public class EnumerationParameterFunction<T> : Function 
         where T : IComparable
     {
-        private readonly IEnumerationParameter<T> _parameter;
-        private readonly IEnumeration<T> _value;
+        public IEnumerationParameter<T> Parameter { get; }
+        public IEnumeration<T> Value { get; }
 
         public EnumerationParameterFunction(ISettings settings, ILrApi api, string displayName, string key, 
             IEnumerationParameter<T> parameter, IEnumeration<T> value) : base(settings, api, displayName, key)
         {
-            _parameter = parameter;
-            _value = value;
+            Parameter = parameter;
+            Value = value;
         }
 
         public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
         {
             if (!range.IsMaximum(value)) return;
             
-            Api.LrDevelopController.SetValue(_parameter, _value);
+            Api.LrDevelopController.SetValue(Parameter, Value);
         }
     }
 }

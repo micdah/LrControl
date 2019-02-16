@@ -8,7 +8,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Core.Functions.Factories
 {
-    internal class EnumerationParameterFunctionFactory<TValue> : FunctionFactory 
+    public class EnumerationParameterFunctionFactory<TValue> : FunctionFactory 
         where TValue : IComparable
     {
         private readonly IEnumerationParameter<TValue> _parameter;

@@ -17,7 +17,8 @@ namespace LrControl.Tests.Functions.Factories
         {
         }
 
-        private static readonly IParameter[] Parameters = {
+        private static readonly IParameter[] Parameters =
+        {
             TestParameter.IntegerParameter,
             TestParameter.DoubleParameter
         };
