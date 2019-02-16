@@ -10,6 +10,9 @@ namespace LrControl.Tests.Mocks
         public static readonly IParameter<double> DoubleParameter =
             new Parameter<double>("DoubleParameter", "Double parameter");
 
+        public static readonly IParameter<bool> BooleanParameter =
+            new Parameter<bool>("BooleanParameter", "Boolean Parameter");
+
         public static readonly IEnumerationParameter<int> IntegerEnumerationParameter =
             EnumerationParameter<int>.Create<TestIntegerEnumeration>(
                 "TestIntegerEnumerationParameter)",

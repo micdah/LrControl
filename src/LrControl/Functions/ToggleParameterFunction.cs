@@ -1,14 +1,12 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class ToggleParameterFunction : Function
+    public class ToggleParameterFunction : Function
     {
         private readonly IParameter<bool> _parameter;
 
