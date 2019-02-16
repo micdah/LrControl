@@ -5,7 +5,7 @@ using LrControl.Utils;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace LrControl.Tests.Core.Util
+namespace LrControl.Tests.Utils
 {
     public class TypeExtensionsTests : TestSuite
     {
