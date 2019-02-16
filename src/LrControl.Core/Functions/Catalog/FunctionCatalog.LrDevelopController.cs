@@ -3,10 +3,10 @@ using System.Linq;
 using LrControl.Configurations;
 using LrControl.Core.Functions.Factories;
 using LrControl.Core.Util;
+using LrControl.Enums;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
-using Panel = LrControl.LrPlugin.Api.Modules.LrDevelopController.Panel;
 
 namespace LrControl.Core.Functions.Catalog
 {

@@ -23,7 +23,9 @@ namespace LrControl.Tests.Functions
         private ToggleFlagFunction Create(Flag flag) => new ToggleFlagFunction(Settings.Object, LrApi.Object,
             "Test Function", "TestFunction", flag);
 
-        [Theory, InlineData(0), InlineData(2)]
+        [Theory]
+        [InlineData(0)]
+        [InlineData(2)]
         public void Should_Add_Flag_Pick_If_Not_Present(int currentFlagIndex)
         {
             // Setup
@@ -41,7 +43,9 @@ namespace LrControl.Tests.Functions
             LrSelection.Verify();
         }
 
-        [Theory, InlineData(0), InlineData(1)]
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
         public void Should_Add_Flag_Reject_If_Not_Present(int currentFlagIndex)
         {
             // Setup
@@ -59,7 +63,9 @@ namespace LrControl.Tests.Functions
             LrSelection.Verify();
         }
 
-        [Theory, InlineData(1), InlineData(2)]
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
         public void Should_Remove_Flag_If_Already_Present(int flagIndex)
         {
             // Setup

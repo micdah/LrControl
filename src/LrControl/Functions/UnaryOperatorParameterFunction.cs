@@ -1,14 +1,13 @@
 using LrControl.Configurations;
-using LrControl.Core.Configurations;
-using LrControl.Functions;
+using LrControl.Enums;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
-namespace LrControl.Core.Functions
+namespace LrControl.Functions
 {
-    internal class UnaryOperatorParameterFunction : Function
+    public class UnaryOperatorParameterFunction : Function
     {
         private readonly IParameter _parameter;
         private readonly UnaryOperation _operation;
