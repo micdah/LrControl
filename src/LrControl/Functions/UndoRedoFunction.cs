@@ -9,19 +9,19 @@ namespace LrControl.Functions
 {
     public class UndoRedoFunction : Function
     {
-        private readonly Operation _operation;
+        public Operation Operation { get; }
 
         public UndoRedoFunction(ISettings settings, ILrApi api, string displayName, string key, Operation operation) 
             : base(settings, api, displayName, key)
         {
-            _operation = operation;
+            Operation = operation;
         }
 
         public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
         {
             if (!range.IsMaximum(value)) return;
 
-            switch (_operation)
+            switch (Operation)
             {
                 case Operation.Undo:
                     if (Api.LrUndo.CanUndo(out var canUndo) && canUndo)
