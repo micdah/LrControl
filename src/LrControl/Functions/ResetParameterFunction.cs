@@ -6,7 +6,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class ResetParameterFunction : Function
+    public class ResetParameterFunction : ToggleFunction
     {
         public IParameter Parameter { get; }
 
@@ -16,10 +16,8 @@ namespace LrControl.Functions
             Parameter = parameter;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-
             Api.LrDevelopController.StopTracking();
             Api.LrDevelopController.ResetToDefault(Parameter);
             ShowHud($"Reset {Parameter.DisplayName} to default");

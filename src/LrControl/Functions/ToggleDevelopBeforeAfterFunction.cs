@@ -6,7 +6,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class ToggleDevelopBeforeAfterFunction : Function
+    public class ToggleDevelopBeforeAfterFunction : ToggleFunction
     {
         private bool _toggled;
 
@@ -15,10 +15,8 @@ namespace LrControl.Functions
         {
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-
             if (_toggled)
             {
                 Api.LrApplicationView.ShowView(PrimaryView.DevelopLoupe);

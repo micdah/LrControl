@@ -6,6 +6,6 @@ namespace LrControl.Functions.Catalog
     public interface IFunctionCatalog
     {
         IEnumerable<IFunctionCatalogGroup> Groups { get; }
-        IFunctionFactory GetFunctionFactory(string functionKey);
+        bool TryGetFunctionFactory(string functionKey, out IFunctionFactory functionFactory);
     }
 }

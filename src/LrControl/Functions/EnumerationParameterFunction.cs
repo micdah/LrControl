@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class EnumerationParameterFunction<T> : Function 
+    public class EnumerationParameterFunction<T> : ToggleFunction 
         where T : IComparable
     {
         public IEnumerationParameter<T> Parameter { get; }
@@ -20,10 +20,8 @@ namespace LrControl.Functions
             Value = value;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-            
             Api.LrDevelopController.SetValue(Parameter, Value);
         }
     }

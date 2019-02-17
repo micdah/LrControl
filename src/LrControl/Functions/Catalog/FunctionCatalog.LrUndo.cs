@@ -20,7 +20,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = "Undo",
                 Key = "LrUndo",
-                Functions = new List<IFunctionFactory>(CreateFactories())
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories())
             };
         }
     }

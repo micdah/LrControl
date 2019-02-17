@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrSelection;
 
 namespace LrControl.Functions
 {
-    public class ToggleFlagFunction : Function
+    public class ToggleFlagFunction : ToggleFunction
     {
         public Flag Flag { get; }
 
@@ -17,10 +17,8 @@ namespace LrControl.Functions
             Flag = flag;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-            
             if (!Api.LrSelection.GetFlag(out var flag)) return;
 
             if (Flag.Equals(flag))

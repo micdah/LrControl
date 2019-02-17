@@ -6,7 +6,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class ToggleParameterFunction : Function
+    public class ToggleParameterFunction : ToggleFunction
     {
         public IParameter<bool> Parameter { get; }
 
@@ -16,16 +16,13 @@ namespace LrControl.Functions
             Parameter = parameter;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
+            if (!Api.LrDevelopController.GetValue(out var enabled, Parameter)) return;
+            
+            Api.LrDevelopController.SetValue(Parameter, !enabled);
 
-            if (Api.LrDevelopController.GetValue(out var enabled, Parameter))
-            {
-                Api.LrDevelopController.SetValue(Parameter, !enabled);
-
-                ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {Parameter.DisplayName}");
-            }
+            ShowHud($"{(!enabled ? "Enabled" : "Disabled")}: {Parameter.DisplayName}");
         }
     }
 }

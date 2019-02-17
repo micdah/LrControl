@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class UndoRedoFunction : Function
+    public class UndoRedoFunction : ToggleFunction
     {
         public Operation Operation { get; }
 
@@ -17,10 +17,8 @@ namespace LrControl.Functions
             Operation = operation;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-
             switch (Operation)
             {
                 case Operation.Undo:

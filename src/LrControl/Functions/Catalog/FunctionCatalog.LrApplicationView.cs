@@ -74,7 +74,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = "View",
                 Key = "LrApplicationView",
-                Functions = new List<IFunctionFactory>(CreateFactories()),
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories()),
             };
         }
     }

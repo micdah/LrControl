@@ -8,35 +8,34 @@ namespace LrControl.Functions.Catalog
 {
     public partial class FunctionCatalog : IFunctionCatalog
     {
-        private FunctionCatalog(IEnumerable<IFunctionCatalogGroup> groups)
+        private readonly List<IFunctionCatalogGroup> _groups;
+        private readonly Dictionary<string, IFunctionFactory> _functionFactories;
+        
+        public FunctionCatalog(ISettings settings, ILrApi api)
         {
-            Groups = groups;
+            _groups = CreateGroups(settings, api);
+            _functionFactories = new Dictionary<string, IFunctionFactory>();
+
+            // Build function factory lookup
+            foreach (var functionFactory in _groups.SelectMany(g => g.FunctionFactories))
+            {
+                _functionFactories[functionFactory.Key] = functionFactory;
+            }
         }
 
-        public IEnumerable<IFunctionCatalogGroup> Groups { get; }
+        public IEnumerable<IFunctionCatalogGroup> Groups => _groups.AsReadOnly();
 
-        public IFunctionFactory GetFunctionFactory(string functionKey)
-        {
-            return Groups
-                .SelectMany(g => g.Functions)
-                .FirstOrDefault(f => f.Key == functionKey);
-        }
+        public bool TryGetFunctionFactory(string functionKey, out IFunctionFactory functionFactory)
+            => _functionFactories.TryGetValue(functionKey, out functionFactory);
 
-        public static IFunctionCatalog CreateCatalog(ISettings settings, ILrApi api)
+        private static List<IFunctionCatalogGroup> CreateGroups(ISettings settings, ILrApi api)
         {
-            return new FunctionCatalog(CreateGroups(settings, api));
-        }
-
-        private static IEnumerable<IFunctionCatalogGroup> CreateGroups(ISettings settings, ILrApi api)
-        {
-            var groups = new List<IFunctionCatalogGroup>
+            return new List<IFunctionCatalogGroup>(CreateDevelopGroups(settings, api))
             {
                 CreateViewGroup(settings, api),
                 CreateUndoGroup(settings, api),
                 CreateSelectionGroup(settings, api)
             };
-            groups.AddRange(CreateDevelopGroups(settings, api));
-            return groups;
         }
     }
 }

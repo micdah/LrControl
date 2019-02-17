@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class MethodFunction : Function
+    public class MethodFunction : ToggleFunction
     {
         public Action<ILrApi> Method { get; }
         private readonly string _displayText;
@@ -19,10 +19,8 @@ namespace LrControl.Functions
             _displayText = displayText;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-
             Method(Api);
             ShowHud(_displayText);
         }

@@ -53,7 +53,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = "Develop",
                 Key = "LrDevelop",
-                Functions = new List<IFunctionFactory>(CreateFactories())
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories())
             };
         }
 
@@ -112,7 +112,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = $"Develop {panel.Name}",
                 Key = $"LrDevelop{panel.Value}",
-                Functions = new List<IFunctionFactory>(CreateFactories())
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories())
             };
         }
 
@@ -133,7 +133,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = "Develop Crop",
                 Key = "LrDevelopCrop",
-                Functions = new List<IFunctionFactory>(CreateFactories())
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories())
             };
         }
 
@@ -154,7 +154,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = "Develop Localized",
                 Key = "LrDevelopLocalized",
-                Functions = new List<IFunctionFactory>(CreateFactories())
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories())
             };
         }
     }

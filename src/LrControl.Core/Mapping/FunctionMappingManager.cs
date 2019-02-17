@@ -101,8 +101,9 @@ namespace LrControl.Core.Mapping
                         if (controllerFunction == null) continue;
 
                         // Find function factory, for function key
-                        var functionFactory = _functionCatalog.GetFunctionFactory(controllerFunctionConfiguration.FunctionKey);
-                        if (functionFactory == null) continue;
+                        if (!_functionCatalog.TryGetFunctionFactory(
+                            controllerFunctionConfiguration.FunctionKey, out var functionFactory))
+                            continue;
 
                         controllerFunction.Function = functionFactory.CreateFunction();
                     }

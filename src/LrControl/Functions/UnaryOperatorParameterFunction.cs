@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Functions
 {
-    public class UnaryOperatorParameterFunction : Function
+    public class UnaryOperatorParameterFunction : ToggleFunction
     {
         public IParameter Parameter { get; }
         public UnaryOperation Operation { get; }
@@ -19,10 +19,8 @@ namespace LrControl.Functions
             Operation = operation;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-
             switch (Operation)
             {
                 case UnaryOperation.Increment:

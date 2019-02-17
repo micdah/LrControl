@@ -7,6 +7,6 @@ namespace LrControl.Functions.Catalog
     {
         string DisplayName { get; }
         string Key { get; }
-        IEnumerable<IFunctionFactory> Functions { get; }
+        IEnumerable<IFunctionFactory> FunctionFactories { get; }
     }
 }

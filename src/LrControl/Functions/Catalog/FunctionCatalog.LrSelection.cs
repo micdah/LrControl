@@ -74,7 +74,7 @@ namespace LrControl.Functions.Catalog
             {
                 DisplayName = "Selection",
                 Key = "LrSelection",
-                Functions = new List<IFunctionFactory>(CreateFactories())
+                FunctionFactories = new List<IFunctionFactory>(CreateFactories())
             };
         }
     }

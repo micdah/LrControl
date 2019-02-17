@@ -51,7 +51,7 @@ namespace LrControl.Core
         {
             _settings = Configurations.Settings.LoadOrDefault();
             _lrApi = new LrApi();
-            _functionCatalog = Functions.Catalog.FunctionCatalog.CreateCatalog(_settings, _lrApi);
+            _functionCatalog = new FunctionCatalog(_settings, _lrApi);
             _deviceBrowser = new DeviceBrowser();
             _deviceManager = new DeviceManager(_settings);
             _functionMappingManager = FunctionMappingManager.Create(_lrApi, _functionCatalog, _deviceManager);

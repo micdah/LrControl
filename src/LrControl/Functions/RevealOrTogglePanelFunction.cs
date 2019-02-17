@@ -9,7 +9,7 @@ using Serilog;
 
 namespace LrControl.Functions
 {
-    public class RevealOrTogglePanelFunction : Function
+    public class RevealOrTogglePanelFunction : ToggleFunction
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<RevealOrTogglePanelFunction>();
         private readonly Panel _panel;
@@ -35,10 +35,8 @@ namespace LrControl.Functions
             _panel = panel;
         }
 
-        public override void Apply(int value, Range range, Module activeModule, Panel activePanel)
+        protected override void Toggle(int value, Range range, Module activeModule, Panel activePanel)
         {
-            if (!range.IsMaximum(value)) return;
-
             if (activePanel != _panel || _panel == Panel.Basic)
             {
                 Log.Debug("Revealing panel {Panel}", _panel);
