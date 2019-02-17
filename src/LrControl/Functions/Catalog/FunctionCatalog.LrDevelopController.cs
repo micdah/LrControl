@@ -68,11 +68,8 @@ namespace LrControl.Functions.Catalog
                     yield return new ParameterFunctionFactory(settings, api, parameter);
                 
                 // Change Enumeration parameter
-                foreach (var param in parameters)
+                foreach (var param in parameters.Where(p => p.GetType().IsTypeOf(typeof(IEnumerationParameter<>))))
                 {
-                    if (!param.GetType().IsTypeOf(typeof(IEnumerationParameter<>)))
-                        continue;
-
                     switch (param)
                     {
                         case IEnumerationParameter<double> doubleEnumParam:
@@ -99,10 +96,8 @@ namespace LrControl.Functions.Catalog
                     yield return new ResetParameterFunctionFactory(settings, api, param);
                 
                 // Increment / Decrement
-                foreach (var param in parameters)
+                foreach (var param in parameters.Where(p => p is IParameter<int> || p is IParameter<double>))
                 {
-                    if (!(param is IParameter<int>) && !(param is IParameter<double>)) continue;
-                
                     yield return new UnaryOperatorParameterFunctionFactory(settings, api, param, UnaryOperation.Increment);
                     yield return new UnaryOperatorParameterFunctionFactory(settings, api, param, UnaryOperation.Decrement);
                 }

@@ -9,14 +9,14 @@ namespace LrControl.Functions.Factories
     public class EnumerationParameterFunctionFactory<TValue> : FunctionFactory 
         where TValue : IComparable
     {
-        private readonly IEnumerationParameter<TValue> _parameter;
-        private readonly IEnumeration<TValue> _value;
+        public IEnumerationParameter<TValue> Parameter { get; }
+        public IEnumeration<TValue> Value { get; }
 
         public EnumerationParameterFunctionFactory(ISettings settings, ILrApi api, 
             IEnumerationParameter<TValue> parameter, IEnumeration<TValue> value) : base(settings, api)
         {
-            _parameter = parameter;
-            _value = value;
+            Parameter = parameter;
+            Value = value;
 
             DisplayName = $"Set {parameter.DisplayName} to {value.Name}";
             Key = $"Set{parameter.Name}To{value.Value}";
@@ -27,7 +27,7 @@ namespace LrControl.Functions.Factories
         
         protected override IFunction CreateFunction(ISettings settings, ILrApi api)
         {
-            return new EnumerationParameterFunction<TValue>(settings, api, DisplayName, Key, _parameter, _value);
+            return new EnumerationParameterFunction<TValue>(settings, api, DisplayName, Key, Parameter, Value);
         }
     }
 }
