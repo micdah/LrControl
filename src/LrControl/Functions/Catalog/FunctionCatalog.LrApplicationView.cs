@@ -20,11 +20,8 @@ namespace LrControl.Functions.Catalog
                 foreach (var primaryView in PrimaryView.GetAll())
                     yield return new ShowViewFunctionFactory(settings, api, primaryView);
 
-                foreach (var view in SecondaryView.GetAll())
-                    yield return new MethodFunctionFactory(settings, api,
-                        $"Change secondary monitor to {view.Name}",
-                        $"ShowSecondaryView{view.Value}",
-                        a => a.LrApplicationView.ShowSecondaryView(view));
+                foreach (var secondaryView in SecondaryView.GetAll())
+                    yield return new ShowSecondaryViewFunctionFactory(settings, api, secondaryView);
 
                 yield return new MethodFunctionFactory(settings, api,
                     "Toggle secondary display",

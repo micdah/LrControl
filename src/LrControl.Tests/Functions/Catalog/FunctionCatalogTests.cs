@@ -59,6 +59,20 @@ namespace LrControl.Tests.Functions.Catalog
                 Assert.NotNull(factory);
             }
         }
+
+        [Fact]
+        public void Should_Have_ShowSecondaryViewFunction_For_Each_SecondaryView()
+        {
+            var group = Group(LrApplicationViewKey);
+            foreach (var secondaryView in SecondaryView.GetAll())
+            {
+                var factory = group.FunctionFactories.SingleOrDefault(x =>
+                    x is ShowSecondaryViewFunctionFactory f &&
+                    f.SecondaryView == secondaryView);
+
+                Assert.NotNull(factory);
+            }
+        }
         
         #endregion
     }
