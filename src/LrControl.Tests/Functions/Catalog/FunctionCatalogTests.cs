@@ -1,5 +1,6 @@
 using System.Linq;
 using LrControl.Configurations;
+using LrControl.Enums;
 using LrControl.Functions.Catalog;
 using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
@@ -38,11 +39,12 @@ namespace LrControl.Tests.Functions.Catalog
             var group = Group(LrApplicationViewKey);
             foreach (var module in Module.GetAll())
             {
-                var factory = group.FunctionFactories.SingleOrDefault(x =>
-                    x is SwitchToModuleFunctionFactory f &&
-                    f.Module == module);
+                var factory = group.FunctionFactories
+                    .OfType<SwitchToModuleFunctionFactory>()
+                    .SingleOrDefault(f => f.Module == module);
                 
                 Assert.NotNull(factory);
+                Assert.Equal(module, factory.Module);
             }
         }
 
@@ -52,11 +54,12 @@ namespace LrControl.Tests.Functions.Catalog
             var group = Group(LrApplicationViewKey);
             foreach (var primaryView in PrimaryView.GetAll())
             {
-                var factory = group.FunctionFactories.SingleOrDefault(x =>
-                    x is ShowViewFunctionFactory f &&
-                    f.PrimaryView == primaryView);
+                var factory = group.FunctionFactories
+                    .OfType<ShowViewFunctionFactory>()
+                    .SingleOrDefault(f => f.PrimaryView == primaryView);
 
                 Assert.NotNull(factory);
+                Assert.Equal(primaryView, factory.PrimaryView);
             }
         }
 
@@ -66,12 +69,70 @@ namespace LrControl.Tests.Functions.Catalog
             var group = Group(LrApplicationViewKey);
             foreach (var secondaryView in SecondaryView.GetAll())
             {
-                var factory = group.FunctionFactories.SingleOrDefault(x =>
-                    x is ShowSecondaryViewFunctionFactory f &&
-                    f.SecondaryView == secondaryView);
+                var factory = group.FunctionFactories
+                    .OfType<ShowSecondaryViewFunctionFactory>()
+                    .SingleOrDefault(f => f.SecondaryView == secondaryView);
 
                 Assert.NotNull(factory);
+                Assert.Equal(secondaryView, factory.SecondaryView);
             }
+        }
+
+        [Fact]
+        public void Should_Have_ToggleSecondaryDisplayFunction()
+        {
+            var group = Group(LrApplicationViewKey);
+            var factory = group.FunctionFactories
+                .OfType<ToggleSecondaryDisplayFunctionFactory>()
+                .SingleOrDefault();
+            
+            Assert.NotNull(factory);
+        }
+
+        [Fact]
+        public void Should_Have_ToggleSecondaryDisplayFullscreenFunction()
+        {
+            var group = Group(LrApplicationViewKey);
+            var factory = group.FunctionFactories
+                .OfType<ToggleSecondaryDisplayFullscreenFunctionFactory>()
+                .SingleOrDefault();
+            
+            Assert.NotNull(factory);
+        }
+
+        [Fact]
+        public void Should_Have_ToggleZoomFunction()
+        {
+            var group = Group(LrApplicationViewKey);
+            var factory = group.FunctionFactories
+                .OfType<ToggleZoomFunctionFactory>()
+                .SingleOrDefault();
+            
+            Assert.NotNull(factory);
+        }
+
+        [Theory]
+        [InlineData(Zoom.In), InlineData(Zoom.InSome), InlineData(Zoom.Out), InlineData(Zoom.OutSome)]
+        public void Should_Have_ZoomInOutFunction(Zoom zoom)
+        {
+            var group = Group(LrApplicationViewKey);
+            var factory = group.FunctionFactories
+                .OfType<ZoomInOutFunctionFactory>()
+                .SingleOrDefault(f => f.Zoom == zoom);
+            
+            Assert.NotNull(factory);
+            Assert.Equal(zoom, factory.Zoom);
+        }
+
+        [Fact]
+        public void Should_Have_ToggleDevelopBeforeAfterFunction()
+        {
+            var group = Group(LrApplicationViewKey);
+            var factory = group.FunctionFactories
+                .OfType<ToggleDevelopBeforeAfterFunctionFactory>()
+                .SingleOrDefault();
+
+            Assert.NotNull(factory);
         }
         
         #endregion
