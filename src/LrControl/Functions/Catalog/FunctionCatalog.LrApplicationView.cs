@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using LrControl.Configurations;
+using LrControl.Enums;
 using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
@@ -23,40 +26,14 @@ namespace LrControl.Functions.Catalog
                 foreach (var secondaryView in SecondaryView.GetAll())
                     yield return new ShowSecondaryViewFunctionFactory(settings, api, secondaryView);
 
-                yield return new MethodFunctionFactory(settings, api,
-                    "Toggle secondary display",
-                    "ToggleSecondaryDisplay",
-                    a => a.LrApplicationView.ToggleSecondaryDisplay());
+                yield return new ToggleSecondaryDisplayFunctionFactory(settings, api);
 
-                yield return new MethodFunctionFactory(settings, api,
-                    "Toggle secondary display fullscreen",
-                    "ToggleSecondaryDisplayFullscreen",
-                    a => a.LrApplicationView.ToggleSecondaryDisplayFullscreen());
+                yield return new ToggleSecondaryDisplayFullscreenFunctionFactory(settings, api);
 
-                yield return new MethodFunctionFactory(settings, api,
-                    "Toggle zoom",
-                    "ToggleZoom",
-                    a => a.LrApplicationView.ToggleZoom());
-
-                yield return new MethodFunctionFactory(settings, api,
-                    "Zoom in",
-                    "ZoomIn",
-                    a => a.LrApplicationView.ZoomIn());
-
-                yield return new MethodFunctionFactory(settings, api,
-                    "Zoom in some",
-                    "ZoomInSome",
-                    a => a.LrApplicationView.ZoomInSome());
-
-                yield return new MethodFunctionFactory(settings, api,
-                    "Zoom out",
-                    "ZoomOut",
-                    a => a.LrApplicationView.ZoomOut());
-
-                yield return new MethodFunctionFactory(settings, api,
-                    "Zoom out some",
-                    "ZoomOutSome",
-                    a => a.LrApplicationView.ZoomOutSome());
+                yield return new ToggleZoomFunctionFactory(settings, api);
+                
+                foreach (var zoom in Enum.GetValues(typeof(Zoom)).Cast<Zoom>())
+                    yield return new ZoomInOutFunctionFactory(settings, api, zoom);
 
                 yield return new ToggleDevelopBeforeAfterFunctionFactory(settings, api);
             }

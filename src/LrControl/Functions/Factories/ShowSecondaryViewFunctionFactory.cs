@@ -8,7 +8,7 @@ namespace LrControl.Functions.Factories
     {
         public SecondaryView SecondaryView { get; }
 
-        public ShowSecondaryViewFunctionFactory(ISettings settings, ILrApi api, SecondaryView secondaryView) 
+        public ShowSecondaryViewFunctionFactory(ISettings settings, ILrApi api, SecondaryView secondaryView)
             : base(settings, api)
         {
             SecondaryView = secondaryView;

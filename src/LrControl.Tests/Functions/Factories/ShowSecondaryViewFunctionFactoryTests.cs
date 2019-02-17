@@ -8,7 +8,7 @@ using Xunit.Abstractions;
 
 namespace LrControl.Tests.Functions.Factories
 {
-    public class ShowSecondaryViewFunctionFactoryTests 
+    public class ShowSecondaryViewFunctionFactoryTests
         : FunctionFactoryTestSuite<ShowSecondaryViewFunctionFactory, SecondaryView>
     {
         public ShowSecondaryViewFunctionFactoryTests(ITestOutputHelper output) : base(output)
