@@ -146,38 +146,4 @@ namespace LrControl.Tests.Functions.Catalog
         private static readonly IEnumerationParameter<string> EnumerationParameter =
             EnumerationParameter<string>.Create<TestStringEnumeration>("TestParameter", "Test parameter");
     }
-
-    public class FunctionCatalogTests : TestSuite
-    {
-        private const string LrApplicationViewKey = "LrApplicationView";
-        
-        private readonly Mock<ISettings> _settings;
-        private readonly Mock<ILrApi> _lrApi;
-        private readonly FunctionCatalog _catalog;
-
-        public FunctionCatalogTests(ITestOutputHelper output) : base(output)
-        {
-            _settings = new Mock<ISettings>();
-            _lrApi = new Mock<ILrApi>();
-            _catalog = new FunctionCatalog(_settings.Object, _lrApi.Object);
-        }
-
-        private IFunctionCatalogGroup Group(string key)
-        {
-            var group = _catalog.Groups.SingleOrDefault(g => g.Key == key);
-            Assert.NotNull(group);
-            return group;
-        }
-        
-        #region LrApplicationView
-
-//        [Theory]
-//        public void Should_Have_MethodFunctionFactory_For_Each_Module()
-//        {
-//            var group = Group(LrApplicationViewKey);
-////            group.FunctionFactories.SingleOrDefault(f => f.Key.StartsWith())
-//        }
-        
-        #endregion
-    }
 }

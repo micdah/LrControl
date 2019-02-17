@@ -14,10 +14,7 @@ namespace LrControl.Functions.Catalog
             {
                 // Switch To Module functions
                 foreach (var module in Module.GetAll())
-                    yield return new MethodFunctionFactory(settings, api, 
-                        $"Switch to {module.Name}",
-                        $"SwitchToModule{module.Value}",
-                        a => a.LrApplicationView.SwitchToModule(module));
+                    yield return new SwitchToModuleFunctionFactory(settings, api, module);
 
                 // Show View functions
                 foreach (var view in PrimaryView.GetAll())
