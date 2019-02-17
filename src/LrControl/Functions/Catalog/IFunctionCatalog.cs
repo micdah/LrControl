@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using LrControl.Functions.Factories;
 
-namespace LrControl.Core.Functions.Catalog
+namespace LrControl.Functions.Catalog
 {
     public interface IFunctionCatalog
     {

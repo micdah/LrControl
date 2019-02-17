@@ -4,9 +4,9 @@ using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 
-namespace LrControl.Core.Functions.Catalog
+namespace LrControl.Functions.Catalog
 {
-    internal partial class FunctionCatalog
+    public partial class FunctionCatalog
     {
         private static IFunctionCatalogGroup CreateViewGroup(ISettings settings, ILrApi api)
         {

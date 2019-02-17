@@ -4,9 +4,9 @@ using LrControl.Configurations;
 using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 
-namespace LrControl.Core.Functions.Catalog
+namespace LrControl.Functions.Catalog
 {
-    internal partial class FunctionCatalog : IFunctionCatalog
+    public partial class FunctionCatalog : IFunctionCatalog
     {
         private FunctionCatalog(IEnumerable<IFunctionCatalogGroup> groups)
         {

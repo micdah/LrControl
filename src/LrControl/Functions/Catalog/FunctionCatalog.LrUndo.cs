@@ -4,9 +4,9 @@ using LrControl.Enums;
 using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 
-namespace LrControl.Core.Functions.Catalog
+namespace LrControl.Functions.Catalog
 {
-    internal partial class FunctionCatalog
+    public partial class FunctionCatalog
     {
         private static IFunctionCatalogGroup CreateUndoGroup(ISettings settings, ILrApi api)
         {

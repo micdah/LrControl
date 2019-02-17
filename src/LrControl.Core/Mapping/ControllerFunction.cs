@@ -1,7 +1,6 @@
 ﻿using System;
 using LrControl.Core.Devices;
 using LrControl.Core.Devices.Enums;
-using LrControl.Core.Functions;
 using LrControl.Functions;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 

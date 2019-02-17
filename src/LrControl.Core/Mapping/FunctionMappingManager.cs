@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LrControl.Core.Configurations;
 using LrControl.Core.Devices;
-using LrControl.Core.Functions.Catalog;
+using LrControl.Functions.Catalog;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;

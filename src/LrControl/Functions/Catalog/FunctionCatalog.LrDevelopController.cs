@@ -8,9 +8,9 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Utils;
 
-namespace LrControl.Core.Functions.Catalog
+namespace LrControl.Functions.Catalog
 {
-    internal partial class FunctionCatalog
+    public partial class FunctionCatalog
     {
         private static IEnumerable<IFunctionCatalogGroup> CreateDevelopGroups(ISettings settings, ILrApi api)
         {
@@ -57,7 +57,7 @@ namespace LrControl.Core.Functions.Catalog
             };
         }
 
-        internal static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IReadOnlyCollection<IParameter> parameters)
+        public static IFunctionCatalogGroup CreateDevelopPanelGroup(ISettings settings, ILrApi api, Panel panel, IReadOnlyCollection<IParameter> parameters)
         {
             IEnumerable<IFunctionFactory> CreateFactories()
             {
