@@ -36,13 +36,26 @@ namespace LrControl.Tests.Functions.Catalog
         public void Should_Have_SwitchToModuleFunction_For_Each_Module()
         {
             var group = Group(LrApplicationViewKey);
-            
             foreach (var module in Module.GetAll())
             {
                 var factory = group.FunctionFactories.SingleOrDefault(x =>
                     x is SwitchToModuleFunctionFactory f &&
                     f.Module == module);
                 
+                Assert.NotNull(factory);
+            }
+        }
+
+        [Fact]
+        public void Should_Have_ShowViewFunction_For_Each_PrimaryView()
+        {
+            var group = Group(LrApplicationViewKey);
+            foreach (var primaryView in PrimaryView.GetAll())
+            {
+                var factory = group.FunctionFactories.SingleOrDefault(x =>
+                    x is ShowViewFunctionFactory f &&
+                    f.PrimaryView == primaryView);
+
                 Assert.NotNull(factory);
             }
         }

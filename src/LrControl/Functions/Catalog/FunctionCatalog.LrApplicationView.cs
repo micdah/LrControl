@@ -17,11 +17,8 @@ namespace LrControl.Functions.Catalog
                     yield return new SwitchToModuleFunctionFactory(settings, api, module);
 
                 // Show View functions
-                foreach (var view in PrimaryView.GetAll())
-                    yield return new MethodFunctionFactory(settings, api,
-                        $"Change view to {view.Name}",
-                        $"ShowView{view.Value}",
-                        a => a.LrApplicationView.ShowView(view));
+                foreach (var primaryView in PrimaryView.GetAll())
+                    yield return new ShowViewFunctionFactory(settings, api, primaryView);
 
                 foreach (var view in SecondaryView.GetAll())
                     yield return new MethodFunctionFactory(settings, api,
