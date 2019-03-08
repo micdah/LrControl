@@ -8,7 +8,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
-    public class DevelopModuleProfile : ModuleProfile
+    internal class DevelopModuleProfile : ModuleProfile
     {
         private readonly ConcurrentDictionary<Panel, Dictionary<ControllerId, IFunction>> _panelFunctions =
             new ConcurrentDictionary<Panel, Dictionary<ControllerId, IFunction>>();

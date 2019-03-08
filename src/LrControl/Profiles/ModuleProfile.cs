@@ -7,7 +7,7 @@ using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 
 namespace LrControl.Profiles
 {
-    public class ModuleProfile : IModuleProfile
+    internal class ModuleProfile
     {
         protected readonly Dictionary<ControllerId, IFunction> Functions = new Dictionary<ControllerId, IFunction>();
     

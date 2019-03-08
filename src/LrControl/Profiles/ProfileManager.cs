@@ -26,7 +26,7 @@ namespace LrControl.Profiles
     {
         private static readonly ILogger Log = Serilog.Log.ForContext<ProfileManager>();
         private readonly IDeviceManager _deviceManager;
-        private readonly Dictionary<Module, IModuleProfile> _moduleProfiles = new Dictionary<Module, IModuleProfile>();
+        private readonly Dictionary<Module, ModuleProfile> _moduleProfiles = new Dictionary<Module, ModuleProfile>();
         private readonly DevelopModuleProfile _developModuleProfile;
 
         public ProfileManager(IDeviceManager deviceManager)
@@ -164,7 +164,7 @@ namespace LrControl.Profiles
             GetProfileForModule(ActiveModule).ApplyFunction(controllerId, value, range, ActiveModule, ActivePanel);
         }
 
-        private IModuleProfile GetProfileForModule(Module module)
+        private ModuleProfile GetProfileForModule(Module module)
             => module == Module.Develop
                 ? _developModuleProfile
                 : _moduleProfiles[module];
