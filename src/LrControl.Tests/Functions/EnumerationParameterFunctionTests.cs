@@ -1,13 +1,13 @@
-using System;
-using System.Linq;
-using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api.Common;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Tests.Devices;
-using LrControl.Tests.Mocks;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
+
+#pragma warning disable 252,253
 
 namespace LrControl.Tests.Functions
 {
@@ -17,24 +17,16 @@ namespace LrControl.Tests.Functions
         {
         }
 
-        private IFunction Create<T>(IEnumerationParameter<T> parameter, IEnumeration<T> value) where T : IComparable
-            => new EnumerationParameterFunction<T>(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction",
-                parameter,
-                value);
-
         [Fact]
         public void Should_Set_Enumeration_Parameter_When_Applied()
         {
             // Setup
-            var parameter = TestParameter.IntegerEnumerationParameter;
-            var value = parameter.Values.First();
-            var func = Create(parameter, value);
-
-            ProfileManager.AssignFunction(DefaultModule, Id1, func);
+            var parameter = AdjustPanelParameter.WhiteBalance;
+            var value = WhiteBalanceValue.Cloudy;
+            var factory = GetFactory<EnumerationParameterFunctionFactory<string>>(f =>
+                f.Parameter == parameter && f.Value == value);
+            
+            LoadFunction(DefaultModule, Id1, factory);
 
             LrDevelopController
                 .Setup(m => m.SetValue(parameter, value))
@@ -52,18 +44,19 @@ namespace LrControl.Tests.Functions
         public void Should_Only_Apply_When_Controller_Is_At_Maximum_Value()
         {
             // Setup
-            var parameter = TestParameter.IntegerEnumerationParameter;
-            var value = parameter.Values.First();
-            var func = Create(parameter, value);
+            var parameter = AdjustPanelParameter.WhiteBalance;
+            var value = WhiteBalanceValue.Cloudy;
+            var factory = GetFactory<EnumerationParameterFunctionFactory<string>>(f =>
+                f.Parameter == parameter && f.Value == value);
 
-            ProfileManager.AssignFunction(DefaultModule, Id1, func);
+            LoadFunction(DefaultModule, Id1, factory);
 
             // Test
             ControllerInput(Id1, Range1.Maximum - 0.1d);
 
             // Verify
             LrDevelopController
-                .Verify(m => m.SetValue(parameter, It.IsAny<IEnumeration<int>>()), Times.Never);
+                .Verify(m => m.SetValue(parameter, It.IsAny<IEnumeration<string>>()), Times.Never);
         }
     }
 }

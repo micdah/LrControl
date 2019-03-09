@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using LrControl.Configurations;
+using LrControl.Configurations.Models;
 using LrControl.Devices;
+using LrControl.Functions.Catalog;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
@@ -41,8 +45,10 @@ namespace LrControl.Tests.Devices
         protected static ControllerId Id2 => Info2.ControllerId;
         protected static Range Range1 => Info1.Range;
         protected static Range Range2 => Info2.Range;
-        
+
         protected readonly IProfileManager ProfileManager;
+        protected readonly IConfigurationManager ConfigurationManager;
+        protected readonly IFunctionCatalog FunctionCatalog;
         protected readonly Mock<ILrDevelopController> LrDevelopController;
         protected readonly Mock<ILrApplicationView> LrApplicationView;
         protected readonly Mock<ILrSelection> LrSelection;
@@ -62,7 +68,7 @@ namespace LrControl.Tests.Devices
 
             _outputDevice = new TestMidiOutputDevice("Test Output Device");
             deviceManager.SetOutputDevice(new TestOutputDeviceInfo(_outputDevice));
-
+            
             // Create test profile manager
             ProfileManager = new ProfileManager(deviceManager);
 
@@ -71,6 +77,9 @@ namespace LrControl.Tests.Devices
                 Log.Debug("ControllerInput: {@Id}, {@Range}, {Value}", id, range, value);
                 _receivedEvent.Set();
             };
+            
+            // Mock ISettings
+            Settings = new Mock<ISettings>();
             
             // Mock ILrDevelopController
             LrDevelopController = new Mock<ILrDevelopController>();
@@ -103,8 +112,78 @@ namespace LrControl.Tests.Devices
                 .Setup(m => m.LrUndo)
                 .Returns(LrUndo.Object);
             
-            // Mock ISettings
-            Settings = new Mock<ISettings>();
+            // Create test function catalog
+            FunctionCatalog = new FunctionCatalog(Settings.Object, LrApi.Object);
+            
+            // Create test configuration manager
+            ConfigurationManager = new ConfigurationManager(FunctionCatalog, ProfileManager);
+        }
+
+        protected TFactory GetFactory<TFactory>(Func<TFactory, bool> predicate) where TFactory : IFunctionFactory
+        {
+            var factory = FunctionCatalog.Groups
+                .SelectMany(g => g.FunctionFactories)
+                .OfType<TFactory>()
+                .SingleOrDefault(predicate);
+            
+            Assert.NotNull(factory);
+            return factory;
+        }
+
+        protected void LoadFunction(Module module, ControllerId controllerId, IFunctionFactory functionFactory)
+        {
+            ConfigurationManager.Load(new ConfigurationModel
+            {
+                Profile = new ProfileModel
+                {
+                    Modules = new Dictionary<string, List<ControllerFunctionModel>>
+                    {
+                        {
+                            module.Value, new List<ControllerFunctionModel>
+                            {
+                                new ControllerFunctionModel
+                                {
+                                    Controller = new ControllerIdModel
+                                    {
+                                        Channel = controllerId.Channel,
+                                        MessageType = controllerId.MessageType,
+                                        Parameter = controllerId.Parameter
+                                    },
+                                    Function = functionFactory.Key
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        protected void LoadFunction(Panel panel, ControllerId controllerId, IFunctionFactory functionFactory)
+        {
+            ConfigurationManager.Load(new ConfigurationModel
+            {
+                Profile = new ProfileModel
+                {
+                    Panels = new Dictionary<string, List<ControllerFunctionModel>>
+                    {
+                        {
+                            panel.Value, new List<ControllerFunctionModel>
+                            {
+                                new ControllerFunctionModel
+                                {
+                                    Controller = new ControllerIdModel
+                                    {
+                                        Channel = controllerId.Channel,
+                                        MessageType = controllerId.MessageType,
+                                        Parameter = controllerId.Parameter
+                                    },
+                                    Function = functionFactory.Key
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         protected void ControllerInput(in ControllerId controllerId, params double[] values)

@@ -1,4 +1,4 @@
-using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
@@ -21,18 +21,10 @@ namespace LrControl.Tests.Functions
                 .Returns(true);
         }
 
-        private IFunction Create(Panel panel)
-            => new RevealOrTogglePanelFunction(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction",
-                panel);
-
         private void Setup(Panel panel)
         {
-            var function = Create(panel);
-            ProfileManager.AssignFunction(Module.Develop, Id1, function);
+            var factory = GetFactory<RevealOrTogglePanelFunctionFactory>(f => f.Panel == panel);
+            LoadFunction(Module.Develop, Id1, factory);
         }
 
         [Fact]

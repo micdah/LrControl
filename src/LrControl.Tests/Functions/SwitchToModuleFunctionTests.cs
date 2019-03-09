@@ -1,4 +1,4 @@
-using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.Tests.Devices;
 using Moq;
@@ -13,17 +13,14 @@ namespace LrControl.Tests.Functions
         {
         }
 
-        private SwitchToModuleFunction Create(Module module) =>
-            new SwitchToModuleFunction(Settings.Object, LrApi.Object, "Test Function", "TestFunction", module);
-
         [Fact]
         public void Should_SwitchToModule_When_Applied()
         {
             foreach (var module in Module.GetAll())
             {
                 // Setup
-                var function = Create(module);
-                ProfileManager.AssignFunction(DefaultModule, Id1, function);
+                var factory = GetFactory<SwitchToModuleFunctionFactory>(f => f.Module == module);
+                LoadFunction(DefaultModule, Id1, factory);
                 
                 // Test
                 ControllerInput(Id1, Range1.Maximum, Range1.Minimum);

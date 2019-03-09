@@ -1,24 +1,24 @@
-using LrControl.Functions;
+using System.Diagnostics.CodeAnalysis;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api.Modules.LrDevelopController;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Tests.Devices;
-using LrControl.Tests.Mocks;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace LrControl.Tests.Functions
 {
+    [SuppressMessage("ReSharper", "PossibleUnintendedReferenceComparison")]
     public class ToggleParameterFunctionTests : ProfileManagerTestSuite
     {
         private readonly IParameter<bool> _parameter;
 
         public ToggleParameterFunctionTests(ITestOutputHelper output) : base(output)
         {
-            _parameter = TestParameter.BooleanParameter;
-            var function = new ToggleParameterFunction(Settings.Object, LrApi.Object,
-                "Test Function", "TestFunction", _parameter);
-            
-            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+            _parameter = MixerPanelParameter.ConvertToGrayscale;
+            var factory = GetFactory<ParameterFunctionFactory>(f => f.Parameter == _parameter);
+            LoadFunction(DefaultModule, Id1, factory);
         }
 
         [Theory]

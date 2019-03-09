@@ -1,12 +1,14 @@
-using LrControl.Functions;
+using System.Diagnostics.CodeAnalysis;
+using LrControl.Functions.Factories;
+using LrControl.LrPlugin.Api.Modules.LrDevelopController.Parameters;
 using LrControl.Tests.Devices;
-using LrControl.Tests.Mocks;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace LrControl.Tests.Functions
 {
+    [SuppressMessage("ReSharper", "PossibleUnintendedReferenceComparison")]
     public class ResetParameterFunctionTests : ProfileManagerTestSuite
     {
         public ResetParameterFunctionTests(ITestOutputHelper output) : base(output)
@@ -17,14 +19,9 @@ namespace LrControl.Tests.Functions
         public void Should_Stop_Tracking_And_Reset_Parameter_To_Default_When_Applied()
         {
             // Setup
-            var function = new ResetParameterFunction(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction",
-                TestParameter.IntegerParameter);
-
-            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+            var parameter = AdjustPanelParameter.Exposure;
+            var factory = GetFactory<ResetParameterFunctionFactory>(f => f.Parameter == parameter);
+            LoadFunction(DefaultModule, Id1, factory);
 
             LrDevelopController
                 .Setup(m => m.StopTracking())
@@ -32,7 +29,7 @@ namespace LrControl.Tests.Functions
                 .Verifiable();
 
             LrDevelopController
-                .Setup(m => m.ResetToDefault(TestParameter.IntegerParameter))
+                .Setup(m => m.ResetToDefault(parameter))
                 .Returns(true)
                 .Verifiable();
 
@@ -47,21 +44,16 @@ namespace LrControl.Tests.Functions
         public void Should_Only_Apply_When_Controller_Is_At_Maximum_Value()
         {
             // Setup
-            var function = new ResetParameterFunction(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction",
-                TestParameter.IntegerParameter);
-
-            ProfileManager.AssignFunction(DefaultModule, Id1, function);
+            var parameter = AdjustPanelParameter.Exposure;
+            var factory = GetFactory<ResetParameterFunctionFactory>(f => f.Parameter == parameter);
+            LoadFunction(DefaultModule, Id1, factory);
 
             LrDevelopController
                 .Setup(m => m.StopTracking())
                 .Returns(true);
 
             LrDevelopController
-                .Setup(m => m.ResetToDefault(TestParameter.IntegerParameter))
+                .Setup(m => m.ResetToDefault(AdjustPanelParameter.Exposure))
                 .Returns(true);
 
             // Test
@@ -72,7 +64,7 @@ namespace LrControl.Tests.Functions
                 .Verify(m => m.StopTracking(), Times.Never());
 
             LrDevelopController
-                .Verify(m => m.ResetToDefault(TestParameter.IntegerParameter), Times.Never());
+                .Verify(m => m.ResetToDefault(AdjustPanelParameter.Exposure), Times.Never());
         }
     }
 }

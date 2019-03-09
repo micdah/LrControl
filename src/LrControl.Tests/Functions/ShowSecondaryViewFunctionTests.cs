@@ -1,4 +1,4 @@
-using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.Tests.Devices;
 using Moq;
@@ -13,17 +13,13 @@ namespace LrControl.Tests.Functions
         {
         }
 
-        private ShowSecondaryViewFunction Create(SecondaryView secondaryView) =>
-            new ShowSecondaryViewFunction(Settings.Object, LrApi.Object, "Test Function", "TestFunction",
-                secondaryView);
-
         [Fact]
         public void Should_ShowSecondaryView_When_Applied()
         {
             foreach (var secondaryView in SecondaryView.GetAll())
             {
-                var function = Create(secondaryView);
-                ProfileManager.AssignFunction(DefaultModule, Id1, function);
+                var factory = GetFactory<ShowSecondaryViewFunctionFactory>(f => f.SecondaryView == secondaryView);
+                LoadFunction(DefaultModule, Id1, factory);
 
                 ControllerInput(Id1, Range1.Maximum, Range1.Minimum);
 

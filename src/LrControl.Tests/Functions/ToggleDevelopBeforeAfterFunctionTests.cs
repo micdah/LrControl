@@ -1,4 +1,4 @@
-using LrControl.Functions;
+using LrControl.Functions.Factories;
 using LrControl.LrPlugin.Api.Modules.LrApplicationView;
 using LrControl.Tests.Devices;
 using Moq;
@@ -9,15 +9,8 @@ namespace LrControl.Tests.Functions
 {
     public class ToggleDevelopBeforeAfterFunctionTests : ProfileManagerTestSuite
     {
-        private readonly ToggleDevelopBeforeAfterFunction _function;
-
         public ToggleDevelopBeforeAfterFunctionTests(ITestOutputHelper output) : base(output)
         {
-            _function = new ToggleDevelopBeforeAfterFunction(
-                Settings.Object,
-                LrApi.Object,
-                "Test Function",
-                "TestFunction");
         }
 
         private void Verify(int timesBefore, int timesAfter)
@@ -31,7 +24,8 @@ namespace LrControl.Tests.Functions
         public void Should_Toggle_Before_After_View_When_Applied()
         {
             // Setup
-            ProfileManager.AssignFunction(DefaultModule, Id1, _function);
+            var factory = GetFactory<ToggleDevelopBeforeAfterFunctionFactory>(f => true);
+            LoadFunction(DefaultModule, Id1, factory);
 
             Verify(0, 0);
 
@@ -52,7 +46,8 @@ namespace LrControl.Tests.Functions
         public void Should_Only_Apply_When_Controller_Is_At_Maximum_Value()
         {
             // Setup
-            ProfileManager.AssignFunction(DefaultModule, Id1, _function);
+            var factory = GetFactory<ToggleDevelopBeforeAfterFunctionFactory>(f => true);
+            LoadFunction(DefaultModule, Id1, factory);
 
             Verify(0, 0);
 

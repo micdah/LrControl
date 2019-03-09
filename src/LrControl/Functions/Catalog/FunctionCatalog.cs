@@ -6,6 +6,12 @@ using LrControl.LrPlugin.Api;
 
 namespace LrControl.Functions.Catalog
 {
+    public interface IFunctionCatalog
+    {
+        IEnumerable<IFunctionCatalogGroup> Groups { get; }
+        bool TryGetFunctionFactory(string functionKey, out IFunctionFactory functionFactory);
+    }
+    
     public partial class FunctionCatalog : IFunctionCatalog
     {
         private readonly List<IFunctionCatalogGroup> _groups;
